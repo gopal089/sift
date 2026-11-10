@@ -1,0 +1,2 @@
+# Wikitext (wiki markup) parser — plumbing for cleaning article text, not a search algorithm.
+mwparserfromhell==0.7.2
