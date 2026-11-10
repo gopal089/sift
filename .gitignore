@@ -1,0 +1,27 @@
+# Downloaded and generated data (dump, articles.jsonl, index files, vectors) — never commit
+data/
+
+# Gradle / Java build output
+.gradle/
+build/
+*.class
+out/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node / web
+node_modules/
+dist/
+
+# Editors and OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Secrets
+.env
+.env.*
