@@ -3,7 +3,7 @@
 | Phase | Status |
 | --- | --- |
 | 0 — Setup | ✅ Done (2026-11-10) |
-| 1 — Keyword search in the terminal | Not started |
+| 1 — Keyword search in the terminal | ⚠️ Built and measured (2026-11-11). Speed ✅, tests ✅; ranking weak for long articles. **Your decision needed** (see below) |
 | 2 — Persist the index + API | Not started |
 | 3 — Website | Not started |
 | 4 — PageRank, autocomplete, spelling | Not started |
@@ -42,6 +42,43 @@ Raw stats: `data/parse-stats.json`, log: `data/parse-log.txt` (both git-ignored,
 
 **Tests:** 22 Python `unittest` tests for the parser (all pass); 1 JUnit smoke test (Java 21) passes.
 
+## Phase 1 — Keyword search in the terminal
+
+**Built:** shared tokenizer (lowercase, accent folding, own Porter stemmer), in-memory inverted index
+(flat int arrays: doc IDs, freqs, positions), BM25 (k1 = 1.2, b = 0.75), AND via two-pointer intersection
+(shortest list first) with an OR fallback, size-10 min-heap, terminal CLI (`sift-cli`).
+**Stop words** (33-word Lucene list) are **kept in the index**. At query time they are dropped only if a
+non-stop word remains.
+
+**Tests:** 94 JUnit tests pass. They include all 23,531 words of Porter's official reference list, and
+"to be or not to be", "the who" and "the history of india".
+
+**Final check** (full `data/articles.jsonl`, Java 21.0.12.1, -Xmx4g, Apple M5). Raw output:
+`eval/results/phase1-check.txt`.
+
+| Measure | Value |
+| --- | --- |
+| Index build time | **7.91 s** (read + tokenize + index 7.83 s, finalize 0.08 s) |
+| Unique terms | **619,144** |
+| Postings / positions (tokens) | 23,410,476 / 47,317,366 (avg doc length 168.5 tokens) |
+| Posting data, exact (4 bytes per int) | 359.1 MB |
+| **Heap used by the index** (after GC; incl. dictionary, titles, doc table) | **521.0 MB** |
+| Stop words kept: their posting data | **76.3 MB = 21.2% of posting data** (3,212,875 postings; 13,571,870 positions = 28.7% of tokens). Removing them would save roughly this much heap (≈ 445 MB instead of 521 MB). |
+
+| Query | Matches (mode) | First run | Warm median (20 runs) | Main article's rank |
+| --- | --- | --- | --- | --- |
+| photosynthesis | 163 (AND) | 2.49 ms | 0.04 ms | *Photosynthesis* #4. All top 10 are relevant. |
+| world war 2 | 2,261 (AND) | 2.64 ms | 0.40 ms | *World War II* **#458**. Top 10 includes *Guild Wars 2*, *Gears of War 2*. |
+| python programming | 77 (AND) | 0.07 ms | 0.04 ms | *Python (programming language)* #3. All top 10 are relevant. |
+| to be or not to be | 15,953 (AND) | 2.04 ms | 1.26 ms | *To Be or Not to Be (The Hitler Rap)* #2; *Hamlet* #9,721 |
+| the who → [who] | 38,624 (AND) | 0.18 ms | 0.09 ms | *The Who* #13 |
+| the history of india → [histori, india] | 1,490 (AND) | 0.12 ms | 0.05 ms | *History of India* #57 |
+
+Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-diagnosis-ranks.txt`.
+
+**"Done when" verdict:** speed ✅, tests ✅. "photosynthesis" ✅ and "python programming" ✅ are sensible.
+**"world war 2" is weak**: results are war-related, but the main article is #458.
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -53,10 +90,23 @@ Raw stats: `data/parse-stats.json`, log: `data/parse-log.txt` (both git-ignored,
 
   This is real data, not a parser bug (only 0.3% would match if case were ignored).
   PageRank (Phase 4) must follow redirects and then drop links whose final target is not an article.
+- **Phase 1 ranking: long main articles rank too low (decision needed before Phase 2).**
+  *World War II* (5,456 words, about 32× the 168.5-token average) is #458 for "world war 2" and #2,092 for
+  "world war ii". So this is mainly *length normalisation* (b = 0.75), not just "2" vs "ii". The title is
+  indexed as only a few words inside a long document, so it barely helps.
+  PageRank in Phase 4 multiplies by at most (1 + 0.2), which is too little to lift rank 458.
+  Proposed fix (needs your OK; changes the Phase 2 file format, so better before Phase 2): a separate
+  **title field** scored on its own (BM25F-style: score = body BM25 + w × title BM25). Then possibly a tiny
+  "2 ↔ ii" number rule. Tuning b belongs to Phase 6, using the frozen eval queries.
+- **"the who" searches only [who]**, because "who" is not in the 33-word stop list. *The Who* ranks #13.
+  A title field should help here too.
+- **Run the CLI on Java 21:** the launcher uses `JAVA_HOME`/PATH (Java 25 on this machine). For measured
+  runs, set `JAVA_HOME` to the Gradle-provisioned JDK 21 (see `docs/learning/phase-1.md`).
 - **3,496 of 280,748 articles (1.25%) keep a little markup** (any of `[[ ]] {{ }} | < '' ==`), mostly
   from broken source wikitext or articles that show markup as examples. This is acceptable: the
   tokenizer splits on non-letters anyway. It is an upper bound, because a `|` can be legitimate text.
-- **Many short articles:** the median is 72 words. BM25 length normalisation (b = 0.75) will matter.
+- **Many short articles:** the median is 72 words. Confirmed in Phase 1: length normalisation strongly
+  favours short articles (see the ranking issue above).
 - Links found inside `<ref>` citations are kept in `links` (the citation *text* is removed).
   This has a minor effect on PageRank. Revisit only if PageRank looks odd.
 
@@ -74,6 +124,7 @@ Raw stats: `data/parse-stats.json`, log: `data/parse-log.txt` (both git-ignored,
   (Already in README.md; the website still needs it in Phase 3.)
 
 ## Next step
-Phase 1: tokenizer (with own Porter stemmer), in-memory inverted index, BM25, AND/OR queries,
-top-10 heap, CLI. Use `data/articles-sample.jsonl` for fast iteration, then the full file.
-**Waiting for your go.**
+**Decide on the Phase 1 ranking issue:** (a) add a title field now (recommended, before the Phase 2
+file format is fixed), or (b) accept the current ranking and move to Phase 2.
+Then Phase 2: write the index to binary files (gap + varint), memory-map it, Spring Boot API.
+**Waiting for your decision and go.**

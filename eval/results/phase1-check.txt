@@ -1,0 +1,91 @@
+# Phase 1 final check — 2026-11-11 00:27 IST — commit 1868f0f — Apple M5, 10 cores, 16 GB RAM
+# command: sift-cli data/articles.jsonl --query ... --repeat 20 (JVM -Xmx4g)
+
+Java 21.0.12.1+1-LTS, max heap 4,096 MB
+Indexing data/articles.jsonl ...
+Documents:            280,748
+Build time:           7.91 s  (read + tokenize + index 7.83 s, finalize 0.08 s)
+Unique terms:         619,144
+Postings:             23,410,476   Positions (= tokens): 47,317,366   Avg doc length: 168.5 tokens
+Posting data (exact): 359.1 MB  (doc ids + freqs + positions, 4 bytes each)
+Heap used by index:   521.0 MB  (JVM heap after GC: 1.1 MB before → 522.1 MB after; includes dictionary, titles, doc table)
+Stop words (33 terms): 3,212,875 postings, 13,571,870 positions = 76.3 MB of posting data (21.2% of posting data, 28.7% of all tokens)
+
+Query: "photosynthesis"   terms=[photosynthesi]   mode=AND   matches=163
+  time: first run 2.49 ms | median of 20 repeats 0.04 ms | slowest repeat 0.08 ms
+   1.  13.1500  Plant community
+   2.  12.5838  Phototroph
+   3.  12.4057  Palisade cell
+   4.  12.3393  Photosynthesis
+   5.  11.9702  Dole effect
+   6.  11.9251  Primary production
+   7.  11.9237  Photorespiration
+   8.  11.7892  Crassulacean acid metabolism
+   9.  11.7739  Ecosystem
+  10.  11.7637  Photosystem II
+
+Query: "world war 2"   terms=[world, war, 2]   mode=AND   matches=2,261
+  time: first run 2.64 ms | median of 20 repeats 0.40 ms | slowest repeat 0.62 ms
+   1.  12.8474  Ecuadorian–Peruvian War
+   2.  12.4889  Guild Wars 2
+   3.  12.3263  Apocalypse: The Second World War
+   4.  12.1402  Call of Duty: World at War – Final Fronts
+   5.  12.1391  Call of Duty: World at War
+   6.  11.9478  Gears of War 2
+   7.  11.8816  List of last surviving World War I veterans
+   8.  11.8746  Memorial for the Jewish Soldiers in the Polish army in World War II
+   9.  11.7841  USS Nevada (BB-36)
+  10.  11.6300  Gottlob Berger
+
+Query: "python programming"   terms=[python, program]   mode=AND   matches=77
+  time: first run 0.07 ms | median of 20 repeats 0.04 ms | slowest repeat 0.04 ms
+   1.  19.6908  Python Software Foundation
+   2.  19.3523  Python License
+   3.  19.1850  Python (programming language)
+   4.  18.1231  Grail (web browser)
+   5.  17.9528  Pygame Zero
+   6.  17.2408  PyMOL
+   7.  16.4114  Microsoft Visual Studio
+   8.  16.3582  Guido van Rossum
+   9.  16.0770  JSON
+  10.  16.0070  Pygame
+
+Query: "to be or not to be"   terms=[to, be, or, not]   mode=AND   matches=15,953
+  time: first run 2.04 ms | median of 20 repeats 1.26 ms | slowest repeat 2.36 ms
+   1.  10.7728  HTTP 404
+   2.  10.6337  To Be or Not to Be (The Hitler Rap)
+   3.  10.6006  Schizoid personality disorder
+   4.  10.5685  Immutable (computer programming)
+   5.  10.5579  Secure channel
+   6.  10.4593  Laws of war
+   7.  10.4439  Shyness
+   8.  10.4241  Promise
+   9.  10.3635  Avoidant personality disorder
+  10.  10.3383  Kerckhoffs's principle
+
+Query: "the who"   terms=[who]   mode=AND   matches=38,624
+  time: first run 0.18 ms | median of 20 repeats 0.09 ms | slowest repeat 0.18 ms
+   1.   4.0805  Lilian Jackson Braun
+   2.   3.9613  Who's Zoomin' Who
+   3.   3.9076  Music industry
+   4.   3.8755  Pleiades (mythology)
+   5.   3.8596  Who's That Chick?
+   6.   3.8572  Japhet
+   7.   3.8463  Ten Who Dared
+   8.   3.8446  Daniel Weisiger Adams
+   9.   3.8446  Who Made Who (song)
+  10.   3.8428  Afro-Cubans
+
+Query: "the history of india"   terms=[histori, india]   mode=AND   matches=1,490
+  time: first run 0.12 ms | median of 20 repeats 0.05 ms | slowest repeat 0.08 ms
+   1.  10.5476  India at the Olympics
+   2.  10.3807  Reserve Bank of India
+   3.  10.3684  Vijayanagara Empire
+   4.  10.3166  History of cricket in India
+   5.  10.2598  Bharat Ek Khoj
+   6.  10.1459  Satish Chandra
+   7.  10.1315  Sports in India
+   8.  10.0606  Mister International India
+   9.   9.9309  Vincent Arthur Smith
+  10.   9.8444  Etawah
+

@@ -1,0 +1,17 @@
+# Phase 1 diagnosis — rank of the main article for each query (full ranking, --top 100000), commit 1868f0f, Java 21, full data/articles.jsonl
+
+Query: "photosynthesis" -> Photosynthesis at rank 4.
+Query: "world war 2" -> World War II at rank 458.
+Query: "world war ii" -> World War II at rank 2092.
+Query: "python programming" -> Python (programming language) at rank 3.
+Query: "the who" -> The Who at rank 13.
+Query: "the history of india" -> History of India at rank 57.
+Query: "to be or not to be" -> Hamlet at rank 9721.
+
+# Article lengths (whitespace words in text); average document length in the index = 168.5 tokens
+Photosynthesis                      972 words
+Python (programming language)       727 words
+The Who                             296 words
+History of India                   2923 words
+World War II                       5456 words
+Hamlet                             1179 words
