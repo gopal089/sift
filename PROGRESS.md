@@ -97,8 +97,31 @@ Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-
   | questions | 8 | 0.119 | 0/8 | 3/8 | 4 |
   | abbreviations | 4 | 0.040 | 0/4 | 0/4 | 0 |
 
-- **Next:** title field with real BM25F (step C), grid w ∈ {1, 2, 3, 5} × body b ∈ {0.5, 0.75} (step D),
-  redirect titles as a separate setting at the winning point, then the stop-word data (step E).
+- **Step C (done):** title field + BM25F (`Bm25F`, `Ranking`, title-field postings: 697,412 postings, 5.3 MB).
+  The old BM25 is kept as a setting and reproduces the baseline exactly. 126 JUnit tests pass.
+- **Step D grid** (`eval/results/grid-bm25f.txt`, commit `09effe4`): overall MRR
+
+  | b_body \ w | 1 | 2 | 3 | 5 |
+  | --- | --- | --- | --- | --- |
+  | 0.5 | 0.462 | 0.514 | 0.559 | **0.635** |
+  | 0.75 | 0.337 | 0.378 | 0.423 | 0.515 |
+
+  Winner by the rule: **w = 5, b_body = 0.5** (on the edge of the grid). Diagnostics: world war 2 #56, world war ii #4,
+  the who #2, history of india #1, photosynthesis #1, python programming #1. Slowest query 0.55 ms. Heap 561 MB in the
+  eval run (Phase 1 check said 521 MB; re-measure with the CLI in the final check).
+- **At the winner** (`eval/results/redirects-w5b50.txt`, commit `01616c5`):
+
+  | Setting | MRR | famous-single | abbreviation | world war 2 | usa |
+  | --- | --- | --- | --- | --- | --- |
+  | BM25F, no aliases | 0.635 | 0.664 | 0.349 | #56 | #2,139 |
+  | BM25(body) + 5 × BM25(title), no aliases | **0.742** | 0.815 | 0.516 | #3 | #2,139 |
+  | BM25F + all redirect words | 0.561 | 0.459 | 0.125 | #5 | #922 |
+  | BM25F + new redirect words once | 0.455 | 0.241 | 0.134 | #31 | #1,060 |
+
+  - **Redirects in the title field hurt**: popular articles have many redirects, so their title field gets long
+    (United States: 2 → 110 words) and b_title = 0.75 punishes it.
+  - **The sum beat BM25F**: BM25F caps a term at idf × (k1 + 1) no matter how big w is; the sum adds the title on top.
+- **Waiting for your decision** on the next experiment before step E.
 
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11

@@ -1,0 +1,90 @@
+# Sift eval: redirects-w5b50
+# 2026-11-11 01:22 IST | commit 01616c5 | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries.json (50 queries, sha256 624683dab59be5df711b76ccbddf610b4165ab6d8b8975949f5789794e4e7dd9)
+# articles: data/articles.jsonl | redirects: data/redirects.jsonl (115575 resolved)
+# index (aliases none): 280,748 docs, built in 8.13 s, heap 560.8 MB; avg title field 2.50 tokens, avg body 166.0 tokens; title-field postings 697,412 (5.3 MB)
+# index (aliases all): 280,748 docs, built in 8.45 s, heap 565.6 MB; avg title field 3.58 tokens, avg body 166.0 tokens; title-field postings 811,465 (6.2 MB)
+# index (aliases new): 280,748 docs, built in 8.52 s, heap 565.0 MB; avg title field 2.90 tokens, avg body 166.0 tokens; title-field postings 811,465 (6.2 MB)
+# speed: k = 10, per query the median of 20 runs after 3 warm-up runs
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  w5b50        BM25F k1=1.2 w_title=5 b_title=0.75 b_body=0.5 | aliases: none
+  sum          BM25(body) + w*BM25(title) k1=1.2 w=5 b_title=0.75 b_body=0.5 | aliases: none
+  w5b50all     BM25F k1=1.2 w_title=5 b_title=0.75 b_body=0.5 | aliases: all
+  w5b50new     BM25F k1=1.2 w_title=5 b_title=0.75 b_body=0.5 | aliases: new
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  w5b50                0.635         0.628         0.664         0.783         1.000         0.181         0.349    27/50  34/50  40/50     4   0/0/50
+  sum                  0.742         0.764         0.815         0.933         1.000         0.212         0.516    34/50  40/50  43/50     4   13/4/33
+  w5b50all             0.561         0.599         0.459         0.783         1.000         0.213         0.125    22/50  32/50  40/50     4   8/15/27
+  w5b50new             0.455         0.562         0.241         0.573         1.000         0.216         0.134    17/50  24/50  35/50     4   6/23/21
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation
+  w5b50          27/50 40/50       3/6 5/6    7/14 13/14     7/10 9/10       8/8 8/8       1/8 3/8       1/4 2/4
+  sum            34/50 43/50       4/6 6/6   10/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  w5b50all       22/50 40/50       3/6 5/6    4/14 12/14    6/10 10/10       8/8 8/8       1/8 3/8       0/4 2/4
+  w5b50new       17/50 35/50       3/6 4/6     1/14 9/14     4/10 9/10       8/8 8/8       1/8 3/8       0/4 2/4
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  w5b50           0.035    0.553   "the who"
+  sum             0.014    0.320   "united nations"
+  w5b50all        0.013    0.259   "united nations"
+  w5b50new        0.013    0.262   "united nations"
+
+Rank of the expected article
+   id category       query                                     w5b50      sum w5b50all w5b50new   expected
+    1 diagnostic     "world war 2"                                56        3        5       31   World War II
+    2 diagnostic     "world war ii"                                4        1       16      143   World War II
+    3 diagnostic     "the who"                                     2        4        3        3   The Who
+    4 diagnostic     "the history of india"                        1        1        1        1   History of India
+    5 diagnostic     "photosynthesis"                              1        1        1        1   Photosynthesis
+    6 diagnostic     "python programming"                          1        1        1        1   Python (programming language)
+    7 famous-single  "einstein"                                    4        3       12       12   Albert Einstein
+    8 famous-single  "volcano"                                     1        1        2        4   Volcano
+    9 famous-single  "shakespeare"                                 1        1        1        2   William Shakespeare
+   10 famous-single  "dinosaur"                                    1        1        2        4   Dinosaur
+   11 famous-single  "mozart"                                      2        4        1        5   Wolfgang Amadeus Mozart
+   12 famous-single  "tokyo"                                       3        2        3        5   Tokyo
+   13 famous-single  "gravity"                                     1        1       10        7   Gravity
+   14 famous-single  "chess"                                      14        1       22       56   Chess
+   15 famous-single  "electricity"                                 1        1        1        4   Electricity
+   16 famous-single  "tiger"                                       2        1        3        3   Tiger
+   17 famous-single  "olympics"                                    7        3        6       54   Olympic Games
+   18 famous-single  "bitcoin"                                     1        1        1        1   Bitcoin
+   19 famous-single  "napoleon"                                    2        1        5       11   Napoleon
+   20 famous-single  "evolution"                                   1        1        6       26   Evolution
+   21 famous-multi   "solar system"                                1        1        1        4   Solar System
+   22 famous-multi   "french revolution"                           1        1        1        2   French Revolution
+   23 famous-multi   "united nations"                              1        1        2        4   United Nations
+   24 famous-multi   "great wall of china"                         1        1        1        1   Great Wall of China
+   25 famous-multi   "theory of relativity"                        1        1        1        1   Theory of relativity
+   26 famous-multi   "black hole"                                  1        1        1        1   Black hole
+   27 famous-multi   "martin luther king"                          4        3        2        7   Martin Luther King Jr.
+   28 famous-multi   "human heart"                                12        1        1        1   Heart
+   29 famous-multi   "climate change"                              2        1        3       11   Climate change
+   30 famous-multi   "statue of liberty"                           1        1        2        2   Statue of Liberty
+   31 obscure        "axolotl"                                     1        1        1        1   Axolotl
+   32 obscure        "tardigrade"                                  1        1        1        1   Tardigrade
+   33 obscure        "bauhaus"                                     1        1        1        1   Bauhaus
+   34 obscure        "haiku"                                       1        1        1        1   Haiku
+   35 obscure        "ada lovelace"                                1        1        1        1   Ada Lovelace
+   36 obscure        "mount kilimanjaro"                           1        1        1        1   Mount Kilimanjaro
+   37 obscure        "rosetta stone"                               1        1        1        1   Rosetta Stone
+   38 obscure        "fibonacci numbers"                           1        1        1        1   Fibonacci number
+   39 question       "how do plants make food"                    17       18       17       17   Photosynthesis
+   40 question       "who discovered penicillin"                   -        -        -        -   Alexander Fleming
+   41 question       "what is the largest planet"                  7        7        7        6   Jupiter
+   42 question       "who invented the telephone"                  1        2        1        1   Alexander Graham Bell
+   43 question       "what causes earthquakes"                     -        -        -        -   Earthquake
+   44 question       "who was the first person on the moon"        -        -        -        -   Neil Armstrong
+   45 question       "when did the titanic sink"                   4        1        2        2   Titanic
+   46 question       "what is the capital of australia"            -        -        -        -   Canberra
+   47 abbreviation   "usa"                                      2139     2139      922     1060   United States
+   48 abbreviation   "dna"                                         3        1        6       11   DNA
+   49 abbreviation   "nasa"                                        1        1        4        3   NASA
+   50 abbreviation   "ww1"                                        16       16       12        9   World War I
