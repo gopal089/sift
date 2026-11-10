@@ -139,7 +139,7 @@ Let **B** = bytes in the dump, **P** = number of pages, **L** = links in one pag
 | Disambiguation pages skipped | 5,306 |
 | Parse time | 123.8 s (Apple M5, 10 workers) |
 | Articles with any leftover markup | 3,496 (1.25%) |
-| Links to existing articles / redirects / missing pages | 59.4% / 8.5% / 32.1% |
+| Links: direct to article / via redirect to article / reach no article (redirects followed) | 59.40% / 8.48% / 32.11% |
 
 ## 5 interview questions (with short model answers)
 
