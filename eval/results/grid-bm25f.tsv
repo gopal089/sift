@@ -1,0 +1,451 @@
+config	id	category	query	expected	rank	mode	matches	terms	top1	median_ms
+base	1	diagnostic	world war 2	World War II	458	AND	2261	world war 2	Ecuadorian–Peruvian War	0.4012
+base	2	diagnostic	world war ii	World War II	2092	AND	4951	world war ii	World war	1.6673
+base	3	diagnostic	the who	The Who	13	AND	38624	who	Lilian Jackson Braun	2.6770
+base	4	diagnostic	the history of india	History of India	57	AND	1490	histori india	India at the Olympics	0.0925
+base	5	diagnostic	photosynthesis	Photosynthesis	4	AND	163	photosynthesi	Plant community	0.0047
+base	6	diagnostic	python programming	Python (programming language)	3	AND	77	python program	Python Software Foundation	0.0206
+base	7	famous-single	einstein	Albert Einstein	20	AND	353	einstein	Arik Einstein	0.0059
+base	8	famous-single	volcano	Volcano	13	AND	725	volcano	Alaska Peninsula	0.0083
+base	9	famous-single	shakespeare	William Shakespeare	2	AND	606	shakespear	John Shakespeare	0.0078
+base	10	famous-single	dinosaur	Dinosaur	11	AND	886	dinosaur	Dinosaur Ridge	0.0083
+base	11	famous-single	mozart	Wolfgang Amadeus Mozart	7	AND	351	mozart	Johann Georg Mozart	0.0054
+base	12	famous-single	tokyo	Tokyo	18	AND	1869	tokyo	Tokyo Station	0.0135
+base	13	famous-single	gravity	Gravity	14	AND	577	graviti	Simulated gravity	0.0065
+base	14	famous-single	chess	Chess	174	AND	755	chess	Chess club	0.0077
+base	15	famous-single	electricity	Electricity	16	AND	3825	electr	List of BYD Auto vehicles	0.0250
+base	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0091
+base	17	famous-single	olympics	Olympic Games	246	AND	6987	olymp	Olympic sports	0.0390
+base	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0025
+base	19	famous-single	napoleon	Napoleon	20	AND	825	napoleon	Napoleon Dynamite	0.0071
+base	20	famous-single	evolution	Evolution	37	AND	1528	evolut	Theistic evolution	0.0113
+base	21	famous-multi	solar system	Solar System	41	AND	642	solar system	Small solar system body	0.0393
+base	22	famous-multi	french revolution	French Revolution	189	AND	858	french revolut	French Revolution of 1848	0.0418
+base	23	famous-multi	united nations	United Nations	11	AND	8684	unit nation	United Nations Development Programme	0.2935
+base	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0466
+base	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0174
+base	26	famous-multi	black hole	Black hole	6	AND	386	black hole	Binary black hole	0.0275
+base	27	famous-multi	martin luther king	Martin Luther King Jr.	25	AND	287	martin luther king	Martin Luther King, Sr.	0.0250
+base	28	famous-multi	human heart	Heart	23	AND	711	human heart	Christiaan Barnard	0.0303
+base	29	famous-multi	climate change	Climate change	35	AND	1161	climat chang	Glossary of climate change	0.0330
+base	30	famous-multi	statue of liberty	Statue of Liberty	3	AND	103	statu liberti	Statue of Liberty National Monument	0.0065
+base	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0010
+base	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0008
+base	33	obscure	bauhaus	Bauhaus	4	AND	44	bauhau	Tel Aviv Bauhaus Center	0.0011
+base	34	obscure	haiku	Haiku	2	AND	39	haiku	Haiku (operating system)	0.0011
+base	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0013
+base	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0038
+base	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0049
+base	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0152
+base	39	question	how do plants make food	Photosynthesis	16	AND	160	how do plant make food	Physiology	0.0743
+base	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0313
+base	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0251
+base	42	question	who invented the telephone	Alexander Graham Bell	2	AND	32	who invent telephon	Granville Woods	0.0323
+base	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0290
+base	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.1177
+base	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0296
+base	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0393
+base	47	abbreviation	usa	United States	2158	AND	2372	usa	Boing	0.0132
+base	48	abbreviation	dna	DNA	20	AND	847	dna	DNA replication	0.0054
+base	49	abbreviation	nasa	NASA	21	AND	851	nasa	Lists of astronauts	0.0053
+base	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0008
+w1b50	1	diagnostic	world war 2	World War II	173	AND	2261	world war 2	Guild Wars 2	0.3420
+w1b50	2	diagnostic	world war ii	World War II	166	AND	4951	world war ii	1943	0.4564
+w1b50	3	diagnostic	the who	The Who	2	AND	38624	who	Lilian Jackson Braun	0.4023
+w1b50	4	diagnostic	the history of india	History of India	4	AND	1490	histori india	Vijayanagara Empire	0.0946
+w1b50	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0043
+w1b50	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0213
+w1b50	7	famous-single	einstein	Albert Einstein	5	AND	353	einstein	Albert Einstein Square	0.0081
+w1b50	8	famous-single	volcano	Volcano	3	AND	725	volcano	Mud volcano	0.0162
+w1b50	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0128
+w1b50	10	famous-single	dinosaur	Dinosaur	3	AND	886	dinosaur	Dinosaur Ridge	0.0185
+w1b50	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	AND	351	mozart	Constanze Mozart	0.0084
+w1b50	12	famous-single	tokyo	Tokyo	3	AND	1869	tokyo	Tokyo Station	0.0520
+w1b50	13	famous-single	gravity	Gravity	5	AND	577	graviti	Gravity Rush 2	0.0125
+w1b50	14	famous-single	chess	Chess	51	AND	755	chess	Azerbaijan Chess Federation	0.0163
+w1b50	15	famous-single	electricity	Electricity	5	AND	3825	electr	List of BYD Auto vehicles	0.1210
+w1b50	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0253
+w1b50	17	famous-single	olympics	Olympic Games	16	AND	6987	olymp	Winter Olympic Games	0.1182
+w1b50	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0018
+w1b50	19	famous-single	napoleon	Napoleon	3	AND	825	napoleon	Napoleon Dynamite	0.0173
+w1b50	20	famous-single	evolution	Evolution	6	AND	1528	evolut	G. Ledyard Stebbins	0.0505
+w1b50	21	famous-multi	solar system	Solar System	4	AND	642	solar system	Solar energy	0.0551
+w1b50	22	famous-multi	french revolution	French Revolution	13	AND	858	french revolut	Jacques-Louis David	0.0593
+w1b50	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.4168
+w1b50	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0430
+w1b50	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0165
+w1b50	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0256
+w1b50	27	famous-multi	martin luther king	Martin Luther King Jr.	11	AND	287	martin luther king	Alberta Williams King	0.0362
+w1b50	28	famous-multi	human heart	Heart	5	AND	711	human heart	Theory of Good Human Nature	0.0409
+w1b50	29	famous-multi	climate change	Climate change	4	AND	1161	climat chang	Climate change denial	0.0481
+w1b50	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0113
+w1b50	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0019
+w1b50	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0013
+w1b50	33	obscure	bauhaus	Bauhaus	3	AND	44	bauhau	Bauhaus (band)	0.0020
+w1b50	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0019
+w1b50	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0026
+w1b50	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0066
+w1b50	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0084
+w1b50	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0318
+w1b50	39	question	how do plants make food	Photosynthesis	17	AND	160	how do plant make food	Crassulacean acid metabolism	0.1277
+w1b50	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0594
+w1b50	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0444
+w1b50	42	question	who invented the telephone	Alexander Graham Bell	1	AND	32	who invent telephon	Alexander Graham Bell	0.0599
+w1b50	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0489
+w1b50	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2107
+w1b50	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0449
+w1b50	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0676
+w1b50	47	abbreviation	usa	United States	2139	AND	2372	usa	List of astronomers	0.0175
+w1b50	48	abbreviation	dna	DNA	8	AND	847	dna	DNA replication	0.0075
+w1b50	49	abbreviation	nasa	NASA	2	AND	851	nasa	Lists of astronauts	0.0075
+w1b50	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0009
+w1b75	1	diagnostic	world war 2	World War II	253	AND	2261	world war 2	Ecuadorian–Peruvian War	0.2746
+w1b75	2	diagnostic	world war ii	World War II	531	AND	4951	world war ii	World war	0.3390
+w1b75	3	diagnostic	the who	The Who	5	AND	38624	who	Lilian Jackson Braun	0.2375
+w1b75	4	diagnostic	the history of india	History of India	11	AND	1490	histori india	India at the Olympics	0.1111
+w1b75	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0023
+w1b75	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0151
+w1b75	7	famous-single	einstein	Albert Einstein	11	AND	353	einstein	Albert Einstein Square	0.0034
+w1b75	8	famous-single	volcano	Volcano	7	AND	725	volcano	Alaska Peninsula	0.0061
+w1b75	9	famous-single	shakespeare	William Shakespeare	2	AND	606	shakespear	John Shakespeare	0.0060
+w1b75	10	famous-single	dinosaur	Dinosaur	5	AND	886	dinosaur	Dinosaur Ridge	0.0078
+w1b75	11	famous-single	mozart	Wolfgang Amadeus Mozart	5	AND	351	mozart	Constanze Mozart	0.0034
+w1b75	12	famous-single	tokyo	Tokyo	9	AND	1869	tokyo	Tokyo Station	0.0142
+w1b75	13	famous-single	gravity	Gravity	9	AND	577	graviti	Gravity Rush 2	0.0049
+w1b75	14	famous-single	chess	Chess	92	AND	755	chess	Chess club	0.0068
+w1b75	15	famous-single	electricity	Electricity	11	AND	3825	electr	List of BYD Auto vehicles	0.0274
+w1b75	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0103
+w1b75	17	famous-single	olympics	Olympic Games	177	AND	6987	olymp	Olympic sports	0.0502
+w1b75	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0012
+w1b75	19	famous-single	napoleon	Napoleon	7	AND	825	napoleon	Napoleon Dynamite	0.0075
+w1b75	20	famous-single	evolution	Evolution	10	AND	1528	evolut	Unilineal evolution	0.0123
+w1b75	21	famous-multi	solar system	Solar System	11	AND	642	solar system	Small solar system body	0.0311
+w1b75	22	famous-multi	french revolution	French Revolution	81	AND	858	french revolut	Pierre Claude François Daunou	0.0353
+w1b75	23	famous-multi	united nations	United Nations	4	AND	8684	unit nation	National Guard (United States)	0.4278
+w1b75	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0413
+w1b75	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0153
+w1b75	26	famous-multi	black hole	Black hole	6	AND	386	black hole	Micro black hole	0.0241
+w1b75	27	famous-multi	martin luther king	Martin Luther King Jr.	17	AND	287	martin luther king	Martin Luther King, Sr.	0.0343
+w1b75	28	famous-multi	human heart	Heart	21	AND	711	human heart	Christiaan Barnard	0.0414
+w1b75	29	famous-multi	climate change	Climate change	17	AND	1161	climat chang	Glossary of climate change	0.0455
+w1b75	30	famous-multi	statue of liberty	Statue of Liberty	3	AND	103	statu liberti	Statue of Liberty National Monument	0.0109
+w1b75	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0009
+w1b75	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0008
+w1b75	33	obscure	bauhaus	Bauhaus	4	AND	44	bauhau	Bauhaus (band)	0.0013
+w1b75	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0012
+w1b75	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0013
+w1b75	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0059
+w1b75	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0077
+w1b75	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0293
+w1b75	39	question	how do plants make food	Photosynthesis	16	AND	160	how do plant make food	Physiology	0.1263
+w1b75	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0604
+w1b75	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0444
+w1b75	42	question	who invented the telephone	Alexander Graham Bell	2	AND	32	who invent telephon	Granville Woods	0.0616
+w1b75	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0486
+w1b75	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2137
+w1b75	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0454
+w1b75	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0640
+w1b75	47	abbreviation	usa	United States	2158	AND	2372	usa	Boing	0.0176
+w1b75	48	abbreviation	dna	DNA	16	AND	847	dna	DNA replication	0.0074
+w1b75	49	abbreviation	nasa	NASA	6	AND	851	nasa	Lists of astronauts	0.0072
+w1b75	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0010
+w2b50	1	diagnostic	world war 2	World War II	117	AND	2261	world war 2	Guild Wars 2	0.2458
+w2b50	2	diagnostic	world war ii	World War II	25	AND	4951	world war ii	1943	0.3127
+w2b50	3	diagnostic	the who	The Who	2	AND	38624	who	Lilian Jackson Braun	0.2241
+w2b50	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.1078
+w2b50	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0020
+w2b50	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0152
+w2b50	7	famous-single	einstein	Albert Einstein	4	AND	353	einstein	Albert Einstein Square	0.0032
+w2b50	8	famous-single	volcano	Volcano	3	AND	725	volcano	Mud volcano	0.0057
+w2b50	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0050
+w2b50	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0068
+w2b50	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	AND	351	mozart	Constanze Mozart	0.0033
+w2b50	12	famous-single	tokyo	Tokyo	3	AND	1869	tokyo	Tokyo Station	0.0130
+w2b50	13	famous-single	gravity	Gravity	3	AND	577	graviti	Gravity Rush 2	0.0048
+w2b50	14	famous-single	chess	Chess	33	AND	755	chess	Chess club	0.0059
+w2b50	15	famous-single	electricity	Electricity	4	AND	3825	electr	List of BYD Auto vehicles	0.0256
+w2b50	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0091
+w2b50	17	famous-single	olympics	Olympic Games	14	AND	6987	olymp	Winter Olympic Games	0.0449
+w2b50	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0011
+w2b50	19	famous-single	napoleon	Napoleon	3	AND	825	napoleon	Napoleon Dynamite	0.0064
+w2b50	20	famous-single	evolution	Evolution	5	AND	1528	evolut	G. Ledyard Stebbins	0.0107
+w2b50	21	famous-multi	solar system	Solar System	3	AND	642	solar system	Small solar system body	0.0290
+w2b50	22	famous-multi	french revolution	French Revolution	2	AND	858	french revolut	French Revolution of 1848	0.0341
+w2b50	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.4323
+w2b50	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0410
+w2b50	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0145
+w2b50	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0231
+w2b50	27	famous-multi	martin luther king	Martin Luther King Jr.	7	AND	287	martin luther king	Alberta Williams King	0.0348
+w2b50	28	famous-multi	human heart	Heart	7	AND	711	human heart	Theory of Good Human Nature	0.0481
+w2b50	29	famous-multi	climate change	Climate change	3	AND	1161	climat chang	Climate change denial	0.0429
+w2b50	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0093
+w2b50	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0009
+w2b50	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0008
+w2b50	33	obscure	bauhaus	Bauhaus	2	AND	44	bauhau	Bauhaus (band)	0.0012
+w2b50	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0010
+w2b50	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0013
+w2b50	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0056
+w2b50	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0073
+w2b50	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0273
+w2b50	39	question	how do plants make food	Photosynthesis	17	AND	160	how do plant make food	Crassulacean acid metabolism	0.1214
+w2b50	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0582
+w2b50	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0423
+w2b50	42	question	who invented the telephone	Alexander Graham Bell	1	AND	32	who invent telephon	Alexander Graham Bell	0.0590
+w2b50	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0496
+w2b50	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2131
+w2b50	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0453
+w2b50	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0610
+w2b50	47	abbreviation	usa	United States	2139	AND	2372	usa	Miss Teen USA	0.0159
+w2b50	48	abbreviation	dna	DNA	5	AND	847	dna	DNA replication	0.0064
+w2b50	49	abbreviation	nasa	NASA	2	AND	851	nasa	Lists of astronauts	0.0064
+w2b50	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0008
+w2b75	1	diagnostic	world war 2	World War II	191	AND	2261	world war 2	Guild Wars 2	0.2363
+w2b75	2	diagnostic	world war ii	World War II	90	AND	4951	world war ii	World war	0.3280
+w2b75	3	diagnostic	the who	The Who	3	AND	38624	who	Lilian Jackson Braun	0.2375
+w2b75	4	diagnostic	the history of india	History of India	2	AND	1490	histori india	India at the Olympics	0.0921
+w2b75	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0020
+w2b75	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0152
+w2b75	7	famous-single	einstein	Albert Einstein	9	AND	353	einstein	Arik Einstein	0.0032
+w2b75	8	famous-single	volcano	Volcano	4	AND	725	volcano	Shield volcano	0.0062
+w2b75	9	famous-single	shakespeare	William Shakespeare	2	AND	606	shakespear	John Shakespeare	0.0060
+w2b75	10	famous-single	dinosaur	Dinosaur	3	AND	886	dinosaur	Dinosaur Ridge	0.0080
+w2b75	11	famous-single	mozart	Wolfgang Amadeus Mozart	6	AND	351	mozart	Constanze Mozart	0.0034
+w2b75	12	famous-single	tokyo	Tokyo	6	AND	1869	tokyo	Tokyo Station	0.0141
+w2b75	13	famous-single	gravity	Gravity	7	AND	577	graviti	Simulated gravity	0.0053
+w2b75	14	famous-single	chess	Chess	49	AND	755	chess	Chess club	0.0068
+w2b75	15	famous-single	electricity	Electricity	8	AND	3825	electr	Electric fish	0.0275
+w2b75	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0100
+w2b75	17	famous-single	olympics	Olympic Games	136	AND	6987	olymp	Olympic sports	0.0479
+w2b75	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0013
+w2b75	19	famous-single	napoleon	Napoleon	4	AND	825	napoleon	Napoleon Dynamite	0.0070
+w2b75	20	famous-single	evolution	Evolution	7	AND	1528	evolut	Unilineal evolution	0.0118
+w2b75	21	famous-multi	solar system	Solar System	5	AND	642	solar system	Small solar system body	0.0307
+w2b75	22	famous-multi	french revolution	French Revolution	9	AND	858	french revolut	French Revolution of 1848	0.0356
+w2b75	23	famous-multi	united nations	United Nations	4	AND	8684	unit nation	National Guard (United States)	0.4211
+w2b75	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0409
+w2b75	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0156
+w2b75	26	famous-multi	black hole	Black hole	4	AND	386	black hole	Micro black hole	0.0241
+w2b75	27	famous-multi	martin luther king	Martin Luther King Jr.	11	AND	287	martin luther king	Martin Luther King, Sr.	0.0363
+w2b75	28	famous-multi	human heart	Heart	23	AND	711	human heart	Christiaan Barnard	0.0407
+w2b75	29	famous-multi	climate change	Climate change	9	AND	1161	climat chang	Glossary of climate change	0.0483
+w2b75	30	famous-multi	statue of liberty	Statue of Liberty	2	AND	103	statu liberti	Statue of Liberty National Monument	0.0095
+w2b75	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0008
+w2b75	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0008
+w2b75	33	obscure	bauhaus	Bauhaus	3	AND	44	bauhau	Bauhaus (band)	0.0010
+w2b75	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0010
+w2b75	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0012
+w2b75	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0058
+w2b75	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0078
+w2b75	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0297
+w2b75	39	question	how do plants make food	Photosynthesis	16	AND	160	how do plant make food	Physiology	0.1267
+w2b75	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0611
+w2b75	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0446
+w2b75	42	question	who invented the telephone	Alexander Graham Bell	2	AND	32	who invent telephon	Granville Woods	0.0616
+w2b75	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0488
+w2b75	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2164
+w2b75	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0458
+w2b75	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0623
+w2b75	47	abbreviation	usa	United States	2158	AND	2372	usa	Boing	0.0165
+w2b75	48	abbreviation	dna	DNA	11	AND	847	dna	DNA replication	0.0068
+w2b75	49	abbreviation	nasa	NASA	2	AND	851	nasa	Lists of astronauts	0.0067
+w2b75	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0005
+w3b50	1	diagnostic	world war 2	World War II	85	AND	2261	world war 2	Guild Wars 2	0.2953
+w3b50	2	diagnostic	world war ii	World War II	7	AND	4951	world war ii	1943	0.2348
+w3b50	3	diagnostic	the who	The Who	2	AND	38624	who	Lilian Jackson Braun	0.2362
+w3b50	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.0778
+w3b50	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0015
+w3b50	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0146
+w3b50	7	famous-single	einstein	Albert Einstein	4	AND	353	einstein	Albert Einstein Square	0.0033
+w3b50	8	famous-single	volcano	Volcano	2	AND	725	volcano	Mud volcano	0.0058
+w3b50	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0046
+w3b50	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0069
+w3b50	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	AND	351	mozart	Constanze Mozart	0.0028
+w3b50	12	famous-single	tokyo	Tokyo	3	AND	1869	tokyo	Tokyo Station	0.0130
+w3b50	13	famous-single	gravity	Gravity	3	AND	577	graviti	Gravity Rush 2	0.0043
+w3b50	14	famous-single	chess	Chess	20	AND	755	chess	Chess club	0.0055
+w3b50	15	famous-single	electricity	Electricity	1	AND	3825	electr	Electricity	0.0259
+w3b50	16	famous-single	tiger	Tiger	2	AND	1246	tiger	Tiger (car)	0.0093
+w3b50	17	famous-single	olympics	Olympic Games	10	AND	6987	olymp	Winter Olympic Games	0.0490
+w3b50	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0008
+w3b50	19	famous-single	napoleon	Napoleon	3	AND	825	napoleon	Napoleon Dynamite	0.0065
+w3b50	20	famous-single	evolution	Evolution	1	AND	1528	evolut	Evolution	0.0111
+w3b50	21	famous-multi	solar system	Solar System	2	AND	642	solar system	Small solar system body	0.0293
+w3b50	22	famous-multi	french revolution	French Revolution	2	AND	858	french revolut	French Revolution of 1848	0.0345
+w3b50	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.4455
+w3b50	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0399
+w3b50	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0148
+w3b50	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0233
+w3b50	27	famous-multi	martin luther king	Martin Luther King Jr.	5	AND	287	martin luther king	Martin Luther King, Sr.	0.0345
+w3b50	28	famous-multi	human heart	Heart	9	AND	711	human heart	Theory of Good Human Nature	0.0397
+w3b50	29	famous-multi	climate change	Climate change	3	AND	1161	climat chang	Climate change denial	0.0486
+w3b50	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0099
+w3b50	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0005
+w3b50	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0004
+w3b50	33	obscure	bauhaus	Bauhaus	2	AND	44	bauhau	Bauhaus (band)	0.0008
+w3b50	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0007
+w3b50	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0008
+w3b50	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0052
+w3b50	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0070
+w3b50	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0269
+w3b50	39	question	how do plants make food	Photosynthesis	17	AND	160	how do plant make food	Woody plant encroachment	0.1255
+w3b50	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0599
+w3b50	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0439
+w3b50	42	question	who invented the telephone	Alexander Graham Bell	1	AND	32	who invent telephon	Alexander Graham Bell	0.0605
+w3b50	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0480
+w3b50	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2131
+w3b50	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0452
+w3b50	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0649
+w3b50	47	abbreviation	usa	United States	2139	AND	2372	usa	Miss Teen USA	0.0162
+w3b50	48	abbreviation	dna	DNA	4	AND	847	dna	DNA replication	0.0067
+w3b50	49	abbreviation	nasa	NASA	2	AND	851	nasa	Lists of astronauts	0.0065
+w3b50	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0005
+w3b75	1	diagnostic	world war 2	World War II	149	AND	2261	world war 2	Guild Wars 2	0.2614
+w3b75	2	diagnostic	world war ii	World War II	24	AND	4951	world war ii	World war	0.3299
+w3b75	3	diagnostic	the who	The Who	3	AND	38624	who	Lilian Jackson Braun	0.2357
+w3b75	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.0897
+w3b75	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0015
+w3b75	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0143
+w3b75	7	famous-single	einstein	Albert Einstein	7	AND	353	einstein	Arik Einstein	0.0028
+w3b75	8	famous-single	volcano	Volcano	3	AND	725	volcano	Shield volcano	0.0059
+w3b75	9	famous-single	shakespeare	William Shakespeare	2	AND	606	shakespear	John Shakespeare	0.0046
+w3b75	10	famous-single	dinosaur	Dinosaur	2	AND	886	dinosaur	Dinosaur Ridge	0.0069
+w3b75	11	famous-single	mozart	Wolfgang Amadeus Mozart	6	AND	351	mozart	Constanze Mozart	0.0029
+w3b75	12	famous-single	tokyo	Tokyo	5	AND	1869	tokyo	Tokyo Station	0.0131
+w3b75	13	famous-single	gravity	Gravity	6	AND	577	graviti	Simulated gravity	0.0043
+w3b75	14	famous-single	chess	Chess	31	AND	755	chess	Chess club	0.0056
+w3b75	15	famous-single	electricity	Electricity	8	AND	3825	electr	Electric fish	0.0263
+w3b75	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0092
+w3b75	17	famous-single	olympics	Olympic Games	115	AND	6987	olymp	Olympic sports	0.0467
+w3b75	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0008
+w3b75	19	famous-single	napoleon	Napoleon	4	AND	825	napoleon	Napoleon Dynamite	0.0065
+w3b75	20	famous-single	evolution	Evolution	3	AND	1528	evolut	Unilineal evolution	0.0110
+w3b75	21	famous-multi	solar system	Solar System	2	AND	642	solar system	Small solar system body	0.0300
+w3b75	22	famous-multi	french revolution	French Revolution	2	AND	858	french revolut	French Revolution of 1848	0.0347
+w3b75	23	famous-multi	united nations	United Nations	3	AND	8684	unit nation	National Guard (United States)	0.4160
+w3b75	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0402
+w3b75	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0148
+w3b75	26	famous-multi	black hole	Black hole	3	AND	386	black hole	Micro black hole	0.0234
+w3b75	27	famous-multi	martin luther king	Martin Luther King Jr.	6	AND	287	martin luther king	Martin Luther King, Sr.	0.0337
+w3b75	28	famous-multi	human heart	Heart	22	AND	711	human heart	Christiaan Barnard	0.0400
+w3b75	29	famous-multi	climate change	Climate change	5	AND	1161	climat chang	Glossary of climate change	0.0455
+w3b75	30	famous-multi	statue of liberty	Statue of Liberty	2	AND	103	statu liberti	Statue of Liberty National Monument	0.0090
+w3b75	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0005
+w3b75	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0004
+w3b75	33	obscure	bauhaus	Bauhaus	2	AND	44	bauhau	Bauhaus (band)	0.0008
+w3b75	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0006
+w3b75	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0009
+w3b75	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0052
+w3b75	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0073
+w3b75	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0289
+w3b75	39	question	how do plants make food	Photosynthesis	16	AND	160	how do plant make food	Physiology	0.1239
+w3b75	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0610
+w3b75	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0434
+w3b75	42	question	who invented the telephone	Alexander Graham Bell	2	AND	32	who invent telephon	Granville Woods	0.0610
+w3b75	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0475
+w3b75	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2068
+w3b75	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0433
+w3b75	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Western Australia	0.0594
+w3b75	47	abbreviation	usa	United States	2158	AND	2372	usa	Boing	0.0160
+w3b75	48	abbreviation	dna	DNA	10	AND	847	dna	DNA replication	0.0067
+w3b75	49	abbreviation	nasa	NASA	2	AND	851	nasa	Lists of astronauts	0.0064
+w3b75	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0005
+w5b50	1	diagnostic	world war 2	World War II	56	AND	2261	world war 2	Guild Wars 2	0.2645
+w5b50	2	diagnostic	world war ii	World War II	4	AND	4951	world war ii	World war	0.2380
+w5b50	3	diagnostic	the who	The Who	2	AND	38624	who	Lilian Jackson Braun	0.2347
+w5b50	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.0729
+w5b50	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0016
+w5b50	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0148
+w5b50	7	famous-single	einstein	Albert Einstein	4	AND	353	einstein	Bob Einstein	0.0029
+w5b50	8	famous-single	volcano	Volcano	1	AND	725	volcano	Volcano	0.0053
+w5b50	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0046
+w5b50	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0064
+w5b50	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	AND	351	mozart	Constanze Mozart	0.0029
+w5b50	12	famous-single	tokyo	Tokyo	3	AND	1869	tokyo	Tokyo, Tokyo	0.0125
+w5b50	13	famous-single	gravity	Gravity	1	AND	577	graviti	Gravity	0.0044
+w5b50	14	famous-single	chess	Chess	14	AND	755	chess	Chess club	0.0054
+w5b50	15	famous-single	electricity	Electricity	1	AND	3825	electr	Electricity	0.0252
+w5b50	16	famous-single	tiger	Tiger	2	AND	1246	tiger	Tiger (car)	0.0088
+w5b50	17	famous-single	olympics	Olympic Games	7	AND	6987	olymp	Winter Olympic Games	0.0453
+w5b50	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0009
+w5b50	19	famous-single	napoleon	Napoleon	2	AND	825	napoleon	Napoleon Dynamite	0.0063
+w5b50	20	famous-single	evolution	Evolution	1	AND	1528	evolut	Evolution	0.0111
+w5b50	21	famous-multi	solar system	Solar System	1	AND	642	solar system	Solar System	0.0299
+w5b50	22	famous-multi	french revolution	French Revolution	1	AND	858	french revolut	French Revolution	0.0337
+w5b50	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.4307
+w5b50	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0408
+w5b50	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0145
+w5b50	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0226
+w5b50	27	famous-multi	martin luther king	Martin Luther King Jr.	4	AND	287	martin luther king	Martin Luther King, Sr.	0.0354
+w5b50	28	famous-multi	human heart	Heart	12	AND	711	human heart	Brazilian heart-tongued frog	0.0390
+w5b50	29	famous-multi	climate change	Climate change	2	AND	1161	climat chang	Climate change denial	0.0505
+w5b50	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0090
+w5b50	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0005
+w5b50	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0005
+w5b50	33	obscure	bauhaus	Bauhaus	1	AND	44	bauhau	Bauhaus	0.0008
+w5b50	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0007
+w5b50	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0010
+w5b50	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0054
+w5b50	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0072
+w5b50	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0279
+w5b50	39	question	how do plants make food	Photosynthesis	17	AND	160	how do plant make food	Woody plant encroachment	0.1223
+w5b50	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0591
+w5b50	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0433
+w5b50	42	question	who invented the telephone	Alexander Graham Bell	1	AND	32	who invent telephon	Alexander Graham Bell	0.0615
+w5b50	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0478
+w5b50	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2151
+w5b50	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0452
+w5b50	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australian National Botanic Gardens	0.0626
+w5b50	47	abbreviation	usa	United States	2139	AND	2372	usa	Miss Teen USA	0.0171
+w5b50	48	abbreviation	dna	DNA	3	AND	847	dna	DNA replication	0.0069
+w5b50	49	abbreviation	nasa	NASA	1	AND	851	nasa	NASA	0.0069
+w5b50	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0005
+w5b75	1	diagnostic	world war 2	World War II	90	AND	2261	world war 2	Guild Wars 2	0.2697
+w5b75	2	diagnostic	world war ii	World War II	3	AND	4951	world war ii	World war	0.2934
+w5b75	3	diagnostic	the who	The Who	3	AND	38624	who	Lilian Jackson Braun	0.2376
+w5b75	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.0761
+w5b75	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0016
+w5b75	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0148
+w5b75	7	famous-single	einstein	Albert Einstein	7	AND	353	einstein	Arik Einstein	0.0028
+w5b75	8	famous-single	volcano	Volcano	1	AND	725	volcano	Volcano	0.0054
+w5b75	9	famous-single	shakespeare	William Shakespeare	2	AND	606	shakespear	John Shakespeare	0.0046
+w5b75	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0073
+w5b75	11	famous-single	mozart	Wolfgang Amadeus Mozart	6	AND	351	mozart	Constanze Mozart	0.0029
+w5b75	12	famous-single	tokyo	Tokyo	3	AND	1869	tokyo	Tokyo, Tokyo	0.0138
+w5b75	13	famous-single	gravity	Gravity	5	AND	577	graviti	Simulated gravity	0.0043
+w5b75	14	famous-single	chess	Chess	18	AND	755	chess	Chess club	0.0062
+w5b75	15	famous-single	electricity	Electricity	4	AND	3825	electr	Electric fish	0.0270
+w5b75	16	famous-single	tiger	Tiger	3	AND	1246	tiger	Tiger (car)	0.0098
+w5b75	17	famous-single	olympics	Olympic Games	71	AND	6987	olymp	Olympic sports	0.0483
+w5b75	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0007
+w5b75	19	famous-single	napoleon	Napoleon	2	AND	825	napoleon	Napoleon Dynamite	0.0067
+w5b75	20	famous-single	evolution	Evolution	3	AND	1528	evolut	Unilineal evolution	0.0115
+w5b75	21	famous-multi	solar system	Solar System	2	AND	642	solar system	Small solar system body	0.0297
+w5b75	22	famous-multi	french revolution	French Revolution	2	AND	858	french revolut	French Revolution of 1848	0.0349
+w5b75	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.4341
+w5b75	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0422
+w5b75	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0151
+w5b75	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0235
+w5b75	27	famous-multi	martin luther king	Martin Luther King Jr.	6	AND	287	martin luther king	Martin Luther King, Sr.	0.0355
+w5b75	28	famous-multi	human heart	Heart	23	AND	711	human heart	Christiaan Barnard	0.0398
+w5b75	29	famous-multi	climate change	Climate change	3	AND	1161	climat chang	Glossary of climate change	0.0455
+w5b75	30	famous-multi	statue of liberty	Statue of Liberty	2	AND	103	statu liberti	Statue of Liberty National Monument	0.0092
+w5b75	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0005
+w5b75	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0004
+w5b75	33	obscure	bauhaus	Bauhaus	1	AND	44	bauhau	Bauhaus	0.0008
+w5b75	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0006
+w5b75	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0008
+w5b75	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0055
+w5b75	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0071
+w5b75	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0288
+w5b75	39	question	how do plants make food	Photosynthesis	16	AND	160	how do plant make food	Physiology	0.1262
+w5b75	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0598
+w5b75	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Small solar system body	0.0421
+w5b75	42	question	who invented the telephone	Alexander Graham Bell	2	AND	32	who invent telephon	Granville Woods	0.0582
+w5b75	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0463
+w5b75	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon Knight	0.2053
+w5b75	45	question	when did the titanic sink	Titanic	4	AND	11	when did titan sink	Millvina Dean	0.0434
+w5b75	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Western Australia	0.0603
+w5b75	47	abbreviation	usa	United States	2158	AND	2372	usa	Miss Teen USA	0.0165
+w5b75	48	abbreviation	dna	DNA	6	AND	847	dna	DNA replication	0.0068
+w5b75	49	abbreviation	nasa	NASA	1	AND	851	nasa	NASA	0.0070
+w5b75	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0004
