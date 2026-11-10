@@ -1,0 +1,352 @@
+[
+ {
+  "id": 1,
+  "query": "world war 2",
+  "expected": "World War II",
+  "category": "diagnostic",
+  "note": "Phase 1: #458"
+ },
+ {
+  "id": 2,
+  "query": "world war ii",
+  "expected": "World War II",
+  "category": "diagnostic",
+  "note": "Phase 1: #2,092"
+ },
+ {
+  "id": 3,
+  "query": "the who",
+  "expected": "The Who",
+  "category": "diagnostic",
+  "note": "Phase 1: #13; 'the' dropped at query time"
+ },
+ {
+  "id": 4,
+  "query": "the history of india",
+  "expected": "History of India",
+  "category": "diagnostic",
+  "note": "Phase 1: #57"
+ },
+ {
+  "id": 5,
+  "query": "photosynthesis",
+  "expected": "Photosynthesis",
+  "category": "diagnostic",
+  "note": "Phase 1 'Done when' query: #4"
+ },
+ {
+  "id": 6,
+  "query": "python programming",
+  "expected": "Python (programming language)",
+  "category": "diagnostic",
+  "note": "Phase 1 'Done when' query: #3"
+ },
+ {
+  "id": 7,
+  "query": "einstein",
+  "expected": "Albert Einstein",
+  "category": "famous-single",
+  "note": "surname only"
+ },
+ {
+  "id": 8,
+  "query": "volcano",
+  "expected": "Volcano",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 9,
+  "query": "shakespeare",
+  "expected": "William Shakespeare",
+  "category": "famous-single",
+  "note": "surname only"
+ },
+ {
+  "id": 10,
+  "query": "dinosaur",
+  "expected": "Dinosaur",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 11,
+  "query": "mozart",
+  "expected": "Wolfgang Amadeus Mozart",
+  "category": "famous-single",
+  "note": "surname only"
+ },
+ {
+  "id": 12,
+  "query": "tokyo",
+  "expected": "Tokyo",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 13,
+  "query": "gravity",
+  "expected": "Gravity",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 14,
+  "query": "chess",
+  "expected": "Chess",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 15,
+  "query": "electricity",
+  "expected": "Electricity",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 16,
+  "query": "tiger",
+  "expected": "Tiger",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 17,
+  "query": "olympics",
+  "expected": "Olympic Games",
+  "category": "famous-single",
+  "note": "word form differs from title"
+ },
+ {
+  "id": 18,
+  "query": "bitcoin",
+  "expected": "Bitcoin",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 19,
+  "query": "napoleon",
+  "expected": "Napoleon",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 20,
+  "query": "evolution",
+  "expected": "Evolution",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 21,
+  "query": "solar system",
+  "expected": "Solar System",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 22,
+  "query": "french revolution",
+  "expected": "French Revolution",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 23,
+  "query": "united nations",
+  "expected": "United Nations",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 24,
+  "query": "great wall of china",
+  "expected": "Great Wall of China",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 25,
+  "query": "theory of relativity",
+  "expected": "Theory of relativity",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 26,
+  "query": "black hole",
+  "expected": "Black hole",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 27,
+  "query": "martin luther king",
+  "expected": "Martin Luther King Jr.",
+  "category": "famous-multi",
+  "note": "title has 'Jr.'"
+ },
+ {
+  "id": 28,
+  "query": "human heart",
+  "expected": "Heart",
+  "category": "famous-multi",
+  "note": "extra word not in title"
+ },
+ {
+  "id": 29,
+  "query": "climate change",
+  "expected": "Climate change",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 30,
+  "query": "statue of liberty",
+  "expected": "Statue of Liberty",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 31,
+  "query": "axolotl",
+  "expected": "Axolotl",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 32,
+  "query": "tardigrade",
+  "expected": "Tardigrade",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 33,
+  "query": "bauhaus",
+  "expected": "Bauhaus",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 34,
+  "query": "haiku",
+  "expected": "Haiku",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 35,
+  "query": "ada lovelace",
+  "expected": "Ada Lovelace",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 36,
+  "query": "mount kilimanjaro",
+  "expected": "Mount Kilimanjaro",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 37,
+  "query": "rosetta stone",
+  "expected": "Rosetta Stone",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 38,
+  "query": "fibonacci numbers",
+  "expected": "Fibonacci number",
+  "category": "obscure",
+  "note": "plural vs singular title"
+ },
+ {
+  "id": 39,
+  "query": "how do plants make food",
+  "expected": "Photosynthesis",
+  "category": "question",
+  "note": "Phase 5 'Done when' query"
+ },
+ {
+  "id": 40,
+  "query": "who discovered penicillin",
+  "expected": "Alexander Fleming",
+  "category": "question",
+  "note": "answer is a person; Penicillin is a near miss"
+ },
+ {
+  "id": 41,
+  "query": "what is the largest planet",
+  "expected": "Jupiter",
+  "category": "question",
+  "note": "answer word not in query"
+ },
+ {
+  "id": 42,
+  "query": "who invented the telephone",
+  "expected": "Alexander Graham Bell",
+  "category": "question",
+  "note": "Telephone is a near miss"
+ },
+ {
+  "id": 43,
+  "query": "what causes earthquakes",
+  "expected": "Earthquake",
+  "category": "question",
+  "note": ""
+ },
+ {
+  "id": 44,
+  "query": "who was the first person on the moon",
+  "expected": "Neil Armstrong",
+  "category": "question",
+  "note": "answer word not in query"
+ },
+ {
+  "id": 45,
+  "query": "when did the titanic sink",
+  "expected": "Titanic",
+  "category": "question",
+  "note": "article is about the ship"
+ },
+ {
+  "id": 46,
+  "query": "what is the capital of australia",
+  "expected": "Canberra",
+  "category": "question",
+  "note": "answer word not in query"
+ },
+ {
+  "id": 47,
+  "query": "usa",
+  "expected": "United States",
+  "category": "abbreviation",
+  "note": "needs redirect or alias"
+ },
+ {
+  "id": 48,
+  "query": "dna",
+  "expected": "DNA",
+  "category": "abbreviation",
+  "note": "title is the abbreviation"
+ },
+ {
+  "id": 49,
+  "query": "nasa",
+  "expected": "NASA",
+  "category": "abbreviation",
+  "note": "title is the abbreviation"
+ },
+ {
+  "id": 50,
+  "query": "ww1",
+  "expected": "World War I",
+  "category": "abbreviation",
+  "note": "single token 'ww1'"
+ }
+]
