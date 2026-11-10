@@ -1,0 +1,67 @@
+# Sift eval: baseline-bm25
+# 2026-11-11 01:06 IST | commit a345ea1 | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries.json (50 queries, sha256 624683dab59be5df711b76ccbddf610b4165ab6d8b8975949f5789794e4e7dd9)
+# articles: data/articles.jsonl (280,748 documents, index built in 8.47 s)
+# ranking: BM25 k1=1.2 b=0.75, title indexed as the first words of the body
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+
+group            n     MRR   hit@1   hit@3  hit@10  not found
+ALL             50   0.275    9/50   15/50   21/50          4
+diagnostic       6   0.113     0/6     1/6     2/6          0
+famous-single   14   0.176    1/14    3/14    4/14          0
+famous-multi    10   0.273    2/10    3/10    4/10          0
+obscure          8   0.844     6/8     7/8     8/8          0
+question         8   0.119     0/8     1/8     3/8          4
+abbreviation     4   0.040     0/4     0/4     0/4          0
+
+ id  category         rank  mode  matches  query -> terms                         expected (top-1 if different)
+  1  diagnostic        458  AND     2,261  "world war 2" -> [world, war, 2]       World War II   (top-1: Ecuadorian–Peruvian War)
+  2  diagnostic       2092  AND     4,951  "world war ii" -> [world, war, ii]     World War II   (top-1: World war)
+  3  diagnostic         13  AND    38,624  "the who" -> [who]                     The Who   (top-1: Lilian Jackson Braun)
+  4  diagnostic         57  AND     1,490  "the history of india" -> [histori, india] History of India   (top-1: India at the Olympics)
+  5  diagnostic          4  AND       163  "photosynthesis" -> [photosynthesi]    Photosynthesis   (top-1: Plant community)
+  6  diagnostic          3  AND        77  "python programming" -> [python, program] Python (programming language)   (top-1: Python Software Foundation)
+  7  famous-single      20  AND       353  "einstein" -> [einstein]               Albert Einstein   (top-1: Arik Einstein)
+  8  famous-single      13  AND       725  "volcano" -> [volcano]                 Volcano   (top-1: Alaska Peninsula)
+  9  famous-single       2  AND       606  "shakespeare" -> [shakespear]          William Shakespeare   (top-1: John Shakespeare)
+ 10  famous-single      11  AND       886  "dinosaur" -> [dinosaur]               Dinosaur   (top-1: Dinosaur Ridge)
+ 11  famous-single       7  AND       351  "mozart" -> [mozart]                   Wolfgang Amadeus Mozart   (top-1: Johann Georg Mozart)
+ 12  famous-single      18  AND     1,869  "tokyo" -> [tokyo]                     Tokyo   (top-1: Tokyo Station)
+ 13  famous-single      14  AND       577  "gravity" -> [graviti]                 Gravity   (top-1: Simulated gravity)
+ 14  famous-single     174  AND       755  "chess" -> [chess]                     Chess   (top-1: Chess club)
+ 15  famous-single      16  AND     3,825  "electricity" -> [electr]              Electricity   (top-1: List of BYD Auto vehicles)
+ 16  famous-single       3  AND     1,246  "tiger" -> [tiger]                     Tiger   (top-1: Tiger (car))
+ 17  famous-single     246  AND     6,987  "olympics" -> [olymp]                  Olympic Games   (top-1: Olympic sports)
+ 18  famous-single       1  AND        45  "bitcoin" -> [bitcoin]                 Bitcoin
+ 19  famous-single      20  AND       825  "napoleon" -> [napoleon]               Napoleon   (top-1: Napoleon Dynamite)
+ 20  famous-single      37  AND     1,528  "evolution" -> [evolut]                Evolution   (top-1: Theistic evolution)
+ 21  famous-multi       41  AND       642  "solar system" -> [solar, system]      Solar System   (top-1: Small solar system body)
+ 22  famous-multi      189  AND       858  "french revolution" -> [french, revolut] French Revolution   (top-1: French Revolution of 1848)
+ 23  famous-multi       11  AND     8,684  "united nations" -> [unit, nation]     United Nations   (top-1: United Nations Development Programme)
+ 24  famous-multi        1  AND       141  "great wall of china" -> [great, wall, china] Great Wall of China
+ 25  famous-multi        1  AND       282  "theory of relativity" -> [theori, rel] Theory of relativity
+ 26  famous-multi        6  AND       386  "black hole" -> [black, hole]          Black hole   (top-1: Binary black hole)
+ 27  famous-multi       25  AND       287  "martin luther king" -> [martin, luther, king] Martin Luther King Jr.   (top-1: Martin Luther King, Sr.)
+ 28  famous-multi       23  AND       711  "human heart" -> [human, heart]        Heart   (top-1: Christiaan Barnard)
+ 29  famous-multi       35  AND     1,161  "climate change" -> [climat, chang]    Climate change   (top-1: Glossary of climate change)
+ 30  famous-multi        3  AND       103  "statue of liberty" -> [statu, liberti] Statue of Liberty   (top-1: Statue of Liberty National Monument)
+ 31  obscure             1  AND        16  "axolotl" -> [axolotl]                 Axolotl
+ 32  obscure             1  AND         8  "tardigrade" -> [tardigrad]            Tardigrade
+ 33  obscure             4  AND        44  "bauhaus" -> [bauhau]                  Bauhaus   (top-1: Tel Aviv Bauhaus Center)
+ 34  obscure             2  AND        39  "haiku" -> [haiku]                     Haiku   (top-1: Haiku (operating system))
+ 35  obscure             1  AND        13  "ada lovelace" -> [ada, lovelac]       Ada Lovelace
+ 36  obscure             1  AND        17  "mount kilimanjaro" -> [mount, kilimanjaro] Mount Kilimanjaro
+ 37  obscure             1  AND        27  "rosetta stone" -> [rosetta, stone]    Rosetta Stone
+ 38  obscure             1  AND        24  "fibonacci numbers" -> [fibonacci, number] Fibonacci number
+ 39  question           16  AND       160  "how do plants make food" -> [how, do, plant, make, food] Photosynthesis   (top-1: Physiology)
+ 40  question            -  AND        17  "who discovered penicillin" -> [who, discov, penicillin] Alexander Fleming   (top-1: Penicillin)
+ 41  question            7  AND        53  "what is the largest planet" -> [what, largest, planet] Jupiter   (top-1: Small solar system body)
+ 42  question            2  AND        32  "who invented the telephone" -> [who, invent, telephon] Alexander Graham Bell   (top-1: Granville Woods)
+ 43  question            -  AND        92  "what causes earthquakes" -> [what, caus, earthquak] Earthquake   (top-1: Earthquake engineering)
+ 44  question            -  AND       238  "who was the first person on the moon" -> [who, first, person, moon] Neil Armstrong   (top-1: Moon Knight)
+ 45  question            4  AND        11  "when did the titanic sink" -> [when, did, titan, sink] Titanic   (top-1: Millvina Dean)
+ 46  question            -  AND        86  "what is the capital of australia" -> [what, capit, australia] Canberra   (top-1: Australian National Botanic Gardens)
+ 47  abbreviation     2158  AND     2,372  "usa" -> [usa]                         United States   (top-1: Boing)
+ 48  abbreviation       20  AND       847  "dna" -> [dna]                         DNA   (top-1: DNA replication)
+ 49  abbreviation       21  AND       851  "nasa" -> [nasa]                       NASA   (top-1: Lists of astronauts)
+ 50  abbreviation       16  AND        16  "ww1" -> [ww1]                         World War I   (top-1: Siege of Tsingtao)

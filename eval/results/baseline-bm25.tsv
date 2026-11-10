@@ -1,0 +1,51 @@
+id	category	query	expected	rank	mode	matches	top1
+1	diagnostic	world war 2	World War II	458	AND	2261	Ecuadorian–Peruvian War
+2	diagnostic	world war ii	World War II	2092	AND	4951	World war
+3	diagnostic	the who	The Who	13	AND	38624	Lilian Jackson Braun
+4	diagnostic	the history of india	History of India	57	AND	1490	India at the Olympics
+5	diagnostic	photosynthesis	Photosynthesis	4	AND	163	Plant community
+6	diagnostic	python programming	Python (programming language)	3	AND	77	Python Software Foundation
+7	famous-single	einstein	Albert Einstein	20	AND	353	Arik Einstein
+8	famous-single	volcano	Volcano	13	AND	725	Alaska Peninsula
+9	famous-single	shakespeare	William Shakespeare	2	AND	606	John Shakespeare
+10	famous-single	dinosaur	Dinosaur	11	AND	886	Dinosaur Ridge
+11	famous-single	mozart	Wolfgang Amadeus Mozart	7	AND	351	Johann Georg Mozart
+12	famous-single	tokyo	Tokyo	18	AND	1869	Tokyo Station
+13	famous-single	gravity	Gravity	14	AND	577	Simulated gravity
+14	famous-single	chess	Chess	174	AND	755	Chess club
+15	famous-single	electricity	Electricity	16	AND	3825	List of BYD Auto vehicles
+16	famous-single	tiger	Tiger	3	AND	1246	Tiger (car)
+17	famous-single	olympics	Olympic Games	246	AND	6987	Olympic sports
+18	famous-single	bitcoin	Bitcoin	1	AND	45	Bitcoin
+19	famous-single	napoleon	Napoleon	20	AND	825	Napoleon Dynamite
+20	famous-single	evolution	Evolution	37	AND	1528	Theistic evolution
+21	famous-multi	solar system	Solar System	41	AND	642	Small solar system body
+22	famous-multi	french revolution	French Revolution	189	AND	858	French Revolution of 1848
+23	famous-multi	united nations	United Nations	11	AND	8684	United Nations Development Programme
+24	famous-multi	great wall of china	Great Wall of China	1	AND	141	Great Wall of China
+25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	Theory of relativity
+26	famous-multi	black hole	Black hole	6	AND	386	Binary black hole
+27	famous-multi	martin luther king	Martin Luther King Jr.	25	AND	287	Martin Luther King, Sr.
+28	famous-multi	human heart	Heart	23	AND	711	Christiaan Barnard
+29	famous-multi	climate change	Climate change	35	AND	1161	Glossary of climate change
+30	famous-multi	statue of liberty	Statue of Liberty	3	AND	103	Statue of Liberty National Monument
+31	obscure	axolotl	Axolotl	1	AND	16	Axolotl
+32	obscure	tardigrade	Tardigrade	1	AND	8	Tardigrade
+33	obscure	bauhaus	Bauhaus	4	AND	44	Tel Aviv Bauhaus Center
+34	obscure	haiku	Haiku	2	AND	39	Haiku (operating system)
+35	obscure	ada lovelace	Ada Lovelace	1	AND	13	Ada Lovelace
+36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	Mount Kilimanjaro
+37	obscure	rosetta stone	Rosetta Stone	1	AND	27	Rosetta Stone
+38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	Fibonacci number
+39	question	how do plants make food	Photosynthesis	16	AND	160	Physiology
+40	question	who discovered penicillin	Alexander Fleming	0	AND	17	Penicillin
+41	question	what is the largest planet	Jupiter	7	AND	53	Small solar system body
+42	question	who invented the telephone	Alexander Graham Bell	2	AND	32	Granville Woods
+43	question	what causes earthquakes	Earthquake	0	AND	92	Earthquake engineering
+44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	Moon Knight
+45	question	when did the titanic sink	Titanic	4	AND	11	Millvina Dean
+46	question	what is the capital of australia	Canberra	0	AND	86	Australian National Botanic Gardens
+47	abbreviation	usa	United States	2158	AND	2372	Boing
+48	abbreviation	dna	DNA	20	AND	847	DNA replication
+49	abbreviation	nasa	NASA	21	AND	851	Lists of astronauts
+50	abbreviation	ww1	World War I	16	AND	16	Siege of Tsingtao

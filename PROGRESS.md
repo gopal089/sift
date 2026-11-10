@@ -79,6 +79,27 @@ Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-
 **"Done when" verdict:** speed ✅, tests ✅. "photosynthesis" ✅ and "python programming" ✅ are sensible.
 **"world war 2" is weak**: results are war-related, but the main article is #458.
 
+## Phase 1 ranking fixes (in progress, approved 2026-11-11)
+
+- **Eval set frozen** before any tuning: `eval/queries.json`, 50 queries (6 diagnostic, 14 famous one-word,
+  10 famous multi-word, 8 obscure, 8 questions, 4 abbreviations), sha256 `624683da…`, commit `9f94271`.
+- **Eval tool:** `scripts/sift-eval <label>` (Java 21) → `eval/results/<label>.txt` and `.tsv`:
+  rank of the expected article in the full ranking, MRR and hit@1/3/10, overall and per category.
+- **Baseline** (BM25 k1 = 1.2, b = 0.75, title inside the body; commit `a345ea1`), `eval/results/baseline-bm25.txt`:
+
+  | Group | n | MRR | hit@1 | hit@10 | not found |
+  | --- | --- | --- | --- | --- | --- |
+  | **All** | 50 | **0.275** | 9/50 | 21/50 | 4 |
+  | diagnostic | 6 | 0.113 | 0/6 | 2/6 | 0 |
+  | famous one-word | 14 | 0.176 | 1/14 | 4/14 | 0 |
+  | famous multi-word | 10 | 0.273 | 2/10 | 4/10 | 0 |
+  | obscure | 8 | 0.844 | 6/8 | 8/8 | 0 |
+  | questions | 8 | 0.119 | 0/8 | 3/8 | 4 |
+  | abbreviations | 4 | 0.040 | 0/4 | 0/4 | 0 |
+
+- **Next:** title field with real BM25F (step C), grid w ∈ {1, 2, 3, 5} × body b ∈ {0.5, 0.75} (step D),
+  redirect titles as a separate setting at the winning point, then the stop-word data (step E).
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
