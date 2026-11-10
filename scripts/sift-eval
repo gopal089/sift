@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Measures ranking quality on Java 21: runs eval/queries.json against data/articles.jsonl and writes
+# eval/results/<label>.txt and eval/results/<label>.tsv.
+# Usage (from anywhere):  scripts/sift-eval <label>      e.g.  scripts/sift-eval baseline-bm25
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+LABEL="${1:?usage: scripts/sift-eval <label>}"
+
+"$ROOT/gradlew" -p "$ROOT" -q :engine:installDist
+JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
+
+# The commit the numbers belong to; "-dirty" if tracked files have uncommitted changes.
+COMMIT="$(git -C "$ROOT" rev-parse --short HEAD)"
+git -C "$ROOT" diff --quiet HEAD || COMMIT="$COMMIT-dirty"
+MACHINE="$(sysctl -n machdep.cpu.brand_string 2>/dev/null || uname -m), $(getconf _NPROCESSORS_ONLN) cores"
+
+cd "$ROOT"
+exec "$JAVA_HOME/bin/java" -Xmx4g -cp "engine/build/install/sift-cli/lib/*" dev.sift.engine.eval.EvalCli \
+    data/articles.jsonl eval/queries.json --label "$LABEL" --commit "$COMMIT" --machine "$MACHINE"

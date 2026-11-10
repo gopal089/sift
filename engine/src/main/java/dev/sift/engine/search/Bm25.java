@@ -44,6 +44,11 @@ public final class Bm25 {
         return Math.log((documentCount - n + 0.5) / (n + 0.5) + 1.0);
     }
 
+    @Override
+    public String toString() {
+        return "BM25 k1=" + k1 + " b=" + b;
+    }
+
     /** BM25 contribution of one term to one document. */
     public double termScore(double idf, int tf, int documentLength) {
         double lengthNorm = k1 * (1.0 - b + b * documentLength / averageLength);

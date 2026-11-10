@@ -29,6 +29,11 @@ public final class Searcher {
         this.bm25 = new Bm25(docs.size(), docs.averageLength());
     }
 
+    /** One line describing the ranking settings, written into every eval results file. */
+    public String description() {
+        return bm25 + ", title indexed as the first words of the body";
+    }
+
     public SearchResult search(String query, int k) {
         List<String> terms = Tokenizer.queryTerms(query);
         if (terms.isEmpty()) {
