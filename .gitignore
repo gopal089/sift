@@ -1,5 +1,5 @@
 # Downloaded and generated data (dump, articles.jsonl, index files, vectors) — never commit
-data/
+/data/
 
 # Gradle / Java build output
 .gradle/
