@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 # Measures ranking quality on Java 21: runs eval/queries.json against data/articles.jsonl and writes
 # eval/results/<label>.txt and eval/results/<label>.tsv.
-# Usage (from anywhere):  scripts/sift-eval <label>      e.g.  scripts/sift-eval baseline-bm25
+# Usage (from anywhere):  scripts/sift-eval <label> [--config NAME=SPEC ...]
+#   e.g.  scripts/sift-eval baseline-bm25
+#         scripts/sift-eval grid --config base=bm25 --config w2=bm25f:w=2,bb=0.75 --config w2r=bm25f:w=2,aliases=new
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-LABEL="${1:?usage: scripts/sift-eval <label>}"
+LABEL="${1:?usage: scripts/sift-eval <label> [--config NAME=SPEC ...]}"
+shift
 
 "$ROOT/gradlew" -p "$ROOT" -q :engine:installDist
 JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
@@ -16,4 +19,5 @@ MACHINE="$(sysctl -n machdep.cpu.brand_string 2>/dev/null || uname -m), $(getcon
 
 cd "$ROOT"
 exec "$JAVA_HOME/bin/java" -Xmx4g -cp "engine/build/install/sift-cli/lib/*" dev.sift.engine.eval.EvalCli \
-    data/articles.jsonl eval/queries.json --label "$LABEL" --commit "$COMMIT" --machine "$MACHINE"
+    data/articles.jsonl eval/queries.json --label "$LABEL" --commit "$COMMIT" --machine "$MACHINE" \
+    --redirects data/redirects.jsonl "$@"
