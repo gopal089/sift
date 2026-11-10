@@ -154,9 +154,10 @@ the dictionary and titles.
 ## How to run it yourself
 
 ```bash
-./gradlew :engine:test                       # 93 tests
-./gradlew :engine:installDist                # builds engine/build/install/sift-cli
-export JAVA_HOME=$(/usr/libexec/java_home -v 21 2>/dev/null || echo ~/.gradle/jdks/eclipse_adoptium-21-aarch64-os_x.2/jdk-21.0.12.1+1/Contents/Home)
-engine/build/install/sift-cli/bin/sift-cli data/articles-sample.jsonl          # interactive, fast
-engine/build/install/sift-cli/bin/sift-cli data/articles.jsonl --query "photosynthesis" --repeat 20
+./gradlew :engine:test                                                   # all JUnit tests
+scripts/sift-cli data/articles-sample.jsonl                              # interactive, fast (2,000 articles)
+scripts/sift-cli data/articles.jsonl --query "photosynthesis" --repeat 20
 ```
+`scripts/sift-cli` builds the CLI, asks Gradle for its Java 21 (`./gradlew -q :engine:printJavaHome`)
+and runs the CLI with it, so official numbers always come from Java 21 even though `java` on PATH is 25.
+If you run `engine/build/install/sift-cli/bin/sift-cli` directly on another Java, it prints a warning.

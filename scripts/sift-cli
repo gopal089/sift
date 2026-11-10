@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Runs the Sift terminal search on Java 21, the version all official numbers come from.
+# Usage (from the repo root):  scripts/sift-cli data/articles.jsonl --query "photosynthesis" --repeat 20
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+"$ROOT/gradlew" -p "$ROOT" -q :engine:installDist
+JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
+export JAVA_HOME
+exec "$ROOT/engine/build/install/sift-cli/bin/sift-cli" "$@"

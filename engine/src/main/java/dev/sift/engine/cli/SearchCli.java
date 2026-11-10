@@ -77,6 +77,10 @@ public final class SearchCli {
         long heapBefore = usedHeapAfterGc();
         System.out.printf(Locale.US, "Java %s, max heap %,.0f MB%n",
                 Runtime.version(), Runtime.getRuntime().maxMemory() / MB);
+        if (Runtime.version().feature() != 21) {
+            // Official numbers must come from Java 21; other versions can be faster or slower.
+            System.out.println("WARNING: not Java 21. Use scripts/sift-cli to run on Java 21.");
+        }
         System.out.println("Indexing " + path + " ...");
 
         long t0 = System.nanoTime();

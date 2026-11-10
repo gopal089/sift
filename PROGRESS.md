@@ -100,8 +100,7 @@ Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-
   "2 ↔ ii" number rule. Tuning b belongs to Phase 6, using the frozen eval queries.
 - **"the who" searches only [who]**, because "who" is not in the 33-word stop list. *The Who* ranks #13.
   A title field should help here too.
-- **Run the CLI on Java 21:** the launcher uses `JAVA_HOME`/PATH (Java 25 on this machine). For measured
-  runs, set `JAVA_HOME` to the Gradle-provisioned JDK 21 (see `docs/learning/phase-1.md`).
+- ~~Run the CLI on Java 21~~ **Fixed 2026-11-11:** `scripts/sift-cli` runs the CLI on Gradle's Java 21; the CLI warns on any other version.
 - **3,496 of 280,748 articles (1.25%) keep a little markup** (any of `[[ ]] {{ }} | < '' ==`), mostly
   from broken source wikitext or articles that show markup as examples. This is acceptable: the
   tokenizer splits on non-letters anyway. It is an upper bound, because a `|` can be legitimate text.
