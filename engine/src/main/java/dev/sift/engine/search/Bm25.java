@@ -41,6 +41,11 @@ public final class Bm25 {
 
     /** Inverse document frequency of a term found in {@code n} documents. */
     public double idf(int n) {
+        return idf(documentCount, n);
+    }
+
+    /** Inverse document frequency of a term found in {@code n} of {@code documentCount} documents. */
+    public static double idf(int documentCount, int n) {
         return Math.log((documentCount - n + 0.5) / (n + 0.5) + 1.0);
     }
 

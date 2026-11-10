@@ -4,16 +4,41 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * term → posting list, plus the document table. Built by {@link IndexBuilder}; read-only afterwards.
+ * term → posting list, term → title-field posting list, plus the document table. Built by {@link IndexBuilder}; read-only afterwards.
  */
 public final class InvertedIndex {
 
     private final Map<String, PostingList> postings;
+    private final Map<String, FieldPostingList> titlePostings;
     private final DocTable docs;
 
-    InvertedIndex(Map<String, PostingList> postings, DocTable docs) {
+    InvertedIndex(Map<String, PostingList> postings, Map<String, FieldPostingList> titlePostings, DocTable docs) {
         this.postings = postings;
+        this.titlePostings = titlePostings;
         this.docs = docs;
+    }
+
+    /** The term's postings in the title field (title + aliases), or {@code null} if it is in no title field. */
+    public FieldPostingList titlePostings(String term) {
+        return titlePostings.get(term);
+    }
+
+    /** Bytes of title-field posting data (doc ids + freqs, 4 bytes each). */
+    public long titlePostingDataBytes() {
+        long total = 0;
+        for (FieldPostingList list : titlePostings.values()) {
+            total += list.dataBytes();
+        }
+        return total;
+    }
+
+    /** Total number of (term, document) postings in the title field. */
+    public long titlePostingCount() {
+        long total = 0;
+        for (FieldPostingList list : titlePostings.values()) {
+            total += list.size();
+        }
+        return total;
     }
 
     /** The posting list of a term, or {@code null} if no document contains it. */
