@@ -50,7 +50,7 @@ Raw stats: `data/parse-stats.json`, log: `data/parse-log.txt` (both git-ignored,
 **Stop words** (33-word Lucene list) are **kept in the index**. At query time they are dropped only if a
 non-stop word remains.
 
-**Tests:** 94 JUnit tests pass. They include all 23,531 words of Porter's official reference list, and
+**Tests:** 93 JUnit tests pass. They include all 23,531 words of Porter's official reference list, and
 "to be or not to be", "the who" and "the history of india".
 
 **Final check** (full `data/articles.jsonl`, Java 21.0.12.1, -Xmx4g, Apple M5). Raw output:

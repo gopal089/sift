@@ -30,7 +30,7 @@ test query answers in **under 3 ms**.
 | `engine/.../search/TopKHeap.java`, `ScoredDoc.java` | Size-K min-heap that keeps the best K results. |
 | `engine/.../search/Searcher.java`, `SearchResult.java` | AND search, OR fallback, BM25 scoring, top-K. |
 | `engine/.../cli/SearchCli.java` | The terminal program; prints build stats, memory and timings. |
-| `engine/src/test/...` | 94 JUnit tests, including Porter's official 23,531-word list. |
+| `engine/src/test/...` | 93 JUnit tests, including Porter's official 23,531-word list. |
 | `eval/results/phase1-check.txt` | Raw output of the final check (full data). |
 | `eval/results/phase1-diagnosis-ranks.txt` | Where the "right" article ranks for each query. |
 
@@ -154,7 +154,7 @@ the dictionary and titles.
 ## How to run it yourself
 
 ```bash
-./gradlew :engine:test                       # 94 tests
+./gradlew :engine:test                       # 93 tests
 ./gradlew :engine:installDist                # builds engine/build/install/sift-cli
 export JAVA_HOME=$(/usr/libexec/java_home -v 21 2>/dev/null || echo ~/.gradle/jdks/eclipse_adoptium-21-aarch64-os_x.2/jdk-21.0.12.1+1/Contents/Home)
 engine/build/install/sift-cli/bin/sift-cli data/articles-sample.jsonl          # interactive, fast
