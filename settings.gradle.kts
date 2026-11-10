@@ -5,5 +5,5 @@ plugins {
 
 rootProject.name = "sift"
 
-include("engine") // search algorithms: tokenizer, index, BM25, PageRank, trie, HNSW, ...
+include("engine") // search algorithms: tokenizer, index, BM25, PageRank, trie, HNSW
 include("api")    // HTTP server (Spring Boot from Phase 2) that calls the engine
