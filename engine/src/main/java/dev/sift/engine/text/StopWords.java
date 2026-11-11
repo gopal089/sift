@@ -19,11 +19,23 @@ public final class StopWords {
             "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then",
             "there", "these", "they", "this", "to", "was", "will", "with");
 
+    /**
+     * Words that turn a query into a question ("who invented the telephone"). The answer article rarely
+     * contains them, so requiring them (AND) would hide it. Dropped at query time only, like the list above.
+     */
+    public static final Set<String> QUESTION = Set.of(
+            "who", "what", "when", "where", "why", "how", "did", "does", "is");
+
     private StopWords() {
     }
 
-    /** True if the (lowercase, unstemmed) word is a stop word. */
+    /** True if the (lowercase, unstemmed) word is in the basic 33-word list. */
     public static boolean isStopWord(String word) {
         return ENGLISH.contains(word);
+    }
+
+    /** True if the word is in the basic list or, when {@code withQuestionWords}, in the question list. */
+    public static boolean isStopWord(String word, boolean withQuestionWords) {
+        return ENGLISH.contains(word) || (withQuestionWords && QUESTION.contains(word));
     }
 }

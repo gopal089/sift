@@ -2,7 +2,9 @@ package dev.sift.engine.eval;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.sift.engine.search.Ranking;
 import dev.sift.engine.search.SearchResult.MatchMode;
@@ -13,16 +15,13 @@ import org.junit.jupiter.api.Test;
 class EvalCliTest {
 
     @Test
-    void parsesConfigWithAndWithoutAliases() {
+    void parsesConfigAndKnowsIfItNeedsAliases() {
         EvalCli.Config a = EvalCli.parseConfig("w2=bm25f:w=2,bb=0.5");
         assertEquals("w2", a.name());
         assertEquals(Ranking.parse("bm25f:w=2,bb=0.5"), a.ranking());
-        assertEquals(EvalCli.Aliases.NONE, a.aliases());
+        assertFalse(a.usesAliases());
 
-        EvalCli.Config b = EvalCli.parseConfig("w2r=bm25f:w=2,aliases=new,bb=0.5");
-        assertEquals(Ranking.parse("bm25f:w=2,bb=0.5"), b.ranking());
-        assertEquals(EvalCli.Aliases.NEW, b.aliases());
-
+        assertTrue(EvalCli.parseConfig("s2a=bm25sum:w=2,bb=0.3,wa=1").usesAliases());
         assertEquals(Ranking.BASELINE, EvalCli.parseConfig("base=bm25").ranking());
     }
 

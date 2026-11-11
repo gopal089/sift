@@ -23,7 +23,7 @@ public final class EvalReport {
 
         sb.append("Configs\n");
         for (EvalCli.Config c : configs) {
-            sb.append(String.format(Locale.US, "  %-12s %s%n", c.name(), c.describe()));
+            sb.append(String.format(Locale.US, "  %-12s %s%n", c.name(), c.ranking()));
         }
 
         // ---- MRR overall and per category

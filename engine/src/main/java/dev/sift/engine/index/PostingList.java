@@ -19,7 +19,7 @@ public final class PostingList {
     private final int[] freqs;
     private final int[] positions;
 
-    PostingList(int[] docIds, int[] freqs, int[] positions) {
+    public PostingList(int[] docIds, int[] freqs, int[] positions) {
         this.docIds = docIds;
         this.freqs = freqs;
         this.positions = positions;

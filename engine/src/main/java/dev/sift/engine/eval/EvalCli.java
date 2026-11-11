@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.sift.engine.data.ArticleReader;
 import dev.sift.engine.data.RedirectAliases;
 import dev.sift.engine.index.IndexBuilder;
-import dev.sift.engine.index.IndexBuilder.AliasWords;
 import dev.sift.engine.index.InvertedIndex;
 import dev.sift.engine.search.Ranking;
 import dev.sift.engine.search.Searcher;
@@ -18,7 +17,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Locale;
@@ -30,21 +29,18 @@ import java.util.Map;
  * <pre>
  *   scripts/sift-eval grid-bm25f --config base=bm25 --config w2=bm25f:w=2,bb=0.75 ...
  * </pre>
- * A config is {@code NAME=SPEC}; SPEC is a {@link Ranking#parse} spec plus an optional {@code aliases=none|all|new}
- * (redirect titles in the title field; needs {@code --redirects}). Each distinct alias setting builds its own index.
+ * A config is {@code NAME=SPEC} with a {@link Ranking#parse} spec. Configs with an alias weight ({@code wa} &gt; 0)
+ * use an index built with redirect aliases (needs {@code --redirects}); the others use an index without them.
  * Writes {@code <out-dir>/<label>.txt} (comparison) and {@code <label>.tsv} (one row per config and query).
  */
 public final class EvalCli {
 
     private static final double MB = 1024.0 * 1024.0;
 
-    /** Redirect titles in the title field: none, every word, or only new words once each. */
-    enum Aliases { NONE, ALL, NEW }
-
-    /** One ranking setting to evaluate. */
-    record Config(String name, Ranking ranking, Aliases aliases) {
-        String describe() {
-            return ranking + " | aliases: " + aliases.name().toLowerCase(Locale.ROOT);
+    /** One search setting to evaluate. It needs the alias index if its alias weight is above 0. */
+    record Config(String name, Ranking ranking) {
+        boolean usesAliases() {
+            return ranking.wAlias() > 0;
         }
     }
 
@@ -86,32 +82,32 @@ public final class EvalCli {
             throw new IllegalArgumentException("--label is required (letters, digits, . _ -)");
         }
         if (configs.isEmpty()) {
-            configs.add(new Config("base", Ranking.BASELINE, Aliases.NONE));
+            configs.add(new Config("base", Ranking.BASELINE));
         }
 
         byte[] queryBytes = Files.readAllBytes(queriesPath);
         List<EvalQuery> queries = Arrays.asList(new ObjectMapper().readValue(queryBytes, EvalQuery[].class));
 
         RedirectAliases aliasTable = null;
-        if (configs.stream().anyMatch(c -> c.aliases() != Aliases.NONE)) {
+        if (configs.stream().anyMatch(Config::usesAliases)) {
             if (redirects == null) {
-                throw new IllegalArgumentException("a config uses aliases, so --redirects is required");
+                throw new IllegalArgumentException("a config uses aliases (wa > 0), so --redirects is required");
             }
             aliasTable = RedirectAliases.load(redirects);
         }
 
-        // Build each needed index once; configs that share an alias setting share the index.
-        Map<Aliases, BuiltIndex> indexes = new EnumMap<>(Aliases.class);
+        // Build each needed index once: key false = without aliases, true = with aliases.
+        Map<Boolean, BuiltIndex> indexes = new LinkedHashMap<>();
         for (Config c : configs) {
-            if (!indexes.containsKey(c.aliases())) {
-                indexes.put(c.aliases(), build(articles, c.aliases(), aliasTable));
+            if (!indexes.containsKey(c.usesAliases())) {
+                indexes.put(c.usesAliases(), build(articles, c.usesAliases() ? aliasTable : null));
             }
         }
 
         List<List<Evaluator.Outcome>> outcomes = new ArrayList<>();
         List<double[]> medianMs = new ArrayList<>();
         for (Config c : configs) {
-            InvertedIndex index = indexes.get(c.aliases()).index();
+            InvertedIndex index = indexes.get(c.usesAliases()).index();
             Searcher searcher = new Searcher(index, c.ranking());
             outcomes.add(new Evaluator(index.docs()).run(searcher, queries));
             medianMs.add(timeQueries(searcher, queries, repeat));
@@ -129,14 +125,14 @@ public final class EvalCli {
                 queriesPath, queries.size(), sha256(queryBytes),
                 articles, aliasTable == null ? "" : " | redirects: " + redirects + " (" + aliasTable.size()
                         + " resolved)"));
-        for (Map.Entry<Aliases, BuiltIndex> e : indexes.entrySet()) {
+        for (Map.Entry<Boolean, BuiltIndex> e : indexes.entrySet()) {
             InvertedIndex idx = e.getValue().index();
             header.append(String.format(Locale.US,
-                    "# index (aliases %s): %,d docs, built in %.2f s, heap %.1f MB; avg title field %.2f tokens,"
-                            + " avg body %.1f tokens; title-field postings %,d (%.1f MB)%n",
-                    e.getKey().name().toLowerCase(Locale.ROOT), idx.docs().size(), e.getValue().buildSeconds(),
-                    e.getValue().heapMb(), idx.docs().averageTitleFieldLength(), idx.docs().averageBodyLength(),
-                    idx.titlePostingCount(), idx.titlePostingDataBytes() / MB));
+                    "# index (%s aliases): %,d docs, built in %.2f s, heap %.1f MB; avg title %.2f tokens,"
+                            + " avg body %.1f tokens; title postings %,d; alias postings %,d%n",
+                    e.getKey() ? "with" : "no", idx.docs().size(), e.getValue().buildSeconds(),
+                    e.getValue().heapMb(), idx.docs().averageTitleLength(), idx.docs().averageBodyLength(),
+                    idx.titlePostingCount(), idx.aliasPostingCount()));
         }
         header.append(String.format(Locale.US, "# speed: k = 10, per query the median of %d runs after 3 warm-up runs%n",
                 repeat));
@@ -149,35 +145,22 @@ public final class EvalCli {
         System.out.println("Wrote " + outDir.resolve(label + ".txt") + " and " + outDir.resolve(label + ".tsv"));
     }
 
-    /** {@code NAME=SPEC}, where SPEC may contain {@code aliases=none|all|new} among its parameters. */
+    /** {@code NAME=SPEC}, e.g. {@code "w2=bm25sum:w=2,bb=0.3,wa=1"}. */
     static Config parseConfig(String arg) {
         String[] nameSpec = arg.split("=", 2);
         if (nameSpec.length != 2 || !nameSpec[0].matches("[A-Za-z0-9._-]+")) {
             throw new IllegalArgumentException("--config needs NAME=SPEC, got \"" + arg + "\"");
         }
-        String spec = nameSpec[1];
-        Aliases aliases = Aliases.NONE;
-        String[] modelAndParams = spec.split(":", 2);
-        List<String> rankingParams = new ArrayList<>();
-        if (modelAndParams.length == 2) {
-            for (String kv : modelAndParams[1].split(",")) {
-                if (kv.strip().startsWith("aliases=")) {
-                    aliases = Aliases.valueOf(kv.strip().substring("aliases=".length()).toUpperCase(Locale.ROOT));
-                } else if (!kv.isBlank()) {
-                    rankingParams.add(kv);
-                }
-            }
-        }
-        Ranking ranking = Ranking.parse(modelAndParams[0] + ":" + String.join(",", rankingParams));
-        return new Config(nameSpec[0], ranking, aliases);
+        return new Config(nameSpec[0], Ranking.parse(nameSpec[1]));
     }
 
-    private static BuiltIndex build(Path articles, Aliases aliases, RedirectAliases aliasTable) throws IOException {
+    /** Builds the index; {@code aliasTable} null means "without aliases". */
+    private static BuiltIndex build(Path articles, RedirectAliases aliasTable) throws IOException {
         long heapBefore = usedHeapAfterGc();
         long t0 = System.nanoTime();
-        IndexBuilder builder = new IndexBuilder(aliases == Aliases.NEW ? AliasWords.NEW_ONLY : AliasWords.ALL);
+        IndexBuilder builder = new IndexBuilder();
         ArticleReader.forEach(articles, a -> builder.addDocument(a.id(), a.title(), a.text(),
-                aliases == Aliases.NONE ? List.of() : aliasTable.aliasesOf(a.title())));
+                aliasTable == null ? List.of() : aliasTable.aliasesOf(a.title())));
         InvertedIndex index = builder.build();
         double seconds = (System.nanoTime() - t0) / 1e9;
         double heapMb = (usedHeapAfterGc() - heapBefore) / MB;

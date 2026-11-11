@@ -53,13 +53,22 @@ public final class Tokenizer {
      * </ul>
      */
     public static List<String> queryTerms(String query) {
+        return queryTerms(query, false);
+    }
+
+    /**
+     * Query-time tokenization where question words (who, what, when, ...) can also count as stop words:
+     * "who invented the telephone" → [invent, telephon]. The "keep everything if only stop words" rule
+     * still applies, so "the who" → [the, who].
+     */
+    public static List<String> queryTerms(String query, boolean dropQuestionWords) {
         List<String> words = new ArrayList<>();
         forEachWord(query, words::add);
 
-        boolean hasContentWord = words.stream().anyMatch(w -> !StopWords.isStopWord(w));
+        boolean hasContentWord = words.stream().anyMatch(w -> !StopWords.isStopWord(w, dropQuestionWords));
         LinkedHashSet<String> terms = new LinkedHashSet<>();
         for (String word : words) {
-            if (hasContentWord && StopWords.isStopWord(word)) {
+            if (hasContentWord && StopWords.isStopWord(word, dropQuestionWords)) {
                 continue;
             }
             terms.add(stem(word));

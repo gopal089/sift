@@ -4,46 +4,42 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * term → posting list, term → title-field posting list, plus the document table. Built by {@link IndexBuilder}; read-only afterwards.
+ * The search index: term → main posting list, term → title postings, term → alias postings, plus the
+ * document table. Built by {@link IndexBuilder} (in memory) or read from disk; read-only afterwards.
  */
 public final class InvertedIndex {
 
     private final Map<String, PostingList> postings;
     private final Map<String, FieldPostingList> titlePostings;
+    private final Map<String, FieldPostingList> aliasPostings;
     private final DocTable docs;
 
-    InvertedIndex(Map<String, PostingList> postings, Map<String, FieldPostingList> titlePostings, DocTable docs) {
+    public InvertedIndex(Map<String, PostingList> postings, Map<String, FieldPostingList> titlePostings,
+                         Map<String, FieldPostingList> aliasPostings, DocTable docs) {
         this.postings = postings;
         this.titlePostings = titlePostings;
+        this.aliasPostings = aliasPostings;
         this.docs = docs;
     }
 
-    /** The term's postings in the title field (title + aliases), or {@code null} if it is in no title field. */
+    /** The posting list of a term (all fields), or {@code null} if no document contains it. */
+    public PostingList postings(String term) {
+        return postings.get(term);
+    }
+
+    /** The term's postings in titles, or {@code null} if it is in no title. */
     public FieldPostingList titlePostings(String term) {
         return titlePostings.get(term);
     }
 
-    /** Bytes of title-field posting data (doc ids + freqs, 4 bytes each). */
-    public long titlePostingDataBytes() {
-        long total = 0;
-        for (FieldPostingList list : titlePostings.values()) {
-            total += list.dataBytes();
-        }
-        return total;
+    /** The term's postings in alias fields (freq is always 1), or {@code null} if it is in none. */
+    public FieldPostingList aliasPostings(String term) {
+        return aliasPostings.get(term);
     }
 
-    /** Total number of (term, document) postings in the title field. */
-    public long titlePostingCount() {
-        long total = 0;
-        for (FieldPostingList list : titlePostings.values()) {
-            total += list.size();
-        }
-        return total;
-    }
-
-    /** The posting list of a term, or {@code null} if no document contains it. */
-    public PostingList postings(String term) {
-        return postings.get(term);
+    /** All terms. Used to write the index to disk and to build the autocomplete trie later. */
+    public Collection<String> terms() {
+        return postings.keySet();
     }
 
     /** n: how many documents contain the term (0 if none). */
@@ -79,7 +75,7 @@ public final class InvertedIndex {
         return total;
     }
 
-    /** Bytes of posting data (doc ids + freqs + positions, 4 bytes each) for all terms. */
+    /** Bytes of main posting data (doc ids + freqs + positions, 4 bytes each) for all terms. */
     public long postingDataBytes() {
         long total = 0;
         for (PostingList list : postings.values()) {
@@ -88,7 +84,7 @@ public final class InvertedIndex {
         return total;
     }
 
-    /** Bytes of posting data for the given terms only (used to measure what stop words cost). */
+    /** Bytes of main posting data for the given terms only (used to measure what stop words cost). */
     public long postingDataBytes(Collection<String> terms) {
         long total = 0;
         for (String term : terms) {
@@ -96,6 +92,30 @@ public final class InvertedIndex {
             if (list != null) {
                 total += list.dataBytes();
             }
+        }
+        return total;
+    }
+
+    public int titleTermCount() {
+        return titlePostings.size();
+    }
+
+    public int aliasTermCount() {
+        return aliasPostings.size();
+    }
+
+    public long titlePostingCount() {
+        return count(titlePostings);
+    }
+
+    public long aliasPostingCount() {
+        return count(aliasPostings);
+    }
+
+    private static long count(Map<String, FieldPostingList> field) {
+        long total = 0;
+        for (FieldPostingList list : field.values()) {
+            total += list.size();
         }
         return total;
     }

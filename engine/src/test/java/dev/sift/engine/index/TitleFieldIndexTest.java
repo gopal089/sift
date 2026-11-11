@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import dev.sift.engine.index.IndexBuilder.AliasWords;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -41,12 +40,12 @@ class TitleFieldIndexTest {
         DocTable docs = index.docs();
 
         assertEquals(1, docs.titleLength(0));
-        assertEquals(1, docs.titleFieldLength(0));
         assertEquals(5, docs.bodyLength(0));
+        assertEquals(0, docs.aliasLength(0));
         assertEquals(6, docs.length(0));
-        assertEquals(2, docs.titleFieldLength(1));
+        assertEquals(2, docs.titleLength(1));
         assertEquals(2, docs.bodyLength(1));
-        assertEquals(1.5, docs.averageTitleFieldLength(), 1e-9);
+        assertEquals(1.5, docs.averageTitleLength(), 1e-9);
         assertEquals(3.5, docs.averageBodyLength(), 1e-9);
         assertEquals(5.0, docs.averageLength(), 1e-9);
 
@@ -64,33 +63,35 @@ class TitleFieldIndexTest {
     }
 
     @Test
-    void allAliasWordsAreAddedAfterTheBodyAndCountInTheTitleField() {
-        IndexBuilder b = new IndexBuilder(AliasWords.ALL);
-        // title: unit(0) state(1) | body: countri(2) | aliases: usa(3) usa(4) unit(5) state(6) america(7)
-        b.addDocument(1, "United States", "Country", List.of("USA", "Usa", "United States of America"));
+    void aliasWordsGetTheirOwnFieldEachWordOnce() {
+        IndexBuilder b = new IndexBuilder();
+        // title: unit(0) state(1) | body: countri(2) | alias words, each once: usa(3) unit(4) state(5) of(6) america(7)
+        b.addDocument(1, "United States", "Country", List.of("USA", "U.S.A. usa", "United States of America"));
+        b.addDocument(2, "Canada", "Country north of the usa", List.of());
         InvertedIndex index = b.build();
         DocTable docs = index.docs();
 
-        // "of" is a stop word but stays in the index (as everywhere): aliases add usa, usa, unit, state, of, america
+        // "U.S.A." splits into u, s, a: three more alias words (positions 4, 5, 6), so 8 distinct alias words
         assertEquals(2, docs.titleLength(0));
-        assertEquals(8, docs.titleFieldLength(0));
         assertEquals(1, docs.bodyLength(0));
-        assertEquals(2, titleFreq(index, "usa", 0));
-        assertEquals(2, titleFreq(index, "unit", 0));
-        assertArrayEquals(new int[] {3, 4}, index.postings("usa").positions(0));
-    }
+        assertEquals(8, docs.aliasLength(0));
+        assertEquals(11, docs.length(0));
+        assertEquals(0, docs.aliasLength(1));
 
-    @Test
-    void newOnlyAddsEachNewAliasWordOnce() {
-        IndexBuilder b = new IndexBuilder(AliasWords.NEW_ONLY);
-        b.addDocument(1, "United States", "Country", List.of("USA", "Usa", "United States of America"));
-        InvertedIndex index = b.build();
-        DocTable docs = index.docs();
-
-        // new words only: usa, of, america (unit and state are already in the title; the 2nd "usa" is a repeat)
-        assertEquals(5, docs.titleFieldLength(0));
-        assertEquals(1, titleFreq(index, "usa", 0));
+        // "usa" appears in three aliases but counts once; it is not in the title
+        FieldPostingList usa = index.aliasPostings("usa");
+        assertEquals(1, usa.size());
+        assertEquals(0, usa.docId(0));
+        assertEquals(1, usa.freq(0));
+        assertEquals(0, titleFreq(index, "usa", 0));
+        // alias words are also in the main postings (so AND can match them), placed after the body
+        assertEquals(1, mainFreq(index, "usa", 0));
+        assertArrayEquals(new int[] {3}, index.postings("usa").positions(0));
+        // "unit" is in the title once and among the alias words once: main count 2
         assertEquals(1, titleFreq(index, "unit", 0));
-        assertEquals(1, titleFreq(index, "america", 0));
+        assertEquals(2, mainFreq(index, "unit", 0));
+        assertEquals(1, index.aliasPostings("unit").size());
+        // a body word is in no alias field
+        assertNull(index.aliasPostings("countri"));
     }
 }

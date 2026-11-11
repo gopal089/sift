@@ -21,6 +21,16 @@ class RedirectAliasesTest {
     }
 
     @Test
+    void caseVariantsOfTheTitleAreSkipped() {
+        RedirectAliases a = RedirectAliases.of(List.of(
+                new Redirect("Usa", "USA"),
+                new Redirect("united states", "United States"),
+                new Redirect("America", "United States")));
+        assertEquals(List.of(), a.aliasesOf("USA"));
+        assertEquals(List.of("America"), a.aliasesOf("United States"));
+    }
+
+    @Test
     void chainsAreFollowedToTheFinalTarget() {
         // A → B → C: both A and B are names for C
         RedirectAliases a = RedirectAliases.of(List.of(

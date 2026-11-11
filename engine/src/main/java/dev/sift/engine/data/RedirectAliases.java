@@ -13,7 +13,8 @@ import java.util.Map;
  * Turns {@code redirects.jsonl} ("USA" → "United States") into alternate titles per article:
  * {@code aliasesOf("United States") = ["USA", "U.S.", "United States of America", ...]}.
  *
- * <p>Redirect chains are followed (A → B → C gives C the aliases A and B), with a hop limit so a loop
+ * <p>Redirects that differ from the article title only by upper/lower case are skipped.
+ * Redirect chains are followed (A → B → C gives C the aliases A and B), with a hop limit so a loop
  * can never hang us. Whether the final target is a real article is decided later: only articles ask
  * for their aliases, so redirects ending at a skipped page are simply never used.
  */
@@ -49,7 +50,8 @@ public final class RedirectAliases {
         Map<String, List<String>> byTarget = new HashMap<>();
         for (Redirect r : redirects) {
             String target = finalTarget(r.to(), next);
-            if (target != null && !target.equals(r.from())) {
+            // "Usa" → "USA" adds nothing: the tokenizer lowercases, so a case variant has the title's own words
+            if (target != null && !target.equalsIgnoreCase(r.from())) {
                 byTarget.computeIfAbsent(target, t -> new ArrayList<>()).add(r.from());
             }
         }

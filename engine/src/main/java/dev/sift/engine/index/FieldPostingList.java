@@ -1,11 +1,11 @@
 package dev.sift.engine.index;
 
 /**
- * One term's postings inside a single field (here: the title field), without positions.
+ * One term's postings inside a single small field (the title, or the alias field), without positions.
  *
  * <pre>
  *   docIds = [ 4, 17, 230 ]   sorted ascending; always a subset of the term's main posting list
- *   freqs  = [ 1,  2,   1 ]   how many times the term is in that document's title field
+ *   freqs  = [ 1,  2,   1 ]   how many times the term is in that document's field (always 1 for aliases)
  * </pre>
  * Titles are short, so this list is tiny compared with the main one (about 1 entry per title word).
  */
@@ -14,7 +14,7 @@ public final class FieldPostingList {
     private final int[] docIds;
     private final int[] freqs;
 
-    FieldPostingList(int[] docIds, int[] freqs) {
+    public FieldPostingList(int[] docIds, int[] freqs) {
         this.docIds = docIds;
         this.freqs = freqs;
     }

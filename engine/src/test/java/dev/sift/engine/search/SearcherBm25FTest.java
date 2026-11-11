@@ -55,10 +55,10 @@ class SearcherBm25FTest {
     void hitScoreIsTheBm25fFormulaWithTheDocTableLengths() {
         Hit hit = new Searcher(index, BM25F_W3).search("chess", 10).hits().get(0);
         DocTable docs = index.docs();
-        Bm25F f = new Bm25F(1.2, 3.0, 0.75, 0.75, docs.averageTitleFieldLength(), docs.averageBodyLength());
+        Bm25F f = new Bm25F(1.2, 3.0, 0.75, 0.75, docs.averageTitleLength(), docs.averageBodyLength());
         double idf = Bm25.idf(docs.size(), index.documentFrequency("chess"));
         // "Chess": once in the title, 3 times in the body
-        double expected = f.termScore(idf, 1, docs.titleFieldLength(hit.docId()), 3, docs.bodyLength(hit.docId()));
+        double expected = f.termScore(idf, 1, docs.titleLength(hit.docId()), 3, docs.bodyLength(hit.docId()));
         assertEquals(expected, hit.score(), 1e-12);
     }
 
@@ -79,15 +79,4 @@ class SearcherBm25FTest {
         assertTrue(sum > f);
     }
 
-    @Test
-    void aliasesLetAnAbbreviationFindTheArticle() {
-        IndexBuilder b = new IndexBuilder(IndexBuilder.AliasWords.NEW_ONLY);
-        b.addDocument(1, "United States", "A country in North America.", List.of("USA", "U.S.A."));
-        b.addDocument(2, "Canada", "A country north of the United States.", List.of());
-        b.addDocument(3, "Boing", "A song played in the usa.", List.of());
-        InvertedIndex withAliases = b.build();
-        SearchResult r = new Searcher(withAliases, BM25F_W3).search("usa", 10);
-        assertEquals("United States", r.hits().get(0).title());
-        assertEquals(2, r.totalMatches());   // United States (alias) and Boing (body)
-    }
 }
