@@ -39,6 +39,21 @@ public final class VectorMath {
         return out;
     }
 
+    /** bge-style pooling: the first word piece's vector (the [CLS] position), scaled to length 1. */
+    public static float[] clsNormalise(float[][] tokenVectors) {
+        float[] first = tokenVectors[0];
+        double norm = 0;
+        for (float x : first) {
+            norm += (double) x * x;
+        }
+        norm = Math.max(Math.sqrt(norm), 1e-12);
+        float[] out = new float[first.length];
+        for (int i = 0; i < first.length; i++) {
+            out[i] = (float) (first[i] / norm);
+        }
+        return out;
+    }
+
     /** Σ a[i]·b[i]. For vectors of length 1 this is the cosine of the angle between them. */
     public static float dot(float[] a, float[] b) {
         float s0 = 0, s1 = 0, s2 = 0, s3 = 0;   // four running sums: lets the CPU work on several at once

@@ -6,6 +6,8 @@ The mix (fixed seed): article titles, sentences, numbers, accented text, heavy p
 hard cases (emoji, Chinese/Japanese/Korean, control characters, odd spaces, very long words, > 256 pieces).
 
 Usage:  data-prep/.venv/bin/python data-prep/make_wordpiece_fixture.py data/articles.jsonl
+        [--model BAAI/bge-small-en-v1.5 --cases cases-bge.jsonl]
+The same 1,000 strings are used for every model; only the expected ids (and the length limit) change.
 """
 
 import argparse
@@ -50,6 +52,8 @@ def sentences(text):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("articles")
+    ap.add_argument("--model", default=MODEL_NAME)
+    ap.add_argument("--cases", default="cases.jsonl")
     args = ap.parse_args()
     rng = random.Random(42)
 
@@ -81,14 +85,20 @@ def main():
                              for _ in range(rng.randint(2, 15))))
     cases = cases[:1000]
 
-    tok = SentenceTransformer(MODEL_NAME, device="cpu").tokenizer
+    st = SentenceTransformer(args.model, device="cpu")
+    tok = st.tokenizer
+    max_len = st.max_seq_length
     OUT.mkdir(parents=True, exist_ok=True)
-    with open(OUT / "cases.jsonl", "w", encoding="utf-8") as f:
+    with open(OUT / args.cases, "w", encoding="utf-8") as f:
         for text in cases:
-            ids = tok(text, truncation=True, max_length=256)["input_ids"]
-            f.write(json.dumps({"text": text, "ids": ids}, ensure_ascii=False) + "\n")
-    shutil.copy("data/model/vocab.txt", OUT / "vocab.txt")
-    print(f"wrote {len(cases)} cases to {OUT / 'cases.jsonl'}")
+            ids = tok(text, truncation=True, max_length=max_len)["input_ids"]
+            f.write(json.dumps({"text": text, "ids": ids, "max_length": max_len}, ensure_ascii=False) + "\n")
+    if args.model == MODEL_NAME:
+        shutil.copy("data/model/vocab.txt", OUT / "vocab.txt")
+    else:   # other models must share the vocabulary, or the Java test would need a second vocab file
+        vocab = [w for w, _ in sorted(tok.get_vocab().items(), key=lambda kv: kv[1])]
+        assert vocab == (OUT / "vocab.txt").read_text(encoding="utf-8").splitlines(), "vocabulary differs"
+    print(f"wrote {len(cases)} cases to {OUT / args.cases} (max_length {max_len})")
 
 
 if __name__ == "__main__":

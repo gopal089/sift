@@ -4,6 +4,8 @@ The queries: the 50 main eval queries + 150 random article titles and short phra
 No held-out queries. Output: data/vectors/check-queries.jsonl, one {"text", "vector"} per line.
 
 Usage:  data-prep/.venv/bin/python data-prep/embed_check_queries.py data/articles.jsonl eval/queries.json
+            [--model BAAI/bge-small-en-v1.5 --prefix "..." --out ...]
+The Python vector is for prefix + text (the prefix is what Java adds from model-config.json).
 """
 
 import argparse
@@ -21,6 +23,8 @@ def main():
     ap.add_argument("articles")
     ap.add_argument("queries")
     ap.add_argument("--out", default="data/vectors/check-queries.jsonl")
+    ap.add_argument("--model", default=MODEL_NAME)
+    ap.add_argument("--prefix", default="")
     args = ap.parse_args()
     rng = random.Random(7)
 
@@ -37,8 +41,8 @@ def main():
                     phrases.append(" ".join(words[start:start + rng.randint(2, 8)]))
     texts += rng.sample(titles, 75) + rng.sample(phrases, 75)
 
-    st = SentenceTransformer(MODEL_NAME, device="cpu")
-    vectors = st.encode(texts, normalize_embeddings=True, convert_to_numpy=True, batch_size=64)
+    st = SentenceTransformer(args.model, device="cpu")
+    vectors = st.encode([args.prefix + t for t in texts], normalize_embeddings=True, convert_to_numpy=True, batch_size=64)
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:
         for t, v in zip(texts, vectors):

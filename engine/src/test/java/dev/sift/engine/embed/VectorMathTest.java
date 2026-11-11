@@ -17,6 +17,12 @@ class VectorMathTest {
     }
 
     @Test
+    void clsPoolingTakesTheFirstVectorOnly() {
+        float[][] tokens = {{3, 4}, {100, 0}};
+        assertArrayEquals(new float[] {0.6f, 0.8f}, VectorMath.clsNormalise(tokens), 1e-6f);   // (3,4) / 5
+    }
+
+    @Test
     void dotAndCosine() {
         float[] a = {1, 2, 3, 4, 5};
         float[] b = {5, 4, 3, 2, 1};

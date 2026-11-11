@@ -1,0 +1,6 @@
+# Java vs Python query embeddings (BAAI/bge-small-en-v1.5, query prefix "Represent this sentence for searching relevant passages: ")
+# commit e3c9e6b-dirty | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+# 200 queries from data/model-bge/check-queries.jsonl; rule: every cosine >= 0.9999
+
+Cosine: min 1.0000000 ("in the"), median 1.0000000, failures 0 of 200 -> PASS
+Query embedding time (1000 runs, 1 ONNX thread): median 6.80 ms, p95 9.06 ms, max 13.98 ms

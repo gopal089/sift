@@ -6,6 +6,10 @@ own code, in Python here (embed_articles.py) and in Java (QueryEmbedder). This s
 ONNX + our pooling gives the same vector as sentence-transformers itself.
 
 Usage:  data-prep/.venv/bin/python data-prep/export_model.py [--out data/model]
+            [--model sentence-transformers/all-MiniLM-L6-v2] [--query-prefix "..."]
+
+Pooling (how token vectors become one sentence vector) is read from the model: MiniLM uses the mean of all
+word pieces, bge uses the first one ([CLS]). Both are then scaled to length 1.
 """
 
 import argparse
@@ -43,33 +47,39 @@ class TokenVectors(torch.nn.Module):
                          token_type_ids=token_type_ids).last_hidden_state
 
 
-def mean_pool_normalise(token_vectors, attention_mask):
-    """Average the vectors of the real word pieces (mask = 1), then scale the result to length 1."""
-    mask = attention_mask[..., None].astype(np.float32)
-    summed = (token_vectors * mask).sum(axis=1)
-    counts = np.clip(mask.sum(axis=1), 1e-9, None)
-    mean = summed / counts
-    return mean / np.clip(np.linalg.norm(mean, axis=1, keepdims=True), 1e-12, None)
+def pool_normalise(token_vectors, attention_mask, pooling):
+    """'mean': average the vectors of the real word pieces (mask = 1); 'cls': take the first ([CLS]) vector.
+    Then scale the result to length 1."""
+    if pooling == "cls":
+        pooled = token_vectors[:, 0, :]
+    else:
+        mask = attention_mask[..., None].astype(np.float32)
+        pooled = (token_vectors * mask).sum(axis=1) / np.clip(mask.sum(axis=1), 1e-9, None)
+    return pooled / np.clip(np.linalg.norm(pooled, axis=1, keepdims=True), 1e-12, None)
 
 
-def model_revision():
+def model_revision(model_name):
     """The exact model version (git commit on the Hugging Face hub) that the local cache holds."""
     from huggingface_hub import constants
-    ref = Path(constants.HF_HUB_CACHE) / ("models--" + MODEL_NAME.replace("/", "--")) / "refs" / "main"
+    ref = Path(constants.HF_HUB_CACHE) / ("models--" + model_name.replace("/", "--")) / "refs" / "main"
     return ref.read_text().strip() if ref.exists() else "unknown"
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="data/model")
+    ap.add_argument("--model", default=MODEL_NAME)
+    ap.add_argument("--query-prefix", default="", help="text put in front of every query (bge: an instruction)")
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
-    st = SentenceTransformer(MODEL_NAME, device="cpu")
+    st = SentenceTransformer(args.model, device="cpu")
     tok = st.tokenizer
     bert = st[0].auto_model.eval()
     max_len = st.max_seq_length
+    pooling = st[1].get_config_dict()["pooling_mode"]
+    assert pooling in ("mean", "cls"), f"unsupported pooling {pooling}"
 
     # --- vocabulary: one word piece per line, line number = id
     vocab = tok.get_vocab()
@@ -96,22 +106,23 @@ def main():
     session = ort.InferenceSession(str(onnx_path), providers=["CPUExecutionProvider"])
     enc = tok(CHECK_SENTENCES, padding=True, truncation=True, max_length=max_len, return_tensors="np")
     feeds = {k: enc[k].astype(np.int64) for k in ["input_ids", "attention_mask", "token_type_ids"]}
-    ours = mean_pool_normalise(session.run(None, feeds)[0], feeds["attention_mask"])
+    ours = pool_normalise(session.run(None, feeds)[0], feeds["attention_mask"], pooling)
     ref = st.encode(CHECK_SENTENCES, normalize_embeddings=True, convert_to_numpy=True)
     cos = (ours * ref).sum(axis=1)
     for s, c in zip(CHECK_SENTENCES, cos):
         print(f"  cosine {c:.7f}  {s!r}")
     assert cos.min() >= 0.9999, f"ONNX export does not match sentence-transformers (min cosine {cos.min()})"
 
-    revision = model_revision()
+    revision = model_revision(args.model)
     config = {
-        "model": MODEL_NAME,
+        "model": args.model,
         "revision": revision,
         "dimensions": int(ref.shape[1]),
         "max_length": max_len,
         "lowercase": True,
         "strip_accents": True,
-        "pooling": "mean over attention mask, then L2 normalise",
+        "pooling": pooling,
+        "query_prefix": args.query_prefix,
         "onnx_inputs": ["input_ids", "attention_mask", "token_type_ids"],
         "onnx_output": "token_vectors",
         "vocab_size": len(by_id),

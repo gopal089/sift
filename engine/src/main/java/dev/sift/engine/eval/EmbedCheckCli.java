@@ -47,7 +47,8 @@ public final class EmbedCheckCli {
 
         StringBuilder sb = new StringBuilder();
         try (QueryEmbedder embedder = QueryEmbedder.open(modelDir)) {
-            sb.append(String.format(Locale.US, "# Java vs Python query embeddings (%s)%n", embedder.model()));
+            sb.append(String.format(Locale.US, "# Java vs Python query embeddings (%s, query prefix \"%s\")%n",
+                    embedder.model(), embedder.queryPrefix()));
             sb.append(RunInfo.header());
             sb.append(String.format(Locale.US, "# %d queries from %s; rule: every cosine >= %.4f%n%n", texts.size(),
                     checkFile, MIN_COSINE));

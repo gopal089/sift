@@ -7,6 +7,8 @@ Output (in --out, default data/vectors):
                      time taken. Java checks count and title hash before using the file.
 
 Usage:  data-prep/.venv/bin/python data-prep/embed_articles.py data/articles.jsonl [--batch 128]
+            [--model sentence-transformers/all-MiniLM-L6-v2] [--words 200] [--out data/vectors]
+Documents never get an instruction prefix (bge's prefix is for queries only).
 """
 
 import argparse
@@ -25,7 +27,7 @@ WORDS = 200
 CHUNK = 8192   # articles per encode() call: lets us print progress and write as we go
 
 
-def doc_text(title, text, words=WORDS):
+def doc_text(title, text, words):
     """The text we embed: the title, then the first `words` whitespace-separated words of the article."""
     return title + ". " + " ".join(text.split()[:words])
 
@@ -42,13 +44,15 @@ def main():
     ap.add_argument("articles")
     ap.add_argument("--out", default="data/vectors")
     ap.add_argument("--batch", type=int, default=128)
+    ap.add_argument("--model", default=MODEL_NAME)
+    ap.add_argument("--words", type=int, default=WORDS)
     ap.add_argument("--limit", type=int, default=0, help="only the first N articles (for a quick test)")
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
-    st = SentenceTransformer(MODEL_NAME, device=device)
+    st = SentenceTransformer(args.model, device=device)
     dims = st.get_sentence_embedding_dimension()
     print(f"device={device} max_seq_length={st.max_seq_length} dims={dims}", flush=True)
 
@@ -73,7 +77,7 @@ def main():
             if count + len(chunk) > 0:
                 titles_hash.update(b"\n")
             titles_hash.update(title.encode("utf-8"))
-            chunk.append(doc_text(title, text))
+            chunk.append(doc_text(title, text, args.words))
             if len(chunk) == CHUNK:
                 flush()
             if args.limit and count + len(chunk) >= args.limit:
@@ -85,14 +89,15 @@ def main():
     tmp.replace(final)
 
     revision_ref = Path(__import__("huggingface_hub").constants.HF_HUB_CACHE) / (
-        "models--" + MODEL_NAME.replace("/", "--")) / "refs" / "main"
+        "models--" + args.model.replace("/", "--")) / "refs" / "main"
     meta = {
         "count": count,
         "dimensions": dims,
         "dtype": "float32 little-endian, L2-normalised",
-        "model": MODEL_NAME,
+        "model": args.model,
         "revision": revision_ref.read_text().strip() if revision_ref.exists() else "unknown",
-        "text": f"title + '. ' + first {WORDS} whitespace words; model cuts at {st.max_seq_length} word pieces",
+        "text": f"title + '. ' + first {args.words} whitespace words; model cuts at {st.max_seq_length} word pieces",
+        "words": args.words,
         "titles_sha256": titles_hash.hexdigest(),
         "device": device,
         "batch": args.batch,

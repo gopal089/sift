@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class WordPieceTokenizerTest {
 
@@ -82,9 +84,11 @@ class WordPieceTokenizerTest {
     /**
      * The real check: the model's own tokenizer (Python) gave these ids for 1,000 strings with accents,
      * punctuation, numbers, emoji, other scripts and control characters. Every single id must match.
+     * MiniLM cuts at 256 word pieces; bge-small (same vocabulary, same rules) cuts at 512.
      */
-    @Test
-    void matchesTheModelTokenizerExactlyOnOneThousandStrings() throws IOException, URISyntaxException {
+    @ParameterizedTest
+    @ValueSource(strings = {"cases.jsonl", "cases-bge.jsonl"})
+    void matchesTheModelTokenizerExactlyOnOneThousandStrings(String fixture) throws IOException, URISyntaxException {
         Path vocab = Path.of(Objects.requireNonNull(getClass().getResource("/wordpiece/vocab.txt")).toURI());
         WordPieceTokenizer real = WordPieceTokenizer.load(vocab);
         assertEquals(30522, real.vocabSize());
@@ -93,7 +97,7 @@ class WordPieceTokenizerTest {
         List<String> failures = new ArrayList<>();
         int cases = 0;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(getClass().getResourceAsStream("/wordpiece/cases.jsonl")), StandardCharsets.UTF_8))) {
+                Objects.requireNonNull(getClass().getResourceAsStream("/wordpiece/" + fixture)), StandardCharsets.UTF_8))) {
             for (String line; (line = in.readLine()) != null; ) {
                 JsonNode node = json.readTree(line);
                 String text = node.get("text").asText();
@@ -101,7 +105,7 @@ class WordPieceTokenizerTest {
                 for (int i = 0; i < expected.length; i++) {
                     expected[i] = node.get("ids").get(i).asInt();
                 }
-                int[] actual = real.encode(text, 256);
+                int[] actual = real.encode(text, node.get("max_length").asInt());
                 if (!Arrays.equals(expected, actual) && failures.size() < 10) {
                     failures.add(json.writeValueAsString(text) + "\n   expected " + pieces(real, expected)
                             + "\n   actual   " + pieces(real, actual));
@@ -110,7 +114,7 @@ class WordPieceTokenizerTest {
             }
         }
         assertEquals(1000, cases);
-        assertTrue(failures.isEmpty(), "mismatches:\n" + String.join("\n", failures));
+        assertTrue(failures.isEmpty(), fixture + " mismatches:\n" + String.join("\n", failures));
     }
 
     private static String pieces(WordPieceTokenizer t, int[] ids) {
