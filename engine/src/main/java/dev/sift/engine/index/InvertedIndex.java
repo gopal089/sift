@@ -7,7 +7,7 @@ import java.util.Map;
  * The search index: term → main posting list, term → title postings, term → alias postings, plus the
  * document table. Built by {@link IndexBuilder} (in memory) or read from disk; read-only afterwards.
  */
-public final class InvertedIndex {
+public final class InvertedIndex implements SearchIndex {
 
     private final Map<String, PostingList> postings;
     private final Map<String, FieldPostingList> titlePostings;
@@ -23,16 +23,19 @@ public final class InvertedIndex {
     }
 
     /** The posting list of a term (all fields), or {@code null} if no document contains it. */
+    @Override
     public PostingList postings(String term) {
         return postings.get(term);
     }
 
     /** The term's postings in titles, or {@code null} if it is in no title. */
+    @Override
     public FieldPostingList titlePostings(String term) {
         return titlePostings.get(term);
     }
 
     /** The term's postings in alias fields (freq is always 1), or {@code null} if it is in none. */
+    @Override
     public FieldPostingList aliasPostings(String term) {
         return aliasPostings.get(term);
     }
@@ -48,6 +51,7 @@ public final class InvertedIndex {
         return list == null ? 0 : list.size();
     }
 
+    @Override
     public DocTable docs() {
         return docs;
     }

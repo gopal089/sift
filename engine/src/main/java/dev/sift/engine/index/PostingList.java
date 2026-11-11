@@ -1,6 +1,7 @@
 package dev.sift.engine.index;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 
 /**
  * All occurrences of one term: which documents contain it, how often, and where.
@@ -12,17 +13,34 @@ import java.util.Arrays;
  *   positions = [ 0, 14, 5,   2, 7, 40 ]  word positions, grouped per doc in the same order
  * </pre>
  * The positions of posting {@code i} start at {@code freqs[0] + ... + freqs[i-1]}.
+ *
+ * <p>Ranking needs only doc ids and freqs. Positions are needed for snippets, so a list read from disk
+ * decodes them lazily: only when {@link #positions(int)} is first called.
  */
 public final class PostingList {
 
     private final int[] docIds;
     private final int[] freqs;
-    private final int[] positions;
+    private final Supplier<int[]> positionsLoader;
+    private int[] positions;   // null until first needed
 
     public PostingList(int[] docIds, int[] freqs, int[] positions) {
+        this(docIds, freqs, () -> positions);
+        this.positions = positions;
+    }
+
+    /** {@code positionsLoader} is called at most when positions are first asked for (e.g. decode from disk). */
+    public PostingList(int[] docIds, int[] freqs, Supplier<int[]> positionsLoader) {
         this.docIds = docIds;
         this.freqs = freqs;
-        this.positions = positions;
+        this.positionsLoader = positionsLoader;
+    }
+
+    private int[] allPositions() {
+        if (positions == null) {
+            positions = positionsLoader.get();
+        }
+        return positions;
     }
 
     /** Number of documents that contain the term (the "document frequency", n). */
@@ -49,16 +67,26 @@ public final class PostingList {
         for (int p = 0; p < i; p++) {
             start += freqs[p];
         }
-        return Arrays.copyOfRange(positions, start, start + freqs[i]);
+        return Arrays.copyOfRange(allPositions(), start, start + freqs[i]);
     }
 
+    /** Every position of every posting, grouped per document. For the index file writer; do not modify. */
+    public int[] allPositionsForWriting() {
+        return allPositions();
+    }
+
+    /** Number of stored positions = the sum of all freqs. */
     public int positionCount() {
-        return positions.length;
+        int total = 0;
+        for (int f : freqs) {
+            total += f;
+        }
+        return total;
     }
 
     /** Bytes used by the three arrays' contents (4 bytes per int), not counting object headers. */
     public long dataBytes() {
-        return 4L * (docIds.length + freqs.length + positions.length);
+        return 4L * (docIds.length + freqs.length + positionCount());
     }
 
     /** Collects postings for one term while documents are added in increasing doc id order. */

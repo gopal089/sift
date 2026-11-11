@@ -2,7 +2,7 @@ package dev.sift.engine.search;
 
 import dev.sift.engine.index.DocTable;
 import dev.sift.engine.index.FieldPostingList;
-import dev.sift.engine.index.InvertedIndex;
+import dev.sift.engine.index.SearchIndex;
 import dev.sift.engine.index.PostingList;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.SearchResult.MatchMode;
@@ -30,7 +30,7 @@ public final class Searcher {
      */
     static final double TIER = 1_000_000.0;
 
-    private final InvertedIndex index;
+    private final SearchIndex index;
     private final DocTable docs;
     private final Ranking ranking;
     private final Bm25 bm25;          // single field: everything together
@@ -38,11 +38,11 @@ public final class Searcher {
     private final Bm25 bodyBm25;      // the "sum" model: body ...
     private final Bm25 titleBm25;     // ... and title, each saturated separately
 
-    public Searcher(InvertedIndex index) {
+    public Searcher(SearchIndex index) {
         this(index, Ranking.DEFAULT);
     }
 
-    public Searcher(InvertedIndex index, Ranking ranking) {
+    public Searcher(SearchIndex index, Ranking ranking) {
         this.index = index;
         this.docs = index.docs();
         this.ranking = ranking;
