@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Measures spelling suggestions on eval/queries-typo.json against data/index, on Java 21.
+# Writes eval/results/<label>.txt.  Usage:  scripts/sift-spell-eval <label>
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+LABEL="${1:?usage: scripts/sift-spell-eval <label>}"
+"$ROOT/gradlew" -p "$ROOT" -q :engine:installDist
+JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
+COMMIT="$(git -C "$ROOT" rev-parse --short HEAD)"
+git -C "$ROOT" diff --quiet HEAD || COMMIT="$COMMIT-dirty"
+MACHINE="$(sysctl -n machdep.cpu.brand_string 2>/dev/null || uname -m), $(getconf _NPROCESSORS_ONLN) cores"
+cd "$ROOT"
+exec "$JAVA_HOME/bin/java" -Xmx1g -cp "engine/build/install/sift-cli/lib/*" dev.sift.engine.eval.SpellEvalCli \
+    data/index eval/queries-typo.json "eval/results/$LABEL.txt" "$COMMIT" "$MACHINE"

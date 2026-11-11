@@ -1,0 +1,41 @@
+config	id	category	query	expected	rank	mode	matches	terms	top1	median_ms
+a0	1	famous-single	darwin	Charles Darwin	4	AND	494	darwin	Darwinism	0.0205
+a0	2	famous-single	beethoven	Ludwig van Beethoven	2	AND	344	beethoven	Beethoven House	0.0153
+a0	3	famous-single	paris	Paris	1	AND	4761	pari	Paris	0.0994
+a0	4	famous-single	elephant	Elephant	1	AND	706	eleph	Elephant	0.0223
+a0	5	famous-single	oxygen	Oxygen	1	AND	1132	oxygen	Oxygen	0.0315
+a0	6	famous-single	computer	Computer	1	AND	4600	comput	Computer	0.0865
+a0	7	famous-multi	roman empire	Roman Empire	1	AND	1459	roman empir	Roman Empire	0.0891
+a0	8	famous-multi	industrial revolution	Industrial Revolution	1	AND	434	industri revolut	Industrial Revolution	0.0510
+a0	9	famous-multi	eiffel tower	Eiffel Tower	1	AND	59	eiffel tower	Eiffel Tower	0.0152
+a0	10	famous-multi	periodic table	Periodic table	1	AND	415	period tabl	Periodic table	0.0587
+a0	11	famous-multi	abraham lincoln	Abraham Lincoln	1	AND	356	abraham lincoln	Abraham Lincoln	0.0220
+a0	12	obscure	narwhal	Narwhal	1	AND	16	narwhal	Narwhal	0.0038
+a0	13	obscure	origami	Origami	1	AND	31	origami	Origami	0.0040
+a0	14	obscure	enigma machine	Enigma machine	1	AND	19	enigma machin	Enigma machine	0.0152
+a0	15	question	who painted the mona lisa	Leonardo da Vinci	6	AND	24	paint mona lisa	Mona Lisa	0.0211
+a0	16	question	what is the tallest mountain in the world	Mount Everest	0	AND	91	tallest mountain world	Mountain	0.1627
+a0	17	question	what is the capital of canada	Ottawa	41	AND	414	capit canada	National Capital Region (Canada)	0.0873
+a0	18	question	who was the first president of the united states	George Washington	693	AND	2940	first presid unit state	President of the United States	0.8579
+a0	19	abbreviation	uk	United Kingdom	222	AND	5292	uk	Reform UK	0.0743
+a0	20	abbreviation	html	HTML	1	AND	585	html	HTML	0.0098
+a0.5	1	famous-single	darwin	Charles Darwin	1	AND	494	darwin	Charles Darwin	0.0094
+a0.5	2	famous-single	beethoven	Ludwig van Beethoven	1	AND	344	beethoven	Ludwig van Beethoven	0.0069
+a0.5	3	famous-single	paris	Paris	1	AND	4761	pari	Paris	0.0645
+a0.5	4	famous-single	elephant	Elephant	1	AND	706	eleph	Elephant	0.0114
+a0.5	5	famous-single	oxygen	Oxygen	1	AND	1132	oxygen	Oxygen	0.0173
+a0.5	6	famous-single	computer	Computer	1	AND	4600	comput	Computer	0.0619
+a0.5	7	famous-multi	roman empire	Roman Empire	1	AND	1459	roman empir	Roman Empire	0.0664
+a0.5	8	famous-multi	industrial revolution	Industrial Revolution	1	AND	434	industri revolut	Industrial Revolution	0.0373
+a0.5	9	famous-multi	eiffel tower	Eiffel Tower	1	AND	59	eiffel tower	Eiffel Tower	0.0093
+a0.5	10	famous-multi	periodic table	Periodic table	1	AND	415	period tabl	Periodic table	0.0434
+a0.5	11	famous-multi	abraham lincoln	Abraham Lincoln	1	AND	356	abraham lincoln	Abraham Lincoln	0.0167
+a0.5	12	obscure	narwhal	Narwhal	1	AND	16	narwhal	Narwhal	0.0014
+a0.5	13	obscure	origami	Origami	1	AND	31	origami	Origami	0.0018
+a0.5	14	obscure	enigma machine	Enigma machine	1	AND	19	enigma machin	Enigma machine	0.0110
+a0.5	15	question	who painted the mona lisa	Leonardo da Vinci	5	AND	24	paint mona lisa	Mona Lisa	0.0155
+a0.5	16	question	what is the tallest mountain in the world	Mount Everest	0	AND	91	tallest mountain world	Mountain	0.1374
+a0.5	17	question	what is the capital of canada	Ottawa	27	AND	414	capit canada	Canada	0.0742
+a0.5	18	question	who was the first president of the united states	George Washington	311	AND	2940	first presid unit state	President of the United States	0.7621
+a0.5	19	abbreviation	uk	United Kingdom	54	AND	5292	uk	Reform UK	0.0388
+a0.5	20	abbreviation	html	HTML	1	AND	585	html	HTML	0.0051
