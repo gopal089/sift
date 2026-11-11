@@ -1,0 +1,50 @@
+# Sift eval: holdout-final
+# 2026-11-11 13:14 IST | commit d02afe9 | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries-holdout.json (20 queries, sha256 591c373c69a0da0e0b78a7ccd2e11db5ea7ea6ee0f6bfa6c117743cf68c38044)
+# articles: data/articles.jsonl
+# index (no aliases): 280,748 docs, built in 8.13 s, heap 560.9 MB; avg title 2.50 tokens, avg body 166.0 tokens; title postings 697,412; alias postings 0
+# speed: k = 10, per query the median of 20 runs after 3 warm-up runs
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  base         BM25 k1=1.2 b=0.75 (one field) | AND, else OR
+  final        BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | AND, else OR | question words dropped
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  base                 0.312         0.121         0.367         0.833         0.042         0.500     4/20   7/20  10/20     2   0/0/20
+  final                0.697         0.792         1.000         1.000         0.048         0.502    13/20  14/20  16/20     1   13/1/6
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL famous-single  famous-multi       obscure      question  abbreviation
+  base            4/20 10/20       0/6 1/6       1/5 4/5       2/3 3/3       0/4 1/4       1/2 1/2
+  final          13/20 16/20       4/6 6/6       5/5 5/5       3/3 3/3       0/4 1/4       1/2 1/2
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  base            0.052    0.717   "who was the first president of the united states"
+  final           0.020    0.568   "who was the first president of the united states"
+
+Rank of the expected article
+   id category       query                                      base    final   expected
+    1 famous-single  "darwin"                                     33        4   Charles Darwin
+    2 famous-single  "beethoven"                                  21        2   Ludwig van Beethoven
+    3 famous-single  "paris"                                      36        1   Paris
+    4 famous-single  "elephant"                                    2        1   Elephant
+    5 famous-single  "oxygen"                                     11        1   Oxygen
+    6 famous-single  "computer"                                   31        1   Computer
+    7 famous-multi   "roman empire"                                9        1   Roman Empire
+    8 famous-multi   "industrial revolution"                       5        1   Industrial Revolution
+    9 famous-multi   "eiffel tower"                                2        1   Eiffel Tower
+   10 famous-multi   "periodic table"                              1        1   Periodic table
+   11 famous-multi   "abraham lincoln"                            40        1   Abraham Lincoln
+   12 obscure        "narwhal"                                     1        1   Narwhal
+   13 obscure        "origami"                                     2        1   Origami
+   14 obscure        "enigma machine"                              1        1   Enigma machine
+   15 question       "who painted the mona lisa"                   6        6   Leonardo da Vinci
+   16 question       "what is the tallest mountain in the …        -        -   Mount Everest
+   17 question       "what is the capital of canada"               -       41   Ottawa
+   18 question       "who was the first president of the u…      370      693   George Washington
+   19 abbreviation   "uk"                                       1484      222   United Kingdom
+   20 abbreviation   "html"                                        1        1   HTML
