@@ -128,6 +128,64 @@ Example: keyword list = [Plant, Leaf, Photosynthesis], meaning list = [Photosynt
 Being good in both lists beats being first in one. The constant 60 flattens the curve: rank 1 vs rank 2
 differ little (0.0164 vs 0.0161), so one list cannot dominate.
 
+## Fixing semantic search (one pre-registered experiment)
+The first version failed two checks, so I ran **one** experiment whose variants and selection rule were
+written down and committed *before* any run (PROGRESS.md, commit e3c9e6b). Writing the rule first matters:
+if you look at the numbers and then pick the rule, you can always find a rule that makes your favourite win.
+
+### Idea 1: dilution, or why fewer words can be better
+Our article vector is the **average** (mean pooling) of the vectors of all its word pieces. An average of
+many different topics points "somewhere in the middle" and is not very close to any one of them.
+Real example from our data: the first 60 words of "Photosynthesis" say "green plants make their own food
+from sunlight", which is almost the query. Words 60–200 then drift to the origin of the elements in
+supernovae, Halley's Comet and Earth's early atmosphere. The 200-word vector averages all of that, so it moves
+away from "how do plants make food". The first sentence or two of a Wikipedia article usually says what the
+thing *is*, so a vector made from **title + ~60 words** is more focused. Variant B tests that.
+
+Tiny example with 2-d "topic" vectors: a query about food = (1, 0). Text about food = (1, 0) and text about
+light = (0, 1). An article made only of the food part scores cos = 1.0. The average of food and light,
+(0.5, 0.5), normalised to (0.71, 0.71), scores only 0.71, even though the article contains the answer.
+
+### Idea 2: a model trained for retrieval
+all-MiniLM-L6-v2 is a general sentence-similarity model: "do these two texts say similar things?".
+Search is lopsided: a 5-word question against a 60-word passage that *answers* it.
+**bge-small-en-v1.5** (same size: 384 numbers, same 30,522-piece vocabulary) was trained mainly for
+retrieval, and it asks you to put an instruction in front of **queries only**:
+"Represent this sentence for searching relevant passages: how do plants make food". The prefix tells the
+model "this is a question looking for a passage", so the query vector moves toward answer-like passages.
+bge also uses the **[CLS] vector** (the first output) instead of the average of all pieces. My tokenizer
+needed no change (1,000/1,000 identical ids), and the Java query vectors matched Python with min cosine
+1.0000000. Variants D and E test it.
+
+### Idea 3: two vectors per article, take the max
+Keep both a short vector (60 words) and a long one (200 words) for each article. similarity(article) =
+**max**(sim to short, sim to long): the article counts as close if *either* view is close. The cost is 2× the
+vectors (memory, brute-force time), and an HNSW graph with 2 nodes per article. When we ask the graph for
+the top 10 articles, we ask for 20 nodes and keep each article's first (best) appearance. 20 nodes always
+contain at least 10 different articles. Variants C and E test it.
+
+### Idea 4: keyword-weighted RRF
+Plain RRF gives both lists the same vote. On name-like queries ("diagnostic", "single word") keyword search
+was already perfect (MRR 1.000) and hybrid made it worse (0.861, 0.907): the meaning list pushed in
+look-alike articles. A weight changes the vote: score(d) = **2** / (60 + keyword rank) + 1 / (60 + meaning rank).
+
+Same example as before: keyword = [Plant, Leaf, Photosynthesis], meaning = [Photosynthesis, Sugar]:
+- Photosynthesis: 2/63 + 1/61 = 0.0317 + 0.0164 = **0.0481** (still first: good in both lists)
+- Plant: 2/61 = 0.0328, Leaf: 2/62 = 0.0323
+- Sugar: 1/62 = 0.0161, now clearly below Leaf (before it was a tie)
+
+Meaning can still lift an article that is in both lists, but a meaning-only article finds it harder to push
+out a strong keyword match.
+
+### Why the old held-out rule was too strict
+The rule was "Smart MRR must not be lower than keyword MRR" on the old 20 held-out queries. With 20
+queries, one article moving from #1 to #2 changes that query's score from 1/1 to 1/2. The MRR then drops by
+0.5 / 20 = **0.025**. That is exactly what happened ("narwhal", 0.763 → 0.748). A rule that one rank flip
+can fail measures noise, not quality. The fix is to judge on more queries and to decide in advance how much
+difference counts. Here the selection uses the main 50 with a 0.01 tie margin. The final verdict comes once,
+in Phase 6, on the untouched 30 queries in `queries-holdout-v2.json`. The old 20 are never re-run, because
+after looking at them they are no longer "unseen".
+
 ## Complexity
 | Operation | Time | Space |
 | --- | --- | --- |
@@ -160,3 +218,20 @@ differ little (0.0164 vs 0.0161), so one list cannot dominate.
    BM25 and cosine live on different scales that change from query to query; adding them needs a weight
    that would have to be tuned (and would overfit 50 queries). RRF needs only ranks, has one constant
    (k = 60, the published default), and is robust: a document good in both lists rises.
+6. **Your first semantic search ranked the obvious answer #20. How did you decide what to change?**
+   I checked the cheapest explanation first: exact Python search also gave #20, so my tokenizer, ONNX and
+   HNSW were not the cause. The problem was the model and how the article text was turned into a vector. I
+   wrote down five variants and the selection rule *before* running anything, evaluated all of them with
+   exact search (so HNSW error could not blur the comparison), and let the rule pick. I did not tune on the
+   one query I cared about, because that overfits to one query.
+7. **Why can a shorter text give a better document vector?**
+   Mean pooling averages every piece of the text. A long passage that covers many sub-topics averages to
+   a vector that is moderately close to all of them and very close to none. The opening of an encyclopedia
+   article is a definition, the part a short query most often asks about. Taking the max over a short and
+   a long vector keeps both: focused matches from the short one and coverage from the long one, at 2× the
+   memory.
+8. **Your held-out check failed by one query. Why not just change the rule and move on?**
+   Changing a rule *after* seeing it fail is the mistake held-out sets exist to prevent. So I explained the
+   problem openly: with 20 queries one #1 → #2 flip moves MRR by 0.025, which is noise. I stopped using those
+   20, since they are no longer unseen. The next judgement uses a new frozen set of 30 that has never been
+   run, once, in Phase 6. The new rule (0.01 tie margin on 50 queries) was written before the experiment.
