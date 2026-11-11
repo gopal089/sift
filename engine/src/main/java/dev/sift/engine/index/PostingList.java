@@ -69,6 +69,15 @@ public final class PostingList {
         return Arrays.copyOfRange(positions, start, start + freqs[i]);
     }
 
+    /**
+     * All positions in one array, grouped per document, or {@code null} for a list read from disk.
+     * The index writer walks this array once instead of calling {@link #positions(int)} for every posting,
+     * which would add up the freqs again each time (slow for long lists). Callers must not modify it.
+     */
+    public int[] flatPositions() {
+        return positions;
+    }
+
     /** Number of stored positions = the sum of all freqs. */
     public int positionCount() {
         int total = 0;

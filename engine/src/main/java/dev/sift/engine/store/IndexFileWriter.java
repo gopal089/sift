@@ -190,7 +190,8 @@ public final class IndexFileWriter implements Closeable {
         }
 
         ByteArrayOutputStream positionBytes = new ByteArrayOutputStream();
-        int positionCount = 0;
+        int[] flat = list.flatPositions();   // every document's positions, one after another
+        int next = 0;                        // index of the next unread position in flat
         int blockStart = 0;   // size of positionBytes when the current block of 64 postings began
         for (int i = 0; i < df; i++) {
             if (i > 0 && i % SKIP_EVERY == 0) {
@@ -198,17 +199,17 @@ public final class IndexFileWriter implements Closeable {
                 blockStart = positionBytes.size();
             }
             int previous = 0;
-            for (int position : list.positions(i)) {
+            for (int j = 0; j < list.freq(i); j++) {
+                int position = flat[next++];
                 VarInt.write(positionBytes, position - previous);   // the first gap is the position itself
                 previous = position;
-                positionCount++;
             }
         }
         positionBytes.writeTo(out);
         bytes[2] += positionBytes.size();
         counts[0] += df;
         counts[1] += df;
-        counts[2] += positionCount;
+        counts[2] += next;
     }
 
     /** Block of one term in the title or alias file: n, then n doc-id gaps, then n freqs. */
