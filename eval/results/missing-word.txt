@@ -1,0 +1,88 @@
+# Sift eval: missing-word
+# 2026-11-11 13:13 IST | commit 1aa75b9 | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries.json (50 queries, sha256 624683dab59be5df711b76ccbddf610b4165ab6d8b8975949f5789794e4e7dd9)
+# articles: data/articles.jsonl
+# index (no aliases): 280,748 docs, built in 8.05 s, heap 560.9 MB; avg title 2.50 tokens, avg body 166.0 tokens; title postings 697,412; alias postings 0
+# speed: k = 10, per query the median of 20 runs after 3 warm-up runs
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  s            BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | AND, else OR
+  a_qstop      BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | AND, else OR | question words dropped
+  b_soft       BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | soft AND
+  c_both       BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | soft AND | question words dropped
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  s                    0.799         0.867         0.929         0.950         1.000         0.276         0.516    38/50  41/50  43/50     4   0/0/50
+  a_qstop              0.815         0.867         0.929         0.950         1.000         0.375         0.516    38/50  42/50  45/50     0   4/3/43
+  b_soft               0.801         0.867         0.929         0.950         1.000         0.286         0.516    38/50  41/50  43/50     0   4/0/46
+  c_both               0.815         0.867         0.929         0.950         1.000         0.375         0.516    38/50  42/50  45/50     0   4/3/43
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation
+  s              38/50 43/50       5/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       2/8 3/8       2/4 2/4
+  a_qstop        38/50 45/50       5/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       2/8 5/8       2/4 2/4
+  b_soft         38/50 43/50       5/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       2/8 3/8       2/4 2/4
+  c_both         38/50 45/50       5/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       2/8 5/8       2/4 2/4
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  s               0.031    0.622   "united nations"
+  a_qstop         0.011    1.266   "the who"
+  b_soft          0.239    1.097   "who was the first person on the moon"
+  c_both          0.332    2.293   "the who"
+
+Rank of the expected article
+   id category       query                                         s  a_qstop   b_soft   c_both   expected
+    1 diagnostic     "world war 2"                                 5        5        5        5   World War II
+    2 diagnostic     "world war ii"                                1        1        1        1   World War II
+    3 diagnostic     "the who"                                     1        1        1        1   The Who
+    4 diagnostic     "the history of india"                        1        1        1        1   History of India
+    5 diagnostic     "photosynthesis"                              1        1        1        1   Photosynthesis
+    6 diagnostic     "python programming"                          1        1        1        1   Python (programming language)
+    7 famous-single  "einstein"                                    1        1        1        1   Albert Einstein
+    8 famous-single  "volcano"                                     1        1        1        1   Volcano
+    9 famous-single  "shakespeare"                                 1        1        1        1   William Shakespeare
+   10 famous-single  "dinosaur"                                    1        1        1        1   Dinosaur
+   11 famous-single  "mozart"                                      2        2        2        2   Wolfgang Amadeus Mozart
+   12 famous-single  "tokyo"                                       2        2        2        2   Tokyo
+   13 famous-single  "gravity"                                     1        1        1        1   Gravity
+   14 famous-single  "chess"                                       1        1        1        1   Chess
+   15 famous-single  "electricity"                                 1        1        1        1   Electricity
+   16 famous-single  "tiger"                                       1        1        1        1   Tiger
+   17 famous-single  "olympics"                                    1        1        1        1   Olympic Games
+   18 famous-single  "bitcoin"                                     1        1        1        1   Bitcoin
+   19 famous-single  "napoleon"                                    1        1        1        1   Napoleon
+   20 famous-single  "evolution"                                   1        1        1        1   Evolution
+   21 famous-multi   "solar system"                                1        1        1        1   Solar System
+   22 famous-multi   "french revolution"                           1        1        1        1   French Revolution
+   23 famous-multi   "united nations"                              1        1        1        1   United Nations
+   24 famous-multi   "great wall of china"                         1        1        1        1   Great Wall of China
+   25 famous-multi   "theory of relativity"                        1        1        1        1   Theory of relativity
+   26 famous-multi   "black hole"                                  1        1        1        1   Black hole
+   27 famous-multi   "martin luther king"                          2        2        2        2   Martin Luther King Jr.
+   28 famous-multi   "human heart"                                 1        1        1        1   Heart
+   29 famous-multi   "climate change"                              1        1        1        1   Climate change
+   30 famous-multi   "statue of liberty"                           1        1        1        1   Statue of Liberty
+   31 obscure        "axolotl"                                     1        1        1        1   Axolotl
+   32 obscure        "tardigrade"                                  1        1        1        1   Tardigrade
+   33 obscure        "bauhaus"                                     1        1        1        1   Bauhaus
+   34 obscure        "haiku"                                       1        1        1        1   Haiku
+   35 obscure        "ada lovelace"                                1        1        1        1   Ada Lovelace
+   36 obscure        "mount kilimanjaro"                           1        1        1        1   Mount Kilimanjaro
+   37 obscure        "rosetta stone"                               1        1        1        1   Rosetta Stone
+   38 obscure        "fibonacci numbers"                           1        1        1        1   Fibonacci number
+   39 question       "how do plants make food"                    15       25       15       25   Photosynthesis
+   40 question       "who discovered penicillin"                   -        2       18        2   Alexander Fleming
+   41 question       "what is the largest planet"                  7       16        7       16   Jupiter
+   42 question       "who invented the telephone"                  1        4        1        4   Alexander Graham Bell
+   43 question       "what causes earthquakes"                     -        1       93        1   Earthquake
+   44 question       "who was the first person on the moon"        -        8      264        8   Neil Armstrong
+   45 question       "when did the titanic sink"                   1        1        1        1   Titanic
+   46 question       "what is the capital of australia"            -       52      170       52   Canberra
+   47 abbreviation   "usa"                                      2091     2091     2091     2091   United States
+   48 abbreviation   "dna"                                         1        1        1        1   DNA
+   49 abbreviation   "nasa"                                        1        1        1        1   NASA
+   50 abbreviation   "ww1"                                        16       16       16       16   World War I

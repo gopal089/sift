@@ -1,0 +1,201 @@
+config	id	category	query	expected	rank	mode	matches	terms	top1	median_ms
+s	1	diagnostic	world war 2	World War II	5	AND	2261	world war 2	Guild Wars 2	0.4330
+s	2	diagnostic	world war ii	World War II	1	AND	4951	world war ii	World War II	0.4289
+s	3	diagnostic	the who	The Who	1	AND	38624	who	The Who	0.5164
+s	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.1475
+s	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0066
+s	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0312
+s	7	famous-single	einstein	Albert Einstein	1	AND	353	einstein	Albert Einstein	0.0095
+s	8	famous-single	volcano	Volcano	1	AND	725	volcano	Volcano	0.0150
+s	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0144
+s	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0174
+s	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	AND	351	mozart	Constanze Mozart	0.0093
+s	12	famous-single	tokyo	Tokyo	2	AND	1869	tokyo	Tokyo, Tokyo	0.0304
+s	13	famous-single	gravity	Gravity	1	AND	577	graviti	Gravity	0.0123
+s	14	famous-single	chess	Chess	1	AND	755	chess	Chess	0.0149
+s	15	famous-single	electricity	Electricity	1	AND	3825	electr	Electricity	0.0578
+s	16	famous-single	tiger	Tiger	1	AND	1246	tiger	Tiger	0.0205
+s	17	famous-single	olympics	Olympic Games	1	AND	6987	olymp	Olympic Games	0.0978
+s	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0028
+s	19	famous-single	napoleon	Napoleon	1	AND	825	napoleon	Napoleon	0.0147
+s	20	famous-single	evolution	Evolution	1	AND	1528	evolut	Evolution	0.0242
+s	21	famous-multi	solar system	Solar System	1	AND	642	solar system	Solar System	0.0574
+s	22	famous-multi	french revolution	French Revolution	1	AND	858	french revolut	French Revolution	0.0770
+s	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.6223
+s	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0730
+s	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0261
+s	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0445
+s	27	famous-multi	martin luther king	Martin Luther King Jr.	2	AND	287	martin luther king	Martin Luther King, Sr.	0.0655
+s	28	famous-multi	human heart	Heart	1	AND	711	human heart	Heart	0.0711
+s	29	famous-multi	climate change	Climate change	1	AND	1161	climat chang	Climate change	0.0869
+s	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0300
+s	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0014
+s	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0011
+s	33	obscure	bauhaus	Bauhaus	1	AND	44	bauhau	Bauhaus	0.0021
+s	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0018
+s	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0021
+s	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0106
+s	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0104
+s	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0410
+s	39	question	how do plants make food	Photosynthesis	15	AND	160	how do plant make food	Food	0.1158
+s	40	question	who discovered penicillin	Alexander Fleming	0	AND	17	who discov penicillin	Penicillin	0.0630
+s	41	question	what is the largest planet	Jupiter	7	AND	53	what largest planet	Saturn	0.0530
+s	42	question	who invented the telephone	Alexander Graham Bell	1	AND	32	who invent telephon	Alexander Graham Bell	0.0638
+s	43	question	what causes earthquakes	Earthquake	0	AND	92	what caus earthquak	Earthquake engineering	0.0563
+s	44	question	who was the first person on the moon	Neil Armstrong	0	AND	238	who first person moon	Moon	0.1767
+s	45	question	when did the titanic sink	Titanic	1	AND	11	when did titan sink	Titanic	0.0536
+s	46	question	what is the capital of australia	Canberra	0	AND	86	what capit australia	Australia	0.0672
+s	47	abbreviation	usa	United States	2091	AND	2372	usa	Usa Jingū	0.0475
+s	48	abbreviation	dna	DNA	1	AND	847	dna	DNA	0.0152
+s	49	abbreviation	nasa	NASA	1	AND	851	nasa	NASA	0.0140
+s	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0014
+a_qstop	1	diagnostic	world war 2	World War II	5	AND	2261	world war 2	Guild Wars 2	0.2578
+a_qstop	2	diagnostic	world war ii	World War II	1	AND	4951	world war ii	World War II	0.2562
+a_qstop	3	diagnostic	the who	The Who	1	AND	37705	the who	The Who	1.2659
+a_qstop	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.0763
+a_qstop	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0020
+a_qstop	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0142
+a_qstop	7	famous-single	einstein	Albert Einstein	1	AND	353	einstein	Albert Einstein	0.0040
+a_qstop	8	famous-single	volcano	Volcano	1	AND	725	volcano	Volcano	0.0064
+a_qstop	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0050
+a_qstop	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0074
+a_qstop	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	AND	351	mozart	Constanze Mozart	0.0033
+a_qstop	12	famous-single	tokyo	Tokyo	2	AND	1869	tokyo	Tokyo, Tokyo	0.0134
+a_qstop	13	famous-single	gravity	Gravity	1	AND	577	graviti	Gravity	0.0050
+a_qstop	14	famous-single	chess	Chess	1	AND	755	chess	Chess	0.0063
+a_qstop	15	famous-single	electricity	Electricity	1	AND	3825	electr	Electricity	0.0282
+a_qstop	16	famous-single	tiger	Tiger	1	AND	1246	tiger	Tiger	0.0095
+a_qstop	17	famous-single	olympics	Olympic Games	1	AND	6987	olymp	Olympic Games	0.0461
+a_qstop	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0013
+a_qstop	19	famous-single	napoleon	Napoleon	1	AND	825	napoleon	Napoleon	0.0071
+a_qstop	20	famous-single	evolution	Evolution	1	AND	1528	evolut	Evolution	0.0115
+a_qstop	21	famous-multi	solar system	Solar System	1	AND	642	solar system	Solar System	0.0300
+a_qstop	22	famous-multi	french revolution	French Revolution	1	AND	858	french revolut	French Revolution	0.0341
+a_qstop	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.3326
+a_qstop	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.0406
+a_qstop	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0155
+a_qstop	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0245
+a_qstop	27	famous-multi	martin luther king	Martin Luther King Jr.	2	AND	287	martin luther king	Martin Luther King, Sr.	0.0351
+a_qstop	28	famous-multi	human heart	Heart	1	AND	711	human heart	Heart	0.0413
+a_qstop	29	famous-multi	climate change	Climate change	1	AND	1161	climat chang	Climate change	0.0448
+a_qstop	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0114
+a_qstop	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0020
+a_qstop	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0015
+a_qstop	33	obscure	bauhaus	Bauhaus	1	AND	44	bauhau	Bauhaus	0.0022
+a_qstop	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0020
+a_qstop	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0024
+a_qstop	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0085
+a_qstop	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0084
+a_qstop	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0276
+a_qstop	39	question	how do plants make food	Photosynthesis	25	AND	320	do plant make food	Food	0.1095
+a_qstop	40	question	who discovered penicillin	Alexander Fleming	2	AND	30	discov penicillin	Penicillin	0.0095
+a_qstop	41	question	what is the largest planet	Jupiter	16	AND	166	largest planet	List of planets	0.0255
+a_qstop	42	question	who invented the telephone	Alexander Graham Bell	4	AND	61	invent telephon	Antonio Meucci	0.0079
+a_qstop	43	question	what causes earthquakes	Earthquake	1	AND	402	caus earthquak	Earthquake	0.0301
+a_qstop	44	question	who was the first person on the moon	Neil Armstrong	8	AND	385	first person moon	Moon	0.1326
+a_qstop	45	question	when did the titanic sink	Titanic	1	AND	70	titan sink	Titanic	0.0045
+a_qstop	46	question	what is the capital of australia	Canberra	52	AND	422	capit australia	Venture capital	0.0441
+a_qstop	47	abbreviation	usa	United States	2091	AND	2372	usa	Usa Jingū	0.0167
+a_qstop	48	abbreviation	dna	DNA	1	AND	847	dna	DNA	0.0075
+a_qstop	49	abbreviation	nasa	NASA	1	AND	851	nasa	NASA	0.0074
+a_qstop	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0010
+b_soft	1	diagnostic	world war 2	World War II	5	SOFT_AND	62207	world war 2	Guild Wars 2	0.8251
+b_soft	2	diagnostic	world war ii	World War II	1	SOFT_AND	42659	world war ii	World War II	0.4667
+b_soft	3	diagnostic	the who	The Who	1	SOFT_AND	38624	who	The Who	0.3087
+b_soft	4	diagnostic	the history of india	History of India	1	SOFT_AND	30395	histori india	History of India	0.2694
+b_soft	5	diagnostic	photosynthesis	Photosynthesis	1	SOFT_AND	163	photosynthesi	Photosynthesis	0.0277
+b_soft	6	diagnostic	python programming	Python (programming language)	1	SOFT_AND	7089	python program	Python (programming language)	0.2164
+b_soft	7	famous-single	einstein	Albert Einstein	1	SOFT_AND	353	einstein	Albert Einstein	0.2374
+b_soft	8	famous-single	volcano	Volcano	1	SOFT_AND	725	volcano	Volcano	0.2471
+b_soft	9	famous-single	shakespeare	William Shakespeare	1	SOFT_AND	606	shakespear	William Shakespeare	0.7179
+b_soft	10	famous-single	dinosaur	Dinosaur	1	SOFT_AND	886	dinosaur	Dinosaur	0.6140
+b_soft	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	SOFT_AND	351	mozart	Constanze Mozart	0.5580
+b_soft	12	famous-single	tokyo	Tokyo	2	SOFT_AND	1869	tokyo	Tokyo, Tokyo	0.7042
+b_soft	13	famous-single	gravity	Gravity	1	SOFT_AND	577	graviti	Gravity	0.3387
+b_soft	14	famous-single	chess	Chess	1	SOFT_AND	755	chess	Chess	0.5106
+b_soft	15	famous-single	electricity	Electricity	1	SOFT_AND	3825	electr	Electricity	0.2389
+b_soft	16	famous-single	tiger	Tiger	1	SOFT_AND	1246	tiger	Tiger	0.0616
+b_soft	17	famous-single	olympics	Olympic Games	1	SOFT_AND	6987	olymp	Olympic Games	0.0991
+b_soft	18	famous-single	bitcoin	Bitcoin	1	SOFT_AND	45	bitcoin	Bitcoin	0.0438
+b_soft	19	famous-single	napoleon	Napoleon	1	SOFT_AND	825	napoleon	Napoleon	0.0438
+b_soft	20	famous-single	evolution	Evolution	1	SOFT_AND	1528	evolut	Evolution	0.0613
+b_soft	21	famous-multi	solar system	Solar System	1	SOFT_AND	11762	solar system	Solar System	0.1342
+b_soft	22	famous-multi	french revolution	French Revolution	1	SOFT_AND	13175	french revolut	French Revolution	0.1590
+b_soft	23	famous-multi	united nations	United Nations	1	SOFT_AND	71538	unit nation	United Nations	0.5840
+b_soft	24	famous-multi	great wall of china	Great Wall of China	1	SOFT_AND	17237	great wall china	Great Wall of China	0.2076
+b_soft	25	famous-multi	theory of relativity	Theory of relativity	1	SOFT_AND	5444	theori rel	Theory of relativity	0.0941
+b_soft	26	famous-multi	black hole	Black hole	1	SOFT_AND	9702	black hole	Black hole	0.1121
+b_soft	27	famous-multi	martin luther king	Martin Luther King Jr.	2	SOFT_AND	14669	martin luther king	Martin Luther King, Sr.	0.1818
+b_soft	28	famous-multi	human heart	Heart	1	SOFT_AND	15359	human heart	Heart	0.1726
+b_soft	29	famous-multi	climate change	Climate change	1	SOFT_AND	17125	climat chang	Climate change	0.1891
+b_soft	30	famous-multi	statue of liberty	Statue of Liberty	1	SOFT_AND	4087	statu liberti	Statue of Liberty	0.0790
+b_soft	31	obscure	axolotl	Axolotl	1	SOFT_AND	16	axolotl	Axolotl	0.0333
+b_soft	32	obscure	tardigrade	Tardigrade	1	SOFT_AND	8	tardigrad	Tardigrade	0.0369
+b_soft	33	obscure	bauhaus	Bauhaus	1	SOFT_AND	44	bauhau	Bauhaus	0.0403
+b_soft	34	obscure	haiku	Haiku	1	SOFT_AND	39	haiku	Haiku	0.0295
+b_soft	35	obscure	ada lovelace	Ada Lovelace	1	SOFT_AND	214	ada lovelac	Ada Lovelace	0.0335
+b_soft	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	SOFT_AND	2495	mount kilimanjaro	Mount Kilimanjaro	0.0655
+b_soft	37	obscure	rosetta stone	Rosetta Stone	1	SOFT_AND	3585	rosetta stone	Rosetta Stone	0.3641
+b_soft	38	obscure	fibonacci numbers	Fibonacci number	1	SOFT_AND	17526	fibonacci number	Fibonacci number	0.3933
+b_soft	39	question	how do plants make food	Photosynthesis	15	SOFT_AND	43328	how do plant make food	Food	0.7788
+b_soft	40	question	who discovered penicillin	Alexander Fleming	18	SOFT_AND	41160	who discov penicillin	Penicillin	0.5930
+b_soft	41	question	what is the largest planet	Jupiter	7	SOFT_AND	21321	what largest planet	Saturn	0.4741
+b_soft	42	question	who invented the telephone	Alexander Graham Bell	1	SOFT_AND	40522	who invent telephon	Alexander Graham Bell	0.5417
+b_soft	43	question	what causes earthquakes	Earthquake	93	SOFT_AND	21590	what caus earthquak	Earthquake engineering	0.4835
+b_soft	44	question	who was the first person on the moon	Neil Armstrong	264	SOFT_AND	82582	who first person moon	Moon	1.0973
+b_soft	45	question	when did the titanic sink	Titanic	1	SOFT_AND	40516	when did titan sink	Titanic	0.6388
+b_soft	46	question	what is the capital of australia	Canberra	170	SOFT_AND	28015	what capit australia	Australia	0.5376
+b_soft	47	abbreviation	usa	United States	2091	SOFT_AND	2372	usa	Usa Jingū	0.2303
+b_soft	48	abbreviation	dna	DNA	1	SOFT_AND	847	dna	DNA	0.2101
+b_soft	49	abbreviation	nasa	NASA	1	SOFT_AND	851	nasa	NASA	0.2538
+b_soft	50	abbreviation	ww1	World War I	16	SOFT_AND	16	ww1	Siege of Tsingtao	0.3053
+c_both	1	diagnostic	world war 2	World War II	5	SOFT_AND	62207	world war 2	Guild Wars 2	0.6374
+c_both	2	diagnostic	world war ii	World War II	1	SOFT_AND	42659	world war ii	World War II	0.4690
+c_both	3	diagnostic	the who	The Who	1	SOFT_AND	256483	the who	The Who	2.2927
+c_both	4	diagnostic	the history of india	History of India	1	SOFT_AND	30395	histori india	History of India	0.5935
+c_both	5	diagnostic	photosynthesis	Photosynthesis	1	SOFT_AND	163	photosynthesi	Photosynthesis	0.3810
+c_both	6	diagnostic	python programming	Python (programming language)	1	SOFT_AND	7089	python program	Python (programming language)	0.4630
+c_both	7	famous-single	einstein	Albert Einstein	1	SOFT_AND	353	einstein	Albert Einstein	0.3803
+c_both	8	famous-single	volcano	Volcano	1	SOFT_AND	725	volcano	Volcano	0.3659
+c_both	9	famous-single	shakespeare	William Shakespeare	1	SOFT_AND	606	shakespear	William Shakespeare	0.3443
+c_both	10	famous-single	dinosaur	Dinosaur	1	SOFT_AND	886	dinosaur	Dinosaur	0.3355
+c_both	11	famous-single	mozart	Wolfgang Amadeus Mozart	2	SOFT_AND	351	mozart	Constanze Mozart	0.2799
+c_both	12	famous-single	tokyo	Tokyo	2	SOFT_AND	1869	tokyo	Tokyo, Tokyo	0.3431
+c_both	13	famous-single	gravity	Gravity	1	SOFT_AND	577	graviti	Gravity	0.3331
+c_both	14	famous-single	chess	Chess	1	SOFT_AND	755	chess	Chess	0.3386
+c_both	15	famous-single	electricity	Electricity	1	SOFT_AND	3825	electr	Electricity	0.2898
+c_both	16	famous-single	tiger	Tiger	1	SOFT_AND	1246	tiger	Tiger	0.2557
+c_both	17	famous-single	olympics	Olympic Games	1	SOFT_AND	6987	olymp	Olympic Games	0.2767
+c_both	18	famous-single	bitcoin	Bitcoin	1	SOFT_AND	45	bitcoin	Bitcoin	0.1945
+c_both	19	famous-single	napoleon	Napoleon	1	SOFT_AND	825	napoleon	Napoleon	0.2111
+c_both	20	famous-single	evolution	Evolution	1	SOFT_AND	1528	evolut	Evolution	0.2108
+c_both	21	famous-multi	solar system	Solar System	1	SOFT_AND	11762	solar system	Solar System	0.1426
+c_both	22	famous-multi	french revolution	French Revolution	1	SOFT_AND	13175	french revolut	French Revolution	0.1555
+c_both	23	famous-multi	united nations	United Nations	1	SOFT_AND	71538	unit nation	United Nations	0.6088
+c_both	24	famous-multi	great wall of china	Great Wall of China	1	SOFT_AND	17237	great wall china	Great Wall of China	0.2224
+c_both	25	famous-multi	theory of relativity	Theory of relativity	1	SOFT_AND	5444	theori rel	Theory of relativity	0.1161
+c_both	26	famous-multi	black hole	Black hole	1	SOFT_AND	9702	black hole	Black hole	0.1332
+c_both	27	famous-multi	martin luther king	Martin Luther King Jr.	2	SOFT_AND	14669	martin luther king	Martin Luther King, Sr.	0.2003
+c_both	28	famous-multi	human heart	Heart	1	SOFT_AND	15359	human heart	Heart	0.5220
+c_both	29	famous-multi	climate change	Climate change	1	SOFT_AND	17125	climat chang	Climate change	0.4870
+c_both	30	famous-multi	statue of liberty	Statue of Liberty	1	SOFT_AND	4087	statu liberti	Statue of Liberty	0.3422
+c_both	31	obscure	axolotl	Axolotl	1	SOFT_AND	16	axolotl	Axolotl	0.3315
+c_both	32	obscure	tardigrade	Tardigrade	1	SOFT_AND	8	tardigrad	Tardigrade	0.2719
+c_both	33	obscure	bauhaus	Bauhaus	1	SOFT_AND	44	bauhau	Bauhaus	0.3033
+c_both	34	obscure	haiku	Haiku	1	SOFT_AND	39	haiku	Haiku	0.2993
+c_both	35	obscure	ada lovelace	Ada Lovelace	1	SOFT_AND	214	ada lovelac	Ada Lovelace	0.2804
+c_both	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	SOFT_AND	2495	mount kilimanjaro	Mount Kilimanjaro	0.3157
+c_both	37	obscure	rosetta stone	Rosetta Stone	1	SOFT_AND	3585	rosetta stone	Rosetta Stone	0.2841
+c_both	38	obscure	fibonacci numbers	Fibonacci number	1	SOFT_AND	17526	fibonacci number	Fibonacci number	0.4553
+c_both	39	question	how do plants make food	Photosynthesis	25	SOFT_AND	39392	do plant make food	Food	0.6667
+c_both	40	question	who discovered penicillin	Alexander Fleming	2	SOFT_AND	4546	discov penicillin	Penicillin	0.3596
+c_both	41	question	what is the largest planet	Jupiter	16	SOFT_AND	11530	largest planet	List of planets	0.3425
+c_both	42	question	who invented the telephone	Alexander Graham Bell	4	SOFT_AND	3126	invent telephon	Antonio Meucci	0.3606
+c_both	43	question	what causes earthquakes	Earthquake	1	SOFT_AND	12991	caus earthquak	Earthquake	0.3640
+c_both	44	question	who was the first person on the moon	Neil Armstrong	8	SOFT_AND	64289	first person moon	Moon	0.8210
+c_both	45	question	when did the titanic sink	Titanic	1	SOFT_AND	1299	titan sink	Titanic	0.3293
+c_both	46	question	what is the capital of australia	Canberra	52	SOFT_AND	18491	capit australia	Venture capital	0.2093
+c_both	47	abbreviation	usa	United States	2091	SOFT_AND	2372	usa	Usa Jingū	0.0578
+c_both	48	abbreviation	dna	DNA	1	SOFT_AND	847	dna	DNA	0.0386
+c_both	49	abbreviation	nasa	NASA	1	SOFT_AND	851	nasa	NASA	0.0351
+c_both	50	abbreviation	ww1	World War I	16	SOFT_AND	16	ww1	Siege of Tsingtao	0.0287
