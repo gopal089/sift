@@ -3,8 +3,11 @@ package dev.sift.engine.eval;
 import dev.sift.engine.embed.QueryEmbedder;
 import dev.sift.engine.search.ScoredDoc;
 import dev.sift.engine.store.DiskIndex;
-import dev.sift.engine.vector.BruteForce;
+import dev.sift.engine.vector.ExactIndex;
 import dev.sift.engine.vector.Hnsw;
+import dev.sift.engine.vector.HnswIndex;
+import dev.sift.engine.vector.SemanticIndex;
+import dev.sift.engine.vector.StackedVectors;
 import dev.sift.engine.vector.VectorFiles;
 import dev.sift.engine.vector.VectorStore;
 import java.io.IOException;
@@ -28,7 +31,9 @@ import java.util.Set;
  *
  * <p>recall@10 = |approximate top 10 ∩ exact float32 top 10| / 10, averaged over the queries.
  *
- * <pre>scripts/sift-run eval.VectorEvalCli data/index data/vectors data/model eval/results/vector-recall.txt</pre>
+ * <pre>scripts/sift-run eval.VectorEvalCli data/index data/vectors[,data/vectors-2] data/model OUT.txt
+ *        [--graph data/vectors/hnsw.bin]</pre>
+ * With two vector folders, a document's similarity is the max over its two vectors (exact and HNSW alike).
  */
 public final class VectorEvalCli {
 
@@ -51,12 +56,23 @@ public final class VectorEvalCli {
 
     public static void main(String[] args) throws IOException {
         DiskIndex index = DiskIndex.open(Path.of(args[0]));
-        Path vectorDir = Path.of(args[1]);
+        String[] dirs = args[1].split(",");
         Path out = Path.of(args[3]);
-        VectorStore f32 = VectorFiles.open(vectorDir, index.docs(), "float32");
-        VectorStore i8 = VectorFiles.open(vectorDir, index.docs(), "int8");
-        Hnsw graphF32 = VectorFiles.openGraph(vectorDir, f32);
-        Hnsw graphI8 = VectorFiles.openGraph(vectorDir, i8);
+        Path graphFile = Path.of(dirs[0]).resolve(VectorFiles.GRAPH);
+        if (args.length > 5 && args[4].equals("--graph")) {
+            graphFile = Path.of(args[5]);
+        }
+        VectorStore[] f32Parts = new VectorStore[dirs.length];
+        VectorStore[] i8Parts = new VectorStore[dirs.length];
+        for (int i = 0; i < dirs.length; i++) {
+            f32Parts[i] = VectorFiles.open(Path.of(dirs[i]), index.docs(), "float32");
+            i8Parts[i] = VectorFiles.open(Path.of(dirs[i]), index.docs(), "int8");
+        }
+        int n = index.docs().size();
+        SemanticIndex exactF32 = new ExactIndex(args[1], f32Parts);
+        SemanticIndex exactI8 = new ExactIndex(args[1], i8Parts);
+        Hnsw graphF32 = Hnsw.load(graphFile, dirs.length == 1 ? f32Parts[0] : new StackedVectors(f32Parts));
+        Hnsw graphI8 = Hnsw.load(graphFile, dirs.length == 1 ? i8Parts[0] : new StackedVectors(i8Parts));
 
         // ---- the queries
         Random random = new Random(SEED);
@@ -79,31 +95,34 @@ public final class VectorEvalCli {
         List<Set<Integer>> exact = new ArrayList<>();
         for (float[] q : queries) {
             Set<Integer> top = new HashSet<>();
-            BruteForce.search(f32, q, K).forEach(sd -> top.add(sd.docId()));
+            exactF32.top(q, K).forEach(sd -> top.add(sd.docId()));
             exact.add(top);
         }
 
         StringBuilder sb = new StringBuilder("# Vector search: HNSW vs exact, int8 vs float32\n").append(RunInfo.header());
         sb.append(String.format(Locale.US, "# %d random article titles (seed %d) as queries; recall@%d vs exact float32"
                 + " brute force; times = one search per query after a warm-up, single thread%n", QUERIES, SEED, K));
-        sb.append(String.format(Locale.US, "# graph: M = %d, efConstruction = %d; %,d vectors%n%n", graphF32.m(),
-                graphF32.efConstruction(), f32.size()));
+        sb.append(String.format(Locale.US, "# vectors: %s (%d per article); graph %s: M = %d, efConstruction = %d,"
+                        + " %,d nodes%n%n", args[1], dirs.length, graphFile, graphF32.m(), graphF32.efConstruction(),
+                graphF32.size()));
         sb.append(String.format(Locale.US, "%-34s %10s %10s %10s%n", "method", "recall@10", "median ms", "p95 ms"));
 
-        Measured bruteF32 = measure(queries, exact, q -> BruteForce.search(f32, q, K));
+        Measured bruteF32 = measure(queries, exact, q -> exactF32.top(q, K));
         row(sb, "brute force float32 (exact)", bruteF32);
-        Measured bruteI8 = measure(queries, exact, q -> BruteForce.search(i8, q, K));
+        Measured bruteI8 = measure(queries, exact, q -> exactI8.top(q, K));
         row(sb, "brute force int8", bruteI8);
         Measured[] hnswF32 = new Measured[EF_SEARCH.length];
         Measured[] hnswI8 = new Measured[EF_SEARCH.length];
         for (int e = 0; e < EF_SEARCH.length; e++) {
             int ef = EF_SEARCH[e];
-            hnswF32[e] = measure(queries, exact, q -> graphF32.search(q, K, ef));
+            HnswIndex h = new HnswIndex(args[1], graphF32, ef, n);
+            hnswF32[e] = measure(queries, exact, q -> h.top(q, K));
             row(sb, "HNSW float32 efSearch=" + ef, hnswF32[e]);
         }
         for (int e = 0; e < EF_SEARCH.length; e++) {
             int ef = EF_SEARCH[e];
-            hnswI8[e] = measure(queries, exact, q -> graphI8.search(q, K, ef));
+            HnswIndex h = new HnswIndex(args[1], graphI8, ef, n);
+            hnswI8[e] = measure(queries, exact, q -> h.top(q, K));
             row(sb, "HNSW int8 efSearch=" + ef, hnswI8[e]);
         }
 

@@ -379,6 +379,11 @@ public final class Hnsw {
         return (double) sum / levels.length;
     }
 
+    /** "float32" or "int8". */
+    public String vectorKind() {
+        return vectors.kind();
+    }
+
     /** Bytes of the vectors this graph searches (memory-mapped, outside the heap). */
     public long vectorBytes() {
         return vectors.bytes();

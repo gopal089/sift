@@ -11,8 +11,9 @@ import java.util.Locale;
 /**
  * Builds the HNSW graph over the float32 vectors and writes the int8 copy of the vectors.
  *
- * <pre>scripts/sift-run vector.HnswBuildCli data/index data/vectors [--m 16] [--efc 200] [--seed 42]
- *        [--report eval/results/hnsw-build.txt]</pre>
+ * <pre>scripts/sift-run vector.HnswBuildCli data/index data/vectors[,data/vectors-2] [--m 16] [--efc 200]
+ *        [--seed 42] [--graph data/vectors/hnsw.bin] [--report eval/results/hnsw-build.txt]</pre>
+ * With two folders the graph holds two vectors per article (rows of folder 1, then folder 2).
  */
 public final class HnswBuildCli {
 
@@ -23,7 +24,9 @@ public final class HnswBuildCli {
 
     public static void main(String[] args) throws IOException {
         Path indexDir = Path.of(args[0]);
-        Path vectorDir = Path.of(args[1]);
+        String[] dirs = args[1].split(",");
+        Path vectorDir = Path.of(dirs[0]);
+        Path graphFile = vectorDir.resolve(VectorFiles.GRAPH);
         int m = 16;
         int efc = 200;
         long seed = 42;
@@ -34,13 +37,18 @@ public final class HnswBuildCli {
                 case "--efc" -> efc = Integer.parseInt(args[++i]);
                 case "--seed" -> seed = Long.parseLong(args[++i]);
                 case "--report" -> report = Path.of(args[++i]);
+                case "--graph" -> graphFile = Path.of(args[++i]);
                 default -> throw new IllegalArgumentException("unknown option " + args[i]);
             }
         }
 
         DiskIndex index = DiskIndex.open(indexDir);
-        VectorStore vectors = VectorFiles.open(vectorDir, index.docs(), "float32");
-        StringBuilder sb = new StringBuilder("# HNSW build\n").append(RunInfo.header());
+        VectorStore[] parts = new VectorStore[dirs.length];
+        for (int i = 0; i < dirs.length; i++) {
+            parts[i] = VectorFiles.open(Path.of(dirs[i]), index.docs(), "float32");
+        }
+        VectorStore vectors = parts.length == 1 ? parts[0] : new StackedVectors(parts);
+        StringBuilder sb = new StringBuilder("# HNSW build over " + String.join(" + ", dirs) + "\n").append(RunInfo.header());
         sb.append(String.format(Locale.US, "Vectors: %,d × %d float32 = %,.1f MB%n", vectors.size(), vectors.dims(),
                 vectors.bytes() / MB));
         System.out.print(sb);
@@ -54,7 +62,6 @@ public final class HnswBuildCli {
         });
         double buildSeconds = (System.nanoTime() - t0) / 1e9;
         long heapAfter = usedHeapAfterGc();
-        Path graphFile = vectorDir.resolve(VectorFiles.GRAPH);
         graph.save(graphFile);
 
         String layers = "";
@@ -72,12 +79,14 @@ public final class HnswBuildCli {
                 graph.averageDegree(), graph.graphBytes() / MB, (heapAfter - heapBefore) / MB, graphFile,
                 Files.size(graphFile) / MB);
 
-        long q0 = System.nanoTime();
-        Int8Vectors int8 = Int8Vectors.quantise(vectors);
-        Path int8File = vectorDir.resolve(VectorFiles.INT8);
-        int8.write(int8File);
-        lines += String.format(Locale.US, "int8 vectors %s: %,.1f MB (float32: %,.1f MB), quantised in %.1f s%n",
-                int8File, Files.size(int8File) / MB, vectors.bytes() / MB, (System.nanoTime() - q0) / 1e9);
+        for (int i = 0; i < dirs.length; i++) {
+            long q0 = System.nanoTime();
+            Int8Vectors int8 = Int8Vectors.quantise(parts[i]);
+            Path int8File = Path.of(dirs[i]).resolve(VectorFiles.INT8);
+            int8.write(int8File);
+            lines += String.format(Locale.US, "int8 vectors %s: %,.1f MB (float32: %,.1f MB), quantised in %.1f s%n",
+                    int8File, Files.size(int8File) / MB, parts[i].bytes() / MB, (System.nanoTime() - q0) / 1e9);
+        }
         System.out.print(lines);
         if (report != null) {
             Files.writeString(report, sb + lines);

@@ -57,7 +57,9 @@ class SearchApiTest {
     @DynamicPropertySource
     static void indexDir(DynamicPropertyRegistry registry) {
         registry.add("sift.index-dir", INDEX_DIR::toString);
-        registry.add("sift.vectors-dir", VECTORS_DIR::toString);
+        registry.add("sift.vectors-dirs", VECTORS_DIR::toString);
+        registry.add("sift.graph-file", () -> VECTORS_DIR.resolve(VectorFiles.GRAPH).toString());
+        registry.add("sift.keyword-weight", () -> "1");
         registry.add("sift.vector-kind", () -> "float32");
         registry.add("sift.smart-mode", () -> "hybrid");
         registry.add("sift.ef-search", () -> "50");

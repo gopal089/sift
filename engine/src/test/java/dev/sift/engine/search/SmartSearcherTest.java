@@ -8,7 +8,9 @@ import dev.sift.engine.index.InvertedIndex;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.SearchResult.MatchMode;
 import dev.sift.engine.vector.Float32Vectors;
+import dev.sift.engine.vector.ExactIndex;
 import dev.sift.engine.vector.Hnsw;
+import dev.sift.engine.vector.HnswIndex;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +29,10 @@ class SmartSearcherTest {
     }
 
     private static SmartSearcher toy(SmartSearcher.Mode mode) {
+        return toy(mode, 1);
+    }
+
+    private static SmartSearcher toy(SmartSearcher.Mode mode, double keywordWeight) {
         IndexBuilder b = new IndexBuilder();
         b.addDocument(100, "Photosynthesis", "Green leaves turn light into sugar.");
         b.addDocument(101, "Plant", "A plant grows in soil and needs water.");
@@ -38,7 +44,7 @@ class SmartSearcherTest {
         Hnsw graph = Hnsw.build(vectors, 2, 4, 1, null);
         float n = (float) Math.hypot(0.98, 0.2);
         return new SmartSearcher(new Searcher(index, Ranking.DEFAULT), text -> new float[] {0.98f / n, 0.2f / n},
-                graph, index.docs(), mode, 50, "float32");
+                new HnswIndex("toy", graph, 50, 4), index.docs(), mode, keywordWeight);
     }
 
     @Test
@@ -60,6 +66,38 @@ class SmartSearcherTest {
                 t.result().hits().stream().map(Hit::title).toList());
         assertEquals(1.0 / 61 + 1.0 / 63, t.result().hits().get(0).score(), 1e-12);
         assertTrue(t.embedMs() >= 0 && t.vectorMs() >= 0 && t.keywordMs() >= 0);
+    }
+
+    @Test
+    void keywordWeightTwoLetsTheKeywordListLead() {
+        // weight 2: Cooking 2/61 + 1/63 = 0.0487, Plant 2/62 + 1/62 = 0.0484, Photosynthesis 1/61 = 0.0164.
+        // The gap between keyword hits and meaning-only hits grows; the order stays the same here.
+        SearchResult r = toy(SmartSearcher.Mode.HYBRID, 2).search("how do plants make food", 10);
+        assertEquals(List.of("Cooking", "Plant", "Photosynthesis", "Car"), r.hits().stream().map(Hit::title).toList());
+        assertEquals(2.0 / 61 + 1.0 / 63, r.hits().get(0).score(), 1e-12);
+        assertEquals(3.0 / 62, r.hits().get(1).score(), 1e-12);
+    }
+
+    @Test
+    void weightedRrfExample() {
+        // keyword [10, 11], meaning [11, 12]; keyword weight 2:
+        // 10: 2/61 = 0.0328 | 11: 2/62 + 1/61 = 0.0487 | 12: 1/62 = 0.0161
+        List<ScoredDoc> fused = SmartSearcher.fuse(List.of(List.of(new ScoredDoc(10, 9), new ScoredDoc(11, 8)),
+                List.of(new ScoredDoc(11, 0.9), new ScoredDoc(12, 0.8))), new double[] {2, 1}, 60);
+        assertEquals(List.of(11, 10, 12), fused.stream().map(ScoredDoc::docId).toList());
+        assertEquals(2.0 / 62 + 1.0 / 61, fused.get(0).score(), 1e-12);
+    }
+
+    @Test
+    void exactIndexWithTwoVectorsUsesTheBetterOne() {
+        // doc 0: (1,0) and (0,1); doc 1: (0.8,0.6) twice. Query (0,1): doc 0's second vector matches exactly.
+        Float32Vectors first = Float32Vectors.of(new float[] {1, 0, 0.8f, 0.6f}, 2);
+        Float32Vectors second = Float32Vectors.of(new float[] {0, 1, 0.8f, 0.6f}, 2);
+        List<ScoredDoc> top = new ExactIndex("toy", first, second).top(new float[] {0, 1}, 2);
+        assertEquals(List.of(0, 1), top.stream().map(ScoredDoc::docId).toList());
+        assertEquals(1.0, top.get(0).score(), 1e-6);
+        assertEquals(List.of(1, 0), new ExactIndex("toy", first).top(new float[] {0, 1}, 2).stream()
+                .map(ScoredDoc::docId).toList());
     }
 
     @Test

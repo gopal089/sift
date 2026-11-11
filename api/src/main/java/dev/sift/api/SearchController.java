@@ -15,7 +15,6 @@ import dev.sift.engine.store.DiskIndex;
 import dev.sift.engine.store.IndexMeta;
 import dev.sift.engine.spell.SpellChecker;
 import dev.sift.engine.suggest.TitleTrie;
-import dev.sift.engine.vector.Hnsw;
 import java.lang.management.ManagementFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -43,18 +42,16 @@ public class SearchController {
     private final DiskIndex index;
     private final Searcher searcher;
     private final SmartSearcher smartSearcher;
-    private final Hnsw graph;
     private final TitleTrie suggester;
     private final SpellChecker spellChecker;
     private final AtomicLong queriesServed = new AtomicLong();   // a counter that is safe with many threads
     private volatile double startupSeconds;
 
-    public SearchController(DiskIndex index, Searcher searcher, SmartSearcher smartSearcher, Hnsw graph,
+    public SearchController(DiskIndex index, Searcher searcher, SmartSearcher smartSearcher,
                             TitleTrie suggester, SpellChecker spellChecker) {
         this.index = index;
         this.searcher = searcher;
         this.smartSearcher = smartSearcher;
-        this.graph = graph;
         this.suggester = suggester;
         this.spellChecker = spellChecker;
     }
@@ -144,7 +141,7 @@ public class SearchController {
         }
         Runtime rt = Runtime.getRuntime();
         return new StatsResponse(meta.documents(), meta.terms(), meta.totalBytes(), meta.fileSizes(), before, after,
-                searcher.description(), smartSearcher.description(), graph.vectorBytes(),
+                searcher.description(), smartSearcher.description(), smartSearcher.semanticIndex().vectorBytes(),
                 Map.of("enabled", false, "note", "the cache arrives in Phase 6"),
                 queriesServed.get(), (rt.totalMemory() - rt.freeMemory()) / (1024.0 * 1024.0), startupSeconds);
     }

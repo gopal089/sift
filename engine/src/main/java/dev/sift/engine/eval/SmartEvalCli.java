@@ -8,6 +8,7 @@ import dev.sift.engine.search.Searcher;
 import dev.sift.engine.search.SmartSearcher;
 import dev.sift.engine.store.DiskIndex;
 import dev.sift.engine.vector.Hnsw;
+import dev.sift.engine.vector.HnswIndex;
 import dev.sift.engine.vector.VectorFiles;
 import dev.sift.engine.vector.VectorStore;
 import java.io.IOException;
@@ -77,8 +78,8 @@ public final class SmartEvalCli {
                     graphI8 = VectorFiles.openGraph(vectorDir, v);
                 }
                 SmartSearcher.Mode m = parts[0].equals("semantic") ? SmartSearcher.Mode.SEMANTIC : SmartSearcher.Mode.HYBRID;
-                configs.add(new Config(mode, new SmartSearcher(keyword, embedder, int8 ? graphI8 : graphF32,
-                        index.docs(), m, ef, int8 ? "int8" : "float32")));
+                configs.add(new Config(mode, new SmartSearcher(keyword, embedder,
+                        new HnswIndex("MiniLM-200", int8 ? graphI8 : graphF32, ef, index.docs().size()), index.docs(), m, 1)));
             }
 
             List<List<Evaluator.Outcome>> outcomes = new ArrayList<>();

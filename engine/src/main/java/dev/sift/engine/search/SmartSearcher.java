@@ -5,7 +5,7 @@ import dev.sift.engine.index.DocTable;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.SearchResult.MatchMode;
 import dev.sift.engine.text.Tokenizer;
-import dev.sift.engine.vector.Hnsw;
+import dev.sift.engine.vector.SemanticIndex;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +14,12 @@ import java.util.Map;
 /**
  * Smart search: find articles by meaning.
  * <ul>
- *   <li><b>SEMANTIC:</b> embed the query, take the 100 most similar article vectors from HNSW.</li>
+ *   <li><b>SEMANTIC:</b> embed the query, take the 100 most similar articles from the {@link SemanticIndex}
+ *       (HNSW in the server, exact search in experiments).</li>
  *   <li><b>HYBRID:</b> the keyword top 100 and the semantic top 100, merged with Reciprocal Rank Fusion:
- *       {@code score(d) = Σ 1 / (60 + rank of d in each list that has it)}. Only ranks are used, so the
- *       very different score scales (BM25 ≈ 5–40, cosine ≈ 0.2–0.8) never need to be matched.</li>
+ *       {@code score(d) = Σ weight / (60 + rank of d in each list that has it)}. Only ranks are used, so the
+ *       very different score scales (BM25 ≈ 5–40, cosine ≈ 0.2–0.8) never need to be matched. The keyword
+ *       list's weight is 1 (plain RRF) or 2 (keyword-weighted RRF); the semantic list's weight is 1.</li>
  * </ul>
  * Worked example (k = 60): "Photosynthesis" is #3 by keywords and #1 by meaning → 1/63 + 1/61 = 0.0323.
  * "Plant" is #1 by keywords only → 1/61 = 0.0164. Being good in both lists beats being best in one.
@@ -35,21 +37,26 @@ public final class SmartSearcher implements QueryRanker {
 
     private final Searcher keyword;
     private final Embedder embedder;
-    private final Hnsw graph;
+    private final SemanticIndex semantic;
     private final DocTable docs;
     private final Mode mode;
-    private final int efSearch;
-    private final String vectorKind;
+    private final double keywordWeight;
 
-    public SmartSearcher(Searcher keyword, Embedder embedder, Hnsw graph, DocTable docs, Mode mode,
-                         int efSearch, String vectorKind) {
+    public SmartSearcher(Searcher keyword, Embedder embedder, SemanticIndex semantic, DocTable docs, Mode mode,
+                         double keywordWeight) {
+        if (keywordWeight <= 0) {
+            throw new IllegalArgumentException("keyword weight must be > 0");
+        }
         this.keyword = keyword;
         this.embedder = embedder;
-        this.graph = graph;
+        this.semantic = semantic;
         this.docs = docs;
         this.mode = mode;
-        this.efSearch = efSearch;
-        this.vectorKind = vectorKind;
+        this.keywordWeight = keywordWeight;
+    }
+
+    public SemanticIndex semanticIndex() {
+        return semantic;
     }
 
     public Mode mode() {
@@ -58,10 +65,11 @@ public final class SmartSearcher implements QueryRanker {
 
     @Override
     public String description() {
-        String semantic = String.format("HNSW M=%d efC=%d efSearch=%d (%s vectors), top %d", graph.m(),
-                graph.efConstruction(), Math.max(efSearch, LIST_SIZE), vectorKind, LIST_SIZE);
-        return mode == Mode.SEMANTIC ? "semantic: " + semantic
-                : "hybrid RRF k=" + RRF_K + ": keyword top " + LIST_SIZE + " [" + keyword.description() + "] + " + semantic;
+        String meaning = semantic.description() + ", top " + LIST_SIZE;
+        String weight = keywordWeight == 1 ? "" : String.format(" (keyword weight %s)", keywordWeight);
+        return mode == Mode.SEMANTIC ? "semantic: " + meaning
+                : "hybrid RRF k=" + RRF_K + weight + ": keyword top " + LIST_SIZE + " [" + keyword.description() + "] + "
+                + meaning;
     }
 
     @Override
@@ -78,18 +86,17 @@ public final class SmartSearcher implements QueryRanker {
         long t0 = System.nanoTime();
         float[] q = embedder.embed(query);
         long t1 = System.nanoTime();
-        // HNSW keeps max(efSearch, 100) candidates, so the top 100 list is as good as the top 10 measured
-        List<ScoredDoc> semantic = graph.search(q, LIST_SIZE, Math.max(efSearch, LIST_SIZE));
+        List<ScoredDoc> byMeaning = semantic.top(q, LIST_SIZE);
         long t2 = System.nanoTime();
         double embedMs = (t1 - t0) / 1e6;
         double vectorMs = (t2 - t1) / 1e6;
 
         if (mode == Mode.SEMANTIC) {
             List<Hit> hits = new ArrayList<>();
-            for (int i = 0; i < semantic.size() && i < k; i++) {
-                hits.add(hit(semantic.get(i)));
+            for (int i = 0; i < byMeaning.size() && i < k; i++) {
+                hits.add(hit(byMeaning.get(i)));
             }
-            return new Timed(new SearchResult(terms, MatchMode.SEMANTIC, semantic.size(), hits), embedMs, vectorMs, 0);
+            return new Timed(new SearchResult(terms, MatchMode.SEMANTIC, byMeaning.size(), hits), embedMs, vectorMs, 0);
         }
 
         long t3 = System.nanoTime();
@@ -99,7 +106,7 @@ public final class SmartSearcher implements QueryRanker {
         for (Hit h : byKeyword.hits()) {
             keywordList.add(new ScoredDoc(h.docId(), h.score()));
         }
-        List<ScoredDoc> fused = fuse(List.of(keywordList, semantic), RRF_K);
+        List<ScoredDoc> fused = fuse(List.of(keywordList, byMeaning), new double[] {keywordWeight, 1}, RRF_K);
         List<Hit> hits = new ArrayList<>();
         for (int i = 0; i < fused.size() && i < k; i++) {
             hits.add(hit(fused.get(i)));
@@ -113,10 +120,18 @@ public final class SmartSearcher implements QueryRanker {
      * Result: best first, equal scores → smaller doc id first.
      */
     public static List<ScoredDoc> fuse(List<List<ScoredDoc>> lists, int k) {
+        double[] ones = new double[lists.size()];
+        java.util.Arrays.fill(ones, 1);
+        return fuse(lists, ones, k);
+    }
+
+    /** Weighted RRF: list {@code i} adds {@code weights[i] / (k + rank)}. */
+    public static List<ScoredDoc> fuse(List<List<ScoredDoc>> lists, double[] weights, int k) {
         Map<Integer, Double> score = new HashMap<>();
-        for (List<ScoredDoc> list : lists) {
+        for (int l = 0; l < lists.size(); l++) {
+            List<ScoredDoc> list = lists.get(l);
             for (int r = 0; r < list.size(); r++) {
-                score.merge(list.get(r).docId(), 1.0 / (k + r + 1), Double::sum);
+                score.merge(list.get(r).docId(), weights[l] / (k + r + 1), Double::sum);
             }
         }
         List<ScoredDoc> out = new ArrayList<>(score.size());
