@@ -8,7 +8,7 @@
 | 0 — Setup | ✅ Done (2026-11-10) |
 | 1 — Keyword search in the terminal | ✅ Done (2026-11-11), including the ranking fixes |
 | 2 — Persist the index + API | ✅ Done (2026-11-11) |
-| 3 — Website | Not started |
+| 3 — Website | ✅ Done (2026-11-11) |
 | 4 — PageRank, autocomplete, spelling | Not started |
 | 5 — Smart (meaning) search | Not started |
 | 6 — Prove quality and speed | Not started |
@@ -137,6 +137,25 @@ title and alias postings, doc table with each article's text offset), memory-map
 `mode=smart` returns keyword results with a notice (Phase 5); snippets = start of the article (Phase 3);
 cache stats say "none" (Phase 6).
 
+## Phase 3 — Website (done)
+
+Plan and self-review: `docs/learning/phase-3-plan.md`. Explanation: `docs/learning/phase-3.md`.
+Screenshots: `docs/screenshots/phase3-desktop.png`, `phase3-mobile.png`.
+
+**Built:** React + Vite + TypeScript site in `web/` (search box, bold query words, pagination, mode switch,
+stats panel, loading / empty / error states, footer credit, search kept in the address bar);
+snippets chosen from term positions (best 30-word window); index format 2 with a positions skip table.
+
+| Measure (Java 21, Apple M5) | Value |
+| --- | --- |
+| Query time in the server incl. 10 snippets (7 test queries) | 0.7–6.0 ms (`eval/results/phase3-api-speed.txt`) |
+| Posting data after compression (format 2) | 111.9 MB of 364.4 MB, 30.7% (`eval/results/phase3-index-size.txt`) |
+| Disk vs memory, format 2 | identical on both query sets (`eval/results/disk-check-v2-*.txt`) |
+| Tests | 178 JUnit + 16 Vitest |
+
+**"Done when": ✅** full flow works in the browser against the real API at desktop and 375 px width.
+Phase 2 numbers above (111.4 MB, 408.7 MB) are for format 1; format 2 is 0.5 MB larger.
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -189,4 +208,4 @@ cache stats say "none" (Phase 6).
 - **Phase 7: revisit the official Spring Boot Gradle plugin** for packaging (runnable jar for Docker).
 
 ## Next step
-Phase 3: the website (React + Vite + TypeScript). **Waiting for your go.**
+Phase 4: PageRank, autocomplete (trie), spelling (edit distance + BK-tree).

@@ -42,8 +42,11 @@ export function SearchForm({ query, mode, onSearch }: Props) {
         <button type="submit">Search</button>
       </div>
 
-      <fieldset className="modes">
-        <legend>Search mode</legend>
+      {/* A radio group: screen readers announce "Search mode" and "1 of 2". */}
+      <div className="modes" role="radiogroup" aria-labelledby="mode-label">
+        <span id="mode-label" className="muted">
+          Search mode
+        </span>
         <label>
           <input
             type="radio"
@@ -62,7 +65,7 @@ export function SearchForm({ query, mode, onSearch }: Props) {
           />
           Smart <span className="muted">(meaning)</span>
         </label>
-      </fieldset>
+      </div>
     </form>
   );
 }

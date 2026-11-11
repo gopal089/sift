@@ -116,17 +116,9 @@ button:disabled {
 .modes {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.25rem 1.25rem;
-  margin: 0.75rem 0 0;
-  padding: 0;
-  border: 0;
-}
-
-.modes legend {
-  float: left; /* puts the legend on the same line as the radio buttons */
-  margin-right: 1.25rem;
-  padding: 0;
-  color: var(--muted);
+  margin-top: 0.75rem;
 }
 
 .modes label {
