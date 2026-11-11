@@ -1,0 +1,1000 @@
+{"text": "", "ids": [101, 102]}
+{"text": " ", "ids": [101, 102]}
+{"text": "\t\n\r", "ids": [101, 102]}
+{"text": "a", "ids": [101, 1037, 102]}
+{"text": "A", "ids": [101, 1037, 102]}
+{"text": "I", "ids": [101, 1045, 102]}
+{"text": "x y z", "ids": [101, 1060, 1061, 1062, 102]}
+{"text": "Café Müller", "ids": [101, 7668, 12304, 102]}
+{"text": "naïve façade", "ids": [101, 15743, 8508, 102]}
+{"text": "São Paulo", "ids": [101, 7509, 9094, 102]}
+{"text": "Ångström", "ids": [101, 17076, 15687, 102]}
+{"text": "Đorđe", "ids": [101, 1102, 2953, 29671, 2063, 102]}
+{"text": "Łódź", "ids": [101, 17814, 102]}
+{"text": "Zürich", "ids": [101, 10204, 102]}
+{"text": "Øresund", "ids": [101, 1100, 6072, 8630, 102]}
+{"text": "İstanbul", "ids": [101, 9960, 102]}
+{"text": "ısık", "ids": [101, 1104, 2015, 11722, 2243, 102]}
+{"text": "Straße", "ids": [101, 2358, 27807, 102]}
+{"text": "ǅemal", "ids": [101, 100, 102]}
+{"text": "ﬁnance ﬂow", "ids": [101, 1984, 7229, 3401, 1985, 5004, 102]}
+{"text": "Ａｂｃ１２３", "ids": [101, 100, 102]}
+{"text": "½ ¼ ³ ²", "ids": [101, 1092, 1091, 1083, 1082, 102]}
+{"text": "x²+y²=z²", "ids": [101, 1060, 10701, 1009, 1061, 10701, 1027, 1062, 10701, 102]}
+{"text": "日本の首都は東京です", "ids": [101, 1864, 1876, 1671, 100, 1961, 1672, 1879, 1755, 1665, 30184, 102]}
+{"text": "中华人民共和国", "ids": [101, 1746, 100, 1756, 1892, 100, 1796, 1799, 102]}
+{"text": "한국어 텍스트", "ids": [101, 1469, 30006, 30021, 29991, 30014, 30020, 29999, 30008, 1467, 30009, 30020, 29997, 30017, 30003, 30017, 102]}
+{"text": "ภาษาไทย", "ids": [101, 100, 102]}
+{"text": "Ελληνικά ΟΔΥΣΣΕΥΣ", "ids": [101, 1159, 29727, 29727, 24824, 16177, 18199, 29726, 14608, 1169, 29722, 29735, 29733, 29733, 29723, 29735, 29733, 102]}
+{"text": "Москва, Россия", "ids": [101, 1191, 14150, 29747, 23925, 25529, 10260, 1010, 1195, 14150, 29747, 29747, 23483, 102]}
+{"text": "العربية", "ids": [101, 1270, 23673, 29830, 17149, 29816, 14498, 19433, 102]}
+{"text": "עברית", "ids": [101, 1259, 29789, 29811, 29796, 29813, 102]}
+{"text": "हिन्दी भाषा", "ids": [101, 1339, 29877, 29863, 29861, 29878, 1330, 29876, 29873, 29876, 102]}
+{"text": "தமிழ்", "ids": [101, 100, 102]}
+{"text": "Tiếng Việt có dấu", "ids": [101, 5495, 3070, 19710, 2522, 4830, 2226, 102]}
+{"text": "emoji 😀 test 👍🏽 family 👨‍👩‍👧", "ids": [101, 7861, 29147, 2072, 100, 3231, 100, 2155, 100, 102]}
+{"text": "🙂", "ids": [101, 100, 102]}
+{"text": "flag 🇺🇸", "ids": [101, 5210, 100, 102]}
+{"text": "❤️ love", "ids": [101, 100, 2293, 102]}
+{"text": "zero​width", "ids": [101, 5717, 9148, 11927, 2232, 102]}
+{"text": "non breaking", "ids": [101, 2512, 4911, 102]}
+{"text": "thin space", "ids": [101, 4857, 2686, 102]}
+{"text": "line sep", "ids": [101, 2240, 19802, 102]}
+{"text": "ideographic　space", "ids": [101, 8909, 8780, 14773, 2686, 102]}
+{"text": "soft­hyphen", "ids": [101, 3730, 10536, 8458, 2368, 102]}
+{"text": "bom﻿here", "ids": [101, 8945, 2213, 5886, 2063, 102]}
+{"text": "nul\u0000char", "ids": [101, 16371, 29358, 2906, 102]}
+{"text": "bell\u0007char", "ids": [101, 4330, 7507, 2099, 102]}
+{"text": "vt\u000bff\f", "ids": [101, 28879, 4246, 102]}
+{"text": "delchar", "ids": [101, 3972, 7507, 2099, 102]}
+{"text": "repl�char", "ids": [101, 16360, 29358, 2906, 102]}
+{"text": "nelchar", "ids": [101, 11265, 29358, 2906, 102]}
+{"text": "privateuse", "ids": [101, 2797, 8557, 102]}
+{"text": "rtl‏mark", "ids": [101, 19387, 19145, 8024, 102]}
+{"text": "can't won't it's", "ids": [101, 2064, 1005, 1056, 2180, 1005, 1056, 2009, 1005, 1055, 102]}
+{"text": "U.S.A.", "ids": [101, 1057, 1012, 1055, 1012, 1037, 1012, 102]}
+{"text": "e-mail", "ids": [101, 1041, 1011, 5653, 102]}
+{"text": "C++ & C#", "ids": [101, 1039, 1009, 1009, 1004, 1039, 1001, 102]}
+{"text": "f(x) = 2x + 1", "ids": [101, 1042, 1006, 1060, 1007, 1027, 1016, 2595, 1009, 1015, 102]}
+{"text": "50% off!!!", "ids": [101, 2753, 1003, 2125, 999, 999, 999, 102]}
+{"text": "$100,000.00", "ids": [101, 1002, 2531, 1010, 2199, 1012, 4002, 102]}
+{"text": "#hashtag @user", "ids": [101, 1001, 23325, 15900, 1030, 5310, 102]}
+{"text": "path/to/file.txt", "ids": [101, 4130, 1013, 2000, 1013, 5371, 1012, 19067, 2102, 102]}
+{"text": "http://example.com/a?b=c&d=e", "ids": [101, 8299, 1024, 1013, 1013, 2742, 1012, 4012, 1013, 1037, 1029, 1038, 1027, 1039, 1004, 1040, 1027, 1041, 102]}
+{"text": "a--b---c", "ids": [101, 1037, 1011, 1011, 1038, 1011, 1011, 1011, 1039, 102]}
+{"text": "...", "ids": [101, 1012, 1012, 1012, 102]}
+{"text": "?!?!", "ids": [101, 1029, 999, 1029, 999, 102]}
+{"text": "«quoted» “smart” ‘single’", "ids": [101, 1077, 9339, 1090, 1523, 6047, 1524, 1520, 2309, 1521, 102]}
+{"text": "em—dash en–dash", "ids": [101, 7861, 1517, 11454, 4372, 1516, 11454, 102]}
+{"text": "1,234,567", "ids": [101, 1015, 1010, 22018, 1010, 5179, 2581, 102]}
+{"text": "3.14159", "ids": [101, 1017, 1012, 15471, 28154, 102]}
+{"text": "1e-9", "ids": [101, 1015, 2063, 1011, 1023, 102]}
+{"text": "2026-11-11", "ids": [101, 16798, 2575, 1011, 2340, 1011, 2340, 102]}
+{"text": "12:30pm", "ids": [101, 2260, 1024, 2382, 9737, 102]}
+{"text": "No. 5", "ids": [101, 2053, 1012, 1019, 102]}
+{"text": "#1", "ids": [101, 1001, 1015, 102]}
+{"text": "100°C", "ids": [101, 2531, 7737, 2278, 102]}
+{"text": "€50 £20 ¥1000", "ids": [101, 1574, 12376, 21853, 2692, 1071, 18613, 2692, 102]}
+{"text": "~tilde^caret`back|pipe", "ids": [101, 1066, 18681, 3207, 1034, 2729, 2102, 1036, 2067, 1064, 8667, 102]}
+{"text": "supercalifragilisticexpialidocious", "ids": [101, 3565, 9289, 10128, 29181, 24411, 4588, 10288, 19312, 21273, 10085, 6313, 102]}
+{"text": "pneumonoultramicroscopicsilicovolcanoconiosis", "ids": [101, 1052, 2638, 2819, 17175, 11314, 6444, 2594, 7352, 26461, 27572, 11261, 6767, 15472, 6761, 8663, 10735, 2483, 102]}
+{"text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "ids": [101, 22038, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 2595, 102]}
+{"text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "ids": [101, 22038, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 20348, 102]}
+{"text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "ids": [101, 100, 102]}
+{"text": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab", "ids": [101, 100, 102]}
+{"text": "unaffable unbelievable", "ids": [101, 14477, 20961, 3468, 23653, 102]}
+{"text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ", "ids": [101, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 2773, 102]}
+{"text": "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. ", "ids": [101, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 14523, 2058, 1996, 13971, 3899, 1012, 1996, 4248, 2829, 4419, 102]}
+{"text": "Leavenworth County, Kansas", "ids": [101, 2681, 2078, 5172, 2221, 1010, 5111, 102]}
+{"text": "University of Canterbury", "ids": [101, 2118, 1997, 9976, 102]}
+{"text": "Black operation", "ids": [101, 2304, 3169, 102]}
+{"text": "Oyaki", "ids": [101, 1051, 3148, 3211, 102]}
+{"text": "Craig Goldman", "ids": [101, 7010, 17765, 102]}
+{"text": "Super Bowl XLVII", "ids": [101, 3565, 4605, 28712, 5737, 2072, 102]}
+{"text": "Nepal Nag", "ids": [101, 8222, 6583, 2290, 102]}
+{"text": "Symsyn", "ids": [101, 25353, 5244, 6038, 102]}
+{"text": "Francoist Spain", "ids": [101, 8173, 2102, 3577, 102]}
+{"text": "Reagan coalition", "ids": [101, 11531, 6056, 102]}
+{"text": "Maria (US5 song)", "ids": [101, 3814, 1006, 2149, 2629, 2299, 1007, 102]}
+{"text": "Tafers", "ids": [101, 11937, 24396, 102]}
+{"text": "Győző Kulcsár", "ids": [101, 1043, 7677, 6844, 13970, 15472, 10286, 102]}
+{"text": "Peravia Province", "ids": [101, 2566, 15164, 2874, 102]}
+{"text": "Parthiv Patel", "ids": [101, 2112, 4048, 2615, 20455, 102]}
+{"text": "Jet d'Eau", "ids": [101, 6892, 1040, 1005, 19413, 2226, 102]}
+{"text": "Juan Luis Vives", "ids": [101, 5348, 6446, 6819, 6961, 102]}
+{"text": "Malwarebytes (software)", "ids": [101, 15451, 8059, 3762, 4570, 1006, 4007, 1007, 102]}
+{"text": "Peter Greste", "ids": [101, 2848, 24665, 4355, 2063, 102]}
+{"text": "Cavit Şadi Pehlivanoğlu", "ids": [101, 6187, 5737, 2102, 6517, 2072, 21877, 27766, 6212, 8649, 7630, 102]}
+{"text": "Liechtenstein", "ids": [101, 26500, 102]}
+{"text": "Woody Allen", "ids": [101, 13703, 5297, 102]}
+{"text": "Computer terminal", "ids": [101, 3274, 5536, 102]}
+{"text": "Spider-Man 2 (video game)", "ids": [101, 6804, 1011, 2158, 1016, 1006, 2678, 2208, 1007, 102]}
+{"text": "Niotaze, Kansas", "ids": [101, 9152, 17287, 4371, 1010, 5111, 102]}
+{"text": "Alexis Arquette", "ids": [101, 13573, 12098, 29416, 102]}
+{"text": "Ricardo Mórtola", "ids": [101, 13559, 22294, 6030, 102]}
+{"text": "Bobby Holík", "ids": [101, 6173, 7570, 18393, 102]}
+{"text": "Darwin Day", "ids": [101, 11534, 2154, 102]}
+{"text": "Kamlesh Patel (Daaji)", "ids": [101, 27829, 4244, 2232, 20455, 1006, 4830, 13006, 2072, 1007, 102]}
+{"text": "Freddie Prinze Jr.", "ids": [101, 15528, 26927, 14191, 2063, 3781, 1012, 102]}
+{"text": "Australia national international rules football team", "ids": [101, 2660, 2120, 2248, 3513, 2374, 2136, 102]}
+{"text": "Albert A. Gore Sr.", "ids": [101, 4789, 1037, 1012, 13638, 5034, 1012, 102]}
+{"text": "Mihrimah Sultan (daughter of Suleiman I)", "ids": [101, 2771, 26378, 25687, 7544, 1006, 2684, 1997, 21396, 12112, 2319, 1045, 1007, 102]}
+{"text": "Løten", "ids": [101, 1048, 16415, 6528, 102]}
+{"text": "Jenga", "ids": [101, 15419, 3654, 102]}
+{"text": "All Star Baseball", "ids": [101, 2035, 2732, 3598, 102]}
+{"text": "Monument Rocks (Kansas)", "ids": [101, 6104, 5749, 1006, 5111, 1007, 102]}
+{"text": "LGBTQ rights in Azerbaijan", "ids": [101, 12010, 4160, 2916, 1999, 8365, 102]}
+{"text": "Transportation in Pakistan", "ids": [101, 5193, 1999, 4501, 102]}
+{"text": "Gresham, Oregon", "ids": [101, 24665, 9953, 3286, 1010, 5392, 102]}
+{"text": "Arrondissement of Bayeux", "ids": [101, 20522, 1997, 3016, 20860, 102]}
+{"text": "1987 Edmonton tornado", "ids": [101, 3055, 10522, 11352, 102]}
+{"text": "Bilca", "ids": [101, 12170, 15472, 2050, 102]}
+{"text": "San Francisco", "ids": [101, 2624, 3799, 102]}
+{"text": "Cantor's diagonal argument", "ids": [101, 26519, 1005, 1055, 19754, 6685, 102]}
+{"text": "Baddeley Devesi", "ids": [101, 2919, 9247, 3240, 16475, 2229, 2072, 102]}
+{"text": "Medal", "ids": [101, 3101, 102]}
+{"text": "Solar Hijri Calendar", "ids": [101, 5943, 7632, 3501, 3089, 8094, 102]}
+{"text": "Avignon", "ids": [101, 20704, 24796, 102]}
+{"text": "Anomalocaris", "ids": [101, 2019, 9626, 4135, 10010, 2483, 102]}
+{"text": "Raymond Kopa", "ids": [101, 7638, 12849, 4502, 102]}
+{"text": "2 Faced", "ids": [101, 1016, 4320, 102]}
+{"text": "Citron (color)", "ids": [101, 25022, 15312, 1006, 3609, 1007, 102]}
+{"text": "1989 AFC Women's Championship", "ids": [101, 2960, 10511, 2308, 1005, 1055, 2528, 102]}
+{"text": "Paul Shane", "ids": [101, 2703, 8683, 102]}
+{"text": "Bouranton", "ids": [101, 8945, 4648, 15104, 102]}
+{"text": "Semicircle", "ids": [101, 4100, 6895, 21769, 102]}
+{"text": "Cesny-aux-Vignes", "ids": [101, 8292, 2015, 4890, 1011, 19554, 1011, 6819, 10177, 2015, 102]}
+{"text": "Nosferatu the Vampyre", "ids": [101, 16839, 27709, 8525, 1996, 20279, 16363, 102]}
+{"text": "Avroult", "ids": [101, 20704, 22494, 7096, 102]}
+{"text": "Felanitx", "ids": [101, 10768, 21141, 2102, 2595, 102]}
+{"text": "Yutaka Baba", "ids": [101, 9805, 28412, 14208, 102]}
+{"text": "Eileen Kramer", "ids": [101, 20495, 16322, 102]}
+{"text": "September Girls", "ids": [101, 2244, 3057, 102]}
+{"text": "Foro (TV channel)", "ids": [101, 2005, 2080, 1006, 2694, 3149, 1007, 102]}
+{"text": "Nebraska Cornhuskers", "ids": [101, 8506, 9781, 9825, 11451, 102]}
+{"text": "Springfield, Florida", "ids": [101, 10493, 1010, 3516, 102]}
+{"text": "Tyne Daly", "ids": [101, 17742, 18509, 102]}
+{"text": "Toulouse FC", "ids": [101, 17209, 4429, 102]}
+{"text": "José Maria Eymael", "ids": [101, 4560, 3814, 1041, 24335, 21147, 102]}
+{"text": "Tegnér church", "ids": [101, 8915, 10177, 2099, 2277, 102]}
+{"text": "Cristina Reyes", "ids": [101, 22246, 12576, 102]}
+{"text": "Rexhep Meidani", "ids": [101, 10151, 5369, 2361, 19734, 7847, 2072, 102]}
+{"text": "Night on Bald Mountain", "ids": [101, 2305, 2006, 13852, 3137, 102]}
+{"text": "Bie", "ids": [101, 12170, 2063, 102]}
+{"text": "Antigua and Barbuda national football team", "ids": [101, 26023, 1998, 3347, 8569, 2850, 2120, 2374, 2136, 102]}
+{"text": "October 4", "ids": [101, 2255, 1018, 102]}
+{"text": "Port-Sainte-Foy-et-Ponchapt", "ids": [101, 3417, 1011, 16947, 1011, 1042, 6977, 1011, 3802, 1011, 13433, 12680, 9331, 2102, 102]}
+{"text": "SIX Swiss Exchange", "ids": [101, 2416, 5364, 3863, 102]}
+{"text": "El Cóndor", "ids": [101, 3449, 29260, 102]}
+{"text": "Camaret-sur-Mer", "ids": [101, 11503, 12069, 2102, 1011, 7505, 1011, 21442, 102]}
+{"text": "David Rouzer", "ids": [101, 2585, 20996, 20395, 2099, 102]}
+{"text": "Arrondissements of the Meurthe-et-Moselle department", "ids": [101, 20522, 2015, 1997, 1996, 2033, 19585, 5369, 1011, 3802, 1011, 9587, 19358, 2533, 102]}
+{"text": "National Airlines", "ids": [101, 2120, 7608, 102]}
+{"text": "Francesco Guicciardini", "ids": [101, 11400, 26458, 14693, 4232, 5498, 102]}
+{"text": "Capricornus", "ids": [101, 6178, 7277, 9691, 2271, 102]}
+{"text": "Cármenes", "ids": [101, 11425, 2229, 102]}
+{"text": "The Addams Family (1964 TV series)", "ids": [101, 1996, 5587, 13596, 2155, 1006, 3546, 2694, 2186, 1007, 102]}
+{"text": "Boy from the Outskirts", "ids": [101, 2879, 2013, 1996, 12730, 102]}
+{"text": "Clumber Park", "ids": [101, 18856, 29440, 2380, 102]}
+{"text": "Marlene Favela", "ids": [101, 26921, 6904, 15985, 2050, 102]}
+{"text": "Teri Yaad (movie)", "ids": [101, 28774, 2072, 8038, 4215, 1006, 3185, 1007, 102]}
+{"text": "John Smith (Labour Party leader)", "ids": [101, 2198, 3044, 1006, 4428, 2283, 3003, 1007, 102]}
+{"text": "Maratha–Dutch Naval War", "ids": [101, 13955, 8322, 1516, 3803, 3987, 2162, 102]}
+{"text": "Bad Girls Club season 15", "ids": [101, 2919, 3057, 2252, 2161, 2321, 102]}
+{"text": "Aban", "ids": [101, 19557, 2078, 102]}
+{"text": "Gerindra Party", "ids": [101, 16216, 6657, 7265, 2283, 102]}
+{"text": "Excessive Daytime Sleepiness", "ids": [101, 11664, 12217, 3637, 9961, 102]}
+{"text": "Halim El-Dabh", "ids": [101, 11085, 5714, 3449, 1011, 4830, 23706, 102]}
+{"text": "Division of Hunter", "ids": [101, 2407, 1997, 4477, 102]}
+{"text": "Flat, Texas", "ids": [101, 4257, 1010, 3146, 102]}
+{"text": "Pampanga", "ids": [101, 14089, 9739, 3654, 102]}
+{"text": "Lady and the Tramp II: Scamp's Adventure", "ids": [101, 3203, 1998, 1996, 12517, 2361, 2462, 1024, 8040, 16613, 1005, 1055, 6172, 102]}
+{"text": "Muggia", "ids": [101, 14757, 10440, 102]}
+{"text": "Sherman Adams", "ids": [101, 11011, 5922, 102]}
+{"text": "Norma Miller", "ids": [101, 20692, 4679, 102]}
+{"text": "Corpse Husband", "ids": [101, 11547, 3129, 102]}
+{"text": "1370s", "ids": [101, 14989, 16223, 102]}
+{"text": "Grainger County, Tennessee", "ids": [101, 8982, 4590, 2221, 1010, 5298, 102]}
+{"text": "Alberto Ponis", "ids": [101, 12007, 13433, 8977, 102]}
+{"text": "Appelle", "ids": [101, 10439, 14774, 102]}
+{"text": "Luis Díaz (footballer, born 1997)", "ids": [101, 6446, 12526, 1006, 4362, 1010, 2141, 2722, 1007, 102]}
+{"text": "Sleeper (1973 movie)", "ids": [101, 24372, 1006, 3381, 3185, 1007, 102]}
+{"text": "Rachel Portman", "ids": [101, 5586, 3417, 2386, 102]}
+{"text": "Boucé, Allier", "ids": [101, 8945, 18796, 1010, 16944, 2099, 102]}
+{"text": "Entoprocta", "ids": [101, 4372, 14399, 3217, 25572, 102]}
+{"text": "The Matrix Resurrections", "ids": [101, 1996, 8185, 15218, 2015, 102]}
+{"text": "Keith Thomas (historian)", "ids": [101, 6766, 2726, 1006, 5272, 1007, 102]}
+{"text": "The Great Exhibition", "ids": [101, 1996, 2307, 4538, 102]}
+{"text": "Kleptomania", "ids": [101, 1047, 2571, 13876, 20778, 2401, 102]}
+{"text": "The Selfish Gene", "ids": [101, 1996, 14337, 4962, 102]}
+{"text": "Deca-", "ids": [101, 11703, 2050, 1011, 102]}
+{"text": "Dancing House", "ids": [101, 5613, 2160, 102]}
+{"text": "Laxmi Aggarwal", "ids": [101, 27327, 4328, 12943, 6843, 13476, 102]}
+{"text": "Gil Stein (ice hockey)", "ids": [101, 13097, 14233, 1006, 3256, 3873, 1007, 102]}
+{"text": "Power cut", "ids": [101, 2373, 3013, 102]}
+{"text": "Typhoon Manny", "ids": [101, 15393, 16320, 102]}
+{"text": "Zoran Marojević", "ids": [101, 1062, 18842, 9388, 29147, 17726, 102]}
+{"text": "Megan Gallagher", "ids": [101, 12756, 17297, 102]}
+{"text": "Melanie Griffith", "ids": [101, 13286, 14135, 102]}
+{"text": "Byron, Oklahoma", "ids": [101, 12234, 1010, 5858, 102]}
+{"text": "Alexander Schallenberg", "ids": [101, 3656, 8040, 9892, 11029, 102]}
+{"text": "Porsche Club Hohensyburg", "ids": [101, 16099, 2252, 7570, 10222, 6508, 4645, 102]}
+{"text": "Frostbite", "ids": [101, 10097, 16313, 2063, 102]}
+{"text": "Engystomops montubio", "ids": [101, 25540, 27268, 19506, 4523, 18318, 12083, 3695, 102]}
+{"text": "Social democracy", "ids": [101, 2591, 7072, 102]}
+{"text": "Point of view shot", "ids": [101, 2391, 1997, 3193, 2915, 102]}
+{"text": "The Fountain of Bakhchisaray (movie)", "ids": [101, 1996, 9545, 1997, 8670, 10023, 5428, 10286, 4710, 1006, 3185, 1007, 102]}
+{"text": "Wycombe Wanderers F.C.", "ids": [101, 1059, 2100, 14149, 14237, 1042, 1012, 1039, 1012, 102]}
+{"text": "The Late Late Show with Craig Ferguson", "ids": [101, 1996, 2397, 2397, 2265, 2007, 7010, 11262, 102]}
+{"text": "Lights (Journey song)", "ids": [101, 4597, 1006, 4990, 2299, 1007, 102]}
+{"text": "Swifton, Arkansas", "ids": [101, 9170, 2239, 1010, 6751, 102]}
+{"text": "Voiceless palatal implosive", "ids": [101, 2376, 3238, 14412, 27815, 17727, 10483, 3512, 102]}
+{"text": "Salmon", "ids": [101, 11840, 102]}
+{"text": "Mayank Agarwal", "ids": [101, 9815, 8950, 12943, 2906, 13476, 102]}
+{"text": "Clan Wallace", "ids": [101, 6338, 7825, 102]}
+{"text": "Trial of Arne Cheyenne Johnson", "ids": [101, 3979, 1997, 12098, 2638, 17778, 3779, 102]}
+{"text": "Mariëlle Schothans", "ids": [101, 5032, 6216, 8040, 12326, 4819, 2015, 102]}
+{"text": "Urdaneta, Pangasinan", "ids": [101, 24471, 7847, 12928, 1010, 20657, 21369, 7229, 102]}
+{"text": "Frank Edwards (politician)", "ids": [101, 3581, 7380, 1006, 3761, 1007, 102]}
+{"text": "Spanish Republican government in exile", "ids": [101, 3009, 3951, 2231, 1999, 8340, 102]}
+{"text": "Eugen Ewig", "ids": [101, 29273, 1041, 16279, 102]}
+{"text": "Haboob", "ids": [101, 5292, 5092, 16429, 102]}
+{"text": "Anizy-le-Château", "ids": [101, 2019, 10993, 2100, 1011, 3393, 1011, 11874, 102]}
+{"text": "Nissan Terrano II", "ids": [101, 16509, 14403, 3630, 2462, 102]}
+{"text": "Zoë Heller", "ids": [101, 11199, 25038, 102]}
+{"text": "Eliseo Mendoza Berrueto", "ids": [101, 14251, 2080, 18021, 2022, 12171, 23361, 2080, 102]}
+{"text": "Hotton", "ids": [101, 2980, 2669, 102]}
+{"text": "Shiho Kaneda", "ids": [101, 11895, 6806, 8472, 2850, 102]}
+{"text": "Cambridge, New Zealand", "ids": [101, 4729, 1010, 2047, 3414, 102]}
+{"text": "Stig Rästa", "ids": [101, 2358, 8004, 20710, 2696, 102]}
+{"text": "Survivor Series (1997)", "ids": [101, 12084, 2186, 1006, 2722, 1007, 102]}
+{"text": "Tatjana Weiss", "ids": [101, 11937, 2102, 18803, 17889, 102]}
+{"text": "Brendan Gleeson", "ids": [101, 15039, 18874, 3385, 102]}
+{"text": "Abhay Deol", "ids": [101, 11113, 24180, 2139, 4747, 102]}
+{"text": "Julen Guerrero", "ids": [101, 21650, 2368, 16938, 102]}
+{"text": "Safe sex", "ids": [101, 3647, 3348, 102]}
+{"text": "Amancio Ortega", "ids": [101, 25933, 12273, 3695, 25859, 102]}
+{"text": "Devil May Cry 3: Dante's Awakening", "ids": [101, 6548, 2089, 5390, 1017, 1024, 9649, 1005, 1055, 16936, 102]}
+{"text": "Music video game", "ids": [101, 2189, 2678, 2208, 102]}
+{"text": "Mohammad-Ali Movahedi Kermani", "ids": [101, 12050, 1011, 4862, 9587, 21927, 2098, 2072, 24500, 2072, 102]}
+{"text": "Pagadian", "ids": [101, 6643, 3654, 11692, 102]}
+{"text": "Flotation", "ids": [101, 13109, 17287, 3508, 102]}
+{"text": "Bring Me the Horizon", "ids": [101, 3288, 2033, 1996, 9154, 102]}
+{"text": "Šuperstacja", "ids": [101, 3565, 9153, 2278, 3900, 102]}
+{"text": "Battle of Halidzor", "ids": [101, 2645, 1997, 11085, 3593, 6844, 2099, 102]}
+{"text": "Mo Yan", "ids": [101, 9587, 13619, 102]}
+{"text": "Data Encryption Standard", "ids": [101, 2951, 21999, 3115, 102]}
+{"text": "John Muckler", "ids": [101, 2198, 14163, 19250, 2099, 102]}
+{"text": "Black Lives Matter Plaza", "ids": [101, 2304, 3268, 3043, 8232, 102]}
+{"text": "Mehriz", "ids": [101, 2033, 26378, 2480, 102]}
+{"text": "Biruta Lewaszkiewicz-Petrykowska", "ids": [101, 12170, 22134, 2050, 24992, 3022, 2480, 28563, 1011, 9004, 2854, 24144, 8337, 102]}
+{"text": "John Berry (musician)", "ids": [101, 2198, 10498, 1006, 5455, 1007, 102]}
+{"text": "Torny", "ids": [101, 7950, 2100, 102]}
+{"text": "Englefontaine", "ids": [101, 25540, 2571, 14876, 12380, 3170, 102]}
+{"text": "Orleans, Iowa", "ids": [101, 5979, 1010, 5947, 102]}
+{"text": "Osteoarthritis", "ids": [101, 9808, 2618, 10441, 15265, 14778, 2483, 102]}
+{"text": "Duttaphrynus melanostictus", "ids": [101, 4241, 5946, 8458, 18143, 2271, 11463, 6761, 10074, 5809, 102]}
+{"text": "IBook", "ids": [101, 21307, 14659, 102]}
+{"text": "Patti Davis", "ids": [101, 22732, 4482, 102]}
+{"text": "Gegharkunik Province", "ids": [101, 16216, 5603, 17007, 19496, 2243, 2874, 102]}
+{"text": "Vinyl cutter", "ids": [101, 8877, 16343, 102]}
+{"text": "Sander Schnitger", "ids": [101, 5472, 2121, 8040, 7295, 4183, 4590, 102]}
+{"text": "Revenge (album)", "ids": [101, 7195, 1006, 2201, 1007, 102]}
+{"text": "Mut", "ids": [101, 14163, 2102, 102]}
+{"text": "Trench Camp, Arizona", "ids": [101, 14185, 3409, 1010, 5334, 102]}
+{"text": "Aleksey Batalov", "ids": [101, 15669, 5705, 3240, 7151, 23067, 2615, 102]}
+{"text": "Ripley, West Virginia", "ids": [101, 25231, 1010, 2225, 3448, 102]}
+{"text": "Jessica Rothe", "ids": [101, 8201, 12211, 2063, 102]}
+{"text": "Sam Gardiner", "ids": [101, 3520, 21143, 102]}
+{"text": "Aomori", "ids": [101, 20118, 24610, 102]}
+{"text": "Stuart, Florida", "ids": [101, 6990, 1010, 3516, 102]}
+{"text": "List of United Kingdom locations: Ff-Fn", "ids": [101, 2862, 1997, 2142, 2983, 5269, 1024, 21461, 1011, 1042, 2078, 102]}
+{"text": "Plinian eruption", "ids": [101, 20228, 15830, 17259, 102]}
+{"text": "Rappin' Hood", "ids": [101, 9680, 8091, 1005, 7415, 102]}
+{"text": "Division of Murray", "ids": [101, 2407, 1997, 6264, 102]}
+{"text": "Lyman, Maine", "ids": [101, 27587, 1010, 7081, 102]}
+{"text": "Lazaro Marin", "ids": [101, 2474, 9057, 2080, 16400, 102]}
+{"text": "Mother of the Nation", "ids": [101, 2388, 1997, 1996, 3842, 102]}
+{"text": "Steering", "ids": [101, 9602, 102]}
+{"text": "Grand Trunk Road", "ids": [101, 2882, 8260, 2346, 102]}
+{"text": "Rush Springs, Oklahoma", "ids": [101, 5481, 6076, 1010, 5858, 102]}
+{"text": "Mason Ramsey", "ids": [101, 6701, 15092, 102]}
+{"text": "2020 Nagorno-Karabakh war", "ids": [101, 12609, 6583, 20255, 3630, 1011, 13173, 3676, 10023, 2162, 102]}
+{"text": "Canadian Lacrosse League", "ids": [101, 3010, 13488, 2223, 102]}
+{"text": "List of political parties in Portugal", "ids": [101, 2862, 1997, 2576, 4243, 1999, 5978, 102]}
+{"text": "Rapes of Gisèle Pelicot", "ids": [101, 9040, 2015, 1997, 21025, 11246, 2063, 21877, 10415, 4140, 102]}
+{"text": "The Peanut Butter Falcon", "ids": [101, 1996, 21443, 12136, 11684, 102]}
+{"text": "Hamster", "ids": [101, 10654, 6238, 102]}
+{"text": "Plérin", "ids": [101, 20228, 23282, 102]}
+{"text": "Black Celebration", "ids": [101, 2304, 7401, 102]}
+{"text": "Federico Mayor Zaragoza", "ids": [101, 20493, 3664, 25744, 102]}
+{"text": "Humberto Galea", "ids": [101, 14910, 21201, 14554, 2050, 102]}
+{"text": "Viceroyalty of New Spain", "ids": [101, 19007, 2389, 3723, 1997, 2047, 3577, 102]}
+{"text": "Belarus at the 2018 Winter Paralympics", "ids": [101, 12545, 2012, 1996, 2760, 3467, 15600, 102]}
+{"text": "Alan Tudyk", "ids": [101, 5070, 10722, 5149, 2243, 102]}
+{"text": "Santa Fe, Texas", "ids": [101, 4203, 10768, 1010, 3146, 102]}
+{"text": "Abraham Lincoln", "ids": [101, 8181, 5367, 102]}
+{"text": "Valley Grande, Alabama", "ids": [101, 3028, 9026, 1010, 6041, 102]}
+{"text": "Morgan's Point, Texas", "ids": [101, 5253, 1005, 1055, 2391, 1010, 3146, 102]}
+{"text": "Bird sound", "ids": [101, 4743, 2614, 102]}
+{"text": "Plym Valley Railway", "ids": [101, 20228, 24335, 3028, 2737, 102]}
+{"text": "Usina tree frog", "ids": [101, 2149, 3981, 3392, 10729, 102]}
+{"text": "Emil Cioran", "ids": [101, 16243, 25022, 18842, 102]}
+{"text": "Grey parrot", "ids": [101, 4462, 22530, 102]}
+{"text": "Hurricane Karl (2010)", "ids": [101, 7064, 6382, 1006, 2230, 1007, 102]}
+{"text": "May 2022 Madjoari massacre", "ids": [101, 2089, 16798, 2475, 5506, 5558, 8486, 9288, 102]}
+{"text": "Gallic acid", "ids": [101, 26033, 2594, 5648, 102]}
+{"text": "Muttahida Majlis-e-Amal", "ids": [101, 14163, 5946, 27511, 2050, 16686, 6856, 1011, 1041, 1011, 25933, 2140, 102]}
+{"text": "Silverdale, Washington", "ids": [101, 3165, 5634, 1010, 2899, 102]}
+{"text": "Vale of Leven Academy", "ids": [101, 10380, 1997, 23310, 2368, 2914, 102]}
+{"text": "A Pistol Shot (1966 movie)", "ids": [101, 1037, 8779, 2915, 1006, 3547, 3185, 1007, 102]}
+{"text": "Bushwick Bill", "ids": [101, 5747, 7184, 3021, 102]}
+{"text": "February 19", "ids": [101, 2337, 2539, 102]}
+{"text": "Sierra Madre Occidental", "ids": [101, 7838, 5506, 2890, 1051, 14693, 16454, 2389, 102]}
+{"text": "Karyna Kazlouskaya", "ids": [101, 10556, 18143, 2050, 10556, 2480, 15534, 20718, 102]}
+{"text": "Gadani Beach", "ids": [101, 11721, 7847, 2072, 3509, 102]}
+{"text": "Chesapeake–Leopard Affair", "ids": [101, 20867, 1516, 16240, 6771, 102]}
+{"text": "Sulkava", "ids": [101, 21396, 2912, 3567, 102]}
+{"text": "Justice Society of America", "ids": [101, 3425, 2554, 1997, 2637, 102]}
+{"text": "Hour of Mystery", "ids": [101, 3178, 1997, 6547, 102]}
+{"text": "Plaxton Cheetah", "ids": [101, 20228, 8528, 2669, 18178, 12928, 2232, 102]}
+{"text": "Bill Dodgin, Sr.", "ids": [101, 3021, 26489, 11528, 1010, 5034, 1012, 102]}
+{"text": "Nydia Velázquez", "ids": [101, 6396, 9032, 2310, 2721, 22938, 102]}
+{"text": "Guyencourt", "ids": [101, 3124, 2368, 13421, 102]}
+{"text": "Tenuis alveolar click", "ids": [101, 2702, 27020, 2632, 3726, 19478, 11562, 102]}
+{"text": "Roger Douglas", "ids": [101, 5074, 5203, 102]}
+{"text": "Cape Verdean Football Federation", "ids": [101, 4880, 16184, 2319, 2374, 4657, 102]}
+{"text": "Bocche di San Lorenzo", "ids": [101, 8945, 9468, 5369, 4487, 2624, 12484, 102]}
+{"text": "La Goulue", "ids": [101, 2474, 2175, 20391, 2063, 102]}
+{"text": "Someday (Steve Earle song)", "ids": [101, 13834, 1006, 3889, 23888, 2299, 1007, 102]}
+{"text": "Paden, Mississippi", "ids": [101, 11687, 2368, 1010, 5900, 102]}
+{"text": "Warcraft II: Beyond the Dark Portal", "ids": [101, 2162, 10419, 2462, 1024, 3458, 1996, 2601, 9445, 102]}
+{"text": "Kara Region", "ids": [101, 13173, 2555, 102]}
+{"text": "Raorchestes munnarensis", "ids": [101, 10546, 11140, 4355, 2229, 14163, 9516, 7389, 6190, 102]}
+{"text": "Mohammed Deif", "ids": [101, 12619, 14866, 2546, 102]}
+{"text": "Flag of Hong Kong", "ids": [101, 5210, 1997, 4291, 4290, 102]}
+{"text": "Indonesia", "ids": [101, 6239, 102]}
+{"text": "Fazli Husain", "ids": [101, 6904, 2480, 3669, 15876, 15816, 2078, 102]}
+{"text": "Sameirang", "ids": [101, 2168, 7895, 3070, 102]}
+{"text": "Beaucaire, Gers", "ids": [101, 17935, 3540, 7442, 1010, 16216, 2869, 102]}
+{"text": "Uffing am Staffelsee", "ids": [101, 1057, 15379, 2290, 2572, 3095, 9050, 4402, 102]}
+{"text": "By the Sword", "ids": [101, 2011, 1996, 4690, 102]}
+{"text": "Senonnes", "ids": [101, 12411, 18256, 2015, 102]}
+{"text": "Crazy Cool", "ids": [101, 4689, 4658, 102]}
+{"text": "Wellingborough", "ids": [101, 2092, 2075, 10235, 102]}
+{"text": "Push It to the Limit", "ids": [101, 5245, 2009, 2000, 1996, 5787, 102]}
+{"text": "West Silvertown DLR station", "ids": [101, 2225, 3165, 4665, 21469, 2099, 2276, 102]}
+{"text": "Gaels", "ids": [101, 28151, 2015, 102]}
+{"text": "Ravi Shankar Prasad", "ids": [101, 16806, 17429, 17476, 102]}
+{"text": "Smart card", "ids": [101, 6047, 4003, 102]}
+{"text": "Episode (Bardi)", "ids": [101, 2792, 1006, 22759, 2072, 1007, 102]}
+{"text": "Eustress", "ids": [101, 7327, 3367, 8303, 102]}
+{"text": "Mayor of San Francisco", "ids": [101, 3664, 1997, 2624, 3799, 102]}
+{"text": "N.M. Perera", "ids": [101, 1050, 1012, 1049, 1012, 23976, 2527, 102]}
+{"text": "Re:Zero", "ids": [101, 2128, 1024, 5717, 102]}
+{"text": "Adolf Mathis", "ids": [101, 12500, 8785, 2483, 102]}
+{"text": "Jewel Changi Airport", "ids": [101, 13713, 11132, 2072, 3199, 102]}
+{"text": "Hyundai Sonata", "ids": [101, 25983, 14681, 102]}
+{"text": "St. John's Co-Cathedral", "ids": [101, 2358, 1012, 2198, 1005, 1055, 2522, 1011, 5040, 102]}
+{"text": "Uranium zirconium hydride", "ids": [101, 14247, 1062, 4313, 8663, 5007, 1044, 25688, 15637, 102]}
+{"text": "Salena (singer)", "ids": [101, 5096, 2532, 1006, 3220, 1007, 102]}
+{"text": "Televisión Independiente de México", "ids": [101, 2547, 27427, 13699, 10497, 25099, 2139, 3290, 102]}
+{"text": "Neebing, Ontario", "ids": [101, 7663, 10472, 1010, 4561, 102]}
+{"text": "Virudhunagar", "ids": [101, 6819, 28121, 17157, 16098, 2099, 102]}
+{"text": "1968–69 Austrian football championship", "ids": [101, 3380, 1516, 6353, 6161, 2374, 2528, 102]}
+{"text": "Minimum wage", "ids": [101, 6263, 11897, 102]}
+{"text": "List of presidents of India", "ids": [101, 2862, 1997, 11274, 1997, 2634, 102]}
+{"text": "Hurricane Fabian", "ids": [101, 7064, 21174, 102]}
+{"text": "Since then, it became popular in South Korea in the early 2010s", "ids": [101, 2144, 2059, 1010, 2009, 2150, 2759, 1999, 2148, 4420, 1999, 1996, 2220, 26817, 102]}
+{"text": "state of Texas.", "ids": [101, 2110, 1997, 3146, 1012, 102]}
+{"text": "History and development Page design has long been a consideration in printed material", "ids": [101, 2381, 1998, 2458, 3931, 2640, 2038, 2146, 2042, 1037, 9584, 1999, 6267, 3430, 102]}
+{"text": "Stanley Marcus (April", "ids": [101, 6156, 6647, 1006, 2258, 102]}
+{"text": "The lowest temperature ever recorded in Austria was on 19 February 1932 at Grünloch Doline", "ids": [101, 1996, 7290, 4860, 2412, 2680, 1999, 5118, 2001, 2006, 2539, 2337, 4673, 2012, 24665, 4609, 4135, 2818, 2079, 4179, 102]}
+{"text": "He was the former executive governor of Ondo State from 2017 until his death in 2023 as a result of cancer, according to the BBC", "ids": [101, 2002, 2001, 1996, 2280, 3237, 3099, 1997, 2006, 3527, 2110, 2013, 2418, 2127, 2010, 2331, 1999, 16798, 2509, 2004, 1037, 2765, 1997, 4456, 1010, 2429, 2000, 1996, 4035, 102]}
+{"text": "Dna testing has shown that many members in this group are not closely related to each other", "ids": [101, 6064, 5604, 2038, 3491, 2008, 2116, 2372, 1999, 2023, 2177, 2024, 2025, 4876, 3141, 2000, 2169, 2060, 102]}
+{"text": "It was directed by Sam Wood", "ids": [101, 2009, 2001, 2856, 2011, 3520, 3536, 102]}
+{"text": "Pavol Molnár (13 February 1936 – 6 November 2021) was a Slovak footballer", "ids": [101, 6643, 6767, 2140, 9587, 19666, 2906, 1006, 2410, 2337, 4266, 1516, 1020, 2281, 25682, 1007, 2001, 1037, 12747, 4362, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "Ariquemes is an Brazilian city in the state of Rondônia", "ids": [101, 10488, 4226, 7834, 2003, 2019, 6142, 2103, 1999, 1996, 2110, 1997, 6902, 5280, 2401, 102]}
+{"text": "It is next to Bangladesh", "ids": [101, 2009, 2003, 2279, 2000, 7269, 102]}
+{"text": "The flare may trick the missile into hitting into the hot, burning flare", "ids": [101, 1996, 17748, 2089, 7577, 1996, 7421, 2046, 7294, 2046, 1996, 2980, 1010, 5255, 17748, 102]}
+{"text": "They are related to the rock dove", "ids": [101, 2027, 2024, 3141, 2000, 1996, 2600, 10855, 102]}
+{"text": "King of the Hill is", "ids": [101, 2332, 1997, 1996, 2940, 2003, 102]}
+{"text": "He graduated at Seville University in 1564 and later studied at Salamanca and Alcalá", "ids": [101, 2002, 3852, 2012, 18983, 2118, 1999, 16734, 2549, 1998, 2101, 3273, 2012, 29608, 1998, 2632, 25015, 102]}
+{"text": "The armed forces, judiciary, state radio and television, and other key government organizations such as the Guardian Council and Expediency Discernment Council are subject to the supreme leader", "ids": [101, 1996, 4273, 2749, 1010, 14814, 1010, 2110, 2557, 1998, 2547, 1010, 1998, 2060, 3145, 2231, 4411, 2107, 2004, 1996, 6697, 2473, 1998, 4654, 5669, 9013, 5666, 5860, 11795, 3672, 2473, 2024, 3395, 2000, 1996, 4259, 3003, 102]}
+{"text": "Wonder is also often compared to the emotion of awe but instead of fear, its joyful", "ids": [101, 4687, 2003, 2036, 2411, 4102, 2000, 1996, 7603, 1997, 15180, 2021, 2612, 1997, 3571, 1010, 2049, 6569, 3993, 102]}
+{"text": "He currently plays for the Buffalo Sabres of the National Hockey League (NHL)", "ids": [101, 2002, 2747, 3248, 2005, 1996, 6901, 26969, 1997, 1996, 2120, 3873, 2223, 1006, 7097, 1007, 102]}
+{"text": "Sights The menhir of Pierre au Sel The château of Colbert, dating from the 17th century Parc Oriental de Maulévrier, the largest Japanese garden in France The château of La Guichardière, dating from the 15th century Notable people Louis Luçon (1842–1930), Archbishop of Reims Jean-Marc Ayrault (born 1950), Prime Minister of France (2012–2014) References", "ids": [101, 15925, 1996, 2273, 11961, 1997, 5578, 8740, 7367, 2140, 1996, 11874, 1997, 23928, 1010, 5306, 2013, 1996, 5550, 2301, 27985, 11481, 2139, 5003, 9307, 19716, 3771, 1010, 1996, 2922, 2887, 3871, 1999, 2605, 1996, 11874, 1997, 2474, 26458, 7507, 17080, 7869, 1010, 5306, 2013, 1996, 6286, 2301, 3862, 2111, 3434, 12776, 2239, 1006, 10008, 1516, 4479, 1007, 1010, 6507, 1997, 24964, 5244, 3744, 1011, 7871, 1037, 19563, 11314, 1006, 2141, 3925, 1007, 1010, 3539, 2704, 1997, 2605, 1006, 2262, 1516, 2297, 1007, 7604, 102]}
+{"text": "(April 3, 1924 – July 1, 2004) was an American actor and activist", "ids": [101, 1006, 2258, 1017, 1010, 4814, 1516, 2251, 1015, 1010, 2432, 1007, 2001, 2019, 2137, 3364, 1998, 7423, 102]}
+{"text": "It lives in Malaysia on Mount Kinabalu, between 900 and 3000 m above sea level", "ids": [101, 2009, 3268, 1999, 6027, 2006, 4057, 12631, 19736, 7630, 1010, 2090, 7706, 1998, 11910, 1049, 2682, 2712, 2504, 102]}
+{"text": "She was the fifth woman that got onto the Court of Appeal", "ids": [101, 2016, 2001, 1996, 3587, 2450, 2008, 2288, 3031, 1996, 2457, 1997, 5574, 102]}
+{"text": "PCOS is a complex and heterogeneous problem of uncertain cause, although there is major evidence that the PCOS can be classified as a genetic health problem", "ids": [101, 7473, 2891, 2003, 1037, 3375, 1998, 21770, 10624, 6914, 14769, 3291, 1997, 9662, 3426, 1010, 2348, 2045, 2003, 2350, 3350, 2008, 1996, 7473, 2891, 2064, 2022, 6219, 2004, 1037, 7403, 2740, 3291, 102]}
+{"text": "It is at 50° 08 North, 04° 44 East", "ids": [101, 2009, 2003, 2012, 2753, 7737, 5511, 2167, 1010, 5840, 7737, 4008, 2264, 102]}
+{"text": "Its prefecture is Orléans and there are two subprefectures: Montargis and Pithiviers", "ids": [101, 2049, 7498, 2003, 5979, 1998, 2045, 2024, 2048, 4942, 28139, 25969, 14900, 1024, 18318, 2906, 17701, 1998, 6770, 4048, 14356, 2015, 102]}
+{"text": "It is situated on the north side of the fertile valley Nowshera about 300 ft above the right bank of Tawi river", "ids": [101, 2009, 2003, 4350, 2006, 1996, 2167, 2217, 1997, 1996, 14946, 3028, 2085, 19603, 2050, 2055, 3998, 3027, 2682, 1996, 2157, 2924, 1997, 11937, 9148, 2314, 102]}
+{"text": "It is found in", "ids": [101, 2009, 2003, 2179, 1999, 102]}
+{"text": "He was born in", "ids": [101, 2002, 2001, 2141, 1999, 102]}
+{"text": "It is in Grand Est in the Vosges department in northeast France", "ids": [101, 2009, 2003, 1999, 2882, 9765, 1999, 1996, 29536, 28745, 2229, 2533, 1999, 4794, 2605, 102]}
+{"text": "As of 21 September, 2026, the music video on YouTube has", "ids": [101, 2004, 1997, 2538, 2244, 1010, 16798, 2575, 1010, 1996, 2189, 2678, 2006, 7858, 2038, 102]}
+{"text": "Farrukh Jaffar (1933 – 15 October 2021) was an Indian actress", "ids": [101, 2521, 6820, 10023, 14855, 20961, 2099, 1006, 4537, 1516, 2321, 2255, 25682, 1007, 2001, 2019, 2796, 3883, 102]}
+{"text": "Activism Lina Al-Tarawneh has Jordanian nationality but she was born in Qatar", "ids": [101, 16841, 27022, 2632, 1011, 10225, 7962, 11106, 2038, 26276, 10662, 2021, 2016, 2001, 2141, 1999, 12577, 102]}
+{"text": "state of North Dakota", "ids": [101, 2110, 1997, 2167, 7734, 102]}
+{"text": "Montalto Uffugo (formerly Montalto) is an Italian city in Calabria", "ids": [101, 18318, 2389, 3406, 1057, 4246, 15916, 2080, 1006, 3839, 18318, 2389, 3406, 1007, 2003, 2019, 3059, 2103, 1999, 29430, 102]}
+{"text": "He played college football at Penn State", "ids": [101, 2002, 2209, 2267, 2374, 2012, 9502, 2110, 102]}
+{"text": "In 2020, 42,980 people lived there", "ids": [101, 1999, 12609, 1010, 4413, 1010, 25195, 2111, 2973, 2045, 102]}
+{"text": "Related pages Sled dog racing", "ids": [101, 3141, 5530, 22889, 2098, 3899, 3868, 102]}
+{"text": "He ruled Nigeria from 16 January", "ids": [101, 2002, 5451, 7387, 2013, 2385, 2254, 102]}
+{"text": "Most of these were done by Nazi Germany and its Axis allies", "ids": [101, 2087, 1997, 2122, 2020, 2589, 2011, 6394, 2762, 1998, 2049, 8123, 6956, 102]}
+{"text": "The Dorian invasion is a theoretical migration", "ids": [101, 1996, 16092, 5274, 2003, 1037, 9373, 9230, 102]}
+{"text": "It was directed by Elliot M", "ids": [101, 2009, 2001, 2856, 2011, 11759, 1049, 102]}
+{"text": "David Émile Durkheim (April 15, 1858 – November 15, 1917) was a French sociologist", "ids": [101, 2585, 17127, 4241, 8024, 8049, 1006, 2258, 2321, 1010, 8517, 1516, 2281, 2321, 1010, 4585, 1007, 2001, 1037, 2413, 25106, 102]}
+{"text": "His photographs of California modern architecture have been published in magazines and books, displayed in museums", "ids": [101, 2010, 7008, 1997, 2662, 2715, 4294, 2031, 2042, 2405, 1999, 7298, 1998, 2808, 1010, 6913, 1999, 9941, 102]}
+{"text": "Skibidi Toilet is a Georgian 3D animated series, created by Alexey Gerasimov.skibidi toilet is about a fictional race of creatures called \"Skibidi Toilets\"", "ids": [101, 8301, 17062, 2072, 11848, 2003, 1037, 9166, 7605, 6579, 2186, 1010, 2580, 2011, 4074, 3240, 16216, 8180, 25299, 1012, 8301, 17062, 2072, 11848, 2003, 2055, 1037, 7214, 2679, 1997, 7329, 2170, 1000, 8301, 17062, 2072, 21674, 1000, 102]}
+{"text": "Mount Stromlo is west of the centre of Canberra, Australia, near the district of Weston Creek", "ids": [101, 4057, 2358, 21716, 4135, 2003, 2225, 1997, 1996, 2803, 1997, 13107, 1010, 2660, 1010, 2379, 1996, 2212, 1997, 12755, 3636, 102]}
+{"text": "He was the mayor before for a short time in 2017", "ids": [101, 2002, 2001, 1996, 3664, 2077, 2005, 1037, 2460, 2051, 1999, 2418, 102]}
+{"text": "The Boholano people, (Boholanos, Bol-Anon) are one of the visayan ethnic group aside Cebuanos in Central Visayas, The Eskaya and Bol-Anons are the tribes majority in province of Bohol and it has native dialect of Boholano, It is related into the Cebuano speakers and can understand by themselves", "ids": [101, 1996, 8945, 14854, 6761, 2111, 1010, 1006, 8945, 14854, 6761, 2015, 1010, 8945, 2140, 1011, 2019, 2239, 1007, 2024, 2028, 1997, 1996, 9425, 7054, 5636, 2177, 4998, 23312, 6761, 2015, 1999, 2430, 9425, 16303, 1010, 1996, 9686, 20718, 1998, 8945, 2140, 1011, 2019, 5644, 2024, 1996, 6946, 3484, 1999, 2874, 1997, 8945, 14854, 1998, 2009, 2038, 3128, 9329, 1997, 8945, 14854, 6761, 1010, 2009, 2003, 3141, 2046, 1996, 23312, 6761, 7492, 1998, 2064, 3305, 2011, 3209, 102]}
+{"text": "It was a mix of contemporary jazz, folk, and country music", "ids": [101, 2009, 2001, 1037, 4666, 1997, 3824, 4166, 1010, 5154, 1010, 1998, 2406, 2189, 102]}
+{"text": "Heritage Creek is a city of Kentucky in the United States.", "ids": [101, 4348, 3636, 2003, 1037, 2103, 1997, 5612, 1999, 1996, 2142, 2163, 1012, 102]}
+{"text": "Esto perpetua is a phrase from latin meaning \"Let it", "ids": [101, 9765, 2080, 2566, 22327, 6692, 2003, 1037, 7655, 2013, 3763, 3574, 1000, 2292, 2009, 102]}
+{"text": "Wirral Metropolitan Borough has a population of about 311,235 (2004 estimate) in an area of 60 square miles (155 km2)", "ids": [101, 15536, 24988, 4956, 5538, 2038, 1037, 2313, 1997, 2055, 23532, 1010, 17825, 1006, 2432, 10197, 1007, 1999, 2019, 2181, 1997, 3438, 2675, 2661, 1006, 14168, 2463, 2475, 1007, 102]}
+{"text": "SenatorKamala Harris had won has 10 electoral votes in the Electoral College", "ids": [101, 5205, 27052, 7911, 5671, 2018, 2180, 2038, 2184, 6092, 4494, 1999, 1996, 6092, 2267, 102]}
+{"text": "Other websites", "ids": [101, 2060, 11744, 102]}
+{"text": "It was used as a principle for design by the U.S", "ids": [101, 2009, 2001, 2109, 2004, 1037, 6958, 2005, 2640, 2011, 1996, 1057, 1012, 1055, 102]}
+{"text": "A person must have symptoms for at least two years to qualify for a diagnosis of dysthymia", "ids": [101, 1037, 2711, 2442, 2031, 8030, 2005, 2012, 2560, 2048, 2086, 2000, 7515, 2005, 1037, 11616, 1997, 1040, 27268, 10536, 10092, 102]}
+{"text": "He was a member of the Republican Party", "ids": [101, 2002, 2001, 1037, 2266, 1997, 1996, 3951, 2283, 102]}
+{"text": "The 0 prefix is for long-distance dialing from within the country", "ids": [101, 1996, 1014, 17576, 2003, 2005, 2146, 1011, 3292, 13764, 2075, 2013, 2306, 1996, 2406, 102]}
+{"text": "Career statistics Club statistics Career honours Clydebank Scottish Football League Second Division promotion: 1997–98 Wigan Athletic Football League Second Division: 2002–03 Football League", "ids": [101, 2476, 6747, 2252, 6747, 2476, 8762, 12085, 9299, 4104, 2374, 2223, 2117, 2407, 4712, 1024, 2722, 1516, 5818, 15598, 5188, 2374, 2223, 2117, 2407, 1024, 2526, 1516, 6021, 2374, 2223, 102]}
+{"text": "Animals and fish are generally disembowelled before being", "ids": [101, 4176, 1998, 3869, 2024, 3227, 4487, 3366, 13344, 4381, 2098, 2077, 2108, 102]}
+{"text": "Wanzer is a former municipality in Saxony-Anhalt, Germany", "ids": [101, 14071, 6290, 2003, 1037, 2280, 3250, 1999, 13019, 1011, 27088, 1010, 2762, 102]}
+{"text": "On 1 January 2014, the former municipalities of Schinznach-Dorf and Oberflachs merged into the new municipality of Schinznach", "ids": [101, 2006, 1015, 2254, 2297, 1010, 1996, 2280, 7602, 1997, 8040, 10606, 2480, 18357, 2232, 1011, 2079, 12881, 1998, 15578, 12881, 2721, 18069, 5314, 2046, 1996, 2047, 3250, 1997, 8040, 10606, 2480, 18357, 2232, 102]}
+{"text": "Marvel Knights is an imprint of Marvel Comics that contained standalone material taking place inside the Marvel Universe (Earth-616)", "ids": [101, 8348, 7307, 2003, 2019, 15738, 1997, 8348, 5888, 2008, 4838, 26609, 3430, 2635, 2173, 2503, 1996, 8348, 5304, 1006, 3011, 1011, 6079, 2575, 1007, 102]}
+{"text": "Klerk plays for the South Africa women's national cricket team", "ids": [101, 1047, 3917, 2243, 3248, 2005, 1996, 2148, 3088, 2308, 1005, 1055, 2120, 4533, 2136, 102]}
+{"text": "The Arup S-2 is an aircraft that is made by Arup in 1933 and has a wing named the low aspect ratio wing", "ids": [101, 1996, 12098, 6279, 1055, 1011, 1016, 2003, 2019, 2948, 2008, 2003, 2081, 2011, 12098, 6279, 1999, 4537, 1998, 2038, 1037, 3358, 2315, 1996, 2659, 7814, 6463, 3358, 102]}
+{"text": "He used to work for Cablevision, the Royal Bank of Canada, and Chase Manhattan Bank", "ids": [101, 2002, 2109, 2000, 2147, 2005, 5830, 17084, 1010, 1996, 2548, 2924, 1997, 2710, 1010, 1998, 5252, 7128, 2924, 102]}
+{"text": "It is in the region Hauts-de-France in the Aisne department in the north of France.", "ids": [101, 2009, 2003, 1999, 1996, 2555, 5292, 16446, 1011, 2139, 1011, 2605, 1999, 1996, 9932, 2015, 2638, 2533, 1999, 1996, 2167, 1997, 2605, 1012, 102]}
+{"text": "was an old province of Japan in", "ids": [101, 2001, 2019, 2214, 2874, 1997, 2900, 1999, 102]}
+{"text": "Its world headquarters is in Reston, Virginia", "ids": [101, 2049, 2088, 4075, 2003, 1999, 2717, 2239, 1010, 3448, 102]}
+{"text": "He is mostly a Batsman who rarely played as a wicket keeper", "ids": [101, 2002, 2003, 3262, 1037, 13953, 2040, 6524, 2209, 2004, 1037, 12937, 10684, 102]}
+{"text": "In 2002, the United States House of Representatives ruled that he invented the first working telephone, although Alexander Graham Bell was first to patent it", "ids": [101, 1999, 2526, 1010, 1996, 2142, 2163, 2160, 1997, 4505, 5451, 2008, 2002, 8826, 1996, 2034, 2551, 7026, 1010, 2348, 3656, 5846, 4330, 2001, 2034, 2000, 7353, 2009, 102]}
+{"text": "The character was created by Kevin Williamson", "ids": [101, 1996, 2839, 2001, 2580, 2011, 4901, 14333, 102]}
+{"text": "Shore is the nephew of composer Howard Shore", "ids": [101, 5370, 2003, 1996, 7833, 1997, 4543, 4922, 5370, 102]}
+{"text": "Květa Eretová (21 October 1926 – 8 January 2021), née Jeništová, was a Czech chess player", "ids": [101, 24888, 12928, 9413, 18903, 3567, 1006, 2538, 2255, 4881, 1516, 1022, 2254, 25682, 1007, 1010, 7663, 15419, 20483, 3567, 1010, 2001, 1037, 5569, 7433, 2447, 102]}
+{"text": "The event that caused these attacks was an attack on a children's dance class, where three children were killed, and several injured", "ids": [101, 1996, 2724, 2008, 3303, 2122, 4491, 2001, 2019, 2886, 2006, 1037, 2336, 1005, 1055, 3153, 2465, 1010, 2073, 2093, 2336, 2020, 2730, 1010, 1998, 2195, 5229, 102]}
+{"text": "\"Babydoll\" is a song by the Welsh singer and songwriter Jamie Miller", "ids": [101, 1000, 3336, 3527, 3363, 1000, 2003, 1037, 2299, 2011, 1996, 6124, 3220, 1998, 6009, 6175, 4679, 102]}
+{"text": "It stars Reza Rahadian, Bunga Citra Lestari, Alex Abbad, Bront", "ids": [101, 2009, 3340, 26323, 10958, 16102, 2937, 1010, 21122, 3654, 25022, 6494, 26693, 8486, 1010, 4074, 11113, 9024, 1010, 22953, 3372, 102]}
+{"text": "Most holidays are observed by both the public and private sectors", "ids": [101, 2087, 11938, 2024, 5159, 2011, 2119, 1996, 2270, 1998, 2797, 11105, 102]}
+{"text": "He played for the Pittsburgh Penguins, Vancouver Canucks, Dallas Stars, Atlanta Thrashers, and New Jersey Devils", "ids": [101, 2002, 2209, 2005, 1996, 6278, 18134, 1010, 6930, 26177, 1010, 5759, 3340, 1010, 5865, 27042, 2545, 1010, 1998, 2047, 3933, 13664, 102]}
+{"text": "Minority and women's rights Parliament contains five female members, and women have a 98% literacy rate", "ids": [101, 7162, 1998, 2308, 1005, 1055, 2916, 3323, 3397, 2274, 2931, 2372, 1010, 1998, 2308, 2031, 1037, 5818, 1003, 8433, 3446, 102]}
+{"text": "After his professional career, he", "ids": [101, 2044, 2010, 2658, 2476, 1010, 2002, 102]}
+{"text": "She has also appeared in a number of films, including Spider-Man 2 (2004), Shadowboxer (2005), Man of the House (2005), Gridiron Gang (2006), Death Proof (2007), Nothing like the Holidays (2008), Madea Goes to Jail (2009), Julie", "ids": [101, 2016, 2038, 2036, 2596, 1999, 1037, 2193, 1997, 3152, 1010, 2164, 6804, 1011, 2158, 1016, 1006, 2432, 1007, 1010, 5192, 8758, 2121, 1006, 2384, 1007, 1010, 2158, 1997, 1996, 2160, 1006, 2384, 1007, 1010, 8370, 9711, 2078, 6080, 1006, 2294, 1007, 1010, 2331, 6947, 1006, 2289, 1007, 1010, 2498, 2066, 1996, 11938, 1006, 2263, 1007, 1010, 2081, 2050, 3632, 2000, 7173, 1006, 2268, 1007, 1010, 7628, 102]}
+{"text": "Methanol, or methyl alcohol,", "ids": [101, 2777, 4819, 4747, 1010, 2030, 25003, 6544, 1010, 102]}
+{"text": "Oktyabrsk is a town in Samara Oblast, Russia", "ids": [101, 7929, 21426, 19892, 6711, 2003, 1037, 2237, 1999, 3520, 5400, 10379, 1010, 3607, 102]}
+{"text": "state of Virginia", "ids": [101, 2110, 1997, 3448, 102]}
+{"text": "June 10 – Salem witch trials: Bridget Bishop is hanged for witchcraft", "ids": [101, 2238, 2184, 1516, 10389, 6965, 7012, 1024, 19218, 3387, 2003, 17818, 2005, 21599, 102]}
+{"text": "He was known for his composing in Bram Stoker's Dracula and The Pianist", "ids": [101, 2002, 2001, 2124, 2005, 2010, 16572, 1999, 20839, 13299, 2099, 1005, 1055, 18500, 1998, 1996, 9066, 102]}
+{"text": "The term \"eusocial\" was introduced in 1966 by Suzanne Batra", "ids": [101, 1996, 2744, 1000, 7327, 6499, 13247, 1000, 2001, 3107, 1999, 3547, 2011, 15146, 7151, 2527, 102]}
+{"text": "The Goat (羊) is the eighth of the 12-year cycle of animals that appear in the Chinese zodiac in relation to the Chinese calendar", "ids": [101, 1996, 13555, 1006, 100, 1007, 2003, 1996, 5964, 1997, 1996, 2260, 1011, 2095, 5402, 1997, 4176, 2008, 3711, 1999, 1996, 2822, 28501, 1999, 7189, 2000, 1996, 2822, 8094, 102]}
+{"text": "Borge also held the titles of \"Vice-Secretary and President of the FSLN\", member of the Nicaraguan Parliament and National Congress, and Ambassador to Peru", "ids": [101, 28709, 2063, 2036, 2218, 1996, 4486, 1997, 1000, 3580, 1011, 3187, 1998, 2343, 1997, 1996, 1042, 14540, 2078, 1000, 1010, 2266, 1997, 1996, 15448, 2078, 3323, 1998, 2120, 3519, 1010, 1998, 6059, 2000, 7304, 102]}
+{"text": "Valdemar the Great (14 January", "ids": [101, 11748, 3207, 7849, 1996, 2307, 1006, 2403, 2254, 102]}
+{"text": "The voiced retroflex approximant is a sound used in some spoken languages", "ids": [101, 1996, 6126, 22307, 21031, 2595, 22480, 18505, 2102, 2003, 1037, 2614, 2109, 1999, 2070, 5287, 4155, 102]}
+{"text": "The party's policies promote environmentalism and progressive social reform", "ids": [101, 1996, 2283, 1005, 1055, 6043, 5326, 4483, 2964, 1998, 6555, 2591, 5290, 102]}
+{"text": "The known members of the group are (in order from closest to farthest from Jupiter): Leda Himalia (the biggest, which gives its name to the group) Lysithea Elara The orbit estimate of the recently found moon", "ids": [101, 1996, 2124, 2372, 1997, 1996, 2177, 2024, 1006, 1999, 2344, 2013, 7541, 2000, 2521, 20515, 2013, 13035, 1007, 1024, 2419, 2050, 2032, 22786, 1006, 1996, 5221, 1010, 2029, 3957, 2049, 2171, 2000, 1996, 2177, 1007, 1048, 7274, 8939, 5243, 3449, 5400, 1996, 8753, 10197, 1997, 1996, 3728, 2179, 4231, 102]}
+{"text": "He played with the world-famous Borodin Quartet from 1945 when it was founded, and was a member until he retired", "ids": [101, 2002, 2209, 2007, 1996, 2088, 1011, 3297, 8945, 14127, 2378, 8530, 2013, 3386, 2043, 2009, 2001, 2631, 1010, 1998, 2001, 1037, 2266, 2127, 2002, 3394, 102]}
+{"text": "History Talcahuano was declared and founded on 1764 like a port city by Antonio Guill y Gonzaga", "ids": [101, 2381, 21368, 3540, 14691, 3630, 2001, 4161, 1998, 2631, 2006, 21488, 2066, 1037, 3417, 2103, 2011, 4980, 26458, 3363, 1061, 26840, 102]}
+{"text": "Dartmouth is the third largest", "ids": [101, 16960, 2003, 1996, 2353, 2922, 102]}
+{"text": "The Stockbridge Militia was a", "ids": [101, 1996, 4518, 6374, 8396, 2001, 1037, 102]}
+{"text": "It lives in Colombia, near a town called Santa Maria", "ids": [101, 2009, 3268, 1999, 7379, 1010, 2379, 1037, 2237, 2170, 4203, 3814, 102]}
+{"text": "Edgard Tupët-Thomé (19 April 1920 – 9 September 2020) was", "ids": [101, 9586, 2094, 10722, 22327, 1011, 19438, 2063, 1006, 2539, 2258, 4444, 1516, 1023, 2244, 12609, 1007, 2001, 102]}
+{"text": "It is located within the Jönköping Municipality in the county of Jönköping in Sweden", "ids": [101, 2009, 2003, 2284, 2306, 1996, 6285, 3683, 4691, 3250, 1999, 1996, 2221, 1997, 6285, 3683, 4691, 1999, 4701, 102]}
+{"text": "It went to number 52 in the United States, number 18 in the United Kingdom, number 19 in Scotland, number 17 in Iceland, number 20 in Norway and number 5 in Canada", "ids": [101, 2009, 2253, 2000, 2193, 4720, 1999, 1996, 2142, 2163, 1010, 2193, 2324, 1999, 1996, 2142, 2983, 1010, 2193, 2539, 1999, 3885, 1010, 2193, 2459, 1999, 10399, 1010, 2193, 2322, 1999, 5120, 1998, 2193, 1019, 1999, 2710, 102]}
+{"text": "Kim competed at the 1996 Summer Olympics", "ids": [101, 5035, 3879, 2012, 1996, 2727, 2621, 3783, 102]}
+{"text": "Elisabeth \"Lisa\" Paus (born 19 September 1968) is a German politician who has been serving as the Federal Minister for Family Affairs,", "ids": [101, 12877, 1000, 7059, 1000, 29025, 2015, 1006, 2141, 2539, 2244, 3380, 1007, 2003, 1037, 2446, 3761, 2040, 2038, 2042, 3529, 2004, 1996, 2976, 2704, 2005, 2155, 3821, 1010, 102]}
+{"text": "Hérault is a department in the region of Occitanie in southern France", "ids": [101, 2014, 23505, 2003, 1037, 2533, 1999, 1996, 2555, 1997, 1051, 14693, 17681, 2063, 1999, 2670, 2605, 102]}
+{"text": "Events Up to 1900 30 BC – Cleopatra VII, Queen of Egypt, commits suicide", "ids": [101, 2824, 2039, 2000, 5141, 2382, 4647, 1516, 22003, 8890, 1010, 3035, 1997, 5279, 1010, 27791, 5920, 102]}
+{"text": "\"Dusty Pages\" is a 1984 song by Australian new wave", "ids": [101, 1000, 12727, 5530, 1000, 2003, 1037, 3118, 2299, 2011, 2827, 2047, 4400, 102]}
+{"text": "Moffett is a town of Oklahoma in the United", "ids": [101, 9587, 16020, 4779, 2003, 1037, 2237, 1997, 5858, 1999, 1996, 2142, 102]}
+{"text": "He became the governor of the Cayman Islands on 15 January 2010", "ids": [101, 2002, 2150, 1996, 3099, 1997, 1996, 26164, 3470, 2006, 2321, 2254, 2230, 102]}
+{"text": "Gender fluid people can fluctuate between any gender, such as feeling more feminine or masculine on a particular day", "ids": [101, 5907, 8331, 2111, 2064, 19857, 6593, 20598, 2090, 2151, 5907, 1010, 2107, 2004, 3110, 2062, 12320, 2030, 14818, 2006, 1037, 3327, 2154, 102]}
+{"text": "Its main venue is Imphal, the metropolis of Manipur", "ids": [101, 2049, 2364, 6891, 2003, 17727, 8865, 1010, 1996, 18236, 1997, 23624, 5311, 102]}
+{"text": "They are a beef processor", "ids": [101, 2027, 2024, 1037, 12486, 13151, 102]}
+{"text": "He also played for three minor league baseball teams", "ids": [101, 2002, 2036, 2209, 2005, 2093, 3576, 2223, 3598, 2780, 102]}
+{"text": "It is the 23rd highest mountain in the Andes.", "ids": [101, 2009, 2003, 1996, 13928, 3284, 3137, 1999, 1996, 18096, 1012, 102]}
+{"text": "It had an estimated magnitude", "ids": [101, 2009, 2018, 2019, 4358, 10194, 102]}
+{"text": "He is better known by his ring name Curtis Axel and previous ring name Michael McGillicutty", "ids": [101, 2002, 2003, 2488, 2124, 2011, 2010, 3614, 2171, 9195, 18586, 1998, 3025, 3614, 2171, 2745, 17919, 2594, 4904, 3723, 102]}
+{"text": "Year 220 BC was a year of the pre-Julian Roman calendar", "ids": [101, 2095, 10545, 4647, 2001, 1037, 2095, 1997, 1996, 3653, 1011, 6426, 3142, 8094, 102]}
+{"text": "Jaime Rene Morales Carazo (born 10 September 1936) is a Nicaraguan politician", "ids": [101, 14519, 10731, 17103, 14418, 6844, 1006, 2141, 2184, 2244, 4266, 1007, 2003, 1037, 15448, 2078, 3761, 102]}
+{"text": "Christopher Charles Mintz-Plasse (born June 20, 1989 in Woodland Hills, Los Angeles, California) is an American actor", "ids": [101, 5696, 2798, 12927, 2480, 1011, 20228, 27241, 1006, 2141, 2238, 2322, 1010, 2960, 1999, 11051, 4564, 1010, 3050, 3349, 1010, 2662, 1007, 2003, 2019, 2137, 3364, 102]}
+{"text": "The springbok (Antidorcas marsupialis) is a medium sized brown and white gazelle that stands about high", "ids": [101, 1996, 3500, 5092, 2243, 1006, 3424, 7983, 15671, 7733, 6279, 4818, 2483, 1007, 2003, 1037, 5396, 7451, 2829, 1998, 2317, 3657, 6216, 2008, 4832, 2055, 2152, 102]}
+{"text": "He was won the 1996, 1997, 2000, and 2001 Down Beat magazine readers jazz poll for Best Male Vocalist of the Year", "ids": [101, 2002, 2001, 2180, 1996, 2727, 1010, 2722, 1010, 2456, 1010, 1998, 2541, 2091, 3786, 2932, 8141, 4166, 8554, 2005, 2190, 3287, 8032, 1997, 1996, 2095, 102]}
+{"text": "1970 Football at the Asian Games was held in Bangkok from 10 to 20 December", "ids": [101, 3359, 2374, 2012, 1996, 4004, 2399, 2001, 2218, 1999, 12627, 2013, 2184, 2000, 2322, 2285, 102]}
+{"text": "The shrine was destroyed after Japan's defeat in World War II in 1945", "ids": [101, 1996, 9571, 2001, 3908, 2044, 2900, 1005, 1055, 4154, 1999, 2088, 2162, 2462, 1999, 3386, 102]}
+{"text": "He refereed one match in the 1990 FIFA World Cup in Italy, and two matches at the 1988 AFC Asian Cup in Qatar", "ids": [101, 2002, 5330, 2094, 2028, 2674, 1999, 1996, 2901, 5713, 2088, 2452, 1999, 3304, 1010, 1998, 2048, 3503, 2012, 1996, 2997, 10511, 4004, 2452, 1999, 12577, 102]}
+{"text": "He works on Fox News and is a best selling author", "ids": [101, 2002, 2573, 2006, 4419, 2739, 1998, 2003, 1037, 2190, 4855, 3166, 102]}
+{"text": "Waikato is one of the 16 regions of New Zealand", "ids": [101, 23701, 26020, 2003, 2028, 1997, 1996, 2385, 4655, 1997, 2047, 3414, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "The Solomon Islands women's national football team represents the Solomon Islands in international women's football", "ids": [101, 1996, 9168, 3470, 2308, 1005, 1055, 2120, 2374, 2136, 5836, 1996, 9168, 3470, 1999, 2248, 2308, 1005, 1055, 2374, 102]}
+{"text": "Other websites Histoire de la vie et de l'administration de Colbert by Jean-Pierre Clément Jean-Baptiste Colbert Correspondence Kislak Center for Special Collections, Rare Books and Manuscripts, University of Pennsylvania", "ids": [101, 2060, 11744, 20088, 2139, 2474, 20098, 3802, 2139, 1048, 1005, 3447, 2139, 23928, 2011, 3744, 1011, 5578, 12223, 3744, 1011, 17329, 23928, 11061, 11382, 14540, 4817, 2415, 2005, 2569, 6407, 1010, 4678, 2808, 1998, 10485, 1010, 2118, 1997, 3552, 102]}
+{"text": "It is found in the region Provence-Alpes-Côte d'Azur in the Alpes-Maritimes department in the south of France", "ids": [101, 2009, 2003, 2179, 1999, 1996, 2555, 19923, 1011, 2632, 10374, 1011, 17155, 1040, 1005, 17207, 3126, 1999, 1996, 2632, 10374, 1011, 7803, 2015, 2533, 1999, 1996, 2148, 1997, 2605, 102]}
+{"text": "He also made 356 appearances for Göztepe A.Ş", "ids": [101, 2002, 2036, 2081, 27509, 3922, 2005, 2175, 2480, 2618, 5051, 1037, 1012, 1055, 102]}
+{"text": "It is 6 miles south of Washington, D.C", "ids": [101, 2009, 2003, 1020, 2661, 2148, 1997, 2899, 1010, 1040, 1012, 1039, 102]}
+{"text": "Sometimes when bought from a store it has gelatin, rennet, or other things added to make it thicker", "ids": [101, 2823, 2043, 4149, 2013, 1037, 3573, 2009, 2038, 21500, 20363, 1010, 14916, 7159, 1010, 2030, 2060, 2477, 2794, 2000, 2191, 2009, 19638, 102]}
+{"text": "In 2010, the population was 15,825 people", "ids": [101, 1999, 2230, 1010, 1996, 2313, 2001, 2321, 1010, 6445, 2629, 2111, 102]}
+{"text": "Burnett County is a county in the U.S", "ids": [101, 13829, 2221, 2003, 1037, 2221, 1999, 1996, 1057, 1012, 1055, 102]}
+{"text": "U.S", "ids": [101, 1057, 1012, 1055, 102]}
+{"text": "They have created songs based on short stories that are shared on the Monogatari website", "ids": [101, 2027, 2031, 2580, 2774, 2241, 2006, 2460, 3441, 2008, 2024, 4207, 2006, 1996, 18847, 26589, 3089, 4037, 102]}
+{"text": "Novelist Michael Crichton was the creator of the show", "ids": [101, 9974, 2745, 13675, 7033, 2669, 2001, 1996, 8543, 1997, 1996, 2265, 102]}
+{"text": "He specialized in vaccinology", "ids": [101, 2002, 7772, 1999, 12436, 14693, 21020, 102]}
+{"text": "Gaultheria is a flowering plant genus in the family Ericaceae", "ids": [101, 26522, 12399, 2401, 2003, 1037, 10902, 3269, 3562, 1999, 1996, 2155, 19295, 9071, 102]}
+{"text": "His real name was Alphonsus Josephus de Ridder", "ids": [101, 2010, 2613, 2171, 2001, 2632, 20846, 13203, 3312, 2271, 2139, 9436, 4063, 102]}
+{"text": "It makes medium or heavy duty Class 5 through 8 trucks", "ids": [101, 2009, 3084, 5396, 2030, 3082, 4611, 2465, 1019, 2083, 1022, 9322, 102]}
+{"text": "36 in E-flat major was written in the first part of the 1760s", "ids": [101, 4029, 1999, 1041, 1011, 4257, 2350, 2001, 2517, 1999, 1996, 2034, 2112, 1997, 1996, 19096, 2015, 102]}
+{"text": "Places are called urban", "ids": [101, 3182, 2024, 2170, 3923, 102]}
+{"text": "Omega-3 fatty acids are polyunsaturated fatty acids", "ids": [101, 14827, 1011, 1017, 19101, 12737, 2024, 26572, 4609, 16846, 4648, 3064, 19101, 12737, 102]}
+{"text": "She was known as \"The Venus of Indian cinema\"", "ids": [101, 2016, 2001, 2124, 2004, 1000, 1996, 11691, 1997, 2796, 5988, 1000, 102]}
+{"text": "It has been called family balancing", "ids": [101, 2009, 2038, 2042, 2170, 2155, 20120, 102]}
+{"text": "Name origin The Strait was named after James Johnstone", "ids": [101, 2171, 4761, 1996, 11195, 2001, 2315, 2044, 2508, 24160, 102]}
+{"text": "References Other websites Official website", "ids": [101, 7604, 2060, 11744, 2880, 4037, 102]}
+{"text": "Fictional character biography He is an alien world-conqueror", "ids": [101, 7214, 2839, 8308, 2002, 2003, 2019, 7344, 2088, 1011, 25466, 102]}
+{"text": "He was elected as a Democrat to the 98th and to the four succeeding Congresses serving from January 3, 1983, to January 3, 1993", "ids": [101, 2002, 2001, 2700, 2004, 1037, 7672, 2000, 1996, 5818, 2705, 1998, 2000, 1996, 2176, 13034, 24460, 3529, 2013, 2254, 1017, 1010, 3172, 1010, 2000, 2254, 1017, 1010, 2857, 102]}
+{"text": "Most games from the PlayStation 4 work with it", "ids": [101, 2087, 2399, 2013, 1996, 9160, 1018, 2147, 2007, 2009, 102]}
+{"text": "DNA origami is the folding of DNA to create tiny two- and three-dimensional shapes", "ids": [101, 6064, 2030, 13340, 4328, 2003, 1996, 12745, 1997, 6064, 2000, 3443, 4714, 2048, 1011, 1998, 2093, 1011, 8789, 10466, 102]}
+{"text": "Generally non-metallic oxides are acidic and", "ids": [101, 3227, 2512, 1011, 12392, 15772, 2015, 2024, 24171, 1998, 102]}
+{"text": "Degrees Its different curricula lead to the following French & European degrees: Ingénieur Centralien de Lyon (Centralien Graduate", "ids": [101, 5445, 2049, 2367, 12731, 18752, 19879, 2599, 2000, 1996, 2206, 2413, 1004, 2647, 5445, 1024, 13749, 18595, 11236, 2430, 9013, 2139, 10241, 1006, 2430, 9013, 4619, 102]}
+{"text": "An infraphylum is a rank in the Linnaean taxonomy of biological groups", "ids": [101, 2019, 1999, 27843, 21281, 12942, 2003, 1037, 4635, 1999, 1996, 11409, 17452, 2319, 25274, 1997, 6897, 2967, 102]}
+{"text": "It was directed by Hiroyuki Morita and produced by Studio Ghibli", "ids": [101, 2009, 2001, 2856, 2011, 7632, 13238, 14228, 22993, 2696, 1998, 2550, 2011, 2996, 1043, 4048, 16558, 2072, 102]}
+{"text": "Milo Murphy’s Law is an American animated television series created by Dan Povenmire and Swampy Marsh as a spin-off of Phineas and Ferb and, starring Weird Al", "ids": [101, 20359, 7104, 1521, 1055, 2375, 2003, 2019, 2137, 6579, 2547, 2186, 2580, 2011, 4907, 13433, 8159, 14503, 2063, 1998, 11963, 2100, 9409, 2004, 1037, 6714, 1011, 2125, 1997, 13569, 26737, 1998, 10768, 15185, 1998, 1010, 4626, 6881, 2632, 102]}
+{"text": "He was drafted by the Baltimore Ravens fifth overall in the 2000 NFL Draft", "ids": [101, 2002, 2001, 7462, 2011, 1996, 6222, 17272, 3587, 3452, 1999, 1996, 2456, 5088, 4433, 102]}
+{"text": "A waistcoat (known as a vest in", "ids": [101, 1037, 5808, 16531, 1006, 2124, 2004, 1037, 17447, 1999, 102]}
+{"text": "Events Thomas Fraser obtains lands in", "ids": [101, 2824, 2726, 9443, 6855, 2015, 4915, 1999, 102]}
+{"text": "Nowshera (, meaning:", "ids": [101, 2085, 19603, 2050, 1006, 1010, 3574, 1024, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "He served as the Church of Sweden archbishop of Uppsala between 1805-1819", "ids": [101, 2002, 2366, 2004, 1996, 2277, 1997, 4701, 6507, 1997, 25720, 2090, 13126, 1011, 12552, 102]}
+{"text": "The final of UEFA Women's Euro 1997 happened on 12 July 1997 at Ullevaal Stadion, Oslo, Norway", "ids": [101, 1996, 2345, 1997, 6663, 2308, 1005, 1055, 9944, 2722, 3047, 2006, 2260, 2251, 2722, 2012, 17359, 20414, 11057, 2140, 20756, 1010, 9977, 1010, 5120, 102]}
+{"text": "Career Juluka were able to tour in Europe", "ids": [101, 2476, 21650, 15750, 2020, 2583, 2000, 2778, 1999, 2885, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "In at least one case, the double pulsar PSR J0737-3039, the companion star is another", "ids": [101, 1999, 2012, 2560, 2028, 2553, 1010, 1996, 3313, 16405, 4877, 2906, 8827, 2099, 1046, 2692, 2581, 24434, 1011, 19988, 2683, 1010, 1996, 7452, 2732, 2003, 2178, 102]}
+{"text": "It houses one of the largest collections of European paintings from the 13th", "ids": [101, 2009, 3506, 2028, 1997, 1996, 2922, 6407, 1997, 2647, 5265, 2013, 1996, 6122, 102]}
+{"text": "Solbiate Arno is a comune in the Province of Varese in the Lombardy region in Italy", "ids": [101, 14017, 11607, 2618, 12098, 3630, 2003, 1037, 21130, 1999, 1996, 2874, 1997, 13075, 6810, 1999, 1996, 27728, 2555, 1999, 3304, 102]}
+{"text": "Lulusar is a lake near the Naran Valley in the Khyber Pakhtunkhwa province of Pakistan", "ids": [101, 21744, 10286, 2003, 1037, 2697, 2379, 1996, 27544, 2078, 3028, 1999, 1996, 28416, 22190, 11039, 16814, 18663, 2874, 1997, 4501, 102]}
+{"text": "References Other websites", "ids": [101, 7604, 2060, 11744, 102]}
+{"text": "Les Six (pronounced", "ids": [101, 4649, 2416, 1006, 8793, 102]}
+{"text": "He served as the United States Secretary of Labor from 1969 to 1970, as the U.S", "ids": [101, 2002, 2366, 2004, 1996, 2142, 2163, 3187, 1997, 4450, 2013, 3440, 2000, 3359, 1010, 2004, 1996, 1057, 1012, 1055, 102]}
+{"text": "The population of Sumy Oblast was 1,124,000 in 2014", "ids": [101, 1996, 2313, 1997, 7680, 2100, 10379, 2001, 1015, 1010, 13412, 1010, 2199, 1999, 2297, 102]}
+{"text": "The album was", "ids": [101, 1996, 2201, 2001, 102]}
+{"text": "Fencing career Between 1929 and 1934, she became for five consecutive years Italian national foil champion", "ids": [101, 15962, 2476, 2090, 4612, 1998, 4579, 1010, 2016, 2150, 2005, 2274, 5486, 2086, 3059, 2120, 17910, 3410, 102]}
+{"text": "She also starred on several television shows", "ids": [101, 2016, 2036, 5652, 2006, 2195, 2547, 3065, 102]}
+{"text": "The Three Sovereigns and Five Emperors was a mythological group", "ids": [101, 1996, 2093, 11074, 2015, 1998, 2274, 19655, 2001, 1037, 21637, 2177, 102]}
+{"text": "The Siege of Jinji (September, 1690–January, 1698) began when Mughal Emperor Aurangzeb sent Zulfiqar Ali Khan to capture the Maratha-held Jinji Fort after they killed 300 Mughal troops in the", "ids": [101, 1996, 6859, 1997, 9743, 4478, 1006, 2244, 1010, 24765, 1516, 2254, 1010, 18582, 2620, 1007, 2211, 2043, 17877, 3750, 15240, 3070, 4371, 2497, 2741, 16950, 10270, 18515, 2906, 4862, 4967, 2000, 5425, 1996, 13955, 8322, 1011, 2218, 9743, 4478, 3481, 2044, 2027, 2730, 3998, 17877, 3629, 1999, 1996, 102]}
+{"text": "Trinity is a city in Trinity County, Texas, United States", "ids": [101, 7124, 2003, 1037, 2103, 1999, 7124, 2221, 1010, 3146, 1010, 2142, 2163, 102]}
+{"text": "He was the older cousin of Chicago rapper Chief Keef", "ids": [101, 2002, 2001, 1996, 3080, 5542, 1997, 3190, 10687, 2708, 17710, 12879, 102]}
+{"text": "It was directed by Leo McCarey", "ids": [101, 2009, 2001, 2856, 2011, 6688, 23680, 12069, 2100, 102]}
+{"text": "He was born in Cairo", "ids": [101, 2002, 2001, 2141, 1999, 11096, 102]}
+{"text": "Vítor Manuel Oliveira (17 November 195328 November", "ids": [101, 25550, 2099, 7762, 24263, 1006, 2459, 2281, 4052, 22407, 2281, 102]}
+{"text": "Related pages List of Romanian social scientists Other websites The Humanities and The Social Sciences in The Academy", "ids": [101, 3141, 5530, 2862, 1997, 7056, 2591, 6529, 2060, 11744, 1996, 11406, 1998, 1996, 2591, 4163, 1999, 1996, 2914, 102]}
+{"text": "L, is a brainwashed version of Luigi who appears in Super Paper Mario", "ids": [101, 1048, 1010, 2003, 1037, 4167, 27283, 2544, 1997, 15153, 2040, 3544, 1999, 3565, 3259, 7986, 102]}
+{"text": "Dred Scott v", "ids": [101, 2852, 2098, 3660, 1058, 102]}
+{"text": "At the 2020 census, 4,866 people lived there", "ids": [101, 2012, 1996, 12609, 2883, 1010, 1018, 1010, 6564, 2575, 2111, 2973, 2045, 102]}
+{"text": "It is made up of dense RNA and proteins", "ids": [101, 2009, 2003, 2081, 2039, 1997, 9742, 12987, 1998, 8171, 102]}
+{"text": "Antonín Klimek (January 18, 1937 in Prague – January 9, 2005 in Prague) was a Czech historian", "ids": [101, 9865, 2378, 1047, 17960, 5937, 1006, 2254, 2324, 1010, 4347, 1999, 8634, 1516, 2254, 1023, 1010, 2384, 1999, 8634, 1007, 2001, 1037, 5569, 5272, 102]}
+{"text": "Benjamin List (born 11 January 1968), also known as Ben List, is a German chemist", "ids": [101, 6425, 2862, 1006, 2141, 2340, 2254, 3380, 1007, 1010, 2036, 2124, 2004, 3841, 2862, 1010, 2003, 1037, 2446, 15535, 102]}
+{"text": "The 2024 UEFA Champions League final was the", "ids": [101, 1996, 16798, 2549, 6663, 3966, 2223, 2345, 2001, 1996, 102]}
+{"text": "A stuffed toy is soft", "ids": [101, 1037, 11812, 9121, 2003, 3730, 102]}
+{"text": "The Bonavista Peninsula is a large peninsula on the east coast of the island of Newfoundland in the Canadian province of Newfoundland and Labrador.", "ids": [101, 1996, 14753, 18891, 9153, 6000, 2003, 1037, 2312, 6000, 2006, 1996, 2264, 3023, 1997, 1996, 2479, 1997, 11944, 1999, 1996, 3010, 2874, 1997, 11944, 1998, 18604, 1012, 102]}
+{"text": "He was born in Santa Rosa, La Pampa, Argentina", "ids": [101, 2002, 2001, 2141, 1999, 4203, 9508, 1010, 2474, 14089, 4502, 1010, 5619, 102]}
+{"text": "Ustersbach is a municipality in the district of Augsburg in Bavaria in Germany", "ids": [101, 2149, 7747, 7693, 2003, 1037, 3250, 1999, 1996, 2212, 1997, 24362, 1999, 11606, 1999, 2762, 102]}
+{"text": "He played for the teams Cho Lon Stars,", "ids": [101, 2002, 2209, 2005, 1996, 2780, 16480, 8840, 2078, 3340, 1010, 102]}
+{"text": "\"Made in England\" is a 1995 song by Elton John and is the title track from their 24th studio album Made in England", "ids": [101, 1000, 2081, 1999, 2563, 1000, 2003, 1037, 2786, 2299, 2011, 19127, 2198, 1998, 2003, 1996, 2516, 2650, 2013, 2037, 13386, 2996, 2201, 2081, 1999, 2563, 102]}
+{"text": "She was the U.S", "ids": [101, 2016, 2001, 1996, 1057, 1012, 1055, 102]}
+{"text": "In total, over hundred such objects were found in all European parts of the Roman Empire", "ids": [101, 1999, 2561, 1010, 2058, 3634, 2107, 5200, 2020, 2179, 1999, 2035, 2647, 3033, 1997, 1996, 3142, 3400, 102]}
+{"text": "The New York Times called him \"a revolutionary\" who was a \"leader of avant-garde surrealism in his youth and a dominant international movie", "ids": [101, 1996, 2047, 2259, 2335, 2170, 2032, 1000, 1037, 6208, 1000, 2040, 2001, 1037, 1000, 3003, 1997, 14815, 1011, 14535, 16524, 2964, 1999, 2010, 3360, 1998, 1037, 7444, 2248, 3185, 102]}
+{"text": "It started in 1912 as the Australian Flying Corps and saw its first action in World War I", "ids": [101, 2009, 2318, 1999, 4878, 2004, 1996, 2827, 3909, 3650, 1998, 2387, 2049, 2034, 2895, 1999, 2088, 2162, 1045, 102]}
+{"text": "Darcy Tucker (born March 15, 1975 in Castor, Alberta) is a Canadian retired ice hockey winger", "ids": [101, 17685, 9802, 1006, 2141, 2233, 2321, 1010, 3339, 1999, 3459, 2953, 1010, 7649, 1007, 2003, 1037, 3010, 3394, 3256, 3873, 16072, 102]}
+{"text": "Alexandria is a city in Virginia in the United States", "ids": [101, 10297, 2003, 1037, 2103, 1999, 3448, 1999, 1996, 2142, 2163, 102]}
+{"text": "He was Member of the State Great Khural from 2004 to 2016 and Minister of Roads, Transportation, Construction and Urban Development from 2008 to 2012", "ids": [101, 2002, 2001, 2266, 1997, 1996, 2110, 2307, 1047, 24572, 2389, 2013, 2432, 2000, 2355, 1998, 2704, 1997, 4925, 1010, 5193, 1010, 2810, 1998, 3923, 2458, 2013, 2263, 2000, 2262, 102]}
+{"text": "It went to number 87 in the United States and also went to number 14 on the Billboard Hot Country Songs chart and number 6 on the Canadian Country charts", "ids": [101, 2009, 2253, 2000, 2193, 6584, 1999, 1996, 2142, 2163, 1998, 2036, 2253, 2000, 2193, 2403, 2006, 1996, 4908, 2980, 2406, 2774, 3673, 1998, 2193, 1020, 2006, 1996, 3010, 2406, 6093, 102]}
+{"text": "He is a member of the Democratic Party", "ids": [101, 2002, 2003, 1037, 2266, 1997, 1996, 3537, 2283, 102]}
+{"text": "He as been active in Malmö", "ids": [101, 2002, 2004, 2042, 3161, 1999, 23643, 102]}
+{"text": "He lives in Monaco", "ids": [101, 2002, 3268, 1999, 14497, 102]}
+{"text": "He was known for working with Woody Allen and David Letterman", "ids": [101, 2002, 2001, 2124, 2005, 2551, 2007, 13703, 5297, 1998, 2585, 26593, 102]}
+{"text": "It was organized by the Austrian Football Association", "ids": [101, 2009, 2001, 4114, 2011, 1996, 6161, 2374, 2523, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "Their energy can be stored to use at another time", "ids": [101, 2037, 2943, 2064, 2022, 8250, 2000, 2224, 2012, 2178, 2051, 102]}
+{"text": "In some U.S", "ids": [101, 1999, 2070, 1057, 1012, 1055, 102]}
+{"text": "The ceremony is held at the", "ids": [101, 1996, 5103, 2003, 2218, 2012, 1996, 102]}
+{"text": "Videos directed References", "ids": [101, 6876, 2856, 7604, 102]}
+{"text": "It is found at 51° 21 North, 04° 38 East", "ids": [101, 2009, 2003, 2179, 2012, 4868, 7737, 2538, 2167, 1010, 5840, 7737, 4229, 2264, 102]}
+{"text": "Gallup, Inc", "ids": [101, 26033, 6279, 1010, 4297, 102]}
+{"text": "Sulphur Dell, formerly", "ids": [101, 21396, 8458, 3126, 12418, 1010, 3839, 102]}
+{"text": "Adrian Malik Fenty (born December 6, 1970) was the sixth, and youngest Mayor of the District of Columbia", "ids": [101, 7918, 14360, 21713, 3723, 1006, 2141, 2285, 1020, 1010, 3359, 1007, 2001, 1996, 4369, 1010, 1998, 6587, 3664, 1997, 1996, 2212, 1997, 3996, 102]}
+{"text": "Thomas Joseph Tynan (born February 25, 1992) is an American professional ice hockey centre", "ids": [101, 2726, 3312, 5939, 7229, 1006, 2141, 2337, 2423, 1010, 2826, 1007, 2003, 2019, 2137, 2658, 3256, 3873, 2803, 102]}
+{"text": "l'Ametlla de Merola is a singular population entity in the municipality of Puig-reig, in Catalonia, Spain", "ids": [101, 1048, 1005, 2572, 3388, 4571, 2139, 21442, 6030, 2003, 1037, 13048, 2313, 9178, 1999, 1996, 3250, 1997, 16405, 8004, 1011, 24964, 2290, 1010, 1999, 16711, 1010, 3577, 102]}
+{"text": "After her breakthrough in 1997 with the single \"Nobody's Wife\", she had hit singles in the Dutch and", "ids": [101, 2044, 2014, 12687, 1999, 2722, 2007, 1996, 2309, 1000, 6343, 1005, 1055, 2564, 1000, 1010, 2016, 2018, 2718, 3895, 1999, 1996, 3803, 1998, 102]}
+{"text": "It is one of the most highly decorated infantry units in the Israel Defense Forces", "ids": [101, 2009, 2003, 2028, 1997, 1996, 2087, 3811, 7429, 3939, 3197, 1999, 1996, 3956, 3639, 2749, 102]}
+{"text": "If it is made from a major scale, it is a major chord", "ids": [101, 2065, 2009, 2003, 2081, 2013, 1037, 2350, 4094, 1010, 2009, 2003, 1037, 2350, 13924, 102]}
+{"text": "state of Kentucky", "ids": [101, 2110, 1997, 5612, 102]}
+{"text": "In later times, it was used in the sense of \"worldwide\" or \"general.\" List of ecumenical councils The first seven Ecumenical Councils The period of Christianity from the First Council of Nicaea (325) to the Second Council of Nicaea (787) is called the period of the", "ids": [101, 1999, 2101, 2335, 1010, 2009, 2001, 2109, 1999, 1996, 3168, 1997, 1000, 4969, 1000, 2030, 1000, 2236, 1012, 1000, 2862, 1997, 23540, 10784, 1996, 2034, 2698, 23540, 10784, 1996, 2558, 1997, 7988, 2013, 1996, 2034, 2473, 1997, 27969, 21996, 1006, 19652, 1007, 2000, 1996, 2117, 2473, 1997, 27969, 21996, 1006, 6275, 2581, 1007, 2003, 2170, 1996, 2558, 1997, 1996, 102]}
+{"text": "Li Sigrid Andersson (born 13 May 1987) is a Finnish politician", "ids": [101, 5622, 9033, 16523, 3593, 28643, 1006, 2141, 2410, 2089, 3055, 1007, 2003, 1037, 6983, 3761, 102]}
+{"text": "Grayrigg is a village and civil parish in South Lakeland, Cumbria, England", "ids": [101, 3897, 3089, 13871, 2003, 1037, 2352, 1998, 2942, 3583, 1999, 2148, 2697, 3122, 1010, 25559, 1010, 2563, 102]}
+{"text": "Biography Peter Le Lievre was educated at Elizabeth College, he never married and lived all his life at 17 Hauteville, St Peter Port with his two sisters", "ids": [101, 8308, 2848, 3393, 4682, 12229, 2001, 5161, 2012, 3870, 2267, 1010, 2002, 2196, 2496, 1998, 2973, 2035, 2010, 2166, 2012, 2459, 18535, 3077, 1010, 2358, 2848, 3417, 2007, 2010, 2048, 5208, 102]}
+{"text": "In Pakistan, many things have been found during archeological digs", "ids": [101, 1999, 4501, 1010, 2116, 2477, 2031, 2042, 2179, 2076, 23005, 10667, 2015, 102]}
+{"text": "The speaker is first in the presidential line of succession", "ids": [101, 1996, 5882, 2003, 2034, 1999, 1996, 4883, 2240, 1997, 8338, 102]}
+{"text": "It was released on October 14, 2022,", "ids": [101, 2009, 2001, 2207, 2006, 2255, 2403, 1010, 16798, 2475, 1010, 102]}
+{"text": "As chief of the executive branch and head of the national government as a whole, the presidency is the highest political office in Colombia", "ids": [101, 2004, 2708, 1997, 1996, 3237, 3589, 1998, 2132, 1997, 1996, 2120, 2231, 2004, 1037, 2878, 1010, 1996, 8798, 2003, 1996, 3284, 2576, 2436, 1999, 7379, 102]}
+{"text": "After coming to Australia, he was well known as a prize fighter, boxing for money", "ids": [101, 2044, 2746, 2000, 2660, 1010, 2002, 2001, 2092, 2124, 2004, 1037, 3396, 4959, 1010, 8362, 2005, 2769, 102]}
+{"text": "The movie stars Jeet in the titular role and the supporting cast includes Sushmita Chatterjee, Rohit Roy and Shataf Figar", "ids": [101, 1996, 3185, 3340, 15333, 3388, 1999, 1996, 12960, 2535, 1998, 1996, 4637, 3459, 2950, 10514, 4095, 22930, 2050, 24691, 16963, 1010, 20996, 16584, 6060, 1998, 21146, 2696, 2546, 20965, 2906, 102]}
+{"text": "References Other websites", "ids": [101, 7604, 2060, 11744, 102]}
+{"text": "He was educated at Eton College", "ids": [101, 2002, 2001, 5161, 2012, 21687, 2267, 102]}
+{"text": "They created it as a follow-up to Team Trees and Team Seas", "ids": [101, 2027, 2580, 2009, 2004, 1037, 3582, 1011, 2039, 2000, 2136, 3628, 1998, 2136, 11915, 102]}
+{"text": "He was an Assistant United States Attorney for the Southern District of New York from 1990 to 1994", "ids": [101, 2002, 2001, 2019, 3353, 2142, 2163, 4905, 2005, 1996, 2670, 2212, 1997, 2047, 2259, 2013, 2901, 2000, 2807, 102]}
+{"text": "The inhabitants of Hérault are known, in French, as Héraultais (women: Héraultaises)", "ids": [101, 1996, 4864, 1997, 2014, 23505, 2024, 2124, 1010, 1999, 2413, 1010, 2004, 2014, 23505, 15593, 1006, 2308, 1024, 2014, 23505, 15593, 2229, 1007, 102]}
+{"text": "It is in Bourgogne-Franche-Comté in the Doubs department in east France", "ids": [101, 2009, 2003, 1999, 8945, 12514, 8649, 2638, 1011, 23151, 5403, 1011, 19758, 1999, 1996, 2079, 12083, 2015, 2533, 1999, 2264, 2605, 102]}
+{"text": "The population was 1,675 at the 2020 census", "ids": [101, 1996, 2313, 2001, 1015, 1010, 6163, 2629, 2012, 1996, 12609, 2883, 102]}
+{"text": "People making a clay animation usually use soft materials, like Plasticine clay", "ids": [101, 2111, 2437, 1037, 5726, 7284, 2788, 2224, 3730, 4475, 1010, 2066, 6081, 3170, 5726, 102]}
+{"text": "Justice got a B.A", "ids": [101, 3425, 2288, 1037, 1038, 1012, 1037, 102]}
+{"text": "Aristaeus is the Greek god of beekeeping", "ids": [101, 10488, 9153, 10600, 2003, 1996, 3306, 2643, 1997, 10506, 18321, 102]}
+{"text": "It lives in Brazil", "ids": [101, 2009, 3268, 1999, 4380, 102]}
+{"text": "It is also a port", "ids": [101, 2009, 2003, 2036, 1037, 3417, 102]}
+{"text": "He was born in Eastwood, Nottinghamshire", "ids": [101, 2002, 2001, 2141, 1999, 24201, 1010, 20126, 102]}
+{"text": "In computing, the Post Office Protocol version 3 (POP3) is an application-layer Internet standard protocol used by local e-mail clients to get e-mail from a remote mail server over", "ids": [101, 1999, 9798, 1010, 1996, 2695, 2436, 8778, 2544, 1017, 1006, 3769, 2509, 1007, 2003, 2019, 4646, 1011, 6741, 4274, 3115, 8778, 2109, 2011, 2334, 1041, 1011, 5653, 7846, 2000, 2131, 1041, 1011, 5653, 2013, 1037, 6556, 5653, 8241, 2058, 102]}
+{"text": "It is found in the region Pays de la Loire in the Sarthe department in the west of France.", "ids": [101, 2009, 2003, 2179, 1999, 1996, 2555, 12778, 2139, 2474, 20399, 1999, 1996, 18906, 10760, 2533, 1999, 1996, 2225, 1997, 2605, 1012, 102]}
+{"text": "Very often the word is used when referring to computer networks such as the Internet", "ids": [101, 2200, 2411, 1996, 2773, 2003, 2109, 2043, 7727, 2000, 3274, 6125, 2107, 2004, 1996, 4274, 102]}
+{"text": "This is the Results of the second round of 2011", "ids": [101, 2023, 2003, 1996, 3463, 1997, 1996, 2117, 2461, 1997, 2249, 102]}
+{"text": "It stars Ada Rogovtseva, Angel Gutierrez, and Vitali Solomin", "ids": [101, 2009, 3340, 15262, 20996, 3995, 2615, 3215, 13331, 1010, 4850, 20836, 1010, 1998, 8995, 2072, 3948, 10020, 102]}
+{"text": "Other websites", "ids": [101, 2060, 11744, 102]}
+{"text": "Trust is a feeling that somebody or something can be relied upon, or will turn out to be good", "ids": [101, 3404, 2003, 1037, 3110, 2008, 8307, 2030, 2242, 2064, 2022, 13538, 2588, 1010, 2030, 2097, 2735, 2041, 2000, 2022, 2204, 102]}
+{"text": "Simon Goodell Griffin (August 9, 1824 – January 14, 1902) was an American soldier during the American Civil War", "ids": [101, 4079, 2204, 5349, 9258, 1006, 2257, 1023, 1010, 11617, 1516, 2254, 2403, 1010, 5774, 1007, 2001, 2019, 2137, 5268, 2076, 1996, 2137, 2942, 2162, 102]}
+{"text": "There are at least 550 species, and though the majority are tropical, members of the family are found on all continents except Antarctica", "ids": [101, 2045, 2024, 2012, 2560, 13274, 2427, 1010, 1998, 2295, 1996, 3484, 2024, 5133, 1010, 2372, 1997, 1996, 2155, 2024, 2179, 2006, 2035, 17846, 3272, 12615, 102]}
+{"text": "This is a list of the bird species found in", "ids": [101, 2023, 2003, 1037, 2862, 1997, 1996, 4743, 2427, 2179, 1999, 102]}
+{"text": "A child-headed family or child-headed household is a family in which a minor (child or adolescent) has become the head of the", "ids": [101, 1037, 2775, 1011, 3753, 2155, 2030, 2775, 1011, 3753, 4398, 2003, 1037, 2155, 1999, 2029, 1037, 3576, 1006, 2775, 2030, 20274, 1007, 2038, 2468, 1996, 2132, 1997, 1996, 102]}
+{"text": "5, for cello and piano was created by Ludwig van Beethoven in 1796, while", "ids": [101, 1019, 1010, 2005, 10145, 1998, 3682, 2001, 2580, 2011, 10302, 3158, 15461, 1999, 13885, 1010, 2096, 102]}
+{"text": "The village is in the Sakha Republic", "ids": [101, 1996, 2352, 2003, 1999, 1996, 7842, 15256, 3072, 102]}
+{"text": "Researcher Irving Janis proposed eight symptoms of groupthink: Type I: Thinking the group is too strong or good Falsely believing you're that strong, causing you to take too many risks Ignoring the consequences of", "ids": [101, 10753, 12415, 5553, 2483, 3818, 2809, 8030, 1997, 2177, 15222, 8950, 1024, 2828, 1045, 1024, 3241, 1996, 2177, 2003, 2205, 2844, 2030, 2204, 23123, 8929, 2017, 1005, 2128, 2008, 2844, 1010, 4786, 2017, 2000, 2202, 2205, 2116, 10831, 9217, 1996, 8465, 1997, 102]}
+{"text": "is a city in Aomori Prefecture, Japan", "ids": [101, 2003, 1037, 2103, 1999, 20118, 24610, 7498, 1010, 2900, 102]}
+{"text": "There is also a seal show", "ids": [101, 2045, 2003, 2036, 1037, 7744, 2265, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "Sometimes, the suburbs cover a very large area", "ids": [101, 2823, 1010, 1996, 9435, 3104, 1037, 2200, 2312, 2181, 102]}
+{"text": "It went to number 1 in the United States, number 9 in Australia and Argentina, number 5 in New Zealand and number 14 in Canada", "ids": [101, 2009, 2253, 2000, 2193, 1015, 1999, 1996, 2142, 2163, 1010, 2193, 1023, 1999, 2660, 1998, 5619, 1010, 2193, 1019, 1999, 2047, 3414, 1998, 2193, 2403, 1999, 2710, 102]}
+{"text": "T.\" Liggett (December 28, 1930 – August 17, 2017) was an American folk sculptor", "ids": [101, 1056, 1012, 1000, 5622, 13871, 6582, 1006, 2285, 2654, 1010, 4479, 1516, 2257, 2459, 1010, 2418, 1007, 2001, 2019, 2137, 5154, 10160, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "It peaked at #2 across the Billboard in spring of 1990", "ids": [101, 2009, 6601, 2012, 1001, 1016, 2408, 1996, 4908, 1999, 3500, 1997, 2901, 102]}
+{"text": "He also was a member of the Seventh Islamic Parliament of Iran fro 2004 to 2008", "ids": [101, 2002, 2036, 2001, 1037, 2266, 1997, 1996, 5066, 5499, 3323, 1997, 4238, 10424, 2080, 2432, 2000, 2263, 102]}
+{"text": "The 2024 municipal elections in the Maule Region was held on October 27, 2024, to elect those responsible for the local administration, that is, the communes", "ids": [101, 1996, 16798, 2549, 4546, 3864, 1999, 1996, 5003, 9307, 2555, 2001, 2218, 2006, 2255, 2676, 1010, 16798, 2549, 1010, 2000, 11322, 2216, 3625, 2005, 1996, 2334, 3447, 1010, 2008, 2003, 1010, 1996, 16569, 102]}
+{"text": "She was also an Austrian record holder", "ids": [101, 2016, 2001, 2036, 2019, 6161, 2501, 9111, 102]}
+{"text": "In 2005, 2,332 people lived there.", "ids": [101, 1999, 2384, 1010, 1016, 1010, 29327, 2111, 2973, 2045, 1012, 102]}
+{"text": "Early life Ribbentrop (\"von\" was added", "ids": [101, 2220, 2166, 19395, 10609, 13181, 2361, 1006, 1000, 3854, 1000, 2001, 2794, 102]}
+{"text": "The river is long", "ids": [101, 1996, 2314, 2003, 2146, 102]}
+{"text": "In 2020, 16,526 people lived there", "ids": [101, 1999, 12609, 1010, 2385, 1010, 4720, 2575, 2111, 2973, 2045, 102]}
+{"text": "He later went to Chicago where he became one of the most important piano players in Chicago's blues scene", "ids": [101, 2002, 2101, 2253, 2000, 3190, 2073, 2002, 2150, 2028, 1997, 1996, 2087, 2590, 3682, 2867, 1999, 3190, 1005, 1055, 5132, 3496, 102]}
+{"text": "An inselberg or monadnock is a large rock formation that sits on its own, surrounded by flat lowlands", "ids": [101, 2019, 16021, 2884, 4059, 2030, 13813, 2094, 18057, 2003, 1037, 2312, 2600, 4195, 2008, 7719, 2006, 2049, 2219, 1010, 5129, 2011, 4257, 26411, 102]}
+{"text": "John Shelton Wilder (June 3, 1921 – January 1, 2010) was an American politician", "ids": [101, 2198, 22230, 18463, 1006, 2238, 1017, 1010, 4885, 1516, 2254, 1015, 1010, 2230, 1007, 2001, 2019, 2137, 3761, 102]}
+{"text": "References", "ids": [101, 7604, 102]}
+{"text": "He was known for his works to epistemology", "ids": [101, 2002, 2001, 2124, 2005, 2010, 2573, 2000, 4958, 27870, 20570, 102]}
+{"text": "She was the Deputy High Commissioner for Refugees at the from June 2015 until June 2026", "ids": [101, 2016, 2001, 1996, 4112, 2152, 5849, 2005, 8711, 2012, 1996, 2013, 2238, 2325, 2127, 2238, 16798, 2575, 102]}
+{"text": "It is around the Gulf of Alaska", "ids": [101, 2009, 2003, 2105, 1996, 6084, 1997, 7397, 102]}
+{"text": "It was on", "ids": [101, 2009, 2001, 2006, 102]}
+{"text": "Tiruppur is the administrative headquarters of Tiruppur district and the fifth largest urban settlement in Tamil Nadu.Located on the banks of Noyyal River", "ids": [101, 14841, 21531, 5311, 2003, 1996, 3831, 4075, 1997, 14841, 21531, 5311, 2212, 1998, 1996, 3587, 2922, 3923, 4093, 1999, 6008, 10703, 1012, 2284, 2006, 1996, 5085, 1997, 2053, 19903, 2140, 2314, 102]}
+{"text": "Caddo is a town in the U.S", "ids": [101, 28353, 3527, 2003, 1037, 2237, 1999, 1996, 1057, 1012, 1055, 102]}
+{"text": "Genouilly is a commune in the Cher department in the Centre-Val de Loire region of France", "ids": [101, 8991, 7140, 20577, 2003, 1037, 5715, 1999, 1996, 24188, 2533, 1999, 1996, 2803, 1011, 11748, 2139, 20399, 2555, 1997, 2605, 102]}
+{"text": "Career statistics Club International Managerial Honours Roma Serie A: 2000–01 Livorno Serie C1: 2001–02 Milan Serie A: 2010–11 Supercoppa Italiana: 2011 Italy FIFA World Cup: 2006 Italy U21 UEFA European", "ids": [101, 2476, 6747, 2252, 2248, 24465, 8762, 12836, 8668, 1037, 1024, 2456, 1516, 5890, 22135, 26295, 8668, 27723, 1024, 2541, 1516, 6185, 6954, 8668, 1037, 1024, 2230, 1516, 2340, 3565, 3597, 13944, 28059, 1024, 2249, 3304, 5713, 2088, 2452, 1024, 2294, 3304, 23343, 2487, 6663, 2647, 102]}
+{"text": "Deborah Font Jimenez (born September 6, 1985 in El Vendrell, Tarragona) is a swimmer from Spain", "ids": [101, 15555, 15489, 22790, 1006, 2141, 2244, 1020, 1010, 3106, 1999, 3449, 2310, 4859, 16230, 1010, 16985, 29181, 7856, 1007, 2003, 1037, 13361, 2013, 3577, 102]}
+{"text": "Subdivisions Geisenfeld has twelve districts, past independent municipalities: Engelbrechtsmünster Gaden including Wasenstadt and Furthof Geisenfeld Geisenfeldwinden Ilmendorf including", "ids": [101, 22095, 16216, 28992, 8151, 2038, 4376, 4733, 1010, 2627, 2981, 7602, 1024, 25540, 2884, 13578, 10143, 6491, 4609, 6238, 11721, 4181, 2164, 2001, 6132, 18808, 1998, 6519, 2705, 11253, 16216, 28992, 8151, 16216, 28992, 8151, 11101, 2368, 6335, 3549, 11592, 2164, 102]}
+{"text": "The territory is made up of three islands: Grand Cayman, Little Cayman, and Cayman Brac", "ids": [101, 1996, 3700, 2003, 2081, 2039, 1997, 2093, 3470, 1024, 2882, 26164, 1010, 2210, 26164, 1010, 1998, 26164, 11655, 2278, 102]}
+{"text": "Córdoba is a city in Andalusia, Spain", "ids": [101, 17986, 2003, 1037, 2103, 1999, 1998, 2389, 24118, 1010, 3577, 102]}
+{"text": "From 1975 to 1998, he was the main leader of the Communist Party of India (Marxist-Leninist) Liberation.", "ids": [101, 2013, 3339, 2000, 2687, 1010, 2002, 2001, 1996, 2364, 3003, 1997, 1996, 4750, 2283, 1997, 2634, 1006, 15511, 1011, 17497, 2923, 1007, 7931, 1012, 102]}
+{"text": "It only lived in North America between 35 and 28 million years ago during the Eocene and Oligocene eras", "ids": [101, 2009, 2069, 2973, 1999, 2167, 2637, 2090, 3486, 1998, 2654, 2454, 2086, 3283, 2076, 1996, 1041, 25793, 1998, 19330, 14031, 17968, 28500, 102]}
+{"text": "Events Up to 1900 250 – Emperor Decius begins widespread persecution of Christians in Rome 1265 – The English Parliament conducts its first meeting", "ids": [101, 2824, 2039, 2000, 5141, 5539, 1516, 3750, 11703, 4173, 4269, 6923, 14522, 1997, 8135, 1999, 4199, 14010, 2629, 1516, 1996, 2394, 3323, 17976, 2049, 2034, 3116, 102]}
+{"text": "A songwriter generally writes songs for popular music, rather than art songs or classical music", "ids": [101, 1037, 6009, 3227, 7009, 2774, 2005, 2759, 2189, 1010, 2738, 2084, 2396, 2774, 2030, 4556, 2189, 102]}
+{"text": "The team is controlled by the Austrian Football Association", "ids": [101, 1996, 2136, 2003, 4758, 2011, 1996, 6161, 2374, 2523, 102]}
+{"text": "Estrella Zeledón Lizano", "ids": [101, 9765, 21835, 27838, 3709, 2239, 20503, 3630, 102]}
+{"text": "Dassault Super-Étendard", "ids": [101, 8695, 23823, 7096, 3565, 1011, 3802, 10497, 4232, 102]}
+{"text": "Diocese of zamość-lubaczów", "ids": [101, 5801, 1997, 23564, 15530, 2278, 1011, 11320, 3676, 27966, 5004, 102]}
+{"text": "Bégard", "ids": [101, 11693, 4232, 102]}
+{"text": "Julio Pérez", "ids": [101, 15090, 10730, 102]}
+{"text": "Préchacq-Navarrenx", "ids": [101, 3653, 7507, 2278, 4160, 1011, 21260, 26807, 102]}
+{"text": "Yamamoto Gonnohyōe", "ids": [101, 28318, 2175, 10695, 11631, 7677, 2063, 102]}
+{"text": "Marie Horáčková", "ids": [101, 5032, 7570, 22648, 18810, 102]}
+{"text": "Pouillé, Vendée", "ids": [101, 13433, 19231, 2571, 1010, 2310, 13629, 2063, 102]}
+{"text": "Stećak", "ids": [101, 26261, 3540, 2243, 102]}
+{"text": "Miodrag Božović", "ids": [101, 2771, 7716, 29181, 8945, 6844, 7903, 102]}
+{"text": "Benjamín Hill Municipality", "ids": [101, 6425, 2940, 3250, 102]}
+{"text": "Jōdo Shinshū", "ids": [101, 8183, 3527, 12277, 14235, 102]}
+{"text": "Rüdlingen", "ids": [101, 21766, 14423, 2368, 102]}
+{"text": "Kemijärvi", "ids": [101, 17710, 4328, 16084, 5737, 102]}
+{"text": "La Tranclière", "ids": [101, 2474, 25283, 20464, 21253, 102]}
+{"text": "Thoiré-sous-Contensor", "ids": [101, 27793, 7442, 1011, 27411, 1011, 9530, 25808, 2953, 102]}
+{"text": "Chemiré-le-Gaudin", "ids": [101, 18178, 14503, 2063, 1011, 3393, 1011, 11721, 21041, 2078, 102]}
+{"text": "Nguyễn Văn Thiệu", "ids": [101, 16577, 3158, 16215, 17301, 102]}
+{"text": "Váh", "ids": [101, 12436, 2232, 102]}
+{"text": "Stefan Żywotko", "ids": [101, 8852, 1062, 2100, 12155, 2102, 3683, 102]}
+{"text": "Centimetre–gram–second system of units", "ids": [101, 9358, 14428, 7913, 1516, 13250, 1516, 2117, 2291, 1997, 3197, 102]}
+{"text": "Diego Forlán", "ids": [101, 5277, 2005, 5802, 102]}
+{"text": "Midi-Pyrénées", "ids": [101, 22265, 1011, 22696, 102]}
+{"text": "Violette Nozière", "ids": [101, 8766, 2618, 2053, 21548, 2063, 102]}
+{"text": "It is at 51° 18 North, 04° 25 East", "ids": [101, 2009, 2003, 2012, 4868, 7737, 2324, 2167, 1010, 5840, 7737, 2423, 2264, 102]}
+{"text": "Fercé-sur-Sarthe", "ids": [101, 10768, 19170, 1011, 7505, 1011, 18906, 10760, 102]}
+{"text": "Beaufort-en-Vallée", "ids": [101, 23622, 1011, 4372, 1011, 20171, 2063, 102]}
+{"text": "Zichyújfalu", "ids": [101, 1062, 7033, 10513, 3501, 7011, 7630, 102]}
+{"text": "List of minor planets: 11001–12000", "ids": [101, 2862, 1997, 3576, 11358, 1024, 22096, 2487, 1516, 14840, 2692, 102]}
+{"text": "Nižné Repaše", "ids": [101, 9152, 2480, 2638, 16360, 11022, 102]}
+{"text": "Chauché is a commune", "ids": [101, 15775, 19140, 2003, 1037, 5715, 102]}
+{"text": "Daech, les enfants fantômes", "ids": [101, 4830, 15937, 1010, 4649, 4372, 15143, 3215, 5470, 20389, 2229, 102]}
+{"text": "WWE Cruiserweight Championship (1991–2007)", "ids": [101, 11700, 10844, 11179, 2528, 1006, 2889, 1516, 2289, 1007, 102]}
+{"text": "Le Méridien", "ids": [101, 3393, 21442, 28173, 2368, 102]}
+{"text": "Renée Claude", "ids": [101, 17400, 8149, 102]}
+{"text": "José Antonio García Calvo", "ids": [101, 4560, 4980, 7439, 10250, 6767, 102]}
+{"text": "Beugnâtre", "ids": [101, 2022, 15916, 19833, 2890, 102]}
+{"text": "Colombe-lès-Vesoul", "ids": [101, 8902, 5358, 4783, 1011, 4649, 1011, 2310, 6499, 5313, 102]}
+{"text": "Tecámac Municipality", "ids": [101, 8915, 28727, 6305, 3250, 102]}
+{"text": "Pokémon Black and White", "ids": [101, 20421, 2304, 1998, 2317, 102]}
+{"text": "Gaza War (2008–2009)", "ids": [101, 14474, 2162, 1006, 2263, 1516, 2268, 1007, 102]}
+{"text": "Luís Müller", "ids": [101, 6446, 12304, 102]}
+{"text": "Ōnin War", "ids": [101, 2006, 2378, 2162, 102]}
+{"text": "Mýa", "ids": [101, 2026, 2050, 102]}
+{"text": "Irouléguy", "ids": [101, 20868, 7140, 23115, 26230, 102]}
+{"text": "Aioi, Hyōgo", "ids": [101, 9932, 10448, 1010, 1044, 7677, 3995, 102]}
+{"text": "Saint-Cézaire-sur-Siagne", "ids": [101, 3002, 1011, 8292, 25290, 2890, 1011, 7505, 1011, 9033, 25440, 102]}
+{"text": "Vladimir Veličković", "ids": [101, 8748, 2310, 25230, 9142, 102]}
+{"text": "Sant Boi de Lluçanès", "ids": [101, 15548, 8945, 2072, 2139, 2222, 18100, 5267, 102]}
+{"text": "2017–18 Red Bull Salzburg season", "ids": [101, 2418, 1516, 2324, 2417, 7087, 18369, 2161, 102]}
+{"text": "Émile Grumiaux", "ids": [101, 17127, 24665, 12717, 13754, 102]}
+{"text": "Réunion national football team", "ids": [101, 10301, 2120, 2374, 2136, 102]}
+{"text": "The region known as Hispanic America (in Spanish called Hispanoamérica or América Hispana) and historically as Spanish America (América Española) during the Spanish colonization, is the part of the Americas that includes the Spanish-speaking countries and territories of North, Central and South America", "ids": [101, 1996, 2555, 2124, 2004, 6696, 2637, 1006, 1999, 3009, 2170, 2010, 9739, 10441, 25531, 2050, 2030, 2637, 2010, 9739, 2050, 1007, 1998, 7145, 2004, 3009, 2637, 1006, 2637, 9686, 9739, 6030, 1007, 2076, 1996, 3009, 18962, 1010, 2003, 1996, 2112, 1997, 1996, 10925, 2008, 2950, 1996, 3009, 1011, 4092, 3032, 1998, 6500, 1997, 2167, 1010, 2430, 1998, 2148, 2637, 102]}
+{"text": "Carlos Escudé", "ids": [101, 5828, 9686, 10841, 3207, 102]}
+{"text": "Teresa Żylis-Gara", "ids": [101, 12409, 1062, 8516, 2483, 1011, 11721, 2527, 102]}
+{"text": "Galavisión", "ids": [101, 16122, 17084, 102]}
+{"text": "Wolfgang Völz", "ids": [101, 13865, 5285, 2480, 102]}
+{"text": "Solène Jambaqué", "ids": [101, 7082, 2638, 9389, 3676, 4226, 102]}
+{"text": "General Plutarco Elías Calles, Sonora", "ids": [101, 2236, 20228, 13210, 29566, 14579, 2655, 2229, 1010, 26647, 102]}
+{"text": "Nathaniel Talbott Thayer (21 April 1960 – 3 January 2023) was an American journalist", "ids": [101, 13961, 14838, 2102, 25563, 1006, 2538, 2258, 3624, 1516, 1017, 2254, 16798, 2509, 1007, 2001, 2019, 2137, 4988, 102]}
+{"text": "Luís Montenegro", "ids": [101, 6446, 13018, 102]}
+{"text": "Gerðr", "ids": [101, 16216, 2099, 29668, 2099, 102]}
+{"text": "Hércules (footballer, born 1912)", "ids": [101, 15067, 1006, 4362, 1010, 2141, 4878, 1007, 102]}
+{"text": "Tärnaby", "ids": [101, 16985, 2532, 3762, 102]}
+{"text": "Wolpertswende is a municipality in Ravensburg in Baden-Württemberg in Germany", "ids": [101, 24185, 14277, 8743, 26760, 10497, 2063, 2003, 1037, 3250, 1999, 17272, 4645, 1999, 12189, 1011, 16346, 1999, 2762, 102]}
+{"text": "Yaya Touré", "ids": [101, 8038, 3148, 2778, 2063, 102]}
+{"text": "Anthony Réveillère", "ids": [101, 4938, 7065, 24359, 3917, 2063, 102]}
+{"text": "Pål Skjønberg", "ids": [101, 14412, 15315, 3501, 16415, 11144, 102]}
+{"text": "AS Trenčín", "ids": [101, 2004, 29461, 12273, 2378, 102]}
+{"text": "Sándor Popovics (22 June 1939 — 1 July 2019) was a Hungarian-Dutch association football manager and a professional footballer in the position of forward", "ids": [101, 5472, 2953, 3769, 9142, 2015, 1006, 2570, 2238, 3912, 1517, 1015, 2251, 10476, 1007, 2001, 1037, 5588, 1011, 3803, 2523, 2374, 3208, 1998, 1037, 2658, 4362, 1999, 1996, 2597, 1997, 2830, 102]}
+{"text": "Highway 50 (Israel–Palestine)", "ids": [101, 3307, 2753, 1006, 3956, 1516, 8976, 1007, 102]}
+{"text": "Kahramanmaraş", "ids": [101, 10556, 13492, 2386, 28225, 2015, 102]}
+{"text": "Écourt-Saint-Quentin", "ids": [101, 17338, 19585, 1011, 3002, 1011, 15969, 102]}
+{"text": "Ivan Gašparovič", "ids": [101, 7332, 12008, 10464, 7903, 102]}
+{"text": "Renée Elise Goldsberry", "ids": [101, 17400, 14251, 2751, 19022, 19826, 102]}
+{"text": "Ofé Egwusi is an indigenous soup of Ndị Igbo (Igbo people) in Nigeria", "ids": [101, 1997, 2063, 1041, 2290, 16050, 5332, 2003, 2019, 6284, 11350, 1997, 1050, 4305, 1045, 18259, 2080, 1006, 1045, 18259, 2080, 2111, 1007, 1999, 7387, 102]}
+{"text": "2009–10 UEFA Champions League", "ids": [101, 2268, 1516, 2184, 6663, 3966, 2223, 102]}
+{"text": "Jørgen Kosmo", "ids": [101, 1046, 16415, 25892, 12849, 25855, 102]}
+{"text": "La Bruyère", "ids": [101, 2474, 7987, 26230, 7869, 102]}
+{"text": "Neuwiller-lès-Saverne", "ids": [101, 11265, 25974, 10484, 2099, 1011, 4649, 1011, 3828, 12119, 102]}
+{"text": "Évin-Malmaison", "ids": [101, 23408, 2378, 1011, 15451, 2863, 10929, 102]}
+{"text": "Claudie Haigneré", "ids": [101, 18856, 19513, 2666, 15030, 10177, 2890, 102]}
+{"text": "Javier Valdez Cárdenas", "ids": [101, 13824, 11748, 24601, 4003, 26474, 102]}
+{"text": "Bättwil", "ids": [101, 7151, 2102, 29602, 102]}
+{"text": "Les Bâties", "ids": [101, 4649, 7151, 3111, 102]}
+{"text": "Ladevèze-Rivière", "ids": [101, 14804, 18697, 4371, 1011, 15544, 27087, 102]}
+{"text": "Hermanos Serdán International Airport", "ids": [101, 11458, 2891, 14262, 7847, 2248, 3199, 102]}
+{"text": "Mímir", "ids": [101, 20705, 2099, 102]}
+{"text": "Männedorf", "ids": [101, 15371, 16347, 102]}
+{"text": "Atatürk International Airport", "ids": [101, 29533, 20689, 2243, 2248, 3199, 102]}
+{"text": "Erdős number", "ids": [101, 9413, 12269, 2193, 102]}
+{"text": "Gabú", "ids": [101, 11721, 8569, 102]}
+{"text": "Gisèle Pelicot", "ids": [101, 21025, 11246, 2063, 21877, 10415, 4140, 102]}
+{"text": "Villers-aux-Érables", "ids": [101, 20184, 2869, 1011, 19554, 1011, 3690, 13510, 102]}
+{"text": "Rigoberta Menchú", "ids": [101, 19838, 20891, 13320, 2273, 20760, 102]}
+{"text": "Málaga Cathedral", "ids": [101, 27382, 5040, 102]}
+{"text": "Joaquín Pérez", "ids": [101, 16877, 10730, 102]}
+{"text": "It was founded in 1949 and named after Andrew Petrie (1798–1872), a civil engineer, pioneer and explorer, and the first free settler in Brisbane (1837)", "ids": [101, 2009, 2001, 2631, 1999, 4085, 1998, 2315, 2044, 4080, 9004, 7373, 1006, 13036, 1516, 7572, 1007, 1010, 1037, 2942, 3992, 1010, 7156, 1998, 10566, 1010, 1998, 1996, 2034, 2489, 18556, 1999, 7717, 1006, 9713, 1007, 102]}
+{"text": "Luděk Mikloško", "ids": [101, 11320, 24463, 2771, 2243, 10483, 3683, 102]}
+{"text": "Târnăveni", "ids": [101, 16985, 2532, 8159, 2072, 102]}
+{"text": "Šibovi", "ids": [101, 9033, 5092, 5737, 102]}
+{"text": "Börge Hellström", "ids": [101, 28709, 2063, 3109, 15687, 102]}
+{"text": "Andrássy út", "ids": [101, 1998, 8180, 6508, 21183, 102]}
+{"text": "Roberto Fernández Bonillo", "ids": [101, 10704, 12023, 14753, 10486, 102]}
+{"text": "Isili (Ìsili) is a town and comune (municipality) in the Province of Sud Sardegna in Sardinia, Italy", "ids": [101, 19600, 2072, 1006, 19600, 2072, 1007, 2003, 1037, 2237, 1998, 21130, 1006, 3250, 1007, 1999, 1996, 2874, 1997, 19219, 18906, 3207, 16989, 1999, 21594, 1010, 3304, 102]}
+{"text": "Hōki Province", "ids": [101, 7570, 3211, 2874, 102]}
+{"text": "Fèrebrianges", "ids": [101, 10768, 2890, 21556, 15465, 2015, 102]}
+{"text": "Teodor Meleșcanu", "ids": [101, 8915, 7716, 2953, 11463, 2229, 9336, 2226, 102]}
+{"text": "Mariëlle Schothans", "ids": [101, 5032, 6216, 8040, 12326, 4819, 2015, 102]}
+{"text": "San Nicolò d'Arcidano", "ids": [101, 2624, 19332, 4135, 1040, 1005, 8115, 8524, 3630, 102]}
+{"text": "José Curiel", "ids": [101, 4560, 12731, 7373, 2140, 102]}
+{"text": "Bégadan", "ids": [101, 11693, 26335, 102]}
+{"text": "Saúl Martínez", "ids": [101, 16897, 10337, 102]}
+{"text": "Gaġġa", "ids": [101, 18201, 3654, 102]}
+{"text": "Derek Godfrey Kinne GC (11 January 1930 – 6 February 2018) was a British soldier", "ids": [101, 7256, 18238, 12631, 2638, 1043, 2278, 1006, 2340, 2254, 4479, 1516, 1020, 2337, 2760, 1007, 2001, 1037, 2329, 5268, 102]}
+{"text": "Apurímac Region", "ids": [101, 9706, 9496, 22911, 2555, 102]}
+{"text": "Saint-Barthélemy, Switzerland", "ids": [101, 3002, 1011, 12075, 16001, 26662, 1010, 5288, 102]}
+{"text": "Fonters-du-Razès", "ids": [101, 15489, 2545, 1011, 4241, 1011, 10958, 11254, 102]}
+{"text": "Leopoldo López", "ids": [101, 12752, 2080, 8685, 102]}
+{"text": "Ilídio Vieira Té", "ids": [101, 6335, 28173, 2080, 20098, 7895, 8915, 102]}
+{"text": "William II, Duke of Brunswick-Lüneburg", "ids": [101, 2520, 2462, 1010, 3804, 1997, 9192, 1011, 11320, 2638, 4645, 102]}
+{"text": "San Cristóbal de La Laguna", "ids": [101, 2624, 13675, 20483, 10264, 2139, 2474, 18169, 102]}
+{"text": "Schluchsee, Baden-Württemberg", "ids": [101, 8040, 7317, 10875, 19763, 1010, 12189, 1011, 16346, 102]}
+{"text": "Oʻtkir Sultonov", "ids": [101, 1051, 29711, 2102, 23630, 21396, 2669, 4492, 102]}
+{"text": "Juan Padrón", "ids": [101, 5348, 11687, 4948, 102]}
+{"text": "Châteauvieux, Var", "ids": [101, 11874, 13469, 5602, 1010, 13075, 102]}
+{"text": "It is a species that regularly occurs in Réunion", "ids": [101, 2009, 2003, 1037, 2427, 2008, 5570, 5158, 1999, 10301, 102]}
+{"text": "Saint-Thurien, Finistère", "ids": [101, 3002, 1011, 16215, 9496, 2368, 1010, 10346, 12911, 2063, 102]}
+{"text": "On 1 January 2022, the former municipalities of Bad Zurzach, Baldingen, Böbikon, Kaiserstuhl, Rekingen, Rietheim, Rümikon and Wislikofen merged to form the new municipality of Zurzach", "ids": [101, 2006, 1015, 2254, 16798, 2475, 1010, 1996, 2280, 7602, 1997, 2919, 17924, 4143, 2818, 1010, 13852, 15542, 1010, 3960, 12676, 2078, 1010, 15676, 3367, 27225, 2140, 1010, 2128, 6834, 2368, 1010, 15544, 11031, 12112, 1010, 19379, 12676, 2078, 1998, 15536, 14540, 12676, 18940, 5314, 2000, 2433, 1996, 2047, 3250, 1997, 17924, 4143, 2818, 102]}
+{"text": "Józefa Hennelowa", "ids": [101, 23258, 2050, 21863, 11877, 21293, 102]}
+{"text": "Duné Coetzee", "ids": [101, 21643, 24873, 23102, 2063, 102]}
+{"text": "Divoká Šárka", "ids": [101, 4487, 6767, 2912, 18906, 2912, 102]}
+{"text": "Comunità montana Grand Combin", "ids": [101, 4012, 19496, 2696, 8124, 2882, 22863, 2378, 102]}
+{"text": "Alfredo Pérez Rubalcaba", "ids": [101, 19423, 10730, 14548, 2389, 3540, 3676, 102]}
+{"text": "Nikola Jurčević", "ids": [101, 24794, 18414, 19170, 7903, 102]}
+{"text": "Juan René Serrano", "ids": [101, 5348, 10731, 22737, 3630, 102]}
+{"text": "Juan Ignacio Rodríguez", "ids": [101, 5348, 22988, 9172, 102]}
+{"text": "Deniz Türüç", "ids": [101, 7939, 10993, 10722, 6820, 2278, 102]}
+{"text": "Each code denotes a post office of the Österreichische Post company", "ids": [101, 2169, 3642, 14796, 1037, 2695, 2436, 1997, 1996, 9808, 3334, 2890, 11319, 22842, 2695, 2194, 102]}
+{"text": "Csobád", "ids": [101, 20116, 16429, 4215, 102]}
+{"text": "Murder of Victoria Climbié", "ids": [101, 4028, 1997, 3848, 7105, 2666, 102]}
+{"text": "Fernando J. Corbató", "ids": [101, 9158, 1046, 1012, 2522, 28483, 3406, 102]}
+{"text": "Pfäffikon, Schwyz", "ids": [101, 1052, 7011, 26989, 19648, 1010, 8040, 2232, 18418, 2480, 102]}
+{"text": "Rafael Nadal defeated Novak Djokovic 6–4, 5–7, 6–4, 6–2 to win his first US Open title", "ids": [101, 10999, 23233, 2389, 3249, 19580, 6520, 16366, 7903, 1020, 1516, 1018, 1010, 1019, 1516, 1021, 1010, 1020, 1516, 1018, 1010, 1020, 1516, 1016, 2000, 2663, 2010, 2034, 2149, 2330, 2516, 102]}
+{"text": "Philippe Daverio (17 October 1949 – 2 September 2020) was a French-born Italian art critic, teacher, writer, politician, and television personality", "ids": [101, 11169, 4913, 9488, 1006, 2459, 2255, 4085, 1516, 1016, 2244, 12609, 1007, 2001, 1037, 2413, 1011, 2141, 3059, 2396, 6232, 1010, 3836, 1010, 3213, 1010, 3761, 1010, 1998, 2547, 6180, 102]}
+{"text": "József Halzl", "ids": [101, 8183, 2480, 20106, 11085, 2480, 2140, 102]}
+{"text": "Roşoşa River", "ids": [101, 20996, 17063, 2050, 2314, 102]}
+{"text": "Lamillarié", "ids": [101, 16983, 9386, 7373, 102]}
+{"text": "Rœulx", "ids": [101, 1054, 29674, 5313, 2595, 102]}
+{"text": "3930 747.214", "ids": [101, 4464, 14142, 25374, 1012, 19936, 102]}
+{"text": "423.2 721", "ids": [101, 4413, 2509, 1012, 1016, 5824, 2487, 102]}
+{"text": "23/8/1602 274 458.2226 2th century 94607765 83%", "ids": [101, 2603, 1013, 1022, 1013, 8148, 2475, 25586, 3429, 2620, 1012, 19015, 2575, 1016, 2705, 2301, 6365, 16086, 2581, 2581, 26187, 6640, 1003, 102]}
+{"text": "14% 2362173 149 8/2/1113", "ids": [101, 2403, 1003, 23593, 17465, 2581, 2509, 17332, 1022, 1013, 1016, 1013, 11118, 2509, 102]}
+{"text": "425 22/1/1193 1th century", "ids": [101, 23285, 2570, 1013, 1015, 1013, 13285, 2509, 1015, 2705, 2301, 102]}
+{"text": "638.50 40%", "ids": [101, 6191, 2620, 1012, 2753, 2871, 1003, 102]}
+{"text": "59% 40 25768", "ids": [101, 5354, 1003, 2871, 24368, 2575, 2620, 102]}
+{"text": "31/7/1636 9th century 325", "ids": [101, 2861, 1013, 1021, 1013, 17867, 2575, 6280, 2301, 19652, 102]}
+{"text": "4th century 954 39% 822.3", "ids": [101, 4343, 2301, 5345, 2549, 4464, 1003, 6445, 2475, 1012, 1017, 102]}
+{"text": "460.788 4th century", "ids": [101, 17267, 1012, 6275, 2620, 4343, 2301, 102]}
+{"text": "384", "ids": [101, 4229, 2549, 102]}
+{"text": "4/11/1701", "ids": [101, 1018, 1013, 2340, 1013, 26059, 102]}
+{"text": "96% 85.57 30/11/1170", "ids": [101, 5986, 1003, 5594, 1012, 5401, 2382, 1013, 2340, 1013, 12567, 2692, 102]}
+{"text": "38% 183459009 1th century 550.6 28/7/1524", "ids": [101, 4229, 1003, 10700, 28154, 8889, 2683, 1015, 2705, 2301, 13274, 1012, 1020, 2654, 1013, 1021, 1013, 15017, 2549, 102]}
+{"text": "592.4 635816193 19/4/1850 60%", "ids": [101, 5354, 2475, 1012, 1018, 6191, 27814, 16048, 16147, 2509, 2539, 1013, 1018, 1013, 7973, 3438, 1003, 102]}
+{"text": "354 199.3 16% 24/2/1034 9th century 275", "ids": [101, 27878, 20713, 1012, 1017, 2385, 1003, 2484, 1013, 1016, 1013, 9800, 2549, 6280, 2301, 17528, 102]}
+{"text": "20/8/1635 6th century", "ids": [101, 2322, 1013, 1022, 1013, 27426, 5351, 2301, 102]}
+{"text": "442 35 30/7/2021 2th century 708.0141", "ids": [101, 4008, 2475, 3486, 2382, 1013, 1021, 1013, 25682, 1016, 2705, 2301, 3963, 2620, 1012, 5890, 23632, 102]}
+{"text": "4 14% 16/12/1721 390 3th century", "ids": [101, 1018, 2403, 1003, 2385, 1013, 2260, 1013, 27689, 20024, 1017, 2705, 2301, 102]}
+{"text": "52 19/3/1891 35678499", "ids": [101, 4720, 2539, 1013, 1017, 1013, 6607, 27509, 2581, 2620, 26224, 2683, 102]}
+{"text": "13/8/1191 1th century", "ids": [101, 2410, 1013, 1022, 1013, 13285, 2487, 1015, 2705, 2301, 102]}
+{"text": "9th century 22/4/1765 566 10", "ids": [101, 6280, 2301, 2570, 1013, 1018, 1013, 20797, 5179, 2575, 2184, 102]}
+{"text": "2/5/1536", "ids": [101, 1016, 1013, 1019, 1013, 16710, 2575, 102]}
+{"text": "2/2/1203 977 76.9610 93% 2th century 350", "ids": [101, 1016, 1013, 1016, 1013, 6036, 2509, 5989, 2581, 6146, 1012, 5986, 10790, 6109, 1003, 1016, 2705, 2301, 8698, 102]}
+{"text": "259.92 22/11/1098 7th century 524", "ids": [101, 25191, 1012, 6227, 2570, 1013, 2340, 1013, 11518, 2620, 5504, 2301, 4720, 2549, 102]}
+{"text": "5/1/1659 305 8333953 74%", "ids": [101, 1019, 1013, 1015, 1013, 28288, 20405, 6640, 22394, 2683, 22275, 6356, 1003, 102]}
+{"text": "84% 197.1972 26/3/1544 9th century 31283925 703", "ids": [101, 6391, 1003, 19975, 1012, 3285, 2656, 1013, 1017, 1013, 16666, 2549, 6280, 2301, 21036, 2620, 23499, 17788, 3963, 2509, 102]}
+{"text": "60 112.3 6th century 610", "ids": [101, 3438, 11176, 1012, 1017, 5351, 2301, 19827, 102]}
+{"text": "4/3/1914", "ids": [101, 1018, 1013, 1017, 1013, 4554, 102]}
+{"text": "8", "ids": [101, 1022, 102]}
+{"text": "49% 24/5/1125 298.424 494 87", "ids": [101, 4749, 1003, 2484, 1013, 1019, 1013, 11176, 2629, 27240, 1012, 4413, 2549, 4749, 2549, 6584, 102]}
+{"text": "846 3187 47% 8th century 148.5 12/11/2060", "ids": [101, 6391, 2575, 27003, 2581, 4700, 1003, 5893, 2301, 16459, 1012, 1019, 2260, 1013, 2340, 1013, 18744, 2692, 102]}
+{"text": "44% 490", "ids": [101, 4008, 1003, 22288, 102]}
+{"text": "14/3/1592 881 448.2728", "ids": [101, 2403, 1013, 1017, 1013, 18914, 2475, 6070, 2487, 4008, 2620, 1012, 24231, 2620, 102]}
+{"text": "96 4/1/1994 5858 54.35", "ids": [101, 5986, 1018, 1013, 1015, 1013, 2807, 5388, 27814, 5139, 1012, 3486, 102]}
+{"text": "2th century 87 465 7%", "ids": [101, 1016, 2705, 2301, 6584, 4805, 2629, 1021, 1003, 102]}
+{"text": "3th century 980 12 6%", "ids": [101, 1017, 2705, 2301, 25195, 2260, 1020, 1003, 102]}
+{"text": "9% 959 9579165 2th century 9.2 2/9/1848", "ids": [101, 1023, 1003, 5345, 2683, 5345, 2581, 2683, 16048, 2629, 1016, 2705, 2301, 1023, 1012, 1016, 1016, 1013, 1023, 1013, 7993, 102]}
+{"text": "934170291", "ids": [101, 6109, 23632, 19841, 24594, 2487, 102]}
+{"text": "326.6543 562 1th century", "ids": [101, 28188, 1012, 3515, 23777, 5179, 2475, 1015, 2705, 2301, 102]}
+{"text": "2", "ids": [101, 1016, 102]}
+{"text": "987 14%", "ids": [101, 5818, 2581, 2403, 1003, 102]}
+{"text": "277.8 663 298", "ids": [101, 25578, 1012, 1022, 5764, 2509, 27240, 102]}
+{"text": "68 6th century", "ids": [101, 6273, 5351, 2301, 102]}
+{"text": "607 5th century 593717107", "ids": [101, 3438, 2581, 4833, 2301, 5354, 24434, 16576, 10790, 2581, 102]}
+{"text": "46.68", "ids": [101, 4805, 1012, 6273, 102]}
+{"text": "4/5/1754 641 5th century 294.575", "ids": [101, 1018, 1013, 1019, 1013, 22593, 4185, 2487, 4833, 2301, 28135, 1012, 5401, 2629, 102]}
+{"text": "403 20/4/1999", "ids": [101, 28203, 2322, 1013, 1018, 1013, 2639, 102]}
+{"text": "481", "ids": [101, 4466, 2487, 102]}
+{"text": "85%", "ids": [101, 5594, 1003, 102]}
+{"text": "10/10/1383 893.1276 387 866 2th century 40%", "ids": [101, 2184, 1013, 2184, 1013, 15028, 2509, 6486, 2509, 1012, 13029, 2575, 4229, 2581, 6564, 2575, 1016, 2705, 2301, 2871, 1003, 102]}
+{"text": "2057 470.46 626", "ids": [101, 16327, 2581, 21064, 1012, 4805, 5786, 2575, 102]}
+{"text": "6th century 45% 771 15/12/1600 9 274.76", "ids": [101, 5351, 2301, 3429, 1003, 6255, 2487, 2321, 1013, 2260, 1013, 14883, 1023, 25586, 1012, 6146, 102]}
+{"text": "719.1937 59 4th century 64 16% 27/10/1740", "ids": [101, 6390, 2683, 1012, 4347, 5354, 4343, 2301, 4185, 2385, 1003, 2676, 1013, 2184, 1013, 21757, 102]}
+{"text": "7th century 27/4/1312 894772591", "ids": [101, 5504, 2301, 2676, 1013, 1018, 1013, 14677, 2475, 6486, 22610, 2581, 17788, 2683, 2487, 102]}
+{"text": "226.7321 7th century 16/1/1161 788 4", "ids": [101, 21035, 1012, 6421, 17465, 5504, 2301, 2385, 1013, 1015, 1013, 12904, 2487, 6275, 2620, 1018, 102]}
+{"text": "977.27 21% 604 13/1/1157 801777 5th century", "ids": [101, 5989, 2581, 1012, 2676, 2538, 1003, 3438, 2549, 2410, 1013, 1015, 1013, 10630, 2581, 3770, 16576, 2581, 2581, 4833, 2301, 102]}
+{"text": "159", "ids": [101, 18914, 102]}
+{"text": "14/9/1158 60806964 67% 9th century 496.729", "ids": [101, 2403, 1013, 1023, 1013, 10630, 2620, 3438, 17914, 2575, 2683, 21084, 6163, 1003, 6280, 2301, 4749, 2575, 1012, 5824, 2683, 102]}
+{"text": "153837 405.551", "ids": [101, 16710, 2620, 24434, 23988, 1012, 4583, 2487, 102]}
+{"text": "29% 939.7082", "ids": [101, 2756, 1003, 6109, 2683, 1012, 3963, 2620, 2475, 102]}
+{"text": "5th century 649215 470 79% 722.532", "ids": [101, 4833, 2301, 4185, 2683, 17465, 2629, 21064, 6535, 1003, 5824, 2475, 1012, 5187, 2475, 102]}
+{"text": "754 33% 21/12/1623 325.4144", "ids": [101, 4293, 2549, 3943, 1003, 2538, 1013, 2260, 1013, 29056, 19652, 1012, 4601, 22932, 102]}
+{"text": "454 50480424 929.769 19%", "ids": [101, 3429, 2549, 2753, 18139, 2692, 20958, 2549, 6227, 2683, 1012, 6146, 2683, 2539, 1003, 102]}
+{"text": "997 1%", "ids": [101, 5585, 2581, 1015, 1003, 102]}
+{"text": "467.8", "ids": [101, 4805, 2581, 1012, 1022, 102]}
+{"text": "80.55 60 12/12/1073 199", "ids": [101, 3770, 1012, 4583, 3438, 2260, 1013, 2260, 1013, 10550, 2509, 20713, 102]}
+{"text": "994.5106 384 5 26/11/1971", "ids": [101, 5585, 2549, 1012, 23475, 2575, 4229, 2549, 1019, 2656, 1013, 2340, 1013, 3411, 102]}
+{"text": "291787 16.35 9%", "ids": [101, 27173, 2581, 2620, 2581, 2385, 1012, 3486, 1023, 1003, 102]}
+{"text": "381.68 156 6/2/2052 79% 2583", "ids": [101, 29335, 1012, 6273, 16734, 1020, 1013, 1016, 1013, 16327, 2475, 6535, 1003, 24398, 2509, 102]}
+{"text": "952", "ids": [101, 5345, 2475, 102]}
+{"text": "29/3/1956 832 189.4423 9th century 56%", "ids": [101, 2756, 1013, 1017, 1013, 3838, 6640, 2475, 20500, 1012, 4008, 21926, 6280, 2301, 5179, 1003, 102]}
+{"text": "67%", "ids": [101, 6163, 1003, 102]}
+{"text": "26% 321.81 6th century 11/3/1485 177 104", "ids": [101, 2656, 1003, 24030, 1012, 6282, 5351, 2301, 2340, 1013, 1017, 1013, 16459, 2629, 18118, 9645, 102]}
+{"text": "853162 7th century 30%", "ids": [101, 5594, 21486, 2575, 2475, 5504, 2301, 2382, 1003, 102]}
+{"text": "4th century 80% 362902917 13/10/1359 477.980", "ids": [101, 4343, 2301, 3770, 1003, 4029, 24594, 2692, 24594, 16576, 2410, 1013, 2184, 1013, 11502, 2683, 4700, 2581, 1012, 25195, 102]}
+{"text": "60% 3th century 1050", "ids": [101, 3438, 1003, 1017, 2705, 2301, 8746, 2692, 102]}
+{"text": "45.3075 9th century 33%", "ids": [101, 3429, 1012, 24559, 2629, 6280, 2301, 3943, 1003, 102]}
+{"text": "9th century 97% 11/8/1887 985 0", "ids": [101, 6280, 2301, 5989, 1003, 2340, 1013, 1022, 1013, 6837, 5818, 2629, 1014, 102]}
+{"text": "27/5/1883", "ids": [101, 2676, 1013, 1019, 1013, 7257, 102]}
+{"text": "46% 8th century 72 453.5 26/6/1196 622", "ids": [101, 4805, 1003, 5893, 2301, 5824, 3429, 2509, 1012, 1019, 2656, 1013, 1020, 1013, 13285, 2575, 5786, 2475, 102]}
+{"text": "616 7th century 198.3596 25/7/1388 49436694", "ids": [101, 6079, 2575, 5504, 2301, 20003, 1012, 3486, 2683, 2575, 2423, 1013, 1021, 1013, 15028, 2620, 4749, 23777, 28756, 2683, 2549, 102]}
+{"text": "14/10/1236 3th century 28 351", "ids": [101, 2403, 1013, 2184, 1013, 13138, 2575, 1017, 2705, 2301, 2654, 28474, 102]}
+{"text": "239.8650 8 630", "ids": [101, 23688, 1012, 6564, 12376, 1022, 23609, 102]}
+{"text": "1000", "ids": [101, 6694, 102]}
+{"text": "786 57% 7th century 695 30/3/1894 152.51", "ids": [101, 6275, 2575, 5401, 1003, 5504, 2301, 6353, 2629, 2382, 1013, 1017, 1013, 6539, 15017, 1012, 4868, 102]}
+{"text": "6th century 6.9945 43797", "ids": [101, 5351, 2301, 1020, 1012, 5585, 19961, 4724, 2581, 2683, 2581, 102]}
+{"text": "227.425 887615032", "ids": [101, 21489, 1012, 23285, 6070, 2581, 2575, 16068, 2692, 16703, 102]}
+{"text": "841.7 3/4/1375 98% 246", "ids": [101, 6391, 2487, 1012, 1021, 1017, 1013, 1018, 1013, 14989, 2629, 5818, 1003, 22376, 102]}
+{"text": "71450", "ids": [101, 6390, 19961, 2692, 102]}
+{"text": "28/2/1401 56 4th century 671.386 232 37%", "ids": [101, 2654, 1013, 1016, 1013, 8574, 2487, 5179, 4343, 2301, 6163, 2487, 1012, 4229, 2575, 20666, 4261, 1003, 102]}
+{"text": "9th century 70% 5/7/1432 158506706 660.7", "ids": [101, 6280, 2301, 3963, 1003, 1019, 1013, 1021, 1013, 16065, 2475, 17696, 12376, 2575, 19841, 2575, 20982, 1012, 1021, 102]}
+{"text": "271.2 16/4/1116 184", "ids": [101, 25103, 1012, 1016, 2385, 1013, 1018, 1013, 11118, 2575, 19681, 102]}
+{"text": "995 700085589 27/3/1593 6th century 629.268 34%", "ids": [101, 5585, 2629, 6352, 2692, 27531, 27814, 2683, 2676, 1013, 1017, 1013, 18914, 2509, 5351, 2301, 5786, 2683, 1012, 25143, 4090, 1003, 102]}
+{"text": "35% 8th century 662 785.6502 22/10/1824", "ids": [101, 3486, 1003, 5893, 2301, 5764, 2475, 6275, 2629, 1012, 13757, 2475, 2570, 1013, 2184, 1013, 11617, 102]}
+{"text": "65% 510.3872 1th century 905 2 6/11/1090", "ids": [101, 3515, 1003, 23475, 1012, 4229, 2581, 2475, 1015, 2705, 2301, 3938, 2629, 1016, 1020, 1013, 2340, 1013, 11518, 2692, 102]}
+{"text": "18/9/1968 52%", "ids": [101, 2324, 1013, 1023, 1013, 3380, 4720, 1003, 102]}
+{"text": "723.5363 22/7/1899 744 683 7%", "ids": [101, 5824, 2509, 1012, 5187, 2575, 2509, 2570, 1013, 1021, 1013, 6166, 6356, 2549, 6273, 2509, 1021, 1003, 102]}
+{"text": "981", "ids": [101, 5818, 2487, 102]}
+{"text": "8908534 828", "ids": [101, 6486, 2692, 27531, 22022, 6445, 2620, 102]}
+{"text": "3.78¿  _southernmost •", "ids": [101, 1017, 1012, 6275, 1094, 1035, 21787, 1528, 102]}
+{"text": "[:in was | ¶`", "ids": [101, 1031, 1024, 1999, 2001, 1064, 1086, 1036, 102]}
+{"text": ",–^She  KnowlesSeptember in", "ids": [101, 1010, 1516, 1034, 2016, 22815, 3366, 13876, 6633, 5677, 1999, 102]}
+{"text": "Inat +]+many2012| ' ", "ids": [101, 27118, 2102, 1009, 1033, 1009, 2116, 11387, 12521, 1064, 1005, 102]}
+{"text": "$ Bundesligafictional", "ids": [101, 1002, 14250, 8873, 7542, 2389, 102]}
+{"text": " \\~and  —?{  JohnHe–", "ids": [101, 1032, 1066, 1998, 1517, 1029, 1063, 2198, 5369, 1516, 102]}
+{"text": "\\ a studying/| }  ", "ids": [101, 1032, 1037, 5702, 1013, 1064, 1065, 102]}
+{"text": " Paris-Charles thatthe>", "ids": [101, 3000, 1011, 2798, 2008, 10760, 1028, 102]}
+{"text": " } a}`%) ~", "ids": [101, 1065, 1037, 1065, 1036, 1003, 1007, 1066, 102]}
+{"text": " selection)is¶ ^'  dein,Airport« ", "ids": [101, 4989, 1007, 2003, 1086, 1034, 1005, 14866, 2078, 1010, 3199, 1077, 102]}
+{"text": "300 of !WaterstonMITSigüenza", "ids": [101, 3998, 1997, 999, 5380, 2669, 22930, 5332, 9077, 16786, 102]}
+{"text": "on to  waslong\\Martin  ", "ids": [101, 2006, 2000, 2001, 10052, 1032, 3235, 102]}
+{"text": "&a~]Starschool `department lived”Demon", "ids": [101, 1004, 1037, 1066, 1033, 3340, 9905, 4747, 1036, 2533, 2973, 1524, 5698, 102]}
+{"text": " commune isgroupsincluding ;", "ids": [101, 5715, 2003, 17058, 11493, 20464, 24539, 1025, 102]}
+{"text": "in¡Kent34 ,  + was “total ", "ids": [101, 1999, 1067, 5982, 22022, 1010, 1009, 2001, 1523, 2561, 102]}
+{"text": "light-square“«¿  TrinityStress  “", "ids": [101, 2422, 1011, 2675, 1523, 1077, 1094, 7124, 3367, 8303, 1523, 102]}
+{"text": "released~¡aged{the the…live    in", "ids": [101, 2207, 1066, 1067, 4793, 1063, 1996, 1996, 1529, 2444, 1999, 102]}
+{"text": "• ", "ids": [101, 1528, 102]}
+{"text": "\"' its`(   ?   offspring", "ids": [101, 1000, 1005, 2049, 1036, 1006, 1029, 13195, 102]}
+{"text": "He“kiwi", "ids": [101, 2002, 1523, 11382, 9148, 102]}
+{"text": " <`%  14  ,  \\  ", "ids": [101, 1026, 1036, 1003, 2403, 1010, 1032, 102]}
+{"text": " - _feathersChump <a ( aof", "ids": [101, 1011, 1035, 12261, 20760, 8737, 1026, 1037, 1006, 20118, 2546, 102]}
+{"text": ": —  'deceiveAsiadeal~?\\ '¡", "ids": [101, 1024, 1517, 1005, 11703, 7416, 3726, 15396, 3207, 2389, 1066, 1029, 1032, 1005, 1067, 102]}
+{"text": " ¶(or\\of•Hindi, ", "ids": [101, 1086, 1006, 2030, 1032, 1997, 1528, 9269, 1010, 102]}
+{"text": "Statestake<    ", "ids": [101, 2163, 15166, 1026, 102]}
+{"text": "_  ", "ids": [101, 1035, 102]}
+{"text": "@ is?LowerGameLumumbistcensus,<", "ids": [101, 1030, 2003, 1029, 2896, 16650, 12942, 25438, 2923, 19023, 2271, 1010, 1026, 102]}
+{"text": "%adult  \"naturecore\" ", "ids": [101, 1003, 4639, 1000, 3267, 17345, 1000, 102]}
+{"text": "|% played`andactressNowshera as about`«fourth", "ids": [101, 1064, 1003, 2209, 1036, 1998, 18908, 8303, 19779, 19603, 2050, 2004, 2055, 1036, 1077, 2959, 102]}
+{"text": "thewayplayer]", "ids": [101, 1996, 4576, 13068, 2121, 1033, 102]}
+{"text": "    County ", "ids": [101, 2221, 102]}
+{"text": " found8,   %to ¡musiciansfrog", "ids": [101, 2179, 2620, 1010, 1003, 2000, 1067, 5389, 19699, 8649, 102]}
+{"text": "@10Chump—the(28|   ", "ids": [101, 1030, 2184, 20760, 8737, 1517, 1996, 1006, 2654, 1064, 102]}
+{"text": "/<  ", "ids": [101, 1013, 1026, 102]}
+{"text": "Line)  '  a… ", "ids": [101, 2240, 1007, 1005, 1037, 1529, 102]}
+{"text": "flight:board^ §.[ isalphabetizedselection)  ", "ids": [101, 3462, 1024, 2604, 1034, 1073, 1012, 1031, 18061, 14277, 25459, 20624, 5422, 11246, 18491, 1007, 102]}
+{"text": "Italian,| billionhis&theLeague  ", "ids": [101, 3059, 1010, 1064, 4551, 24158, 1004, 1996, 19738, 9077, 102]}
+{"text": "(inAugust —@engineer:>", "ids": [101, 1006, 27118, 15916, 19966, 1517, 1030, 3992, 1024, 1028, 102]}
+{"text": "divided(", "ids": [101, 4055, 1006, 102]}
+{"text": "Conferencewebsite,^~1945", "ids": [101, 3034, 8545, 5910, 4221, 1010, 1034, 1066, 3386, 102]}
+{"text": "seatEoceneseat", "ids": [101, 2835, 8780, 17968, 17310, 2102, 102]}
+{"text": " ; @”/ (   main  ", "ids": [101, 1025, 1030, 1524, 1013, 1006, 2364, 102]}
+{"text": "others—Uruguaybanda time", "ids": [101, 2500, 1517, 11724, 12733, 2050, 2051, 102]}
+{"text": "*  companyinsingle who", "ids": [101, 1008, 2194, 7076, 2075, 2571, 2040, 102]}
+{"text": "Windy ", "ids": [101, 27370, 102]}
+{"text": " (  %(Salentino:;~ $ ", "ids": [101, 1006, 1003, 1006, 5096, 25318, 1024, 1025, 1066, 1002, 102]}
+{"text": "people  «\\ ", "ids": [101, 2111, 1077, 1032, 102]}
+{"text": "ina%   many¿ ”Paus$  •", "ids": [101, 27118, 1003, 2116, 1094, 1524, 29025, 2015, 1002, 1528, 102]}
+{"text": " haskitharaBostonMuhammad’sClinton –   is   ", "ids": [101, 2038, 23615, 11077, 15853, 2669, 12274, 3511, 25666, 1521, 8040, 4115, 2669, 1516, 2003, 102]}
+{"text": "Nepal     »of  groups)", "ids": [101, 8222, 1090, 1997, 2967, 1007, 102]}
+{"text": "Gouveiainto ,  ¡ …skis % ^•", "ids": [101, 2175, 22909, 2401, 18447, 2080, 1010, 1067, 1529, 8301, 2015, 1003, 1034, 1528, 102]}
+{"text": "  ", "ids": [101, 102]}
+{"text": " |[biology, the    — and—", "ids": [101, 1064, 1031, 7366, 1010, 1996, 1517, 1998, 1517, 102]}
+{"text": "theregion§*  ", "ids": [101, 2045, 11411, 2078, 1073, 1008, 102]}
+{"text": "MT1!  \\wasOffplayernow@community top", "ids": [101, 11047, 2487, 999, 1032, 2001, 7245, 13068, 11795, 5004, 1030, 2451, 2327, 102]}
+{"text": " anof– Federal( &]¶", "ids": [101, 2019, 11253, 1516, 2976, 1006, 1004, 1033, 1086, 102]}
+{"text": "underTehsil ==Nationalliga  {¿goldParalympics,, ", "ids": [101, 2104, 2618, 7898, 4014, 1027, 1027, 2120, 14715, 1063, 1094, 2751, 28689, 2135, 8737, 6558, 1010, 1010, 102]}
+{"text": "<a,orRStudiothey` ", "ids": [101, 1026, 1037, 1010, 26914, 3367, 21041, 14573, 3240, 1036, 102]}
+{"text": " … Italy,   ", "ids": [101, 1529, 3304, 1010, 102]}
+{"text": "   ", "ids": [101, 102]}
+{"text": " ? —also >@—", "ids": [101, 1029, 1517, 2036, 1028, 1030, 1517, 102]}
+{"text": "—generalplayed ¡, …forThe   ;sounds,", "ids": [101, 1517, 2236, 13068, 2098, 1067, 1010, 1529, 5743, 2063, 1025, 4165, 1010, 102]}
+{"text": "/~Bourgogne-Franche-Comté Muhammad’s   ", "ids": [101, 1013, 1066, 8945, 12514, 8649, 2638, 1011, 23151, 5403, 1011, 19758, 7187, 1521, 1055, 102]}
