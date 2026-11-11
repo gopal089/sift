@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -87,15 +86,20 @@ class SearchApiTest {
                 .andExpect(jsonPath("$.stats.documentsSearched").value(15))
                 .andExpect(jsonPath("$.stats.terms", contains("photosynthesi")))
                 .andExpect(jsonPath("$.stats.matchMode").value("AND"))
+                .andExpect(jsonPath("$.stats.cache").value("off"))
                 .andExpect(jsonPath("$.stats.tookMs", greaterThan(0.0)));
     }
 
     @Test
-    void snippetIsCutToAShortTextEndingWithEllipsis() throws Exception {
-        mvc.perform(get("/search").param("q", "photosynthesis"))
-                .andExpect(jsonPath("$.results[0].snippet", org.hamcrest.Matchers.endsWith("…")))
-                .andExpect(jsonPath("$.results[0].snippet",
-                        org.hamcrest.Matchers.hasLength(lessThanOrEqualTo(SearchController.SNIPPET_CHARS + 1))));
+    void snippetIsAWindowOfTheTextWithHighlightRanges() throws Exception {
+        // "sunlight" is word 8 of a long article: the window starts 5 words before it and is 30 words long
+        mvc.perform(get("/search").param("q", "sunlight leaves"))
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.results[0].snippet", org.hamcrest.Matchers.startsWith("… green plants make")))
+                .andExpect(jsonPath("$.results[0].snippet", org.hamcrest.Matchers.endsWith(" …")))
+                .andExpect(jsonPath("$.results[0].highlights[0].start").value(30))   // "sunlight"
+                .andExpect(jsonPath("$.results[0].highlights[0].end").value(38))
+                .andExpect(jsonPath("$.results[0].highlights.length()", greaterThan(1)));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package dev.sift.api;
 
+import dev.sift.engine.snippet.Snippet.Highlight;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,12 @@ public final class ApiModels {
     private ApiModels() {
     }
 
-    /** One search result. */
-    public record Result(int id, String title, String url, String snippet, double score) {
+    /**
+     * One search result. {@code highlights} are the character ranges of {@code snippet} to show in bold
+     * (the query words). The snippet is plain text, never HTML.
+     */
+    public record Result(int id, String title, String url, String snippet, List<Highlight> highlights,
+                         double score) {
     }
 
     /** Numbers shown in the website's stats panel. */

@@ -8,6 +8,8 @@ import dev.sift.api.ApiModels.SuggestResponse;
 import dev.sift.engine.search.SearchResult;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.Searcher;
+import dev.sift.engine.snippet.Snippet;
+import dev.sift.engine.snippet.SnippetBuilder;
 import dev.sift.engine.store.DiskIndex;
 import dev.sift.engine.store.IndexMeta;
 import dev.sift.engine.suggest.TitleSuggester;
@@ -32,7 +34,7 @@ public class SearchController {
     static final int MAX_PAGE = 100;            // deepest result we serve is number 1,000
     static final int MAX_QUERY_LENGTH = 200;
     static final int MAX_SUGGESTIONS = 5;
-    static final int SNIPPET_CHARS = 200;
+    static final int SNIPPET_WORDS = 30;
     private static final String WIKI_URL = "https://simple.wikipedia.org/wiki/";
 
     private final DiskIndex index;
@@ -79,7 +81,11 @@ public class SearchController {
         int from = Math.min((page - 1) * PAGE_SIZE, hits.size());
         List<Result> results = new ArrayList<>();
         for (Hit hit : hits.subList(from, hits.size())) {
-            results.add(new Result(hit.wikiId(), hit.title(), wikiUrl(hit.title()), snippet(hit.docId()), hit.score()));
+            // the best 30-word window around the query words, chosen with the term positions from the index
+            Snippet snippet = SnippetBuilder.build(index, hit.docId(), result.terms(), index.text(hit.docId()),
+                    SNIPPET_WORDS);
+            results.add(new Result(hit.wikiId(), hit.title(), wikiUrl(hit.title()), snippet.text(),
+                    snippet.highlights(), hit.score()));
         }
         double tookMs = (System.nanoTime() - start) / 1e6;
         queriesServed.incrementAndGet();
@@ -91,7 +97,7 @@ public class SearchController {
             notice = "Smart (meaning) search is not built yet (Phase 5). Showing keyword results.";
         }
         QueryStats stats = new QueryStats(tookMs, index.docs().size(), result.totalMatches(), result.terms(),
-                result.mode().name(), "none (the cache arrives in Phase 6)");
+                result.mode().name(), "off");
         return new SearchResponse(query, mode, "keyword", notice, page, PAGE_SIZE, result.totalMatches(),
                 result.totalMatches() > page * PAGE_SIZE, results, stats);
     }
@@ -128,25 +134,5 @@ public class SearchController {
     /** "World War II" → https://simple.wikipedia.org/wiki/World_War_II (special characters percent-encoded). */
     static String wikiUrl(String title) {
         return WIKI_URL + UriUtils.encodePathSegment(title.replace(' ', '_'), StandardCharsets.UTF_8);
-    }
-
-    /** Phase 2 snippet: the start of the article. Phase 3 will pick the best window around the query words. */
-    private String snippet(int docId) {
-        // 4 bytes is the longest UTF-8 character, so this many bytes always hold SNIPPET_CHARS characters
-        return shorten(index.text(docId, SNIPPET_CHARS * 4 + 4), SNIPPET_CHARS);
-    }
-
-    /** Collapses whitespace and cuts at a word boundary, adding "…" if something was cut off. */
-    static String shorten(String text, int maxChars) {
-        String clean = text.replace("�", "").replaceAll("\\s+", " ").strip();
-        if (clean.codePointCount(0, clean.length()) <= maxChars) {
-            return clean;
-        }
-        String cut = clean.substring(0, clean.offsetByCodePoints(0, maxChars));
-        int lastSpace = cut.lastIndexOf(' ');
-        if (lastSpace > maxChars / 2) {
-            cut = cut.substring(0, lastSpace);
-        }
-        return cut + "…";
     }
 }

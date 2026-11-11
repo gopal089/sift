@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 /**
@@ -38,8 +37,56 @@ public final class Tokenizer {
      */
     public static List<String> tokenize(String text) {
         List<String> terms = new ArrayList<>();
-        forEachWord(text, word -> terms.add(stem(word)));
+        forEachWord(text, (word, start, end) -> {
+            terms.add(stem(word));
+            return true;
+        });
         return terms;
+    }
+
+    /** Receives one word: normalised (lowercase, accents folded, not stemmed) and where it is in the text. */
+    public interface WordSink {
+        /**
+         * @param start index of the word's first character in the text
+         * @param end   index just after its last character
+         * @return false to stop reading the rest of the text
+         */
+        boolean word(String word, int start, int end);
+    }
+
+    /**
+     * Walks the words of a text in exactly the order {@link #tokenize} does, so the i-th word seen here
+     * is the term at position i in the index. Used to turn word positions back into character offsets
+     * (snippets). Call {@link #stemWord} on a word to get its index term.
+     */
+    public static void forEachWord(String text, WordSink sink) {
+        if (text == null || text.isEmpty()) {
+            return;
+        }
+        int start = -1;   // where the current word began, or -1 if we are between words
+        int i = 0;
+        while (i < text.length()) {
+            int cp = text.codePointAt(i);   // code points, so emoji / rare scripts are handled correctly
+            if (Character.isLetterOrDigit(cp)) {
+                if (start < 0) {
+                    start = i;
+                }
+            } else if (start >= 0) {
+                if (!emit(text, start, i, sink)) {
+                    return;
+                }
+                start = -1;
+            }
+            i += Character.charCount(cp);
+        }
+        if (start >= 0) {
+            emit(text, start, text.length(), sink);
+        }
+    }
+
+    /** The index term of a normalised word (Porter stem for plain a-z words). */
+    public static String stemWord(String word) {
+        return stem(word);
     }
 
     /**
@@ -63,7 +110,7 @@ public final class Tokenizer {
      */
     public static List<String> queryTerms(String query, boolean dropQuestionWords) {
         List<String> words = new ArrayList<>();
-        forEachWord(query, words::add);
+        forEachWord(query, (word, start, end) -> words.add(word));
 
         boolean hasContentWord = words.stream().anyMatch(w -> !StopWords.isStopWord(w, dropQuestionWords));
         LinkedHashSet<String> terms = new LinkedHashSet<>();
@@ -76,33 +123,13 @@ public final class Tokenizer {
         return List.copyOf(terms);
     }
 
-    /** Calls {@code sink} with every normalised (lowercase, accent-folded) word, before stemming. */
-    private static void forEachWord(String text, Consumer<String> sink) {
-        if (text == null || text.isEmpty()) {
-            return;
+    /** Normalises text[start, end) and hands it to the sink. Absurdly long tokens are skipped. */
+    private static boolean emit(String text, int start, int end, WordSink sink) {
+        if (end - start > MAX_TOKEN_LENGTH) {
+            return true;
         }
-        StringBuilder word = new StringBuilder();
-        int i = 0;
-        while (i < text.length()) {
-            int cp = text.codePointAt(i);   // code points, so emoji / rare scripts are handled correctly
-            i += Character.charCount(cp);
-            if (Character.isLetterOrDigit(cp)) {
-                word.appendCodePoint(cp);
-            } else if (!word.isEmpty()) {
-                emit(word, sink);
-            }
-        }
-        if (!word.isEmpty()) {
-            emit(word, sink);
-        }
-    }
-
-    private static void emit(StringBuilder word, Consumer<String> sink) {
-        if (word.length() <= MAX_TOKEN_LENGTH) {
-            String w = word.toString().toLowerCase(Locale.ROOT);
-            sink.accept(isAscii(w) ? w : foldAccents(w));
-        }
-        word.setLength(0);
+        String w = text.substring(start, end).toLowerCase(Locale.ROOT);
+        return sink.word(isAscii(w) ? w : foldAccents(w), start, end);
     }
 
     /** "café" → "cafe", "Ångström" → "angstrom". Splits letters from their accents, then drops the accents. */
