@@ -32,10 +32,11 @@ public record Ranking(Model model, double k1, double bBody, double bTitle, doubl
 
     /**
      * What {@link Searcher} uses unless told otherwise. Chosen on the 50 frozen eval queries (2026-11-11):
-     * BM25(body) + 2 × BM25(title), body b = 0.3, question words dropped. No alias bonus (it gained only
-     * 0.002 MRR). Locked until Phase 6; see docs/learning/phase-1.md, "Ranking fixes".
+     * BM25(body) + 2 × BM25(title), body b = 0.3, question words dropped, then × (1 + 0.5 × PageRank).
+     * No alias bonus (it gained only 0.002 MRR). Locked until Phase 6; see docs/learning/phase-1.md
+     * ("Ranking fixes") and phase-4.md.
      */
-    public static final Ranking DEFAULT = new Ranking(Model.BM25_SUM, 1.2, 0.3, 0.75, 2.0, 0.0, 0.0, false, true);
+    public static final Ranking DEFAULT = new Ranking(Model.BM25_SUM, 1.2, 0.3, 0.75, 2.0, 0.0, 0.5, false, true);
 
     public Ranking {
         if (k1 <= 0 || bBody < 0 || bBody > 1 || bTitle < 0 || bTitle > 1 || wTitle < 0 || wAlias < 0 || alpha < 0) {
