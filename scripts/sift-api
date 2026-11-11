@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Starts the Sift API on Java 21 (http://localhost:8080). Needs the index: run scripts/sift-index once first.
+# Usage (from anywhere):  scripts/sift-api
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+"$ROOT/gradlew" -p "$ROOT" -q :api:installDist
+JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
+export JAVA_HOME
+cd "$ROOT"
+exec api/build/install/sift-api/bin/sift-api "$@"
