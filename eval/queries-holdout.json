@@ -1,0 +1,142 @@
+[
+ {
+  "id": 1,
+  "query": "darwin",
+  "expected": "Charles Darwin",
+  "category": "famous-single",
+  "note": "surname only"
+ },
+ {
+  "id": 2,
+  "query": "beethoven",
+  "expected": "Ludwig van Beethoven",
+  "category": "famous-single",
+  "note": "surname only"
+ },
+ {
+  "id": 3,
+  "query": "paris",
+  "expected": "Paris",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 4,
+  "query": "elephant",
+  "expected": "Elephant",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 5,
+  "query": "oxygen",
+  "expected": "Oxygen",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 6,
+  "query": "computer",
+  "expected": "Computer",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 7,
+  "query": "roman empire",
+  "expected": "Roman Empire",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 8,
+  "query": "industrial revolution",
+  "expected": "Industrial Revolution",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 9,
+  "query": "eiffel tower",
+  "expected": "Eiffel Tower",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 10,
+  "query": "periodic table",
+  "expected": "Periodic table",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 11,
+  "query": "abraham lincoln",
+  "expected": "Abraham Lincoln",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 12,
+  "query": "narwhal",
+  "expected": "Narwhal",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 13,
+  "query": "origami",
+  "expected": "Origami",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 14,
+  "query": "enigma machine",
+  "expected": "Enigma machine",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 15,
+  "query": "who painted the mona lisa",
+  "expected": "Leonardo da Vinci",
+  "category": "question",
+  "note": "answer is a person; Mona Lisa is a near miss"
+ },
+ {
+  "id": 16,
+  "query": "what is the tallest mountain in the world",
+  "expected": "Mount Everest",
+  "category": "question",
+  "note": "answer word not in query"
+ },
+ {
+  "id": 17,
+  "query": "what is the capital of canada",
+  "expected": "Ottawa",
+  "category": "question",
+  "note": "answer word not in query"
+ },
+ {
+  "id": 18,
+  "query": "who was the first president of the united states",
+  "expected": "George Washington",
+  "category": "question",
+  "note": "answer word not in query"
+ },
+ {
+  "id": 19,
+  "query": "uk",
+  "expected": "United Kingdom",
+  "category": "abbreviation",
+  "note": "needs redirect or alias"
+ },
+ {
+  "id": 20,
+  "query": "html",
+  "expected": "HTML",
+  "category": "abbreviation",
+  "note": "title is the abbreviation"
+ }
+]
