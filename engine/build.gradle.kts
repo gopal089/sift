@@ -8,6 +8,9 @@ plugins {
 dependencies {
     // JSON parsing for reading articles.jsonl (plumbing, not a search algorithm)
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
+    // Runs the embedding model (an ONNX file) for Smart search. Plumbing: the tokenizer, pooling,
+    // vector search (HNSW) and fusion around it are our own code.
+    api("com.microsoft.onnxruntime:onnxruntime:1.31.1")
 }
 
 application {

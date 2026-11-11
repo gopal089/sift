@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Runs one engine tool (a Java class with a main method) on Java 21, from the repository root.
+# The commit and machine are passed in SIFT_COMMIT / SIFT_MACHINE so results files can record them.
+# Heap size: SIFT_XMX (default 2g).
+# Usage:  scripts/sift-run <ClassName in dev.sift.engine.*> [args...]
+#   e.g.  scripts/sift-run eval.EmbedCheckCli data/model data/vectors/check-queries.jsonl
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CLASS="${1:?usage: scripts/sift-run <class, e.g. eval.EmbedCheckCli> [args...]}"; shift
+"$ROOT/gradlew" -p "$ROOT" -q :engine:installDist
+JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
+SIFT_COMMIT="$(git -C "$ROOT" rev-parse --short HEAD)"
+git -C "$ROOT" diff --quiet HEAD || SIFT_COMMIT="$SIFT_COMMIT-dirty"
+SIFT_MACHINE="$(sysctl -n machdep.cpu.brand_string 2>/dev/null || uname -m), $(getconf _NPROCESSORS_ONLN) cores"
+export SIFT_COMMIT SIFT_MACHINE
+cd "$ROOT"
+exec "$JAVA_HOME/bin/java" "-Xmx${SIFT_XMX:-2g}" -cp "engine/build/install/sift-cli/lib/*" "dev.sift.engine.$CLASS" "$@"
