@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * <p>Thread-safe: ONNX Runtime allows many threads to call {@code run} on one session at the same time.
  */
-public final class QueryEmbedder implements AutoCloseable {
+public final class QueryEmbedder implements Embedder, AutoCloseable {
 
     private final OrtEnvironment env;
     private final OrtSession session;
@@ -74,6 +74,7 @@ public final class QueryEmbedder implements AutoCloseable {
     }
 
     /** The length-1 meaning vector of {@code text}. */
+    @Override
     public float[] embed(String text) {
         int[] ids = tokenizer.encode(text, maxLength);
         long[][] inputIds = new long[1][ids.length];

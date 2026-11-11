@@ -4,7 +4,7 @@ import dev.sift.engine.index.DocTable;
 import dev.sift.engine.search.SearchResult;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.SearchResult.MatchMode;
-import dev.sift.engine.search.Searcher;
+import dev.sift.engine.search.QueryRanker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Runs every eval query through the real {@link Searcher} and records the rank of the expected article.
+ * Runs every eval query through a real ranker (keyword or Smart) and records the rank of the expected article.
  *
  * <p>It asks the searcher for the <i>full</i> ranking (K = number of documents), so the rank is exact even
  * when the article is far down (e.g. #458). The searcher's order is deterministic (equal scores: smaller doc
- * id first), so the rank here is exactly the position a user would see.
+ * id first), so the rank here is exactly the position a user would see. Smart search only ranks its fused
+ * top lists (at most 200 documents); an article outside them counts as not found.
  */
 public final class Evaluator {
 
@@ -50,7 +51,7 @@ public final class Evaluator {
         }
     }
 
-    public List<Outcome> run(Searcher searcher, List<EvalQuery> queries) {
+    public List<Outcome> run(QueryRanker searcher, List<EvalQuery> queries) {
         checkExpectedTitlesExist(queries);
         List<Outcome> out = new ArrayList<>(queries.size());
         for (EvalQuery q : queries) {

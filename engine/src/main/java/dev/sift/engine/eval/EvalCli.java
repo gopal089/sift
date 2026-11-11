@@ -41,9 +41,14 @@ public final class EvalCli {
     private static final double MB = 1024.0 * 1024.0;
 
     /** One search setting to evaluate. It needs the alias index if its alias weight is above 0. */
-    record Config(String name, Ranking ranking) {
+    record Config(String name, Ranking ranking) implements EvalReport.Labeled {
         boolean usesAliases() {
             return ranking.wAlias() > 0;
+        }
+
+        @Override
+        public String description() {
+            return ranking.toString();
         }
     }
 

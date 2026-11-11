@@ -14,7 +14,14 @@ public final class EvalReport {
     private EvalReport() {
     }
 
-    public static String comparison(List<EvalCli.Config> configs, List<List<Evaluator.Outcome>> outcomes,
+    /** One compared configuration: a short name for the tables and a one-line description. */
+    public interface Labeled {
+        String name();
+
+        String description();
+    }
+
+    public static String comparison(List<? extends Labeled> configs, List<List<Evaluator.Outcome>> outcomes,
                                     List<double[]> medianMs) {
         StringBuilder sb = new StringBuilder();
         sb.append("# rank = position of the expected article in the full ranking"
@@ -22,8 +29,8 @@ public final class EvalReport {
         sb.append("# better/worse/same: per query, rank compared with the FIRST config\n\n");
 
         sb.append("Configs\n");
-        for (EvalCli.Config c : configs) {
-            sb.append(String.format(Locale.US, "  %-12s %s%n", c.name(), c.ranking()));
+        for (Labeled c : configs) {
+            sb.append(String.format(Locale.US, "  %-12s %s%n", c.name(), c.description()));
         }
 
         // ---- MRR overall and per category
@@ -86,7 +93,7 @@ public final class EvalReport {
         // ---- rank of the expected article, per query and config
         sb.append("\nRank of the expected article\n");
         sb.append(String.format(Locale.US, "  %3s %-14s %-38s", "id", "category", "query"));
-        for (EvalCli.Config c : configs) {
+        for (Labeled c : configs) {
             sb.append(String.format(Locale.US, " %8s", shorten(c.name(), 8)));
         }
         sb.append("   expected\n");
@@ -104,7 +111,7 @@ public final class EvalReport {
     }
 
     /** One row per (config, query): everything needed to diff two runs later. */
-    public static String tsv(List<EvalCli.Config> configs, List<List<Evaluator.Outcome>> outcomes,
+    public static String tsv(List<? extends Labeled> configs, List<List<Evaluator.Outcome>> outcomes,
                              List<double[]> medianMs) {
         StringBuilder sb = new StringBuilder(
                 "config\tid\tcategory\tquery\texpected\trank\tmode\tmatches\tterms\ttop1\tmedian_ms\n");

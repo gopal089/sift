@@ -22,7 +22,7 @@ import java.util.List;
  * Scoring follows the {@link Ranking} model: BM25, BM25F, or BM25(body) + w × BM25(title), plus an
  * optional bonus when a term is one of the document's alias (redirect) words.
  */
-public final class Searcher {
+public final class Searcher implements QueryRanker {
 
     /**
      * Soft AND sorts by (matched terms, score). We pack both into one number: matched × TIER + score.
@@ -54,10 +54,16 @@ public final class Searcher {
     }
 
     /** One line describing the search settings, written into every eval results file. */
+    @Override
     public String description() {
         return ranking.toString();
     }
 
+    public Ranking ranking() {
+        return ranking;
+    }
+
+    @Override
     public SearchResult search(String query, int k) {
         List<String> terms = Tokenizer.queryTerms(query, ranking.dropQuestionWords());
         if (terms.isEmpty()) {
