@@ -111,7 +111,7 @@ article up to the end of the window.
 | Posting data after compression | 111.9 MB (was 111.4 MB) of 364.4 MB = 30.7% | `eval/results/phase3-index-size.txt` |
 | Index build | 9.84 s | same |
 | Disk vs memory on format 2 | identical for every query, both sets | `eval/results/disk-check-v2-*.txt` |
-| Tests | 178 JUnit (155 engine, 23 API) + 16 Vitest | |
+| Tests | 178 JUnit (160 engine, 18 API) + 16 Vitest | |
 | Page width check at 375 px | no sideways scrolling (page width = 375) | checked in the browser |
 
 **"Done when": ✅** searched "world war 2" and "photosynthesis" in the browser against the real API, paged
