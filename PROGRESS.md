@@ -166,8 +166,8 @@ cache stats say "none" (Phase 6).
   on the 20 held-out queries as a file-format test (0.764 vs 0.697 without). Nothing was changed because of it,
   and the ranking stays locked, but those 20 queries are no longer "unseen" for the alias question.
   Phase 6 needs a fresh held-out set before retrying aliases.
-- **`.claude/launch.json` is untracked.** It only tells the Claude desktop app how to start `scripts/sift-api`.
-  Commit it or add `.claude/` to `.gitignore`, as you prefer.
+- **An untracked local folder with a launch config** (how the desktop app starts `scripts/sift-api`) is in the
+  repo root. It is not part of the project: add it to `.gitignore` or delete it.
 
 ## Notes for later
 - **Memory / hosting (Phase 5–7):** 280,748 vectors × 384 dims × 4 bytes ≈ 431 MB for vectors alone.
