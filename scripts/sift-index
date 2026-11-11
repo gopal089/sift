@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Builds the on-disk index (data/index/) from data/articles.jsonl, on Java 21, and prints the size report.
+# Usage (from anywhere):  scripts/sift-index [index-dir] [--redirects data/redirects.jsonl]
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DIR="data/index"
+if [[ $# -gt 0 && "$1" != --* ]]; then DIR="$1"; shift; fi
+
+"$ROOT/gradlew" -p "$ROOT" -q :engine:installDist
+JAVA_HOME="$("$ROOT/gradlew" -p "$ROOT" -q :engine:printJavaHome | tail -n 1)"
+cd "$ROOT"
+exec "$JAVA_HOME/bin/java" -Xmx4g -cp "engine/build/install/sift-cli/lib/*" dev.sift.engine.cli.IndexBuildCli \
+    data/articles.jsonl "$DIR" "$@"

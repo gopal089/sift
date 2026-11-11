@@ -6,6 +6,8 @@ import dev.sift.engine.data.RedirectAliases;
 import dev.sift.engine.index.IndexBuilder;
 import dev.sift.engine.index.InvertedIndex;
 import dev.sift.engine.search.Ranking;
+import dev.sift.engine.store.DiskIndex;
+import dev.sift.engine.store.IndexFileWriter;
 import dev.sift.engine.search.Searcher;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -31,6 +33,8 @@ import java.util.Map;
  * </pre>
  * A config is {@code NAME=SPEC} with a {@link Ranking#parse} spec. Configs with an alias weight ({@code wa} &gt; 0)
  * use an index built with redirect aliases (needs {@code --redirects}); the others use an index without them.
+ * With {@code --disk DIR} every index is also written to disk and loaded back, the eval runs on both, and the
+ * run fails unless every query gets exactly the same rank and top result from disk as from memory.
  * Writes {@code <out-dir>/<label>.txt} (comparison) and {@code <label>.tsv} (one row per config and query).
  */
 public final class EvalCli {
@@ -45,7 +49,7 @@ public final class EvalCli {
     }
 
     /** One built index and what it cost. */
-    record BuiltIndex(InvertedIndex index, double buildSeconds, double heapMb) {
+    record BuiltIndex(InvertedIndex index, double buildSeconds, double heapMb, DiskIndex disk) {
     }
 
     private EvalCli() {
@@ -54,7 +58,8 @@ public final class EvalCli {
     public static void main(String[] args) throws IOException {
         if (args.length < 2) {
             System.err.println("usage: EvalCli <articles.jsonl> <queries.json> --label NAME --config NAME=SPEC..."
-                    + " [--redirects redirects.jsonl] [--repeat N] [--out-dir DIR] [--commit HASH] [--machine TEXT]");
+                    + " [--redirects redirects.jsonl] [--disk DIR] [--repeat N] [--out-dir DIR] [--commit HASH]"
+                    + " [--machine TEXT]");
             System.exit(2);
         }
         Path articles = Path.of(args[0]);
@@ -62,6 +67,7 @@ public final class EvalCli {
         String label = null;
         Path outDir = Path.of("eval/results");
         Path redirects = null;
+        Path diskDir = null;
         String commit = "unknown";
         String machine = System.getProperty("os.arch");
         int repeat = 20;
@@ -71,6 +77,7 @@ public final class EvalCli {
                 case "--label" -> label = args[++i];
                 case "--out-dir" -> outDir = Path.of(args[++i]);
                 case "--redirects" -> redirects = Path.of(args[++i]);
+                case "--disk" -> diskDir = Path.of(args[++i]);
                 case "--commit" -> commit = args[++i];
                 case "--machine" -> machine = args[++i];
                 case "--repeat" -> repeat = Integer.parseInt(args[++i]);
@@ -100,17 +107,42 @@ public final class EvalCli {
         Map<Boolean, BuiltIndex> indexes = new LinkedHashMap<>();
         for (Config c : configs) {
             if (!indexes.containsKey(c.usesAliases())) {
-                indexes.put(c.usesAliases(), build(articles, c.usesAliases() ? aliasTable : null));
+                indexes.put(c.usesAliases(), build(articles, c.usesAliases() ? aliasTable : null,
+                        diskDir == null ? null : diskDir.resolve(c.usesAliases() ? "with-aliases" : "no-aliases")));
             }
         }
 
         List<List<Evaluator.Outcome>> outcomes = new ArrayList<>();
         List<double[]> medianMs = new ArrayList<>();
+        StringBuilder diskCheck = new StringBuilder();
         for (Config c : configs) {
-            InvertedIndex index = indexes.get(c.usesAliases()).index();
+            BuiltIndex built = indexes.get(c.usesAliases());
+            InvertedIndex index = built.index();
             Searcher searcher = new Searcher(index, c.ranking());
-            outcomes.add(new Evaluator(index.docs()).run(searcher, queries));
-            medianMs.add(timeQueries(searcher, queries, repeat));
+            List<Evaluator.Outcome> inMemory = new Evaluator(index.docs()).run(searcher, queries);
+            outcomes.add(inMemory);
+            if (built.disk() == null) {
+                medianMs.add(timeQueries(searcher, queries, repeat));
+            } else {
+                // Same queries on the index loaded from disk: every rank and top result must be identical.
+                Searcher diskSearcher = new Searcher(built.disk(), c.ranking());
+                List<Evaluator.Outcome> fromDisk = new Evaluator(built.disk().docs()).run(diskSearcher, queries);
+                if (!fromDisk.equals(inMemory)) {
+                    for (int q = 0; q < queries.size(); q++) {
+                        if (!fromDisk.get(q).equals(inMemory.get(q))) {
+                            System.err.println("DISK != MEMORY for config " + c.name() + ":\n  memory "
+                                    + inMemory.get(q) + "\n  disk   " + fromDisk.get(q));
+                        }
+                    }
+                    System.exit(1);
+                }
+                diskCheck.append(String.format(Locale.US,
+                        "# disk check %-8s: index loaded from disk gives the same rank, match count and top result"
+                                + " as in memory for all %d queries (MRR %.6f = %.6f)%n",
+                        c.name(), queries.size(), Evaluator.summarizeByCategory(inMemory).get("ALL").mrr(),
+                        Evaluator.summarizeByCategory(fromDisk).get("ALL").mrr()));
+                medianMs.add(timeQueries(diskSearcher, queries, repeat));   // speed of the disk index
+            }
         }
 
         StringBuilder header = new StringBuilder();
@@ -134,8 +166,9 @@ public final class EvalCli {
                     e.getValue().heapMb(), idx.docs().averageTitleLength(), idx.docs().averageBodyLength(),
                     idx.titlePostingCount(), idx.aliasPostingCount()));
         }
-        header.append(String.format(Locale.US, "# speed: k = 10, per query the median of %d runs after 3 warm-up runs%n",
-                repeat));
+        header.append(diskCheck);
+        header.append(String.format(Locale.US, "# speed (%s): k = 10, per query the median of %d runs after 3 warm-up runs%n",
+                diskDir == null ? "in-memory index" : "index loaded from disk", repeat));
 
         String text = header + EvalReport.comparison(configs, outcomes, medianMs);
         Files.createDirectories(outDir);
@@ -154,17 +187,25 @@ public final class EvalCli {
         return new Config(nameSpec[0], Ranking.parse(nameSpec[1]));
     }
 
-    /** Builds the index; {@code aliasTable} null means "without aliases". */
-    private static BuiltIndex build(Path articles, RedirectAliases aliasTable) throws IOException {
+    /**
+     * Builds the index; {@code aliasTable} null means "without aliases". With {@code diskDir}, the index is
+     * also written there and loaded back as a {@link DiskIndex}.
+     */
+    private static BuiltIndex build(Path articles, RedirectAliases aliasTable, Path diskDir) throws IOException {
         long heapBefore = usedHeapAfterGc();
         long t0 = System.nanoTime();
-        IndexBuilder builder = new IndexBuilder();
-        ArticleReader.forEach(articles, a -> builder.addDocument(a.id(), a.title(), a.text(),
-                aliasTable == null ? List.of() : aliasTable.aliasesOf(a.title())));
-        InvertedIndex index = builder.build();
+        InvertedIndex index;
+        if (diskDir == null) {
+            IndexBuilder builder = new IndexBuilder();
+            ArticleReader.forEach(articles, a -> builder.addDocument(a.id(), a.title(), a.text(),
+                    aliasTable == null ? List.of() : aliasTable.aliasesOf(a.title())));
+            index = builder.build();
+        } else {
+            index = IndexFileWriter.buildFromArticles(articles, aliasTable, diskDir).index();
+        }
         double seconds = (System.nanoTime() - t0) / 1e9;
         double heapMb = (usedHeapAfterGc() - heapBefore) / MB;
-        return new BuiltIndex(index, seconds, heapMb);
+        return new BuiltIndex(index, seconds, heapMb, diskDir == null ? null : DiskIndex.open(diskDir));
     }
 
     /** Per query: 3 warm-up runs, then the median of {@code repeat} timed runs with K = 10, in milliseconds. */
