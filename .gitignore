@@ -25,3 +25,6 @@ dist/
 # Secrets
 .env
 .env.*
+
+# Local launch config for the desktop app
+.claude/launch.json
