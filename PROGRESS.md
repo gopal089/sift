@@ -269,7 +269,37 @@ in Python brute force (cosine 0.471; "Eating" 0.583, "Plant" 0.580 are above it)
   that number must not be used for decisions now.
 - **Phase 7: revisit the official Spring Boot Gradle plugin** for packaging (runnable jar for Docker).
 
-## Next step
+## Phase 5 fix: one pre-registered experiment (decided 2026-11-12, written BEFORE any run)
+
+**About the old held-out check.** It failed by one query ("narwhal" #1 → #2: 0.763 vs 0.748). With only
+20 queries one rank flip moves MRR by 0.025, so "Smart must not be lower" was too strict a rule for 20 queries.
+**We do not re-run the old held-out 20 again.** The untouched `eval/queries-holdout-v2.json` gives the final
+verdict in Phase 6 and is never run before then.
+
+**Variants** (semantic part evaluated with EXACT brute-force search, not HNSW):
+- A. all-MiniLM-L6-v2, title + first 200 words (the current vectors)
+- B. all-MiniLM-L6-v2, title + first ~60 words
+- C. all-MiniLM-L6-v2, two vectors per article (B + A), similarity = max of the two
+- D. BAAI/bge-small-en-v1.5, title + first ~60 words, with the model's recommended query instruction prefix
+- E. bge-small-en-v1.5, two vectors per article (60 + 200 words), max similarity
+
+For D/E: export to ONNX, re-run the tokenizer check (1,000 strings, exact ids) and the Java vs Python
+embedding check (cosine ≥ 0.9999). If bge's tokenizer differs from my WordPiece, adapt and re-verify.
+If either check cannot pass, D/E are dropped.
+
+**Fusion** for each variant: plain RRF (k = 60) and keyword-weighted RRF (keyword list weight 2).
+
+**Selection rule** (main 50, hybrid mode, int8 vectors):
+1. Highest overall MRR wins.
+2. Within 0.01 of the best = tie → prefer one vector over two, MiniLM over bge, plain RRF over weighted.
+3. Report whether "how do plants make food" puts Photosynthesis in the top 3, but do NOT use that query to choose.
+
+**Then, for the winner only:** HNSW (M 16, efConstruction 200), efSearch = smallest with recall@10 ≥ 0.95,
+int8 recall vs float32 ≥ 0.97, Smart p95 over HTTP and server memory, make it the Smart default
+(keyword mode unchanged). Done when: winner locked, all tests pass, Smart p95 < 100 ms. If Photosynthesis is
+still not top 3, it is documented as a known limitation, with no further tuning.
+
+## Next step (before the experiment above was decided)
 Phase 5 needs **your decision** on the two failed checks (the photosynthesis "Done when" and the held-out sanity
 rule). Options, none started:
 1. **Embed a shorter text** (title + first sentence or ~60 words), or **two vectors per article** (opening + rest,
