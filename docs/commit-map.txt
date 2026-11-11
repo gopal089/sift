@@ -43,3 +43,69 @@ bc5a0a3  81618ee  07fa6fb653  Verify index loaded from disk ranks exactly like t
 7f10c7d  c427ffc  2626fa74ce  Add Spring Boot API: /search, /suggest, /stats, /health with input validation and tests
 7338d3e  429db57  1033b719c9  Add Phase 2 learning notes, API check results and progress
 dc32e5d  11a17eb  02ed964966  Reword note about the untracked local launch config
+
+# ---------------------------------------------------------------------------------------------
+# Second rewrite on 2026-11-11: author and committer emails changed to tennetigopal07@gmail.com
+# (from tennetigopal04@gmail.com and the typo tennetigopal04@gmail.com.com). Names, dates, messages
+# and tree hashes are identical before and after. The 'new' hashes in the table above are now the
+# 'old' hashes here. Columns: old short hash, new short hash, tree hash, subject. Oldest first.
+
+699cb95  ba024ef  2b7f7c9cc1  Set up project skeleton and Gradle multi-module build
+84e42c8  45e8d39  63c6333232  Add Wikipedia dump parser with tests
+49f513f  295594a  df855f1da9  Add Phase 0 learning notes and progress
+684e430  ee45aab  3a4b2a2adb  Re-measure missing link targets with redirects resolved
+4235790  64c0b8a  093b13949f  Add Porter stemmer with tests against official reference vocabulary
+a3dc666  13b3de0  cc21e5d788  Add shared tokenizer with query-time stop-word rule and tests
+8f4557c  ad5d3bc  3879f172b4  Add in-memory inverted index, doc table and article reader with tests
+dd09373  e549715  a290b30f1e  Fix .gitignore to ignore only the top-level data/ folder
+6b58a17  2b94e32  d2a7e7092e  Add BM25 scoring with tests
+4e16c36  3be8248  82f89f5d34  Add AND/OR search with posting intersection and top-K heap
+265c2bb  5917764  b63f7b2bcf  Add terminal search CLI with build, memory and timing report
+6ea52f4  ca4d0b3  dc0e71d4ab  Add Phase 1 learning notes, results and progress
+91ab331  ac0306d  8c986a4aa0  Fix JUnit test count in Phase 1 notes (93, not 94)
+180c3db  4081ed5  6b1ba722f0  Tidy engine module comment
+6316917  7b83c6e  7d5a3272c5  Run the CLI on Java 21 via scripts/sift-cli and warn on other versions
+1a2ec40  ef632de  214c91d7d4  1 done
+9cc5a4c  f4beb7e  e66e9e9a07  Add eval tool: rank of expected article, MRR and hit@k overall and per category
+c980446  8081e27  4d819c5624  Measure baseline ranking quality on the frozen 50 queries (MRR 0.275)
+4cd95b5  29bb4cb  b0ddd822d0  Add title field postings and BM25F scoring (default ranking unchanged)
+3f18879  7078c46  675d4e7a1b  Load redirect titles as article aliases, following redirect chains
+ed71ad3  44dc444  be843c3830  Eval several ranking configs in one run with per-category MRR, speed and heap
+3d9f482  47b020b  62e1087777  Run BM25F grid (w x body b) on the frozen queries: best w=5, b_body=0.5, MRR 0.635
+4429caf  0a8229a  7cabe733d4  Measure redirect aliases and the summed-BM25 variant at w=5, b_body=0.5
+999ac14  4502792  e46f40c51a  Add rule: no AI attribution in commits or files, owner pushes
+4c45a97  b8bef14  97c3a546a7  Freeze 20 held-out eval queries (never used for choosing settings)
+ca53efc  07de9b0  7c609e3ee9  Run sum-variant grid on the main queries: best w=2, b_body=0.3, MRR 0.799
+b026e44  7786c33  0ff529adcf  Add alias field, soft AND and question stop words as search settings
+85d8a96  cbf4c34  1cb066a75a  Measure alias field at the sum winner: +0.002 MRR, below the 0.01 rule, not adopted
+f91774c  5e31c5a  14d34ca7ba  Measure question stop words vs soft AND: question stop words win (MRR 0.815)
+be8e0d5  25d48fe  c861941bbd  Run baseline and final ranking once on the held-out queries (MRR 0.312 -> 0.697)
+bf1ac60  5af098a  48a1611787  Lock the tuned ranking as the default: BM25(body) + 2 x BM25(title), b_body 0.3, question words dropped
+4382fb2  2cfb509  91a4996c56  Document the ranking fixes: learning notes, final check and progress
+f2c3297  8b21566  6b47a8f2c9  Write Phase 2 plan and self-review
+6b6b64f  96b757e  b7d1c0e3f4  Let Searcher run on any SearchIndex; decode posting positions lazily
+082448a  8fb6079  49d20f7968  Add on-disk index: gap + varint postings, sorted term dictionary, memory-mapped reader
+3de1a10  c14ef6d  2387174967  Add simple title prefix suggester (binary search over sorted titles)
+48bbe6e  2b043ef  6ccfa5d093  Add index build CLI with size report and a disk-vs-memory eval check
+81618ee  4c59d83  07fa6fb653  Verify index loaded from disk ranks exactly like the in-memory index on both query sets; save index size report
+c427ffc  961c9d7  2626fa74ce  Add Spring Boot API: /search, /suggest, /stats, /health with input validation and tests
+429db57  9207ad0  1033b719c9  Add Phase 2 learning notes, API check results and progress
+11a17eb  941af9b  02ed964966  Reword note about the untracked local launch config
+c66efca  a54d276  62cdb4a144  Add commit map for the rewritten history and notes for later phases
+6eb8852  9658ea5  7b45d726b8  Ignore the local launch config
+e5fdfcc  8fa9286  24e37a2e85  Write Phase 3 plan and self-review
+cfae2c4  97ffe48  a78df6edb6  Build snippets from term positions: best 30-word window with highlight ranges
+9eb719e  6589508  0d48bffc28  Add a positions skip table to the index format (v2) and keep all matches inside the snippet window
+5fce19b  90bc281  0cae63f19a  Add React + Vite + TypeScript website with highlight and API client tests
+19086ea  d7d8ce9  1db541d247  Write positions from the flat array: index build back to linear time
+1799a85  963e36c  166268eb72  Re-verify disk vs memory on index format 2; save new size report
+d2c8bbe  f1c99f8  7d13a72483  Add Phase 3 learning notes, screenshots, speed results and progress; tidy mode switch layout
+5ef9f67  6cfedf3  087a9500b6  Correct per-module test counts in Phase 3 notes
+66d2673  bae2bd9  b7f324783b  Freeze 15 misspelled queries with the expected correction, before building spelling
+c0ecb4b  e6aad27  f8352085f8  Add PageRank (link graph, power iteration, log-scaled boost) and a spelling vocabulary; index format 3
+08c40fa  b75e25a  68818fb7a7  Measure PageRank weight alpha on the main queries: alpha 0.5 wins (MRR 0.868)
+60303fb  d3e6c2f  f482b3e0fd  Lock PageRank weight 0.5 as default; add title trie, edit distance, BK-tree and spell checker with tests
+48b745f  eab5ad9  0f57ad5c75  Add spelling eval tool for the frozen typo queries
+0c21412  9f20c41  107c7b3b7c  Save index build report (format 3) and typo-set accuracy: 12 of 15
+3cbc3a9  2916193  c03990e4aa  Wire trie autocomplete and did-you-mean into the API and the website
+bef63a5  f7cf1f4  b2e7e413a3  Add Phase 4 learning notes, results, screenshots and progress

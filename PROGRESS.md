@@ -1,7 +1,10 @@
 # Progress
 
-> **Commit hashes:** history was rewritten on 2026-11-11 (commit messages only). Hashes in results files and
-> notes written before 2026-11-11 14:00 IST refer to old hashes; see `docs/commit-map.txt`.
+> **Commit hashes:** history was rewritten twice on 2026-11-11, and file contents never changed (tree hashes
+> verified identical). First rewrite: attribution lines removed from commit messages. Second rewrite: author
+> and committer email changed to `tennetigopal07@gmail.com` on all 59 commits (names, dates and messages
+> unchanged); this repo now sets that email in its local git config. Hashes quoted in results files and notes
+> are pre-rewrite hashes; `docs/commit-map.txt` maps both rewrites, old → new.
 
 | Phase | Status |
 | --- | --- |
