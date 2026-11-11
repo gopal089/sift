@@ -13,7 +13,7 @@
 | 2 — Persist the index + API | ✅ Done (2026-11-11) |
 | 3 — Website | ✅ Done (2026-11-11) |
 | 4 — PageRank, autocomplete, spelling | ✅ Done (2026-11-11) |
-| 5 — Smart (meaning) search | Not started |
+| 5 — Smart (meaning) search | ⚠️ Built and measured (2026-11-12); **2 checks fail**, waiting for your decision |
 | 6 — Prove quality and speed | Not started |
 | 7 — Ship it | Not started |
 
@@ -179,6 +179,35 @@ Explanation: `docs/learning/phase-4.md`. Screenshots: `docs/screenshots/phase4-*
 
 **"Done when": ✅** "pyt" shows suggestions, "pyhton" suggests "python", typo accuracy reported, all queries under 100 ms.
 
+## Phase 5 — Smart (meaning) search (built; not done: 2 checks fail)
+
+Plan + self-review: `docs/learning/phase-5-plan.md`. Explanation: `docs/learning/phase-5.md`.
+Fresh held-out set for Phase 6: `eval/queries-holdout-v2.json` (30 queries, frozen first, **never run**).
+
+**Smart mode now:** hybrid RRF (k = 60) of keyword top 100 + HNSW top 100 (M 16, efConstruction 200,
+efSearch 200) over **int8** vectors of all-MiniLM-L6-v2 ("title + first 200 words"). Keyword mode unchanged.
+
+| Measure (Java 21, Apple M5) | Value | Raw file |
+| --- | --- | --- |
+| Embedding all articles (Python, Mac GPU) | 280,748 in 641.5 s; float32 file 411.3 MB | `eval/results/embedding-run.json` |
+| WordPiece ids, Java vs model tokenizer | **1,000 / 1,000 identical** (JUnit) | `engine/src/test/resources/wordpiece/` |
+| Query vector, Java vs Python | min cosine 1.0000000 on 200 queries (rule ≥ 0.9999) | `eval/results/embed-check.txt` |
+| Query embedding time | median 0.97 ms, p95 1.22 ms (1 ONNX thread) | same |
+| HNSW build | 225 s single thread; graph 39.2 MB heap, 36.8 MB file; 5 layers | `eval/results/hnsw-build.txt` |
+| recall@10, efSearch 50 / 100 / 200 | 0.878 / 0.931 / **0.966** → efSearch = 200 (0.83 ms median) | `eval/results/vector-recall.txt` |
+| Brute force (exact) | 26.0 ms median per query | same |
+| int8 | 103.9 MB; recall vs float32 0.995; hybrid MRR +0.010 → **adopted** | same + `smart-main.txt` |
+| MRR main 50: keyword / semantic / hybrid (int8) | 0.868 / 0.649 / **0.868** (0.86760 vs 0.86828) | `eval/results/smart-main.txt` |
+| Held-out 20 sanity: keyword / Smart | 0.763 / **0.748** ❌ (rule: Smart not lower) | `eval/results/smart-holdout-sanity.txt` |
+| Smart query time (server, incl. snippets) | median 3.3 ms, **p95 10.0 ms**, max 20 ms ✅ | `eval/results/phase5-api-memory.json` |
+| Server memory, int8 / float32 | RSS 716 / 742 MB at start, 1,013 / 1,332 MB after 1,200 queries; heap after GC 275 / 274 MB | same |
+| Tests | 265 (223 engine, 21 API, 21 Vitest) | |
+
+**"Done when": ❌ not yet.** p95 < 100 ms ✅ and all tests pass ✅, but "how do plants make food" puts
+Photosynthesis at **#4** in Smart mode (needs top 3). Root cause: the *exact* semantic rank is #20 even
+in Python brute force (cosine 0.471; "Eating" 0.583, "Plant" 0.580 are above it), so it is the model + the
+"title + first 200 words" recipe, not the tokenizer, ONNX or HNSW. Fixing it needs a plan change (see Next step).
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -191,7 +220,16 @@ Explanation: `docs/learning/phase-4.md`. Screenshots: `docs/screenshots/phase4-*
   This is real data, not a parser bug (only 0.3% would match if case were ignored).
   PageRank (Phase 4) must follow redirects and then drop links whose final target is not an article.
 - **Ranking weak spots left** (after PageRank): questions whose answer is not named in the query (held-out MRR
-  0.060) → Phase 5 Smart search; redirect-only abbreviations ("usa" #1,702, "uk" #54) → alias field retry in Phase 6.
+  0.060 keyword, 0.112 Smart); redirect-only abbreviations ("usa" #1,702 keyword, #172 Smart; "uk" #54 / #107)
+  → alias field retry in Phase 6.
+- **Smart vs keyword is a near tie.** Main 50: hybrid int8 0.86828 vs keyword 0.86760 (hybrid float32 would be
+  0.85828, *below* keyword). Hybrid wins questions (0.630 vs 0.415) and abbreviations (0.751 vs 0.516) but loses
+  exact-title queries ("the who" #1 → #6, "dinosaur" #1 → #5). Held-out 20: 0.748 vs 0.763, the loss is one
+  query ("narwhal" #1 → #2). Note the keyword ranking was tuned on the main 50; hybrid was not tuned at all.
+- **HNSW recall is lower than typical published numbers** (0.878 at efSearch 50). Queries are short titles,
+  documents are 200-word passages (different "shape"), which is harder for HNSW. The rule picked efSearch 200.
+- **int8 is not faster in Java** (brute force 30.6 vs 26.0 ms): reading bytes one by one from a ByteBuffer costs
+  more than it saves. It still saves 307 MB of memory, which matters for hosting.
 - **Spelling misses** (3 of 15): misspellings that occur in 5+ articles count as known words ("goverment",
   "medecine"); "elefant" → "elegant". Not tuned after seeing the typo set. Write new typo queries before changing rules.
 - **The MRR is tuned on the 50 main queries.** Report the held-out number (0.763) next to it. The held-out 20 have
@@ -232,4 +270,12 @@ Explanation: `docs/learning/phase-4.md`. Screenshots: `docs/screenshots/phase4-*
 - **Phase 7: revisit the official Spring Boot Gradle plugin** for packaging (runnable jar for Docker).
 
 ## Next step
-Phase 5: Smart (meaning) search. **Waiting for your go.**
+Phase 5 needs **your decision** on the two failed checks (the photosynthesis "Done when" and the held-out sanity
+rule). Options, none started:
+1. **Embed a shorter text** (title + first sentence or ~60 words), or **two vectors per article** (opening + rest,
+   score = max). Plan change to the CLAUDE.md recipe; 11 min to re-embed + 4 min HNSW rebuild. Must be judged on
+   the main 50 *and* the photosynthesis query, with the rule written before measuring.
+2. **A stronger embedding model** (same size class, e.g. a newer 384-dim model). Plan change; the tokenizer test
+   and export would be redone.
+3. **Accept the measured result** and document the limit: Smart = hybrid is shipped, the photosynthesis check is
+   recorded as failing (#4), and the held-out loss (one rank) is noted.

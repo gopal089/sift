@@ -1,0 +1,51 @@
+# Smart search eval: keyword vs semantic vs hybrid (RRF)
+# commit 9fb198c | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+# queries: eval/queries-holdout.json (20 queries)
+# semantic/hybrid rank only their own lists (semantic: top 100; hybrid: union of keyword top 100 and semantic top 100). An article outside them = not found ("-").
+# speed = whole query incl. embedding, single thread, median of 5 runs per query after a warm-up
+# p95 over all runs (queries x repeats): keyword 0.38 ms; hybrid-i8 2.47 ms;
+
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  keyword      BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped
+  hybrid-i8    hybrid RRF k=60: keyword top 100 [BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped] + HNSW M=16 efC=200 efSearch=200 (int8 vectors), top 100
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  keyword              0.763         1.000         1.000         1.000         0.060         0.509    15/20  15/20  16/20     1   0/0/20
+  hybrid-i8            0.748         1.000         1.000         0.833         0.112         0.505    14/20  16/20  16/20     0   4/2/14
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL famous-single  famous-multi       obscure      question  abbreviation
+  keyword        15/20 16/20       6/6 6/6       5/5 5/5       3/3 3/3       0/4 1/4       1/2 1/2
+  hybrid-i8      14/20 16/20       6/6 6/6       5/5 5/5       2/3 3/3       0/4 1/4       1/2 1/2
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  keyword         0.070    1.739   "who was the first president of the united states"
+  hybrid-i8       1.932    3.541   "who was the first president of the united states"
+
+Rank of the expected article
+   id category       query                                   keyword hybrid-…   expected
+    1 famous-single  "darwin"                                      1        1   Charles Darwin
+    2 famous-single  "beethoven"                                   1        1   Ludwig van Beethoven
+    3 famous-single  "paris"                                       1        1   Paris
+    4 famous-single  "elephant"                                    1        1   Elephant
+    5 famous-single  "oxygen"                                      1        1   Oxygen
+    6 famous-single  "computer"                                    1        1   Computer
+    7 famous-multi   "roman empire"                                1        1   Roman Empire
+    8 famous-multi   "industrial revolution"                       1        1   Industrial Revolution
+    9 famous-multi   "eiffel tower"                                1        1   Eiffel Tower
+   10 famous-multi   "periodic table"                              1        1   Periodic table
+   11 famous-multi   "abraham lincoln"                             1        1   Abraham Lincoln
+   12 obscure        "narwhal"                                     1        2   Narwhal
+   13 obscure        "origami"                                     1        1   Origami
+   14 obscure        "enigma machine"                              1        1   Enigma machine
+   15 question       "who painted the mona lisa"                   5        3   Leonardo da Vinci
+   16 question       "what is the tallest mountain in the …        -       44   Mount Everest
+   17 question       "what is the capital of canada"              27       13   Ottawa
+   18 question       "who was the first president of the u…      311       60   George Washington
+   19 abbreviation   "uk"                                         54      107   United Kingdom
+   20 abbreviation   "html"                                        1        1   HTML

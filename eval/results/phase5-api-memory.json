@@ -1,0 +1,98 @@
+{
+ "commit": "9fb198c",
+ "machine": "Apple M5, 10 cores",
+ "jvm": "Java 21, -Xmx512m (scripts/sift-api)",
+ "method": "server started fresh; /stats; jcmd GC.run then GC.heap_info for heap; ps RSS; then 200 queries (main 50 + 150 check queries) x 3 rounds x {smart, keyword}; tookMs = server-side time incl. snippets",
+ "int8": {
+  "vectorKind": "int8",
+  "startupSeconds": 2.035,
+  "vectorBytes": 108930224,
+  "smartRanking": "hybrid RRF k=60: keyword top 100 [BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped] + HNSW M=16 efC=200 efSearch=200 (int8 vectors), top 100",
+  "afterStart": {
+   "rssMb": 715.8,
+   "heapUsedAfterGcMb": 254.8
+  },
+  "afterQueries": {
+   "rssMb": 1013.3,
+   "heapUsedAfterGcMb": 275.3
+  },
+  "queries": 200,
+  "rounds": 3,
+  "smart": {
+   "serverTookMs": {
+    "median": 3.27,
+    "p95": 10.03,
+    "max": 19.96
+   },
+   "httpWallMs": {
+    "median": 4.28,
+    "p95": 11.26
+   }
+  },
+  "keyword": {
+   "serverTookMs": {
+    "median": 0.69,
+    "p95": 5.96,
+    "max": 11.92
+   },
+   "httpWallMs": {
+    "median": 1.38,
+    "p95": 6.71
+   }
+  }
+ },
+ "float32": {
+  "vectorKind": "float32",
+  "startupSeconds": 2.041,
+  "vectorBytes": 431228928,
+  "smartRanking": "hybrid RRF k=60: keyword top 100 [BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped] + HNSW M=16 efC=200 efSearch=200 (float32 vectors), top 100",
+  "afterStart": {
+   "rssMb": 741.5,
+   "heapUsedAfterGcMb": 253.0
+  },
+  "afterQueries": {
+   "rssMb": 1331.7,
+   "heapUsedAfterGcMb": 273.5
+  },
+  "queries": 200,
+  "rounds": 3,
+  "smart": {
+   "serverTookMs": {
+    "median": 2.82,
+    "p95": 9.24,
+    "max": 17.21
+   },
+   "httpWallMs": {
+    "median": 3.77,
+    "p95": 10.19
+   }
+  },
+  "keyword": {
+   "serverTookMs": {
+    "median": 0.44,
+    "p95": 5.71,
+    "max": 11.28
+   },
+   "httpWallMs": {
+    "median": 1.08,
+    "p95": 6.38
+   }
+  }
+ },
+ "doneWhenQuery": {
+  "how do plants make food | keyword": [
+   "Food",
+   "Carnivorous plant",
+   "Food coloring",
+   "Woody plant encroachment",
+   "Algae"
+  ],
+  "how do plants make food | smart": [
+   "Seed",
+   "Food",
+   "Carnivorous plant",
+   "Photosynthesis",
+   "Legume"
+  ]
+ }
+}

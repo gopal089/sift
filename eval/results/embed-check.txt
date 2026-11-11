@@ -1,0 +1,6 @@
+# Java vs Python query embeddings (sentence-transformers/all-MiniLM-L6-v2)
+# commit 9fb198c | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+# 200 queries from data/vectors/check-queries.jsonl; rule: every cosine >= 0.9999
+
+Cosine: min 1.0000000 ("is in"), median 1.0000000, failures 0 of 200 -> PASS
+Query embedding time (1000 runs, 1 ONNX thread): median 0.97 ms, p95 1.22 ms, max 1.52 ms
