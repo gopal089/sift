@@ -1,0 +1,45 @@
+# Commit map: history was rewritten on 2026-11-11 to remove attribution lines from commit messages.
+# Only messages changed: every commit's tree hash (its files) is identical before and after.
+# Columns: old short hash, new short hash, tree hash (same for both), subject. Oldest first.
+
+ae1ee0f  699cb95  2b7f7c9cc1  Set up project skeleton and Gradle multi-module build
+32763a4  84e42c8  63c6333232  Add Wikipedia dump parser with tests
+8333012  49f513f  df855f1da9  Add Phase 0 learning notes and progress
+c484430  684e430  3a4b2a2adb  Re-measure missing link targets with redirects resolved
+c59d862  4235790  093b13949f  Add Porter stemmer with tests against official reference vocabulary
+1b17485  a3dc666  cc21e5d788  Add shared tokenizer with query-time stop-word rule and tests
+1a1bbb7  8f4557c  3879f172b4  Add in-memory inverted index, doc table and article reader with tests
+0cd84c1  dd09373  a290b30f1e  Fix .gitignore to ignore only the top-level data/ folder
+fa6ae7d  6b58a17  d2a7e7092e  Add BM25 scoring with tests
+7a46d0a  4e16c36  82f89f5d34  Add AND/OR search with posting intersection and top-K heap
+1868f0f  265c2bb  b63f7b2bcf  Add terminal search CLI with build, memory and timing report
+4d03d21  6ea52f4  dc0e71d4ab  Add Phase 1 learning notes, results and progress
+ce8bc06  91ab331  8c986a4aa0  Fix JUnit test count in Phase 1 notes (93, not 94)
+9b48079  180c3db  6b1ba722f0  Tidy engine module comment
+6f93367  6316917  7d5a3272c5  Run the CLI on Java 21 via scripts/sift-cli and warn on other versions
+9f94271  1a2ec40  214c91d7d4  1 done
+a345ea1  9cc5a4c  e66e9e9a07  Add eval tool: rank of expected article, MRR and hit@k overall and per category
+5ec7de3  c980446  4d819c5624  Measure baseline ranking quality on the frozen 50 queries (MRR 0.275)
+8a2e004  4cd95b5  b0ddd822d0  Add title field postings and BM25F scoring (default ranking unchanged)
+fc68dfa  3f18879  675d4e7a1b  Load redirect titles as article aliases, following redirect chains
+09effe4  ed71ad3  be843c3830  Eval several ranking configs in one run with per-category MRR, speed and heap
+01616c5  3d9f482  62e1087777  Run BM25F grid (w x body b) on the frozen queries: best w=5, b_body=0.5, MRR 0.635
+d4bb823  4429caf  7cabe733d4  Measure redirect aliases and the summed-BM25 variant at w=5, b_body=0.5
+e0efa01  999ac14  e46f40c51a  Add rule: no AI attribution in commits or files, owner pushes
+b7290da  4c45a97  97c3a546a7  Freeze 20 held-out eval queries (never used for choosing settings)
+4dfa0f3  ca53efc  7c609e3ee9  Run sum-variant grid on the main queries: best w=2, b_body=0.3, MRR 0.799
+275d2fc  b026e44  0ff529adcf  Add alias field, soft AND and question stop words as search settings
+1aa75b9  85d8a96  1cb066a75a  Measure alias field at the sum winner: +0.002 MRR, below the 0.01 rule, not adopted
+d02afe9  f91774c  14d34ca7ba  Measure question stop words vs soft AND: question stop words win (MRR 0.815)
+d4e2977  be8e0d5  c861941bbd  Run baseline and final ranking once on the held-out queries (MRR 0.312 -> 0.697)
+23adf3f  bf1ac60  48a1611787  Lock the tuned ranking as the default: BM25(body) + 2 x BM25(title), b_body 0.3, question words dropped
+ea90f18  4382fb2  91a4996c56  Document the ranking fixes: learning notes, final check and progress
+64af906  f2c3297  6b47a8f2c9  Write Phase 2 plan and self-review
+953b060  6b6b64f  b7d1c0e3f4  Let Searcher run on any SearchIndex; decode posting positions lazily
+e88eedf  082448a  49d20f7968  Add on-disk index: gap + varint postings, sorted term dictionary, memory-mapped reader
+77e1e00  3de1a10  2387174967  Add simple title prefix suggester (binary search over sorted titles)
+14b60ed  48bbe6e  6ccfa5d093  Add index build CLI with size report and a disk-vs-memory eval check
+bc5a0a3  81618ee  07fa6fb653  Verify index loaded from disk ranks exactly like the in-memory index on both query sets; save index size report
+7f10c7d  c427ffc  2626fa74ce  Add Spring Boot API: /search, /suggest, /stats, /health with input validation and tests
+7338d3e  429db57  1033b719c9  Add Phase 2 learning notes, API check results and progress
+dc32e5d  11a17eb  02ed964966  Reword note about the untracked local launch config

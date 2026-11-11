@@ -1,5 +1,8 @@
 # Progress
 
+> **Commit hashes:** history was rewritten on 2026-11-11 (commit messages only). Hashes in results files and
+> notes written before 2026-11-11 14:00 IST refer to old hashes; see `docs/commit-map.txt`.
+
 | Phase | Status |
 | --- | --- |
 | 0 — Setup | ✅ Done (2026-11-10) |
@@ -166,8 +169,7 @@ cache stats say "none" (Phase 6).
   on the 20 held-out queries as a file-format test (0.764 vs 0.697 without). Nothing was changed because of it,
   and the ranking stays locked, but those 20 queries are no longer "unseen" for the alias question.
   Phase 6 needs a fresh held-out set before retrying aliases.
-- **An untracked local folder with a launch config** (how the desktop app starts `scripts/sift-api`) is in the
-  repo root. It is not part of the project: add it to `.gitignore` or delete it.
+
 
 ## Notes for later
 - **Memory / hosting (Phase 5–7):** 280,748 vectors × 384 dims × 4 bytes ≈ 431 MB for vectors alone.
@@ -180,6 +182,11 @@ cache stats say "none" (Phase 6).
 - **CC BY-SA credit line** on the website footer and in the README:
   "Content from Simple English Wikipedia, licensed under CC BY-SA 4.0."
   (Already in README.md; the website still needs it in Phase 3.)
+
+## Notes for later (added 2026-11-11)
+- **Phase 6: re-test the alias field with a fresh held-out set.** The held-out peek showed 0.764 vs 0.697;
+  that number must not be used for decisions now.
+- **Phase 7: revisit the official Spring Boot Gradle plugin** for packaging (runnable jar for Docker).
 
 ## Next step
 Phase 3: the website (React + Vite + TypeScript). **Waiting for your go.**
