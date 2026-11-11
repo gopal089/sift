@@ -23,7 +23,16 @@ const answer = {
       score: 3.2,
     },
   ],
-  stats: { tookMs: 0.42, documentsSearched: 280748, totalMatches: 25, terms: ["plant"], matchMode: "AND", cache: "off" },
+  stats: {
+    tookMs: 0.42,
+    documentsSearched: 280748,
+    totalMatches: 25,
+    terms: ["plant"],
+    matchMode: "AND",
+    cache: "off",
+    embedMs: null,
+    vectorMs: null,
+  },
 };
 
 afterEach(() => {
@@ -52,9 +61,29 @@ describe("App", () => {
     expect(document.querySelector(".result-snippet b")).toBeNull();
     expect(screen.getByText("280,748")).toBeTruthy();
     expect(screen.getByText("0.42 ms")).toBeTruthy();
+    expect(screen.queryByText("Meaning search")).toBeNull();   // keyword mode: no model time
 
     fireEvent.click(screen.getByRole("button", { name: "Next →" }));
     await waitFor(() => expect(window.location.search).toBe("?q=plants&page=2"));
+  });
+
+  it("Smart mode sends mode=smart and shows the model and vector times", async () => {
+    const smart = {
+      ...answer,
+      mode: "smart",
+      modeUsed: "smart",
+      stats: { ...answer.stats, tookMs: 4.2, matchMode: "HYBRID", embedMs: 2.1, vectorMs: 0.8 },
+    };
+    const fetchMock = vi.fn(async (_url: string) => new Response(JSON.stringify(smart), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("scrollTo", vi.fn());
+    window.history.replaceState(null, "", "/?q=plants&mode=smart");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    expect(fetchMock.mock.calls[0][0]).toBe("/api/search?q=plants&mode=smart&page=1");
+    expect(screen.getByText("Meaning search")).toBeTruthy();
+    expect(screen.getByText("2.10 ms model + 0.80 ms vectors")).toBeTruthy();
+    expect(screen.queryByText(/not built yet/)).toBeNull();
   });
 
   it("shows the server's message and a retry button when the search fails", async () => {

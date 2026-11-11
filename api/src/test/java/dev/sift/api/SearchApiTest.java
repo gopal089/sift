@@ -4,18 +4,28 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import dev.sift.engine.embed.Embedder;
 import dev.sift.engine.index.IndexBuilder;
+import dev.sift.engine.index.InvertedIndex;
 import dev.sift.engine.store.IndexFileWriter;
+import dev.sift.engine.vector.Float32Vectors;
+import dev.sift.engine.vector.Hnsw;
+import dev.sift.engine.vector.VectorFiles;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Path;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,21 +33,39 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-/** Starts the real application against a tiny index in a temp folder and calls the endpoints. */
+/**
+ * Starts the real application against a tiny index (+ tiny 4-number vectors and HNSW graph) in a temp folder
+ * and calls the endpoints. The embedding model is replaced by a fake that always points at "Photosynthesis",
+ * so the tests do not need the 90 MB model file.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class SearchApiTest {
 
     private static final Path INDEX_DIR = writeTinyIndex();
+    private static final Path VECTORS_DIR = INDEX_DIR.resolve("vectors");
 
     @Autowired
     private MockMvc mvc;
 
+    @MockitoBean
+    private Embedder embedder;
+
     @DynamicPropertySource
     static void indexDir(DynamicPropertyRegistry registry) {
         registry.add("sift.index-dir", INDEX_DIR::toString);
+        registry.add("sift.vectors-dir", VECTORS_DIR::toString);
+        registry.add("sift.vector-kind", () -> "float32");
+        registry.add("sift.smart-mode", () -> "hybrid");
+        registry.add("sift.ef-search", () -> "50");
+    }
+
+    @BeforeEach
+    void fakeModel() {
+        when(embedder.embed(anyString())).thenReturn(new float[] {1, 0, 0, 0});
     }
 
     private static Path writeTinyIndex() {
@@ -57,12 +85,36 @@ class SearchApiTest {
                     builder.addDocument(1000 + d, docs[d][0], docs[d][1]);
                     writer.appendText(docs[d][1]);
                 }
-                writer.write(builder.build(), false);
+                InvertedIndex index = builder.build();
+                writer.write(index, false);
+                writeTinyVectors(dir.resolve("vectors"), index);
             }
             return dir;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    /** Photosynthesis → (1,0,0,0), Plant → (0.8,0.6,0,0), C++ → (0,0,1,0), rivers → near (0,0,0,1). */
+    private static void writeTinyVectors(Path dir, InvertedIndex index) throws IOException {
+        Files.createDirectories(dir);
+        int n = index.docs().size();
+        float[] rows = new float[n * 4];
+        float[][] first = {{1, 0, 0, 0}, {0.8f, 0.6f, 0, 0}, {0, 0, 1, 0}};
+        for (int d = 0; d < n; d++) {
+            float[] v = d < 3 ? first[d] : new float[] {0, 0.01f * d, 0, 1};
+            double norm = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]);
+            for (int i = 0; i < 4; i++) {
+                rows[d * 4 + i] = (float) (v[i] / norm);
+            }
+        }
+        ByteBuffer bytes = ByteBuffer.allocate(rows.length * 4).order(ByteOrder.LITTLE_ENDIAN);
+        bytes.asFloatBuffer().put(rows);
+        Files.write(dir.resolve(VectorFiles.FLOAT32), bytes.array());
+        Files.writeString(dir.resolve(VectorFiles.META), String.format(
+                "{\"count\": %d, \"dimensions\": 4, \"model\": \"test\", \"titles_sha256\": \"%s\"}",
+                n, VectorFiles.titlesSha256(index.docs())));
+        Hnsw.build(Float32Vectors.of(rows, 4), 4, 16, 1, null).save(dir.resolve(VectorFiles.GRAPH));
     }
 
     // ------------------------------------------------------------------ /search
@@ -125,12 +177,43 @@ class SearchApiTest {
     }
 
     @Test
-    void smartModeFallsBackToKeywordAndSaysSo() throws Exception {
-        mvc.perform(get("/search").param("q", "plants").param("mode", "smart"))
+    void smartModeFindsByMeaningWhenNoWordMatches() throws Exception {
+        // no article contains "chlorophyll": keyword mode finds nothing ...
+        mvc.perform(get("/search").param("q", "chlorophyll"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalMatches").value(0))
+                .andExpect(jsonPath("$.stats.embedMs").doesNotExist());
+        // ... Smart mode ranks by meaning (the fake model points at Photosynthesis)
+        mvc.perform(get("/search").param("q", "chlorophyll").param("mode", "smart"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.mode").value("smart"))
-                .andExpect(jsonPath("$.modeUsed").value("keyword"))
-                .andExpect(jsonPath("$.notice", containsString("Phase 5")));
+                .andExpect(jsonPath("$.modeUsed").value("smart"))
+                .andExpect(jsonPath("$.notice").doesNotExist())
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.results[1].title").value("Plant"))
+                .andExpect(jsonPath("$.results", hasSize(10)))
+                .andExpect(jsonPath("$.hasMore").value(true))
+                .andExpect(jsonPath("$.results[0].highlights", hasSize(0)))     // no query word in the text
+                .andExpect(jsonPath("$.results[0].snippet", containsString("Photosynthesis is how")))
+                .andExpect(jsonPath("$.stats.matchMode").value("HYBRID"))
+                .andExpect(jsonPath("$.stats.embedMs").exists())
+                .andExpect(jsonPath("$.stats.vectorMs").exists());
+    }
+
+    @Test
+    void smartModeStillBoldsQueryWordsThatAreInTheText() throws Exception {
+        mvc.perform(get("/search").param("q", "photosynthesis").param("mode", "smart"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.results[0].highlights", hasSize(greaterThan(0))));
+    }
+
+    @Test
+    void smartModeWithoutLettersGivesTheSameFriendlyNotice() throws Exception {
+        mvc.perform(get("/search").param("q", "?!?").param("mode", "smart"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.results", hasSize(0)))
+                .andExpect(jsonPath("$.notice", containsString("no letters or numbers")));
     }
 
     @Test
@@ -264,6 +347,8 @@ class SearchApiTest {
                 .andExpect(jsonPath("$.indexFiles['postings.bin']", greaterThan(0)))
                 .andExpect(jsonPath("$.postingBytesBeforeCompression", greaterThan(0)))
                 .andExpect(jsonPath("$.ranking", containsString("BM25")))
+                .andExpect(jsonPath("$.smartRanking", containsString("hybrid RRF k=60")))
+                .andExpect(jsonPath("$.vectorBytes").value(15 * 4 * 4))
                 .andExpect(jsonPath("$.cache.enabled").value(false));
     }
 

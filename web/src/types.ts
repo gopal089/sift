@@ -24,6 +24,9 @@ export interface QueryStats {
   terms: string[];
   matchMode: string;
   cache: string;
+  /** Smart mode only: time to turn the query into a meaning vector, and to search the vectors (HNSW). */
+  embedMs: number | null;
+  vectorMs: number | null;
 }
 
 export interface SearchResponse {

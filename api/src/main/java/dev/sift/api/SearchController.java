@@ -8,12 +8,14 @@ import dev.sift.api.ApiModels.SuggestResponse;
 import dev.sift.engine.search.SearchResult;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.Searcher;
+import dev.sift.engine.search.SmartSearcher;
 import dev.sift.engine.snippet.Snippet;
 import dev.sift.engine.snippet.SnippetBuilder;
 import dev.sift.engine.store.DiskIndex;
 import dev.sift.engine.store.IndexMeta;
 import dev.sift.engine.spell.SpellChecker;
 import dev.sift.engine.suggest.TitleTrie;
+import dev.sift.engine.vector.Hnsw;
 import java.lang.management.ManagementFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -40,14 +42,19 @@ public class SearchController {
 
     private final DiskIndex index;
     private final Searcher searcher;
+    private final SmartSearcher smartSearcher;
+    private final Hnsw graph;
     private final TitleTrie suggester;
     private final SpellChecker spellChecker;
     private final AtomicLong queriesServed = new AtomicLong();   // a counter that is safe with many threads
     private volatile double startupSeconds;
 
-    public SearchController(DiskIndex index, Searcher searcher, TitleTrie suggester, SpellChecker spellChecker) {
+    public SearchController(DiskIndex index, Searcher searcher, SmartSearcher smartSearcher, Hnsw graph,
+                            TitleTrie suggester, SpellChecker spellChecker) {
         this.index = index;
         this.searcher = searcher;
+        this.smartSearcher = smartSearcher;
+        this.graph = graph;
         this.suggester = suggester;
         this.spellChecker = spellChecker;
     }
@@ -79,12 +86,24 @@ public class SearchController {
 
         long start = System.nanoTime();
         // Ask for everything up to the end of this page, then keep only this page's slice.
-        SearchResult result = searcher.search(query, page * PAGE_SIZE);
+        boolean smart = mode.equals("smart");
+        SearchResult result;
+        Double embedMs = null;
+        Double vectorMs = null;
+        if (smart) {
+            SmartSearcher.Timed timed = smartSearcher.searchTimed(query, page * PAGE_SIZE);
+            result = timed.result();
+            embedMs = timed.embedMs();
+            vectorMs = timed.vectorMs();
+        } else {
+            result = searcher.search(query, page * PAGE_SIZE);
+        }
         List<Hit> hits = result.hits();
         int from = Math.min((page - 1) * PAGE_SIZE, hits.size());
         List<Result> results = new ArrayList<>();
         for (Hit hit : hits.subList(from, hits.size())) {
-            // the best 30-word window around the query words, chosen with the term positions from the index
+            // the best 30-word window around the query words, chosen with the term positions from the index;
+            // a Smart result may contain none of the words: then the snippet is the article's opening
             Snippet snippet = SnippetBuilder.build(index, hit.docId(), result.terms(), index.text(hit.docId()),
                     SNIPPET_WORDS);
             results.add(new Result(hit.wikiId(), hit.title(), wikiUrl(hit.title()), snippet.text(),
@@ -98,12 +117,10 @@ public class SearchController {
         String notice = null;
         if (result.terms().isEmpty()) {
             notice = "Your search has no letters or numbers to look for. Try a word like 'volcano'.";
-        } else if (mode.equals("smart")) {
-            notice = "Smart (meaning) search is not built yet (Phase 5). Showing keyword results.";
         }
         QueryStats stats = new QueryStats(tookMs, index.docs().size(), result.totalMatches(), result.terms(),
-                result.mode().name(), "off");
-        return new SearchResponse(query, mode, "keyword", notice, didYouMean, page, PAGE_SIZE, result.totalMatches(),
+                result.mode().name(), "off", embedMs, vectorMs);
+        return new SearchResponse(query, mode, mode, notice, didYouMean, page, PAGE_SIZE, result.totalMatches(),
                 result.totalMatches() > page * PAGE_SIZE, results, stats);
     }
 
@@ -127,7 +144,8 @@ public class SearchController {
         }
         Runtime rt = Runtime.getRuntime();
         return new StatsResponse(meta.documents(), meta.terms(), meta.totalBytes(), meta.fileSizes(), before, after,
-                searcher.description(), Map.of("enabled", false, "note", "the cache arrives in Phase 6"),
+                searcher.description(), smartSearcher.description(), graph.vectorBytes(),
+                Map.of("enabled", false, "note", "the cache arrives in Phase 6"),
                 queriesServed.get(), (rt.totalMemory() - rt.freeMemory()) / (1024.0 * 1024.0), startupSeconds);
     }
 

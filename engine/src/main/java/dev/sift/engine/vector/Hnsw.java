@@ -379,6 +379,11 @@ public final class Hnsw {
         return (double) sum / levels.length;
     }
 
+    /** Bytes of the vectors this graph searches (memory-mapped, outside the heap). */
+    public long vectorBytes() {
+        return vectors.bytes();
+    }
+
     /** Heap bytes of the graph arrays (not the vectors). */
     public long graphBytes() {
         long b = levels.length + 4L * layer0.length + 4L * layer0Count.length + 8L * upper.length;

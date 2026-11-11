@@ -1,8 +1,12 @@
 import type { QueryStats } from "../types";
 
+function formatMs(ms: number): string {
+  return ms < 10 ? ms.toFixed(2) : ms.toFixed(0);
+}
+
 /** Small panel with the numbers behind one search. All values come straight from the API. */
 export function StatsPanel({ stats }: { stats: QueryStats }) {
-  const ms = stats.tookMs < 10 ? stats.tookMs.toFixed(2) : stats.tookMs.toFixed(0);
+  const ms = formatMs(stats.tookMs);
   return (
     <aside className="stats" aria-label="Search statistics">
       <dl>
@@ -10,6 +14,14 @@ export function StatsPanel({ stats }: { stats: QueryStats }) {
           <dt>Query time</dt>
           <dd>{ms} ms</dd>
         </div>
+        {stats.embedMs != null && stats.vectorMs != null && (
+          <div>
+            <dt>Meaning search</dt>
+            <dd>
+              {formatMs(stats.embedMs)} ms model + {formatMs(stats.vectorMs)} ms vectors
+            </dd>
+          </div>
+        )}
         <div>
           <dt>Documents searched</dt>
           <dd>{stats.documentsSearched.toLocaleString("en-US")}</dd>

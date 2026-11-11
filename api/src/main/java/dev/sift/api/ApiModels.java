@@ -18,16 +18,19 @@ public final class ApiModels {
                          double score) {
     }
 
-    /** Numbers shown in the website's stats panel. */
+    /**
+     * Numbers shown in the website's stats panel. {@code embedMs} (turning the query into a vector) and
+     * {@code vectorMs} (HNSW search) are null in keyword mode.
+     */
     public record QueryStats(double tookMs, int documentsSearched, int totalMatches, List<String> terms,
-                             String matchMode, String cache) {
+                             String matchMode, String cache, Double embedMs, Double vectorMs) {
     }
 
     /**
      * Answer of {@code /search}.
      *
      * @param mode     what the client asked for (keyword or smart)
-     * @param modeUsed what actually ran (smart falls back to keyword until Phase 5)
+     * @param modeUsed what actually ran (always the same as {@code mode} since Phase 5)
      * @param notice   a short hint for the user, or null
      * @param didYouMean the query with likely spelling mistakes corrected, or null if every word is known
      */
@@ -41,8 +44,8 @@ public final class ApiModels {
 
     public record StatsResponse(int documents, int terms, long indexBytes, Map<String, Long> indexFiles,
                                 long postingBytesBeforeCompression, long postingBytesAfterCompression,
-                                String ranking, Map<String, Object> cache, long queriesServed, double heapUsedMb,
-                                double startupSeconds) {
+                                String ranking, String smartRanking, long vectorBytes, Map<String, Object> cache,
+                                long queriesServed, double heapUsedMb, double startupSeconds) {
     }
 
     /** Every error has the same shape: {@code {"error": {"code": "...", "message": "..."}}}. */
