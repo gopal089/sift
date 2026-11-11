@@ -1,0 +1,26 @@
+# Sift spelling eval
+# 2026-11-11 18:27 IST | commit 48b745f | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries-typo.json (15 misspelled queries, frozen before the spelling code was written)
+# vocabulary: 125,050 words; BK-tree built in 0.29 s
+# time: first call, and the median of 21 calls, per query
+
+ id  query              expected           suggested          ok     first ms  median ms  distances  type
+  1  einstien           einstein           einstein           yes       11.87      11.87     30,290  swap
+  2  photosyntesis      photosynthesis     photosynthesis     yes        3.18       2.82      3,730  missing letter
+  3  pyhton             python             python             yes       10.93       9.29     35,163  swap
+  4  shakespere         shakespeare        shakespeare        yes        8.41       7.51     15,867  missing letter
+  5  volcanoe           volcano            volcano            yes       12.10      10.79     31,414  extra letter
+  6  dinosour           dinosaur           dinosaur           yes       10.61      10.10     29,412  wrong letter
+  7  electricty         electricity        electricity        yes        8.75       8.17     17,446  missing letter
+  8  goverment          government         (none)             NO         0.01       0.00     17,446  missing letter
+  9  mountian           mountain           mountain           yes       10.22       9.17     26,675  swap
+ 10  choclate           chocolate          chocolate          yes       11.08      10.29     30,552  missing letter
+ 11  langauge           language           language           yes       10.98      10.65     31,114  swap
+ 12  elefant            elephant           elegant            NO         9.65       9.01     32,553  two edits (ph -> f)
+ 13  austrailia         australia          australia          yes        8.96       8.12     17,600  extra letter
+ 14  medecine           medicine           (none)             NO         0.00       0.00     17,600  wrong letter
+ 15  histroy of india   history of india   history of india   yes       11.04       9.94     34,967  swap, in a 3-word query
+
+Accuracy: 12 / 15 correct (80.0%)
+Slowest suggestion: 12.10 ms on the first call, 11.87 ms median
+("distances" = edit distances the BK-tree computed for the last unknown word of the query, out of the vocabulary size)
