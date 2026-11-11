@@ -1,0 +1,128 @@
+# Sift eval: grid-sum
+# 2026-11-11 13:09 IST | commit b7290da | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries.json (50 queries, sha256 624683dab59be5df711b76ccbddf610b4165ab6d8b8975949f5789794e4e7dd9)
+# articles: data/articles.jsonl
+# index (aliases none): 280,748 docs, built in 8.96 s, heap 560.9 MB; avg title field 2.50 tokens, avg body 166.0 tokens; title-field postings 697,412 (5.3 MB)
+# speed: k = 10, per query the median of 20 runs after 3 warm-up runs
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  base         BM25 k1=1.2 b=0.75 (one field: title + body) | aliases: none
+  f_w5b50      BM25F k1=1.2 w_title=5 b_title=0.75 b_body=0.5 | aliases: none
+  s_w2b3       BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | aliases: none
+  s_w2b5       BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.5 | aliases: none
+  s_w2b75      BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.75 | aliases: none
+  s_w3b3       BM25(body) + w*BM25(title) k1=1.2 w=3 b_title=0.75 b_body=0.3 | aliases: none
+  s_w3b5       BM25(body) + w*BM25(title) k1=1.2 w=3 b_title=0.75 b_body=0.5 | aliases: none
+  s_w3b75      BM25(body) + w*BM25(title) k1=1.2 w=3 b_title=0.75 b_body=0.75 | aliases: none
+  s_w5b3       BM25(body) + w*BM25(title) k1=1.2 w=5 b_title=0.75 b_body=0.3 | aliases: none
+  s_w5b5       BM25(body) + w*BM25(title) k1=1.2 w=5 b_title=0.75 b_body=0.5 | aliases: none
+  s_w5b75      BM25(body) + w*BM25(title) k1=1.2 w=5 b_title=0.75 b_body=0.75 | aliases: none
+  s_w8b3       BM25(body) + w*BM25(title) k1=1.2 w=8 b_title=0.75 b_body=0.3 | aliases: none
+  s_w8b5       BM25(body) + w*BM25(title) k1=1.2 w=8 b_title=0.75 b_body=0.5 | aliases: none
+  s_w8b75      BM25(body) + w*BM25(title) k1=1.2 w=8 b_title=0.75 b_body=0.75 | aliases: none
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  base                 0.275         0.113         0.176         0.273         0.844         0.119         0.040     9/50  15/50  21/50     4   0/0/50
+  f_w5b50              0.635         0.628         0.664         0.783         1.000         0.181         0.349    27/50  34/50  40/50     4   33/1/16
+  s_w2b3               0.799         0.867         0.929         0.950         1.000         0.276         0.516    38/50  41/50  43/50     4   35/0/15
+  s_w2b5               0.740         0.663         0.815         0.933         1.000         0.275         0.516    34/50  40/50  43/50     4   34/1/15
+  s_w2b75              0.704         0.612         0.755         0.920         1.000         0.213         0.516    32/50  36/50  42/50     4   31/1/18
+  s_w3b3               0.787         0.806         0.911         0.950         1.000         0.276         0.516    37/50  41/50  43/50     4   35/0/15
+  s_w3b5               0.754         0.783         0.815         0.933         1.000         0.275         0.516    35/50  40/50  43/50     4   34/1/15
+  s_w3b75              0.707         0.639         0.755         0.920         1.000         0.213         0.516    32/50  37/50  43/50     4   31/1/18
+  s_w5b3               0.777         0.806         0.911         0.950         1.000         0.214         0.516    36/50  41/50  43/50     4   34/0/16
+  s_w5b5               0.742         0.764         0.815         0.933         1.000         0.212         0.516    34/50  40/50  43/50     4   33/1/16
+  s_w5b75              0.720         0.750         0.755         0.933         1.000         0.192         0.516    33/50  37/50  43/50     4   31/2/17
+  s_w8b3               0.772         0.764         0.911         0.950         1.000         0.214         0.516    36/50  40/50  43/50     4   34/0/16
+  s_w8b5               0.742         0.764         0.815         0.933         1.000         0.212         0.516    34/50  40/50  43/50     4   33/1/16
+  s_w8b75              0.722         0.764         0.755         0.933         1.000         0.192         0.516    33/50  38/50  43/50     4   31/2/17
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation
+  base            9/50 21/50       0/6 2/6     1/14 4/14     2/10 4/10       6/8 8/8       0/8 3/8       0/4 0/4
+  f_w5b50        27/50 40/50       3/6 5/6    7/14 13/14     7/10 9/10       8/8 8/8       1/8 3/8       1/4 2/4
+  s_w2b3         38/50 43/50       5/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       2/8 3/8       2/4 2/4
+  s_w2b5         34/50 43/50       3/6 6/6   10/14 14/14    9/10 10/10       8/8 8/8       2/8 3/8       2/4 2/4
+  s_w2b75        32/50 42/50       3/6 5/6    9/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w3b3         37/50 43/50       4/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       2/8 3/8       2/4 2/4
+  s_w3b5         35/50 43/50       4/6 6/6   10/14 14/14    9/10 10/10       8/8 8/8       2/8 3/8       2/4 2/4
+  s_w3b75        32/50 43/50       3/6 6/6    9/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w5b3         36/50 43/50       4/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w5b5         34/50 43/50       4/6 6/6   10/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w5b75        33/50 43/50       4/6 6/6    9/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w8b3         36/50 43/50       4/6 6/6   12/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w8b5         34/50 43/50       4/6 6/6   10/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+  s_w8b75        33/50 43/50       4/6 6/6    9/14 14/14    9/10 10/10       8/8 8/8       1/8 3/8       2/4 2/4
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  base            0.020    0.520   "the who"
+  f_w5b50         0.037    0.416   "united nations"
+  s_w2b3          0.037    0.480   "united nations"
+  s_w2b5          0.016    0.379   "united nations"
+  s_w2b75         0.013    0.390   "united nations"
+  s_w3b3          0.013    0.367   "united nations"
+  s_w3b5          0.014    0.339   "united nations"
+  s_w3b75         0.013    0.325   "united nations"
+  s_w5b3          0.013    0.349   "united nations"
+  s_w5b5          0.013    0.323   "united nations"
+  s_w5b75         0.013    0.318   "united nations"
+  s_w8b3          0.012    0.328   "united nations"
+  s_w8b5          0.013    0.331   "united nations"
+  s_w8b75         0.014    0.359   "united nations"
+
+Rank of the expected article
+   id category       query                                      base  f_w5b50   s_w2b3   s_w2b5  s_w2b75   s_w3b3   s_w3b5  s_w3b75   s_w5b3   s_w5b5  s_w5b75   s_w8b3   s_w8b5  s_w8b75   expected
+    1 diagnostic     "world war 2"                               458       56        5        7       11        3        5        6        3        3        4        3        3        3   World War II
+    2 diagnostic     "world war ii"                             2092        4        1        3        4        1        1        3        1        1        1        1        1        1   World War II
+    3 diagnostic     "the who"                                    13        2        1        2        3        2        2        3        2        4        4        4        4        4   The Who
+    4 diagnostic     "the history of india"                       57        1        1        1        1        1        1        1        1        1        1        1        1        1   History of India
+    5 diagnostic     "photosynthesis"                              4        1        1        1        1        1        1        1        1        1        1        1        1        1   Photosynthesis
+    6 diagnostic     "python programming"                          3        1        1        1        1        1        1        1        1        1        1        1        1        1   Python (programming language)
+    7 famous-single  "einstein"                                   20        4        1        3        5        1        3        5        1        3        5        1        3        5   Albert Einstein
+    8 famous-single  "volcano"                                    13        1        1        1        1        1        1        1        1        1        1        1        1        1   Volcano
+    9 famous-single  "shakespeare"                                 2        1        1        1        2        1        1        2        1        1        2        1        1        2   William Shakespeare
+   10 famous-single  "dinosaur"                                   11        1        1        1        1        1        1        1        1        1        1        1        1        1   Dinosaur
+   11 famous-single  "mozart"                                      7        2        2        4        6        4        4        6        4        4        6        4        4        6   Wolfgang Amadeus Mozart
+   12 famous-single  "tokyo"                                      18        3        2        2        2        2        2        2        2        2        2        2        2        2   Tokyo
+   13 famous-single  "gravity"                                    14        1        1        1        1        1        1        1        1        1        1        1        1        1   Gravity
+   14 famous-single  "chess"                                     174       14        1        1        1        1        1        1        1        1        1        1        1        1   Chess
+   15 famous-single  "electricity"                                16        1        1        1        1        1        1        1        1        1        1        1        1        1   Electricity
+   16 famous-single  "tiger"                                       3        2        1        1        1        1        1        1        1        1        1        1        1        1   Tiger
+   17 famous-single  "olympics"                                  246        7        1        3        5        1        3        5        1        3        5        1        3        5   Olympic Games
+   18 famous-single  "bitcoin"                                     1        1        1        1        1        1        1        1        1        1        1        1        1        1   Bitcoin
+   19 famous-single  "napoleon"                                   20        2        1        1        1        1        1        1        1        1        1        1        1        1   Napoleon
+   20 famous-single  "evolution"                                  37        1        1        1        1        1        1        1        1        1        1        1        1        1   Evolution
+   21 famous-multi   "solar system"                               41        1        1        1        1        1        1        1        1        1        1        1        1        1   Solar System
+   22 famous-multi   "french revolution"                         189        1        1        1        1        1        1        1        1        1        1        1        1        1   French Revolution
+   23 famous-multi   "united nations"                             11        1        1        1        1        1        1        1        1        1        1        1        1        1   United Nations
+   24 famous-multi   "great wall of china"                         1        1        1        1        1        1        1        1        1        1        1        1        1        1   Great Wall of China
+   25 famous-multi   "theory of relativity"                        1        1        1        1        1        1        1        1        1        1        1        1        1        1   Theory of relativity
+   26 famous-multi   "black hole"                                  6        1        1        1        1        1        1        1        1        1        1        1        1        1   Black hole
+   27 famous-multi   "martin luther king"                         25        4        2        3        5        2        3        5        2        3        3        2        3        3   Martin Luther King Jr.
+   28 famous-multi   "human heart"                                23       12        1        1        1        1        1        1        1        1        1        1        1        1   Heart
+   29 famous-multi   "climate change"                             35        2        1        1        1        1        1        1        1        1        1        1        1        1   Climate change
+   30 famous-multi   "statue of liberty"                           3        1        1        1        1        1        1        1        1        1        1        1        1        1   Statue of Liberty
+   31 obscure        "axolotl"                                     1        1        1        1        1        1        1        1        1        1        1        1        1        1   Axolotl
+   32 obscure        "tardigrade"                                  1        1        1        1        1        1        1        1        1        1        1        1        1        1   Tardigrade
+   33 obscure        "bauhaus"                                     4        1        1        1        1        1        1        1        1        1        1        1        1        1   Bauhaus
+   34 obscure        "haiku"                                       2        1        1        1        1        1        1        1        1        1        1        1        1        1   Haiku
+   35 obscure        "ada lovelace"                                1        1        1        1        1        1        1        1        1        1        1        1        1        1   Ada Lovelace
+   36 obscure        "mount kilimanjaro"                           1        1        1        1        1        1        1        1        1        1        1        1        1        1   Mount Kilimanjaro
+   37 obscure        "rosetta stone"                               1        1        1        1        1        1        1        1        1        1        1        1        1        1   Rosetta Stone
+   38 obscure        "fibonacci numbers"                           1        1        1        1        1        1        1        1        1        1        1        1        1        1   Fibonacci number
+   39 question       "how do plants make food"                    16       17       15       18       17       15       18       17       15       18       17       15       18       17   Photosynthesis
+   40 question       "who discovered penicillin"                   -        -        -        -        -        -        -        -        -        -        -        -        -        -   Alexander Fleming
+   41 question       "what is the largest planet"                  7        7        7        7        7        7        7        7        7        7        7        7        7        7   Jupiter
+   42 question       "who invented the telephone"                  2        1        1        1        2        1        1        2        2        2        3        2        2        3   Alexander Graham Bell
+   43 question       "what causes earthquakes"                     -        -        -        -        -        -        -        -        -        -        -        -        -        -   Earthquake
+   44 question       "who was the first person on the moon"        -        -        -        -        -        -        -        -        -        -        -        -        -        -   Neil Armstrong
+   45 question       "when did the titanic sink"                   4        4        1        1        1        1        1        1        1        1        1        1        1        1   Titanic
+   46 question       "what is the capital of australia"            -        -        -        -        -        -        -        -        -        -        -        -        -        -   Canberra
+   47 abbreviation   "usa"                                      2158     2139     2091     2139     2158     2091     2139     2158     2091     2139     2158     2091     2139     2158   United States
+   48 abbreviation   "dna"                                        20        3        1        1        1        1        1        1        1        1        1        1        1        1   DNA
+   49 abbreviation   "nasa"                                       21        1        1        1        1        1        1        1        1        1        1        1        1        1   NASA
+   50 abbreviation   "ww1"                                        16       16       16       16       16       16       16       16       16       16       16       16       16       16   World War I
