@@ -1,0 +1,93 @@
+# Phase 1 final check after ranking fixes — 2026-11-11 13:14 IST — commit 23adf3f — Apple M5, 10 cores, 16 GB RAM
+# command: scripts/sift-cli data/articles.jsonl --query ... --repeat 20 (JVM -Xmx4g)
+
+Java 21.0.12.1+1-LTS, max heap 4,096 MB
+Indexing data/articles.jsonl ...
+Documents:            280,748
+Build time:           8.93 s  (read + tokenize + index 8.83 s, finalize 0.10 s)
+Unique terms:         619,144
+Postings:             23,410,476   Positions (= tokens): 47,317,366   Avg doc length: 168.5 tokens
+Posting data (exact): 359.1 MB  (doc ids + freqs + positions, 4 bytes each)
+Title postings:       697,412 postings for 142,552 title terms (doc ids + freqs = 5.3 MB)
+Heap used by index:   562.3 MB  (JVM heap after GC: 1.1 MB before → 563.4 MB after; includes dictionary, titles, doc table)
+Stop words (33 terms): 3,212,875 postings, 13,571,870 positions = 76.3 MB of posting data (21.2% of posting data, 28.7% of all tokens)
+Ranking:              BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | AND, else OR | question words dropped
+
+Query: "photosynthesis"   terms=[photosynthesi]   mode=AND   matches=163
+  time: first run 1.71 ms | median of 20 repeats 0.04 ms | slowest repeat 0.09 ms
+   1.  33.5537  Photosynthesis
+   2.  13.0052  Crassulacean acid metabolism
+   3.  12.8180  Ecosystem
+   4.  11.7901  Primary production
+   5.  11.7754  Light-dependent reaction
+   6.  11.5153  Transpiration
+   7.  11.2478  Plant community
+   8.  11.1412  Cyanobacteria
+   9.  11.0667  Phototroph
+  10.  11.0183  Palisade cell
+
+Query: "world war 2"   terms=[world, war, 2]   mode=AND   matches=2,261
+  time: first run 2.46 ms | median of 20 repeats 0.44 ms | slowest repeat 0.73 ms
+   1.  23.1541  Guild Wars 2
+   2.  19.3888  World War I
+   3.  19.1497  World War II casualties
+   4.  18.9699  Eastern Front (World War II)
+   5.  18.8836  World War II
+   6.  18.7155  Timeline of World War II
+   7.  18.1375  Brazil in World War II
+   8.  18.0005  Gears of War 2
+   9.  17.5986  World War Z (movie)
+  10.  17.2836  World War I reparations
+
+Query: "python programming"   terms=[python, program]   mode=AND   matches=77
+  time: first run 0.07 ms | median of 20 repeats 0.04 ms | slowest repeat 0.04 ms
+   1.  40.6789  Python (programming language)
+   2.  30.7679  Python License
+   3.  30.2816  Python Software Foundation
+   4.  25.8019  Programming language
+   5.  24.2613  Object-oriented programming
+   6.  23.6380  Julia (programming language)
+   7.  22.2693  Modular programming
+   8.  21.3698  Computer programming
+   9.  21.0493  D (programming language)
+  10.  20.4274  Closure (computer programming)
+
+Query: "to be or not to be"   terms=[to, be, or, not]   mode=AND   matches=15,953
+  time: first run 2.53 ms | median of 20 repeats 1.83 ms | slowest repeat 2.23 ms
+   1.  17.3553  To Be or Not to Be (The Hitler Rap)
+   2.  15.4558  To SquarePants or Not to SquarePants
+   3.  14.2873  Death Be Not Proud
+   4.  13.0429  To be announced
+   5.  12.7739  Bes
+   6.  12.6569  Not proven
+   7.  12.2952  Be Here Now
+   8.  12.2353  Iron ore
+   9.  11.9599  Let It Be (Beatles album)
+  10.  11.7503  Duty to rescue
+
+Query: "the who"   terms=[the, who]   mode=AND   matches=37,705
+  time: first run 1.66 ms | median of 20 repeats 1.36 ms | slowest repeat 1.53 ms
+   1.   8.6328  The Who
+   2.   8.3442  Who's Zoomin' Who
+   3.   7.8905  Doctor Who
+   4.   7.7531  Who Made Who (song)
+   5.   7.7251  Who's Zoomin' Who?
+   6.   7.4965  Who Are You (The Who song)
+   7.   7.4589  Ten Who Dared
+   8.   7.1653  Romana (Doctor Who)
+   9.   7.1438  Who's That Chick?
+  10.   7.0732  Martha Jones (Doctor Who)
+
+Query: "the history of india"   terms=[histori, india]   mode=AND   matches=1,490
+  time: first run 0.18 ms | median of 20 repeats 0.09 ms | slowest repeat 0.12 ms
+   1.  21.5339  History of India
+   2.  17.9543  India
+   3.  17.6866  Air India
+   4.  17.4282  History of cricket in India
+   5.  17.0740  Names for India
+   6.  16.9897  Stonex India
+   7.  16.8821  Sports in India
+   8.  16.7992  Nickelodeon (India)
+   9.  16.5837  Mister International India
+  10.  16.5048  Kochi, India
+

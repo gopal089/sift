@@ -3,7 +3,7 @@
 | Phase | Status |
 | --- | --- |
 | 0 — Setup | ✅ Done (2026-11-10) |
-| 1 — Keyword search in the terminal | ⚠️ Built and measured (2026-11-11). Speed ✅, tests ✅; ranking weak for long articles. **Your decision needed** (see below) |
+| 1 — Keyword search in the terminal | ✅ Done (2026-11-11), including the ranking fixes |
 | 2 — Persist the index + API | Not started |
 | 3 — Website | Not started |
 | 4 — PageRank, autocomplete, spelling | Not started |
@@ -79,49 +79,33 @@ Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-
 **"Done when" verdict:** speed ✅, tests ✅. "photosynthesis" ✅ and "python programming" ✅ are sensible.
 **"world war 2" is weak**: results are war-related, but the main article is #458.
 
-## Phase 1 ranking fixes (in progress, approved 2026-11-11)
+## Phase 1 ranking fixes (done 2026-11-11, ranking locked until Phase 6)
 
-- **Eval set frozen** before any tuning: `eval/queries.json`, 50 queries (6 diagnostic, 14 famous one-word,
-  10 famous multi-word, 8 obscure, 8 questions, 4 abbreviations), sha256 `624683da…`, commit `9f94271`.
-- **Eval tool:** `scripts/sift-eval <label>` (Java 21) → `eval/results/<label>.txt` and `.tsv`:
-  rank of the expected article in the full ranking, MRR and hit@1/3/10, overall and per category.
-- **Baseline** (BM25 k1 = 1.2, b = 0.75, title inside the body; commit `a345ea1`), `eval/results/baseline-bm25.txt`:
+**Final default ranking:** `BM25(body, b = 0.3) + 2 × BM25(title, b = 0.75)`, k1 = 1.2, AND with OR fallback,
+question words (who/what/when/where/why/how/did/does/is) dropped at query time. No alias bonus.
 
-  | Group | n | MRR | hit@1 | hit@10 | not found |
-  | --- | --- | --- | --- | --- | --- |
-  | **All** | 50 | **0.275** | 9/50 | 21/50 | 4 |
-  | diagnostic | 6 | 0.113 | 0/6 | 2/6 | 0 |
-  | famous one-word | 14 | 0.176 | 1/14 | 4/14 | 0 |
-  | famous multi-word | 10 | 0.273 | 2/10 | 4/10 | 0 |
-  | obscure | 8 | 0.844 | 6/8 | 8/8 | 0 |
-  | questions | 8 | 0.119 | 0/8 | 3/8 | 4 |
-  | abbreviations | 4 | 0.040 | 0/4 | 0/4 | 0 |
+| Step (main 50 queries, frozen before tuning) | MRR | Decision |
+| --- | --- | --- |
+| Baseline BM25 | 0.275 | |
+| BM25F grid, best w = 5, b_body = 0.5 | 0.635 | lost to the sum |
+| Sum grid (w ∈ {2,3,5,8} × b ∈ {0.3,0.5,0.75}), best **w = 2, b = 0.3** | 0.799 | chosen (on the grid edge; not extended) |
+| Alias field from redirects, w_alias 1 / 2 | 0.801 / 0.790 | not adopted (+0.002 < 0.01 rule) |
+| (a) question stop words / (b) soft AND / (c) both | **0.815** / 0.801 / 0.815 | (a) chosen (simplest of the tie) |
 
-- **Step C (done):** title field + BM25F (`Bm25F`, `Ranking`, title-field postings: 697,412 postings, 5.3 MB).
-  The old BM25 is kept as a setting and reproduces the baseline exactly. 126 JUnit tests pass.
-- **Step D grid** (`eval/results/grid-bm25f.txt`, commit `09effe4`): overall MRR
+| | Main 50 | Held-out 20 (run once) |
+| --- | --- | --- |
+| Baseline MRR | 0.275 | 0.312 |
+| **Final MRR** | **0.815** | **0.697** |
+| Final hit@1 / hit@10 | 38/50, 45/50 | 13/20, 16/20 |
 
-  | b_body \ w | 1 | 2 | 3 | 5 |
-  | --- | --- | --- | --- | --- |
-  | 0.5 | 0.462 | 0.514 | 0.559 | **0.635** |
-  | 0.75 | 0.337 | 0.378 | 0.423 | 0.515 |
+Per-category numbers and the explanation: `docs/learning/phase-1.md`, "Ranking fixes". Raw results: `eval/results/`.
 
-  Winner by the rule: **w = 5, b_body = 0.5** (on the edge of the grid). Diagnostics: world war 2 #56, world war ii #4,
-  the who #2, history of india #1, photosynthesis #1, python programming #1. Slowest query 0.55 ms. Heap 561 MB in the
-  eval run (Phase 1 check said 521 MB; re-measure with the CLI in the final check).
-- **At the winner** (`eval/results/redirects-w5b50.txt`, commit `01616c5`):
+**Final check** (`eval/results/phase1-check-final.txt`, Java 21, commit `23adf3f`): build 8.93 s, heap **562.3 MB**
+(was 521.0 MB; +41.3 MB is the title field, mostly per-term Java objects), all six check queries under 3 ms.
+Ranks now: photosynthesis #1, python programming #1, world war 2 #5, the who #1, the history of india #1.
+**135 JUnit tests pass.**
 
-  | Setting | MRR | famous-single | abbreviation | world war 2 | usa |
-  | --- | --- | --- | --- | --- | --- |
-  | BM25F, no aliases | 0.635 | 0.664 | 0.349 | #56 | #2,139 |
-  | BM25(body) + 5 × BM25(title), no aliases | **0.742** | 0.815 | 0.516 | #3 | #2,139 |
-  | BM25F + all redirect words | 0.561 | 0.459 | 0.125 | #5 | #922 |
-  | BM25F + new redirect words once | 0.455 | 0.241 | 0.134 | #31 | #1,060 |
-
-  - **Redirects in the title field hurt**: popular articles have many redirects, so their title field gets long
-    (United States: 2 → 110 words) and b_title = 0.75 punishes it.
-  - **The sum beat BM25F**: BM25F caps a term at idf × (k1 + 1) no matter how big w is; the sum adds the title on top.
-- **Waiting for your decision** on the next experiment before step E.
+**Phase 1 "Done when": ✅** sensible results for all three queries in under 200 ms, all tests pass.
 
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
@@ -134,16 +118,12 @@ Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-
 
   This is real data, not a parser bug (only 0.3% would match if case were ignored).
   PageRank (Phase 4) must follow redirects and then drop links whose final target is not an article.
-- **Phase 1 ranking: long main articles rank too low (decision needed before Phase 2).**
-  *World War II* (5,456 words, about 32× the 168.5-token average) is #458 for "world war 2" and #2,092 for
-  "world war ii". So this is mainly *length normalisation* (b = 0.75), not just "2" vs "ii". The title is
-  indexed as only a few words inside a long document, so it barely helps.
-  PageRank in Phase 4 multiplies by at most (1 + 0.2), which is too little to lift rank 458.
-  Proposed fix (needs your OK; changes the Phase 2 file format, so better before Phase 2): a separate
-  **title field** scored on its own (BM25F-style: score = body BM25 + w × title BM25). Then possibly a tiny
-  "2 ↔ ii" number rule. Tuning b belongs to Phase 6, using the frozen eval queries.
-- **"the who" searches only [who]**, because "who" is not in the 33-word stop list. *The Who* ranks #13.
-  A title field should help here too.
+- **Ranking weak spots left after the fixes** (see `docs/learning/phase-1.md`):
+  questions whose answer is not named in the query (held-out MRR 0.048) → Phase 5 Smart search;
+  redirect-only abbreviations ("usa" #2,091, "uk" #222) → retry the alias field in Phase 6;
+  "world war 2" shows *Guild Wars 2* first, *World War II* #5.
+- **The final MRR is tuned on the 50 main queries.** Report the held-out number (0.697) next to it. In Phase 6,
+  write a fresh held-out set before any new tuning: the current 20 have now been looked at once.
 - ~~Run the CLI on Java 21~~ **Fixed 2026-11-11:** `scripts/sift-cli` runs the CLI on Gradle's Java 21; the CLI warns on any other version.
 - **3,496 of 280,748 articles (1.25%) keep a little markup** (any of `[[ ]] {{ }} | < '' ==`), mostly
   from broken source wikitext or articles that show markup as examples. This is acceptable: the
@@ -167,7 +147,4 @@ Every query is far under the 200 ms target. Ranks are from `eval/results/phase1-
   (Already in README.md; the website still needs it in Phase 3.)
 
 ## Next step
-**Decide on the Phase 1 ranking issue:** (a) add a title field now (recommended, before the Phase 2
-file format is fixed), or (b) accept the current ranking and move to Phase 2.
-Then Phase 2: write the index to binary files (gap + varint), memory-map it, Spring Boot API.
-**Waiting for your decision and go.**
+Phase 2: write the index to binary files (gap + varint), memory-map it, Spring Boot API.
