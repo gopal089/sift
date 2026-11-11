@@ -1,0 +1,212 @@
+[
+ {
+  "id": 1,
+  "query": "newton",
+  "expected": "Isaac Newton",
+  "category": "famous-single",
+  "note": "surname only"
+ },
+ {
+  "id": 2,
+  "query": "london",
+  "expected": "London",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 3,
+  "query": "giraffe",
+  "expected": "Giraffe",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 4,
+  "query": "piano",
+  "expected": "Piano",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 5,
+  "query": "moon",
+  "expected": "Moon",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 6,
+  "query": "egypt",
+  "expected": "Egypt",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 7,
+  "query": "kangaroo",
+  "expected": "Kangaroo",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 8,
+  "query": "democracy",
+  "expected": "Democracy",
+  "category": "famous-single",
+  "note": ""
+ },
+ {
+  "id": 9,
+  "query": "galileo",
+  "expected": "Galileo Galilei",
+  "category": "famous-single",
+  "note": "first name only"
+ },
+ {
+  "id": 10,
+  "query": "amazon rainforest",
+  "expected": "Amazon rainforest",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 11,
+  "query": "pacific ocean",
+  "expected": "Pacific Ocean",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 12,
+  "query": "nelson mandela",
+  "expected": "Nelson Mandela",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 13,
+  "query": "cold war",
+  "expected": "Cold War",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 14,
+  "query": "milky way",
+  "expected": "Milky Way",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 15,
+  "query": "leaning tower of pisa",
+  "expected": "Leaning Tower of Pisa",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 16,
+  "query": "american civil war",
+  "expected": "American Civil War",
+  "category": "famous-multi",
+  "note": ""
+ },
+ {
+  "id": 17,
+  "query": "platypus",
+  "expected": "Platypus",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 18,
+  "query": "stonehenge",
+  "expected": "Stonehenge",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 19,
+  "query": "pangolin",
+  "expected": "Pangolin",
+  "category": "obscure",
+  "note": ""
+ },
+ {
+  "id": 20,
+  "query": "rubiks cube",
+  "expected": "Rubik's Cube",
+  "category": "obscure",
+  "note": "apostrophe dropped"
+ },
+ {
+  "id": 21,
+  "query": "what is the fastest land animal",
+  "expected": "Cheetah",
+  "category": "question",
+  "note": "answer not named"
+ },
+ {
+  "id": 22,
+  "query": "who invented the light bulb",
+  "expected": "Thomas Edison",
+  "category": "question",
+  "note": "answer not named"
+ },
+ {
+  "id": 23,
+  "query": "what is the hottest planet",
+  "expected": "Venus",
+  "category": "question",
+  "note": "answer not named"
+ },
+ {
+  "id": 24,
+  "query": "how do bees make honey",
+  "expected": "Honey",
+  "category": "question",
+  "note": "answer named"
+ },
+ {
+  "id": 25,
+  "query": "what is the capital of brazil",
+  "expected": "Brasília",
+  "category": "question",
+  "note": "answer not named; accented title"
+ },
+ {
+  "id": 26,
+  "query": "who wrote the odyssey",
+  "expected": "Homer",
+  "category": "question",
+  "note": "answer not named"
+ },
+ {
+  "id": 27,
+  "query": "fbi",
+  "expected": "Federal Bureau of Investigation",
+  "category": "abbreviation",
+  "note": "expanded title"
+ },
+ {
+  "id": 28,
+  "query": "eu",
+  "expected": "European Union",
+  "category": "abbreviation",
+  "note": "expanded title"
+ },
+ {
+  "id": 29,
+  "query": "nato",
+  "expected": "NATO",
+  "category": "abbreviation",
+  "note": "title is the abbreviation"
+ },
+ {
+  "id": 30,
+  "query": "cpu",
+  "expected": "Central processing unit",
+  "category": "abbreviation",
+  "note": "expanded title"
+ }
+]
