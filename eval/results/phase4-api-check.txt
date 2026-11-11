@@ -1,0 +1,17 @@
+# Phase 4 API check — 2026-11-11 18:29 IST — commit 3cbc3a9 — Java 21, Apple M5
+# server: scripts/sift-api (-Xmx512m), index data/index (format 3). Times are stats.tookMs inside the server:
+# search + PageRank boost + 10 position-based snippets + spelling check.
+
+GET /suggest?prefix=pyt   -> ['Pythagorean theorem', 'Python (programming language)', 'Pythagoras', 'Python', 'Python molurus']
+GET /suggest?prefix=wor   -> ['World War II', 'World War I', 'World', 'Word', 'World Heritage Site']
+GET /search?q=pyhton      -> didYouMean: python | matches: 0
+GET /search?q=python      -> didYouMean: None | first: Python
+GET /search?q=world war 2 -> first 3: ['World War II', 'World War I', 'Guild Wars 2']
+
+main 50              median of per-query medians   0.53 ms | slowest query median  17.11 ms ("the who") | slowest single request  21.92 ms
+held-out 20          median of per-query medians   0.41 ms | slowest query median   9.85 ms ("who was the first president of the united states") | slowest single request  11.80 ms
+typo 15              median of per-query medians   4.85 ms | slowest query median   6.86 ms ("dinosour") | slowest single request   7.54 ms
+stop-word stress 4   median of per-query medians  17.69 ms | slowest query median  58.67 ms ("the the the of and in") | slowest single request  64.89 ms
+
+/suggest round trip from this script (10 prefixes, includes HTTP): median 0.58 ms, slowest 0.94 ms
+/stats: heapUsedMb 360 (in use now, not after GC), startupSeconds 1.345, indexBytes 432,513,336

@@ -9,7 +9,7 @@
 | 1 — Keyword search in the terminal | ✅ Done (2026-11-11), including the ranking fixes |
 | 2 — Persist the index + API | ✅ Done (2026-11-11) |
 | 3 — Website | ✅ Done (2026-11-11) |
-| 4 — PageRank, autocomplete, spelling | Not started |
+| 4 — PageRank, autocomplete, spelling | ✅ Done (2026-11-11) |
 | 5 — Smart (meaning) search | Not started |
 | 6 — Prove quality and speed | Not started |
 | 7 — Ship it | Not started |
@@ -156,6 +156,26 @@ snippets chosen from term positions (best 30-word window); index format 2 with a
 **"Done when": ✅** full flow works in the browser against the real API at desktop and 375 px width.
 Phase 2 numbers above (111.4 MB, 408.7 MB) are for format 1; format 2 is 0.5 MB larger.
 
+## Phase 4 — PageRank, autocomplete, spelling (done)
+
+Explanation: `docs/learning/phase-4.md`. Screenshots: `docs/screenshots/phase4-*.png`.
+
+**Default ranking now:** `(BM25(body, b = 0.3) + 2 × BM25(title)) × (1 + 0.5 × PageRank boost)`, question words dropped.
+
+| Measure (Java 21, Apple M5) | Value | Raw file |
+| --- | --- | --- |
+| PageRank | 280,748 pages, 3,934,569 links, 37 rounds, 1.5 s | `eval/results/phase4-index-build.txt` |
+| α grid on the main 50 (0 / 0.1 / 0.2 / 0.5) | 0.815 / 0.843 / 0.843 / **0.868** → α = 0.5 | `eval/results/pagerank-alpha.txt` |
+| Held-out sanity (not for choosing) | 0.697 → 0.763 (minimum allowed 0.677) | `eval/results/pagerank-holdout-sanity.txt` |
+| **MRR now** | **0.868 main, 0.763 held-out** (baseline 0.275 / 0.312) | `eval/results/disk-check-v3-*.txt` |
+| Typo set | **12 / 15 correct (80%)**, slowest suggestion 12.1 ms | `eval/results/typo-accuracy.txt` |
+| Slowest query in the API | 17.1 ms on the eval sets; 58.7 ms for a stop-word-only stress query | `eval/results/phase4-api-check.txt` |
+| `/suggest` | 0.6 ms median round trip | same |
+| Server start / index folder | 1.3 s / 423 MB (format 3) | same |
+| Tests | 221 JUnit (202 engine, 19 API) + 20 Vitest | |
+
+**"Done when": ✅** "pyt" shows suggestions, "pyhton" suggests "python", typo accuracy reported, all queries under 100 ms.
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -167,12 +187,13 @@ Phase 2 numbers above (111.4 MB, 408.7 MB) are for format 1; format 2 is 0.5 MB 
 
   This is real data, not a parser bug (only 0.3% would match if case were ignored).
   PageRank (Phase 4) must follow redirects and then drop links whose final target is not an article.
-- **Ranking weak spots left after the fixes** (see `docs/learning/phase-1.md`):
-  questions whose answer is not named in the query (held-out MRR 0.048) → Phase 5 Smart search;
-  redirect-only abbreviations ("usa" #2,091, "uk" #222) → retry the alias field in Phase 6;
-  "world war 2" shows *Guild Wars 2* first, *World War II* #5.
-- **The final MRR is tuned on the 50 main queries.** Report the held-out number (0.697) next to it. In Phase 6,
-  write a fresh held-out set before any new tuning: the current 20 have now been looked at once.
+- **Ranking weak spots left** (after PageRank): questions whose answer is not named in the query (held-out MRR
+  0.060) → Phase 5 Smart search; redirect-only abbreviations ("usa" #1,702, "uk" #54) → alias field retry in Phase 6.
+- **Spelling misses** (3 of 15): misspellings that occur in 5+ articles count as known words ("goverment",
+  "medecine"); "elefant" → "elegant". Not tuned after seeing the typo set. Write new typo queries before changing rules.
+- **The MRR is tuned on the 50 main queries.** Report the held-out number (0.763) next to it. The held-out 20 have
+  now been looked at three times (final ranking, alias peek, PageRank sanity): write a fresh set in Phase 6
+  before any new tuning.
 - ~~Run the CLI on Java 21~~ **Fixed 2026-11-11:** `scripts/sift-cli` runs the CLI on Gradle's Java 21; the CLI warns on any other version.
 - **3,496 of 280,748 articles (1.25%) keep a little markup** (any of `[[ ]] {{ }} | < '' ==`), mostly
   from broken source wikitext or articles that show markup as examples. This is acceptable: the
@@ -208,4 +229,4 @@ Phase 2 numbers above (111.4 MB, 408.7 MB) are for format 1; format 2 is 0.5 MB 
 - **Phase 7: revisit the official Spring Boot Gradle plugin** for packaging (runnable jar for Docker).
 
 ## Next step
-Phase 4: PageRank, autocomplete (trie), spelling (edit distance + BK-tree).
+Phase 5: Smart (meaning) search. **Waiting for your go.**

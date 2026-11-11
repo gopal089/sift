@@ -123,9 +123,11 @@ a {
   overflow-wrap: anywhere;
 }
 
+/* The highlighted suggestion must be easy to see in light and dark mode. */
 .suggestions li.active,
 .suggestions li:hover {
-  background: var(--mark);
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 button {
