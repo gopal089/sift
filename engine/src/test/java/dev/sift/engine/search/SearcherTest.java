@@ -94,7 +94,8 @@ class SearcherTest {
     @Test
     void theWhoFindsTheBand() {
         SearchResult r = searcher.search("the who", 10);
-        assertEquals(List.of("who"), r.terms());   // "who" is not a stop word, so "the" is dropped
+        // default settings: "who" is a question word, so both words are stop words → keep them all
+        assertEquals(List.of("the", "who"), r.terms());
         assertEquals("The Who", r.hits().get(0).title());
     }
 
@@ -109,14 +110,30 @@ class SearcherTest {
     // ------------------------------------------------ scores and ranking
 
     @Test
-    void scoreIsTheSumOfBm25TermScores() {
-        SearchResult r = searcher.search("history india", 10);
+    void baselineScoreIsTheSumOfBm25TermScores() {
+        SearchResult r = new Searcher(index, Ranking.BASELINE).search("history india", 10);
         Hit hit = r.hits().get(0);
         Bm25 bm25 = new Bm25(index.docs().size(), index.docs().averageLength());
         int len = index.docs().length(hit.docId());
         // in "History of India ...": "histori" ×2 (title + text), "india" ×2 (title + text)
         double expected = bm25.termScore(bm25.idf(index.documentFrequency("histori")), 2, len)
                 + bm25.termScore(bm25.idf(index.documentFrequency("india")), 2, len);
+        assertEquals(expected, hit.score(), 1e-12);
+    }
+
+    @Test
+    void defaultScoreIsBodyBm25PlusTwiceTitleBm25() {
+        Hit hit = searcher.search("history india", 10).hits().get(0);
+        var docs = index.docs();
+        Bm25 body = new Bm25(docs.size(), docs.averageBodyLength(), 1.2, 0.3);
+        Bm25 title = new Bm25(docs.size(), docs.averageTitleLength(), 1.2, 0.75);
+        double expected = 0;
+        // "History of India": each word once in the title and once in the body
+        for (String term : List.of("histori", "india")) {
+            double idf = Bm25.idf(docs.size(), index.documentFrequency(term));
+            expected += body.termScore(idf, 1, docs.bodyLength(hit.docId()))
+                    + 2.0 * title.termScore(idf, 1, docs.titleLength(hit.docId()));
+        }
         assertEquals(expected, hit.score(), 1e-12);
     }
 

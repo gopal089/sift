@@ -3,6 +3,7 @@ package dev.sift.engine.cli;
 import dev.sift.engine.data.ArticleReader;
 import dev.sift.engine.index.IndexBuilder;
 import dev.sift.engine.index.InvertedIndex;
+import dev.sift.engine.search.Ranking;
 import dev.sift.engine.search.SearchResult;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.Searcher;
@@ -39,18 +40,21 @@ public final class SearchCli {
 
     public static void main(String[] args) throws IOException {
         if (args.length == 0) {
-            System.err.println("usage: sift-cli <articles.jsonl> [--query \"text\"]... [--repeat N] [--top K]");
+            System.err.println("usage: sift-cli <articles.jsonl> [--query \"text\"]... [--repeat N] [--top K]"
+                    + " [--ranking SPEC]");
             System.exit(2);
         }
         Path path = Path.of(args[0]);
         List<String> queries = new ArrayList<>();
         int repeat = 20;
         int top = 10;
+        Ranking ranking = Ranking.DEFAULT;
         for (int i = 1; i < args.length; i++) {
             switch (args[i]) {
                 case "--query" -> queries.add(args[++i]);
                 case "--repeat" -> repeat = Integer.parseInt(args[++i]);
                 case "--top" -> top = Integer.parseInt(args[++i]);
+                case "--ranking" -> ranking = Ranking.parse(args[++i]);   // e.g. "bm25" for the Phase 1 baseline
                 default -> throw new IllegalArgumentException("unknown option " + args[i]);
             }
         }
@@ -60,7 +64,9 @@ public final class SearchCli {
         }
 
         InvertedIndex index = buildAndReport(path);
-        Searcher searcher = new Searcher(index);
+        Searcher searcher = new Searcher(index, ranking);
+        System.out.println("Ranking:              " + searcher.description());
+        System.out.println();
 
         if (queries.isEmpty()) {
             interactive(searcher, top);
@@ -119,6 +125,8 @@ public final class SearchCli {
                 postings, positions, index.docs().averageLength());
         System.out.printf(Locale.US, "Posting data (exact): %,.1f MB  (doc ids + freqs + positions, 4 bytes each)%n",
                 dataBytes / MB);
+        System.out.printf(Locale.US, "Title postings:       %,d postings for %,d title terms (doc ids + freqs = %,.1f MB)%n",
+                index.titlePostingCount(), index.titleTermCount(), index.titlePostingCount() * 8 / MB);
         System.out.printf(Locale.US, "Heap used by index:   %,.1f MB  (JVM heap after GC: %,.1f MB before → %,.1f MB after;"
                 + " includes dictionary, titles, doc table)%n",
                 (heapAfter - heapBefore) / MB, heapBefore / MB, heapAfter / MB);
@@ -126,7 +134,6 @@ public final class SearchCli {
                 + " (%.1f%% of posting data, %.1f%% of all tokens)%n",
                 stopTerms.size(), stopPostings, stopPositions, stopBytes / MB,
                 100.0 * stopBytes / dataBytes, 100.0 * stopPositions / positions);
-        System.out.println();
         return index;
     }
 
