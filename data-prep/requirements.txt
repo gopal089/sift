@@ -1,2 +1,9 @@
 # Wikitext (wiki markup) parser — plumbing for cleaning article text, not a search algorithm.
 mwparserfromhell==0.7.2
+
+# Phase 5: sentence embeddings (one-time scripts). transformers, tokenizers, huggingface_hub and numpy
+# come in as their dependencies.
+torch==2.15.0
+sentence-transformers==6.3.0
+onnx==1.23.2
+onnxruntime==1.31.1
