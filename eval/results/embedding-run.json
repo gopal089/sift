@@ -1,0 +1,13 @@
+{
+  "count": 280748,
+  "dimensions": 384,
+  "dtype": "float32 little-endian, L2-normalised",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "text": "title + '. ' + first 200 whitespace words; model cuts at 256 word pieces",
+  "titles_sha256": "8ffe338bec74249da0ce1856e5403af549389a3cbc31b3a34e7fa9e6cb8ffc40",
+  "device": "mps",
+  "batch": 128,
+  "seconds": 641.5,
+  "bytes": 431228928
+}

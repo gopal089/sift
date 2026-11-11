@@ -1,0 +1,18 @@
+# Vector search: HNSW vs exact, int8 vs float32
+# commit ac7f126 | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+# 500 random article titles (seed 42) as queries; recall@10 vs exact float32 brute force; times = one search per query after a warm-up, single thread
+# graph: M = 16, efConstruction = 200; 280,748 vectors
+
+method                              recall@10  median ms     p95 ms
+brute force float32 (exact)             1.000     25.974     27.172
+brute force int8                        0.995     30.644     31.817
+HNSW float32 efSearch=50                0.878      0.261      0.363
+HNSW float32 efSearch=100               0.931      0.451      0.578
+HNSW float32 efSearch=200               0.966      0.826      1.002
+HNSW int8 efSearch=50                   0.878      0.254      0.355
+HNSW int8 efSearch=100                  0.929      0.433      0.537
+HNSW int8 efSearch=200                  0.963      0.783      0.954
+
+efSearch rule (smallest with recall@10 >= 0.95): efSearch = 200 (recall 0.966)
+int8 rule part (a), quantisation alone: brute-force int8 vs float32 recall@10 = 0.995 -> PASS (needs >= 0.97; part (b), the MRR check, is in the Smart eval)
+Query embedding of the 500 titles: median 1.01 ms, p95 1.23 ms
