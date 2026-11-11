@@ -1,0 +1,263 @@
+/* Colours are defined once here; dark mode only swaps these values. */
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1c1b19;
+  --muted: #62605a;
+  --line: #e2dfd7;
+  --accent: #0b5d6b;
+  --accent-text: #ffffff;
+  --link: #0b4f9e;
+  --mark: #fff0b8;
+  --error-bg: #fdecec;
+  --error-text: #8a1c1c;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161514;
+    --surface: #201f1d;
+    --text: #ece9e2;
+    --muted: #a8a49b;
+    --line: #37352f;
+    --accent: #5cc3d2;
+    --accent-text: #0d1b1e;
+    --link: #8fbcff;
+    --mark: #4a4012;
+    --error-bg: #3a1b1b;
+    --error-text: #ffb4b4;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+/* A clearly visible ring on whatever has keyboard focus. */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--link);
+}
+
+/* ---------- header and search form ---------- */
+
+.logo {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.logo a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.tagline {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.search-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-row input {
+  flex: 1;
+  min-width: 0; /* lets the box shrink on narrow phones instead of pushing the button off screen */
+  padding: 0.65rem 0.8rem;
+  font: inherit; /* 16px: iOS zooms the page if an input's text is smaller */
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 0.5rem;
+}
+
+button {
+  padding: 0.65rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: var(--accent);
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.modes legend {
+  float: left; /* puts the legend on the same line as the radio buttons */
+  margin-right: 1.25rem;
+  padding: 0;
+  color: var(--muted);
+}
+
+.modes label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.75rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- messages ---------- */
+
+.main {
+  margin-top: 1.25rem;
+}
+
+.status {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+
+.notice,
+.hint {
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 0.4rem;
+}
+
+.error {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.9rem;
+  color: var(--error-text);
+  background: var(--error-bg);
+  border-radius: 0.4rem;
+}
+
+.error p {
+  margin: 0 0 0.6rem;
+}
+
+/* ---------- stats panel ---------- */
+
+.stats {
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.stats dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+}
+
+.stats dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.stats dd {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- results ---------- */
+
+.results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.result-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.result-url {
+  margin: 0.1rem 0 0.3rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+.result-snippet {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.result-snippet strong {
+  background: var(--mark);
+  border-radius: 0.2rem;
+  padding: 0 0.1rem;
+}
+
+/* ---------- pager and footer ---------- */
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
