@@ -31,10 +31,17 @@ export interface SearchResponse {
   mode: Mode;
   modeUsed: Mode;
   notice: string | null;
+  /** The query with spelling mistakes corrected, or null if every word is known. */
+  didYouMean: string | null;
   page: number;
   pageSize: number;
   totalMatches: number;
   hasMore: boolean;
   results: Result[];
   stats: QueryStats;
+}
+
+export interface SuggestResponse {
+  prefix: string;
+  suggestions: string[];
 }

@@ -29,8 +29,10 @@ public final class ApiModels {
      * @param mode     what the client asked for (keyword or smart)
      * @param modeUsed what actually ran (smart falls back to keyword until Phase 5)
      * @param notice   a short hint for the user, or null
+     * @param didYouMean the query with likely spelling mistakes corrected, or null if every word is known
      */
-    public record SearchResponse(String query, String mode, String modeUsed, String notice, int page, int pageSize,
+    public record SearchResponse(String query, String mode, String modeUsed, String notice, String didYouMean,
+                                 int page, int pageSize,
                                  int totalMatches, boolean hasMore, List<Result> results, QueryStats stats) {
     }
 

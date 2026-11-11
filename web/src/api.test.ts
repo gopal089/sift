@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { ApiError, search, searchUrl } from "./api";
+import { ApiError, search, searchUrl, suggest } from "./api";
 
 /** Replaces the browser's fetch with a fake that answers with the given status and body. */
 function fakeFetch(status: number, body: unknown) {
@@ -55,5 +55,25 @@ describe("search", () => {
       }),
     );
     await expect(search("x", "keyword", 1)).rejects.toMatchObject({ name: "AbortError" });
+  });
+});
+
+describe("suggest", () => {
+  it("returns the titles and escapes the prefix", async () => {
+    const fetchMock = fakeFetch(200, { prefix: "py t", suggestions: ["Python", "Pythagoras"] });
+    await expect(suggest("py t")).resolves.toEqual(["Python", "Pythagoras"]);
+    expect(fetchMock).toHaveBeenCalledWith("/api/suggest?prefix=py+t", { signal: undefined });
+  });
+
+  it("gives an empty list instead of an error when the server fails or is unreachable", async () => {
+    fakeFetch(500, { error: { code: "X", message: "boom" } });
+    await expect(suggest("py")).resolves.toEqual([]);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new TypeError("Failed to fetch");
+      }),
+    );
+    await expect(suggest("py")).resolves.toEqual([]);
   });
 });

@@ -133,6 +133,18 @@ class SearchApiTest {
                 .andExpect(jsonPath("$.notice", containsString("Phase 5")));
     }
 
+    @Test
+    void misspelledWordGetsADidYouMean() throws Exception {
+        // "river" is in 12 documents, so it is in the spelling vocabulary; "rivr" is not a word
+        mvc.perform(get("/search").param("q", "Long rivr"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.didYouMean").value("long river"));
+        mvc.perform(get("/search").param("q", "long river"))
+                .andExpect(jsonPath("$.didYouMean").doesNotExist());
+        mvc.perform(get("/search").param("q", "zzzzzzzzzz"))
+                .andExpect(jsonPath("$.didYouMean").doesNotExist());
+    }
+
     // ------------------------------------------------------------------ bad or strange input: never a 500
 
     @Test

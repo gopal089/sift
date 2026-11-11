@@ -8,6 +8,7 @@ const answer = {
   mode: "keyword",
   modeUsed: "keyword",
   notice: null,
+  didYouMean: null,
   page: 1,
   pageSize: 10,
   totalMatches: 25,
@@ -66,6 +67,48 @@ describe("App", () => {
     const alert = await screen.findByRole("alert");
     expect(alert.textContent).toContain("Server is busy.");
     expect(screen.getByRole("button", { name: "Try again" })).toBeTruthy();
+  });
+});
+
+describe("autocomplete and did you mean", () => {
+  it("shows suggestions while typing; arrow down + Enter searches the chosen title", async () => {
+    const fetchMock = vi.fn(async (url: string) =>
+      url.startsWith("/api/suggest")
+        ? new Response(JSON.stringify({ prefix: "pyt", suggestions: ["Python", "Pythagoras"] }), { status: 200 })
+        : new Response(JSON.stringify({ ...answer, query: "Python" }), { status: 200 }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("scrollTo", vi.fn());
+    render(<App />);
+
+    const box = screen.getByRole("combobox");
+    fireEvent.change(box, { target: { value: "pyt" } });
+    const options = await screen.findAllByRole("option");
+    expect(options.map((o) => o.textContent)).toEqual(["Python", "Pythagoras"]);
+    expect(fetchMock.mock.calls[0][0]).toBe("/api/suggest?prefix=pyt");
+    expect(box.getAttribute("aria-expanded")).toBe("true");
+
+    fireEvent.keyDown(box, { key: "ArrowDown" });
+    expect(options[0].getAttribute("aria-selected")).toBe("true");
+    fireEvent.submit(box.closest("form")!);
+
+    await waitFor(() => expect(window.location.search).toBe("?q=Python"));
+    expect(screen.queryByRole("listbox")).toBeNull(); // the list closes after choosing
+  });
+
+  it("offers the corrected query and searches it when clicked", async () => {
+    const fetchMock = vi.fn(async (_url: string) =>
+      new Response(JSON.stringify({ ...answer, query: "pyhton", didYouMean: "python", totalMatches: 0, results: [] }), {
+        status: 200,
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("scrollTo", vi.fn());
+    window.history.replaceState(null, "", "/?q=pyhton");
+    render(<App />);
+
+    fireEvent.click(await screen.findByRole("button", { name: "python" }));
+    await waitFor(() => expect(window.location.search).toBe("?q=python"));
   });
 });
 

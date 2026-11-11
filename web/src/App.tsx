@@ -88,6 +88,16 @@ export function App() {
 
         {data?.notice && <p className="notice">{data.notice}</p>}
 
+        {data?.didYouMean && (
+          <p className="did-you-mean">
+            Did you mean{" "}
+            <button type="button" className="link-button" onClick={() => go({ ...state, query: data.didYouMean!, page: 1 })}>
+              {data.didYouMean}
+            </button>
+            ?
+          </p>
+        )}
+
         {status.kind === "error" && (
           <div className="error" role="alert">
             <p>{status.message}</p>
@@ -97,7 +107,7 @@ export function App() {
           </div>
         )}
 
-        {data && data.totalMatches === 0 && !data.notice && (
+        {data && data.totalMatches === 0 && !data.notice && !data.didYouMean && (
           <p className="hint">Check the spelling, or try fewer or different words.</p>
         )}
 

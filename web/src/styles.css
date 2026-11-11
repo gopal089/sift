@@ -86,15 +86,46 @@ a {
   gap: 0.5rem;
 }
 
-.search-row input {
+.search-box {
+  position: relative; /* the suggestion list is placed just below this box */
   flex: 1;
   min-width: 0; /* lets the box shrink on narrow phones instead of pushing the button off screen */
+}
+
+.search-box input {
+  width: 100%;
   padding: 0.65rem 0.8rem;
   font: inherit; /* 16px: iOS zooms the page if an input's text is smaller */
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--muted);
   border-radius: 0.5rem;
+}
+
+.suggestions {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.25rem 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.18);
+}
+
+.suggestions li {
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.suggestions li.active,
+.suggestions li:hover {
+  background: var(--mark);
 }
 
 button {
@@ -151,6 +182,20 @@ button:disabled {
   border: 1px solid var(--line);
   border-left: 4px solid var(--accent);
   border-radius: 0.4rem;
+}
+
+.did-you-mean {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+}
+
+.link-button {
+  padding: 0;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--link);
+  background: none;
+  text-decoration: underline;
 }
 
 .error {

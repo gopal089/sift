@@ -1,4 +1,4 @@
-import type { Mode, SearchResponse } from "./types";
+import type { Mode, SearchResponse, SuggestResponse } from "./types";
 
 /** Where the API lives. "/api" is forwarded to the Spring server by Vite (see vite.config.ts). */
 export const API_BASE: string = import.meta.env.VITE_API_BASE ?? "/api";
@@ -50,4 +50,20 @@ export async function search(query: string, mode: Mode, page: number, signal?: A
     throw new ApiError(error?.code ?? "HTTP_" + response.status, error?.message ?? "The search failed.", response.status);
   }
   return body as SearchResponse;
+}
+
+/**
+ * Asks the API for up to 5 titles that start with what the user has typed so far.
+ * Suggestions are a nice extra, so any failure simply gives an empty list (a cancelled request still throws).
+ */
+export async function suggest(prefix: string, signal?: AbortSignal): Promise<string[]> {
+  try {
+    const response = await fetch(`${API_BASE}/suggest?${new URLSearchParams({ prefix })}`, { signal });
+    if (!response.ok) return [];
+    const body = (await response.json()) as SuggestResponse;
+    return Array.isArray(body.suggestions) ? body.suggestions : [];
+  } catch (cause) {
+    if (cause instanceof DOMException && cause.name === "AbortError") throw cause;
+    return [];
+  }
 }

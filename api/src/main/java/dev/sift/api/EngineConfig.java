@@ -3,7 +3,8 @@ package dev.sift.api;
 import dev.sift.engine.search.Ranking;
 import dev.sift.engine.search.Searcher;
 import dev.sift.engine.store.DiskIndex;
-import dev.sift.engine.suggest.TitleSuggester;
+import dev.sift.engine.spell.SpellChecker;
+import dev.sift.engine.suggest.TitleTrie;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +29,15 @@ public class EngineConfig {
         return new Searcher(index, Ranking.DEFAULT);
     }
 
+    /** Autocomplete: a trie of all titles, each node knowing its 5 most important completions. */
     @Bean
-    public TitleSuggester titleSuggester(DiskIndex index) {
-        return new TitleSuggester(index.docs());
+    public TitleTrie titleTrie(DiskIndex index) {
+        return new TitleTrie(index.docs());
+    }
+
+    /** "Did you mean": a BK-tree over the real words of the collection. */
+    @Bean
+    public SpellChecker spellChecker(DiskIndex index) {
+        return new SpellChecker(index.vocabulary());
     }
 }

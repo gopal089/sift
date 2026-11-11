@@ -12,7 +12,8 @@ import dev.sift.engine.snippet.Snippet;
 import dev.sift.engine.snippet.SnippetBuilder;
 import dev.sift.engine.store.DiskIndex;
 import dev.sift.engine.store.IndexMeta;
-import dev.sift.engine.suggest.TitleSuggester;
+import dev.sift.engine.spell.SpellChecker;
+import dev.sift.engine.suggest.TitleTrie;
 import java.lang.management.ManagementFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -39,14 +40,16 @@ public class SearchController {
 
     private final DiskIndex index;
     private final Searcher searcher;
-    private final TitleSuggester suggester;
+    private final TitleTrie suggester;
+    private final SpellChecker spellChecker;
     private final AtomicLong queriesServed = new AtomicLong();   // a counter that is safe with many threads
     private volatile double startupSeconds;
 
-    public SearchController(DiskIndex index, Searcher searcher, TitleSuggester suggester) {
+    public SearchController(DiskIndex index, Searcher searcher, TitleTrie suggester, SpellChecker spellChecker) {
         this.index = index;
         this.searcher = searcher;
         this.suggester = suggester;
+        this.spellChecker = spellChecker;
     }
 
     /** Spring calls this once when the server is ready: remember how long the whole start took. */
@@ -87,6 +90,8 @@ public class SearchController {
             results.add(new Result(hit.wikiId(), hit.title(), wikiUrl(hit.title()), snippet.text(),
                     snippet.highlights(), hit.score()));
         }
+        // "Did you mean": only words that are not in the vocabulary are corrected; null if all are known
+        String didYouMean = spellChecker.correctQuery(query);
         double tookMs = (System.nanoTime() - start) / 1e6;
         queriesServed.incrementAndGet();
 
@@ -98,7 +103,7 @@ public class SearchController {
         }
         QueryStats stats = new QueryStats(tookMs, index.docs().size(), result.totalMatches(), result.terms(),
                 result.mode().name(), "off");
-        return new SearchResponse(query, mode, "keyword", notice, page, PAGE_SIZE, result.totalMatches(),
+        return new SearchResponse(query, mode, "keyword", notice, didYouMean, page, PAGE_SIZE, result.totalMatches(),
                 result.totalMatches() > page * PAGE_SIZE, results, stats);
     }
 
