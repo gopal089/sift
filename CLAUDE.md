@@ -36,6 +36,8 @@ Final demo features:
 6. **No secrets in code.** Use environment variables.
 7. Keep the tokenizer in ONE shared class used by both indexing and querying.
 8. If something in this plan is wrong or there is a clearly better option, tell me why before changing it.
+9. Never add Co-Authored-By, 'Generated with Claude Code', or any AI attribution to commit messages or files.
+   Never push; the owner pushes.
 
 ## Learning notes (required every phase)
 At the end of each phase, write `docs/learning/phase-N.md` containing:
