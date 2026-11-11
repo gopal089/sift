@@ -4,7 +4,7 @@
 | --- | --- |
 | 0 — Setup | ✅ Done (2026-11-10) |
 | 1 — Keyword search in the terminal | ✅ Done (2026-11-11), including the ranking fixes |
-| 2 — Persist the index + API | Not started |
+| 2 — Persist the index + API | ✅ Done (2026-11-11) |
 | 3 — Website | Not started |
 | 4 — PageRank, autocomplete, spelling | Not started |
 | 5 — Smart (meaning) search | Not started |
@@ -107,6 +107,33 @@ Ranks now: photosynthesis #1, python programming #1, world war 2 #5, the who #1,
 
 **Phase 1 "Done when": ✅** sensible results for all three queries in under 200 ms, all tests pass.
 
+## Phase 2 — Persist the index + API (done)
+
+Plan and self-review: `docs/learning/phase-2-plan.md`. Explanation: `docs/learning/phase-2.md`.
+
+**Built:** own binary index format (gap + varint postings, sorted term dictionary with binary search,
+title and alias postings, doc table with each article's text offset), memory-mapped `DiskIndex`, the same
+`Searcher` on memory or disk via the `SearchIndex` interface, Spring Boot API
+(`/search`, `/suggest`, `/stats`, `/health`) with input validation.
+
+| Measure (Java 21, Apple M5) | Value | Raw file |
+| --- | --- | --- |
+| Posting data before → after compression | **364.4 MB → 111.4 MB (30.6%)** | `eval/results/phase2-index-size.txt` |
+| Index folder on disk | 408.7 MB (text.bin 267.0, postings.bin 109.2, dictionary.bin 19.2) | same |
+| Build the index files | 9.90 s | same |
+| Open the index from disk | 0.04 s | same |
+| **Server start** | **0.71–0.73 s** (Spring log, 2 runs) | `eval/results/phase2-api-check.txt` |
+| Heap in use after 32 queries / process RSS | 104 MB (`-Xmx512m`) / 260 MB | same |
+| Query time inside the server (5 test queries) | 0.3–2.2 ms | same |
+| Disk vs memory | identical rank for every query, both sets (MRR 0.815194, 0.697350) | `eval/results/disk-check-*.txt` |
+| Tests | **172 pass** (150 engine, 22 API) | |
+
+**"Done when": ✅** server starts in under 10 s and `/search?q=photosynthesis` returns JSON.
+
+**Placeholders, on purpose:** `/suggest` = titles by prefix, alphabetical (trie in Phase 4);
+`mode=smart` returns keyword results with a notice (Phase 5); snippets = start of the article (Phase 3);
+cache stats say "none" (Phase 6).
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -133,13 +160,21 @@ Ranks now: photosynthesis #1, python programming #1, world war 2 #5, the who #1,
 - Links found inside `<ref>` citations are kept in `links` (the citation *text* is removed).
   This has a minor effect on PageRank. Revisit only if PageRank looks odd.
 
+- **`text.bin` is 267 MB uncompressed** and the whole index folder is 409 MB. Decide in Phase 7 (Docker image,
+  Cloud Run memory) whether to compress the text per article or keep only the first N words.
+- **The alias setting was seen on the held-out set.** The disk-vs-memory check also ran "final + alias bonus"
+  on the 20 held-out queries as a file-format test (0.764 vs 0.697 without). Nothing was changed because of it,
+  and the ranking stays locked, but those 20 queries are no longer "unseen" for the alias question.
+  Phase 6 needs a fresh held-out set before retrying aliases.
+- **`.claude/launch.json` is untracked.** It only tells the Claude desktop app how to start `scripts/sift-api`.
+  Commit it or add `.claude/` to `.gitignore`, as you prefer.
+
 ## Notes for later
 - **Memory / hosting (Phase 5–7):** 280,748 vectors × 384 dims × 4 bytes ≈ 431 MB for vectors alone.
   If memory is tight, use **int8 quantization** (1 byte per number instead of 4, about 4× smaller).
   Measure recall before and after. Render's free tier (512 MB) likely cannot hold the full index.
-- **Store article text for snippets (Phase 2):** the doc table must keep the text (or an
-  offset/length into a text file), not just title and length, so highlighted snippets can be built
-  at query time.
+- ~~Store article text for snippets~~ Done in Phase 2: `docs.bin` stores each article's offset into `text.bin`.
+  For Phase 3 highlighting: alias words sit after the body in position space; ignore positions ≥ title + body length.
 - **Write and freeze the 50 eval queries before Phase 4 tuning:** this keeps MRR honest (no picking
   queries we already do well on). Commit `eval/queries.json` before tuning α or PageRank.
 - **CC BY-SA credit line** on the website footer and in the README:
@@ -147,4 +182,4 @@ Ranks now: photosynthesis #1, python programming #1, world war 2 #5, the who #1,
   (Already in README.md; the website still needs it in Phase 3.)
 
 ## Next step
-Phase 2: write the index to binary files (gap + varint), memory-map it, Spring Boot API.
+Phase 3: the website (React + Vite + TypeScript). **Waiting for your go.**

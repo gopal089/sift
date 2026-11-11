@@ -1,0 +1,28 @@
+# Phase 2 "Done when" check — 2026-11-11 13:26 IST — commit 7f10c7d — Apple M5, 10 cores, 16 GB RAM
+# command: scripts/sift-api (Java 21.0.12.1, -Xmx512m), index data/index built by scripts/sift-index, then curl
+
+Spring log, run 1:  Started SiftApplication in 0.727 seconds (process running for 0.822)
+Spring log, run 2:  Starting SiftApplication using Java 21.0.12.1 ...
+                    Started SiftApplication in 0.707 seconds (process running for 0.79)
+
+GET /health                      -> 200 {"status":"ok","documents":280748}
+GET /search?q=photosynthesis     -> 200 JSON, totalMatches 163, first result "Photosynthesis" (id 3518, score 33.5537)
+GET /suggest?prefix=pyt          -> 200 ["Pythagoras","Pythagorean theorem","Pythagorean triple","Pythagoreanism","Python"]
+GET /search?q=                   -> 400
+GET /search?q=<one emoji>        -> 200, 0 results, notice "Your search has no letters or numbers to look for. ..."
+
+stats.tookMs of the 6th identical request (search + 10 snippets, inside the server):
+  photosynthesis                    0.359 ms   first result: Photosynthesis
+  world war 2                       0.844 ms   first result: Guild Wars 2
+  the who                           1.886 ms   first result: The Who
+  to be or not to be                2.187 ms   first result: To Be or Not to Be (The Hitler Rap)
+  what is the capital of australia  0.306 ms   first result: Venture capital
+
+GET /stats after 32 queries:
+  documents 280,748   terms 619,144
+  indexBytes 428,565,933 (dictionary.bin 20,123,412; postings.bin 114,524,276; title.bin 2,273,281; alias.bin 0;
+                          docs.bin 6,737,964; titles.bin 4,939,501; text.bin 279,967,499)
+  postingBytesBeforeCompression 382,132,568   postingBytesAfterCompression 116,797,557
+  heapUsedMb 104.2 (Java heap in use at that moment, not after a forced GC)   startupSeconds 0.823
+Process memory (RSS, from ps) at that moment: 260 MB (includes the parts of the mapped files that were touched)
+No errors in the server log.
