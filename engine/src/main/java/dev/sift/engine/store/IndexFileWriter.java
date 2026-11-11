@@ -8,6 +8,9 @@ import dev.sift.engine.index.FieldPostingList;
 import dev.sift.engine.index.IndexBuilder;
 import dev.sift.engine.index.InvertedIndex;
 import dev.sift.engine.index.PostingList;
+import dev.sift.engine.index.Vocabulary;
+import dev.sift.engine.rank.LinkGraph;
+import dev.sift.engine.rank.PageRank;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -45,6 +48,8 @@ public final class IndexFileWriter implements Closeable {
     static final String DOCS = "docs.bin";
     static final String TITLES = "titles.bin";
     static final String TEXT = "text.bin";
+    static final String PAGERANK = "pagerank.bin";
+    static final String WORDS = "words.bin";
 
     private final Path dir;
     private final CountingStream text;
@@ -154,8 +159,28 @@ public final class IndexFileWriter implements Closeable {
             }
         }
 
+        // PageRank: one 8-byte number per document (all 0 if PageRank was not computed).
+        try (DataOutputStream out = new DataOutputStream(
+                new BufferedOutputStream(Files.newOutputStream(dir.resolve(PAGERANK))))) {
+            for (int d = 0; d < docs.size(); d++) {
+                out.writeDouble(docs.pageRank(d));
+            }
+        }
+        // Spelling vocabulary: count, then per word its length, its bytes and its document count.
+        Vocabulary vocabulary = index.vocabulary();
+        try (DataOutputStream out = new DataOutputStream(
+                new BufferedOutputStream(Files.newOutputStream(dir.resolve(WORDS))))) {
+            out.writeInt(vocabulary.size());
+            for (int i = 0; i < vocabulary.size(); i++) {
+                byte[] w = vocabulary.word(i).getBytes(StandardCharsets.UTF_8);
+                VarInt.write(out, w.length);
+                out.write(w);
+                VarInt.write(out, vocabulary.documentCount(i));
+            }
+        }
+
         Map<String, Long> sizes = new LinkedHashMap<>();
-        for (String name : List.of(DICTIONARY, POSTINGS, TITLE, ALIAS, DOCS, TITLES, TEXT)) {
+        for (String name : List.of(DICTIONARY, POSTINGS, TITLE, ALIAS, DOCS, TITLES, TEXT, PAGERANK, WORDS)) {
             sizes.put(name, Files.size(dir.resolve(name)));
         }
         IndexMeta meta = new IndexMeta(IndexMeta.FORMAT_VERSION, docs.size(), terms.size(), withAliases,
@@ -230,23 +255,36 @@ public final class IndexFileWriter implements Closeable {
         text.close();
     }
 
-    /** The in-memory index plus what was written for it. */
+    /** The in-memory index plus what was written for it ({@code meta} is null if nothing was written). */
     public record Built(InvertedIndex index, IndexMeta meta) {
     }
 
+    /** PageRank settings from the project plan: damping 0.85, stop below 1e-6 total change or after 50 rounds. */
+    public static PageRank.Result pageRank(Path articles, RedirectAliases redirects) throws IOException {
+        return PageRank.compute(LinkGraph.fromArticles(articles, redirects), 0.85, 1e-6, 50);
+    }
+
     /**
-     * Reads {@code articles.jsonl}, builds the index in memory and writes it to {@code dir}.
-     * {@code aliases} may be null (no redirect aliases; this is the default, see Ranking.DEFAULT).
+     * Reads {@code articles.jsonl} and builds the index in memory; with {@code dir}, also writes it there.
+     *
+     * @param aliases  redirect aliases to index, or null for none (the default, see Ranking.DEFAULT)
+     * @param pageRank PageRank per document (from {@link #pageRank}), or null for none
+     * @param dir      index folder to write, or null to only build in memory
      */
-    public static Built buildFromArticles(Path articles, RedirectAliases aliases, Path dir) throws IOException {
+    public static Built build(Path articles, RedirectAliases aliases, double[] pageRank, Path dir)
+            throws IOException {
         IndexBuilder builder = new IndexBuilder();
-        try (IndexFileWriter writer = new IndexFileWriter(dir)) {
+        builder.setPageRank(pageRank);
+        IndexFileWriter writer = dir == null ? null : new IndexFileWriter(dir);
+        try {
             IOException[] failure = new IOException[1];
             ArticleReader.forEach(articles, a -> {
                 builder.addDocument(a.id(), a.title(), a.text(),
                         aliases == null ? List.of() : aliases.aliasesOf(a.title()));
                 try {
-                    writer.appendText(a.text());
+                    if (writer != null) {
+                        writer.appendText(a.text());
+                    }
                 } catch (IOException e) {
                     failure[0] = e;   // a lambda cannot throw a checked exception; rethrown below
                 }
@@ -255,7 +293,11 @@ public final class IndexFileWriter implements Closeable {
                 throw failure[0];
             }
             InvertedIndex index = builder.build();
-            return new Built(index, writer.write(index, aliases != null));
+            return new Built(index, writer == null ? null : writer.write(index, aliases != null));
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
         }
     }
 

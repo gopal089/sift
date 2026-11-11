@@ -121,7 +121,7 @@ public final class Searcher {
 
         TopKHeap heap = new TopKHeap(k);
         for (int c = 0; c < candidates.length; c++) {
-            heap.offer(candidates[c], scores[c]);
+            heap.offer(candidates[c], withPageRank(candidates[c], scores[c]));
         }
         return new SearchResult(terms, MatchMode.AND, candidates.length, toHits(heap, false));
     }
@@ -159,7 +159,8 @@ public final class Searcher {
         TopKHeap heap = new TopKHeap(k);
         for (int i = 0; i < touchedCount; i++) {
             int doc = touched[i];
-            heap.offer(doc, soft ? matched[doc] * TIER + accumulator[doc] : accumulator[doc]);
+            double score = withPageRank(doc, accumulator[doc]);
+            heap.offer(doc, soft ? matched[doc] * TIER + score : score);
         }
         return new SearchResult(terms, soft ? MatchMode.SOFT_AND : MatchMode.OR, touchedCount, toHits(heap, soft));
     }
@@ -181,6 +182,14 @@ public final class Searcher {
             score += ranking.wAlias() * idf;
         }
         return score;
+    }
+
+    /**
+     * Lifts important pages a little: score × (1 + alpha × boost), where boost is the document's PageRank
+     * on a 0..1 scale. With alpha = 0.2 the most important page gets +20%, the least important +0%.
+     */
+    private double withPageRank(int doc, double score) {
+        return ranking.alpha() == 0 ? score : score * (1.0 + ranking.alpha() * docs.pageRankBoost(doc));
     }
 
     private double[] idfs(List<PostingList> lists) {

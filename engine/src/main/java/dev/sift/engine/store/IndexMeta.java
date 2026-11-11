@@ -18,7 +18,7 @@ import java.util.Map;
 public record IndexMeta(int formatVersion, int documents, int terms, boolean withAliases,
                         Map<String, Long> fileSizes, Map<String, Long> rawBytes, Map<String, Long> compressedBytes) {
 
-    public static final int FORMAT_VERSION = 2;   // 2: skip table for positions
+    public static final int FORMAT_VERSION = 3;   // 2: skip table for positions; 3: pagerank.bin, words.bin
 
     public long totalBytes() {
         long total = 0;

@@ -1,5 +1,6 @@
 package dev.sift.engine.index;
 
+import dev.sift.engine.rank.PageRank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,17 @@ public final class DocTable {
     private final double averageLength;
     private final double averageTitleLength;
     private final double averageBodyLength;
+    private final double[] pageRank;         // raw PageRank per document, or null if not computed
+    private final double[] pageRankBoost;    // the same, scaled to 0..1 on a log scale (all 0 if not computed)
 
-    /** Built by {@link Builder}, or by the on-disk index reader from stored arrays. */
-    public DocTable(int[] wikiIds, String[] titles, int[] titleLengths, int[] bodyLengths, int[] aliasLengths) {
+    /**
+     * Built by {@link Builder}, or by the on-disk index reader from stored arrays.
+     * {@code pageRank} may be null (no PageRank: no document gets a boost).
+     */
+    public DocTable(int[] wikiIds, String[] titles, int[] titleLengths, int[] bodyLengths, int[] aliasLengths,
+                    double[] pageRank) {
+        this.pageRank = pageRank;
+        this.pageRankBoost = pageRank == null ? new double[titles.length] : PageRank.normalisedLog(pageRank);
         this.wikiIds = wikiIds;
         this.titles = titles;
         this.titleLengths = titleLengths;
@@ -79,6 +88,20 @@ public final class DocTable {
         return aliasLengths[docId];
     }
 
+    /** Raw PageRank of the document (0 if PageRank was not computed). All documents together add up to 1. */
+    public double pageRank(int docId) {
+        return pageRank == null ? 0 : pageRank[docId];
+    }
+
+    /** PageRank on a 0..1 scale (log-scaled): 0 = least important page, 1 = most important. */
+    public double pageRankBoost(int docId) {
+        return pageRankBoost[docId];
+    }
+
+    public boolean hasPageRank() {
+        return pageRank != null;
+    }
+
     public double averageLength() {
         return averageLength;
     }
@@ -111,9 +134,13 @@ public final class DocTable {
             return titles.size();
         }
 
-        DocTable build() {
+        DocTable build(double[] pageRank) {
+            if (pageRank != null && pageRank.length != titles.size()) {
+                throw new IllegalArgumentException("PageRank has " + pageRank.length + " entries for "
+                        + titles.size() + " documents");
+            }
             return new DocTable(wikiIds.toArray(), titles.toArray(new String[0]),
-                    titleLengths.toArray(), bodyLengths.toArray(), aliasLengths.toArray());
+                    titleLengths.toArray(), bodyLengths.toArray(), aliasLengths.toArray(), pageRank);
         }
     }
 }

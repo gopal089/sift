@@ -55,6 +55,34 @@ class SearcherMatchingTest {
         assertEquals(2 * idf, r.hits().get(0).score(), 1e-12);
     }
 
+    // ------------------------------------------------ PageRank boost
+
+    @Test
+    void pageRankMultipliesTheScoreAndCanChangeTheOrder() {
+        IndexBuilder b = new IndexBuilder();
+        b.addDocument(1, "Small page", "zebra animal", List.of());
+        b.addDocument(2, "Big page", "zebra and other things", List.of());
+        b.addDocument(3, "Other", "nothing here", List.of());
+        b.setPageRank(new double[] {0.001, 0.1, 0.01});   // boosts on the log scale: 0, 1, 0.5
+        InvertedIndex ranked = b.build();
+        assertEquals(1.0, ranked.docs().pageRankBoost(1), 1e-12);
+
+        SearchResult plain = new Searcher(ranked, Ranking.parse(SUM)).search("zebra", 10);
+        assertEquals(List.of("Small page", "Big page"), titles(plain));
+        double small = plain.hits().get(0).score();
+        double big = plain.hits().get(1).score();
+
+        SearchResult boosted = new Searcher(ranked, Ranking.parse(SUM + ",a=0.5")).search("zebra", 10);
+        assertEquals(List.of("Big page", "Small page"), titles(boosted));
+        assertEquals(big * 1.5, boosted.hits().get(0).score(), 1e-12);   // boost 1 → × (1 + 0.5 × 1)
+        assertEquals(small, boosted.hits().get(1).score(), 1e-12);       // boost 0 → unchanged
+    }
+
+    @Test
+    void withoutPageRankInTheIndexAlphaChangesNothing() {
+        assertEquals(searcher(SUM).search("telephone", 10), searcher(SUM + ",a=0.5").search("telephone", 10));
+    }
+
     // ------------------------------------------------ question words
 
     @Test

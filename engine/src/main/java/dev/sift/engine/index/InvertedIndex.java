@@ -13,9 +13,11 @@ public final class InvertedIndex implements SearchIndex {
     private final Map<String, FieldPostingList> titlePostings;
     private final Map<String, FieldPostingList> aliasPostings;
     private final DocTable docs;
+    private final Vocabulary vocabulary;
 
     public InvertedIndex(Map<String, PostingList> postings, Map<String, FieldPostingList> titlePostings,
-                         Map<String, FieldPostingList> aliasPostings, DocTable docs) {
+                         Map<String, FieldPostingList> aliasPostings, DocTable docs, Vocabulary vocabulary) {
+        this.vocabulary = vocabulary;
         this.postings = postings;
         this.titlePostings = titlePostings;
         this.aliasPostings = aliasPostings;
@@ -56,7 +58,12 @@ public final class InvertedIndex implements SearchIndex {
         return docs;
     }
 
-    /** Number of unique terms (the size of the dictionary / vocabulary). */
+    /** The real (unstemmed) words for spelling suggestions. */
+    public Vocabulary vocabulary() {
+        return vocabulary;
+    }
+
+    /** Number of unique terms (the size of the dictionary). */
     public int termCount() {
         return postings.size();
     }

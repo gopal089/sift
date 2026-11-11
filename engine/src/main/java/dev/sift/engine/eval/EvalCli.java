@@ -1,10 +1,9 @@
 package dev.sift.engine.eval;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.sift.engine.data.ArticleReader;
 import dev.sift.engine.data.RedirectAliases;
-import dev.sift.engine.index.IndexBuilder;
 import dev.sift.engine.index.InvertedIndex;
+import dev.sift.engine.rank.PageRank;
 import dev.sift.engine.search.Ranking;
 import dev.sift.engine.store.DiskIndex;
 import dev.sift.engine.store.IndexFileWriter;
@@ -95,19 +94,20 @@ public final class EvalCli {
         byte[] queryBytes = Files.readAllBytes(queriesPath);
         List<EvalQuery> queries = Arrays.asList(new ObjectMapper().readValue(queryBytes, EvalQuery[].class));
 
-        RedirectAliases aliasTable = null;
-        if (configs.stream().anyMatch(Config::usesAliases)) {
-            if (redirects == null) {
-                throw new IllegalArgumentException("a config uses aliases (wa > 0), so --redirects is required");
-            }
-            aliasTable = RedirectAliases.load(redirects);
+        RedirectAliases aliasTable = redirects == null ? RedirectAliases.of(List.of()) : RedirectAliases.load(redirects);
+        if (redirects == null && configs.stream().anyMatch(Config::usesAliases)) {
+            throw new IllegalArgumentException("a config uses aliases (wa > 0), so --redirects is required");
         }
+        // PageRank once (links resolved through redirects); every index gets the same scores.
+        long p0 = System.nanoTime();
+        PageRank.Result pageRank = IndexFileWriter.pageRank(articles, aliasTable);
+        double pageRankSeconds = (System.nanoTime() - p0) / 1e9;
 
         // Build each needed index once: key false = without aliases, true = with aliases.
         Map<Boolean, BuiltIndex> indexes = new LinkedHashMap<>();
         for (Config c : configs) {
             if (!indexes.containsKey(c.usesAliases())) {
-                indexes.put(c.usesAliases(), build(articles, c.usesAliases() ? aliasTable : null,
+                indexes.put(c.usesAliases(), build(articles, c.usesAliases() ? aliasTable : null, pageRank.ranks(),
                         diskDir == null ? null : diskDir.resolve(c.usesAliases() ? "with-aliases" : "no-aliases")));
             }
         }
@@ -155,8 +155,10 @@ public final class EvalCli {
                 ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm z")),
                 commit, Runtime.version(), machine,
                 queriesPath, queries.size(), sha256(queryBytes),
-                articles, aliasTable == null ? "" : " | redirects: " + redirects + " (" + aliasTable.size()
+                articles, redirects == null ? "" : " | redirects: " + redirects + " (" + aliasTable.size()
                         + " resolved)"));
+        header.append(String.format(Locale.US, "# pagerank: d=0.85, %d rounds, last change %.2e, %.1f s%n",
+                pageRank.rounds(), pageRank.change(), pageRankSeconds));
         for (Map.Entry<Boolean, BuiltIndex> e : indexes.entrySet()) {
             InvertedIndex idx = e.getValue().index();
             header.append(String.format(Locale.US,
@@ -191,18 +193,11 @@ public final class EvalCli {
      * Builds the index; {@code aliasTable} null means "without aliases". With {@code diskDir}, the index is
      * also written there and loaded back as a {@link DiskIndex}.
      */
-    private static BuiltIndex build(Path articles, RedirectAliases aliasTable, Path diskDir) throws IOException {
+    private static BuiltIndex build(Path articles, RedirectAliases aliasTable, double[] pageRank, Path diskDir)
+            throws IOException {
         long heapBefore = usedHeapAfterGc();
         long t0 = System.nanoTime();
-        InvertedIndex index;
-        if (diskDir == null) {
-            IndexBuilder builder = new IndexBuilder();
-            ArticleReader.forEach(articles, a -> builder.addDocument(a.id(), a.title(), a.text(),
-                    aliasTable == null ? List.of() : aliasTable.aliasesOf(a.title())));
-            index = builder.build();
-        } else {
-            index = IndexFileWriter.buildFromArticles(articles, aliasTable, diskDir).index();
-        }
+        InvertedIndex index = IndexFileWriter.build(articles, aliasTable, pageRank, diskDir).index();
         double seconds = (System.nanoTime() - t0) / 1e9;
         double heapMb = (usedHeapAfterGc() - heapBefore) / MB;
         return new BuiltIndex(index, seconds, heapMb, diskDir == null ? null : DiskIndex.open(diskDir));

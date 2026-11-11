@@ -56,6 +56,11 @@ class DiskIndexTest {
                 builder.addDocument(1000 + d, "Doc " + d, text);
                 writer.appendText(text);
             }
+            double[] ranks = new double[DOCS.length + 200];
+            for (int d = 0; d < ranks.length; d++) {
+                ranks[d] = (d + 1.0) / (ranks.length * (ranks.length + 1) / 2.0);   // different values that sum to 1
+            }
+            builder.setPageRank(ranks);
             memory = builder.build();
             meta = writer.write(memory, true);
         }
@@ -120,13 +125,31 @@ class DiskIndexTest {
             assertEquals(DOCS[d][1], disk.text(d));
         }
         assertEquals(memory.docs().averageBodyLength(), disk.docs().averageBodyLength(), 0.0);
+        for (int d = 0; d < memory.docs().size(); d++) {
+            assertEquals(memory.docs().pageRank(d), disk.docs().pageRank(d), 0.0);
+            assertEquals(memory.docs().pageRankBoost(d), disk.docs().pageRankBoost(d), 0.0);
+        }
         assertEquals("A plant", disk.text(1, 7));   // only the first bytes
         assertEquals("", disk.text(4));             // the empty article
     }
 
     @Test
+    void spellingVocabularyComesBackUnchanged() {
+        assertEquals(memory.vocabulary().size(), disk.vocabulary().size());
+        for (int i = 0; i < memory.vocabulary().size(); i++) {
+            assertEquals(memory.vocabulary().word(i), disk.vocabulary().word(i));
+            assertEquals(memory.vocabulary().documentCount(i), disk.vocabulary().documentCount(i));
+        }
+        // "common" is in 200 documents; "sunlight" only in 2 (below the minimum of 5); stems are not words
+        assertEquals(200, disk.vocabulary().documentCount("common"));
+        assertEquals(0, disk.vocabulary().documentCount("sunlight"));
+        assertTrue(disk.vocabulary().contains("number"));
+        assertEquals(0, disk.vocabulary().documentCount("doc7"));   // not a plain a-z word
+    }
+
+    @Test
     void searchGivesIdenticalHitsFromDiskAndMemory() {
-        for (String spec : List.of("bm25", "bm25f:w=3", "bm25sum:w=2,bb=0.3,qstop=1", "bm25sum:w=2,bb=0.3,wa=1,soft=1")) {
+        for (String spec : List.of("bm25", "bm25sum:w=2,bb=0.3,a=0.5", "bm25f:w=3", "bm25sum:w=2,bb=0.3,qstop=1", "bm25sum:w=2,bb=0.3,wa=1,soft=1")) {
             Ranking ranking = Ranking.parse(spec);
             for (String query : List.of("sunlight", "plants need sunlight", "usa", "the who", "café", "東京",
                     "what is a plant", "nothing matches zzzz", "")) {

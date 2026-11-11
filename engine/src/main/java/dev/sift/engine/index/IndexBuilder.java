@@ -1,7 +1,10 @@
 package dev.sift.engine.index;
 
 import dev.sift.engine.text.Tokenizer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,8 @@ public final class IndexBuilder {
     private final Map<String, FieldPostingList.Builder> titleTerms = new HashMap<>();
     private final Map<String, FieldPostingList.Builder> aliasTerms = new HashMap<>();
     private final DocTable.Builder docs = new DocTable.Builder();
+    private final Map<String, int[]> wordDocumentCounts = new HashMap<>();   // real (unstemmed) word → {documents}
+    private double[] pageRank;   // optional, set before build()
 
     /** Adds a document without aliases and returns its internal doc id (0, 1, 2, ...). */
     public int addDocument(int wikiId, String title, String text) {
@@ -38,8 +43,13 @@ public final class IndexBuilder {
     public int addDocument(int wikiId, String title, String text, List<String> aliases) {
         int docId = docs.size();
 
-        List<String> titleTokens = Tokenizer.tokenize(title);
-        List<String> body = Tokenizer.tokenize(text);
+        // Tokenize title and body. Besides the stemmed terms, remember the real words for the spelling vocabulary.
+        Set<String> realWords = new HashSet<>();
+        List<String> titleTokens = tokenize(title, realWords);
+        List<String> body = tokenize(text, realWords);
+        for (String word : realWords) {
+            wordDocumentCounts.computeIfAbsent(word, w -> new int[1])[0]++;
+        }
         Set<String> aliasWords = new LinkedHashSet<>();   // a set: each word once, in first-seen order
         for (String alias : aliases) {
             aliasWords.addAll(Tokenizer.tokenize(alias));
@@ -77,6 +87,40 @@ public final class IndexBuilder {
         return docId;
     }
 
+    /** Stemmed terms of a text, in order; plain a–z words are also added to {@code realWords} unstemmed. */
+    private static List<String> tokenize(String text, Set<String> realWords) {
+        List<String> termList = new ArrayList<>();
+        Tokenizer.forEachWord(text, (word, start, end) -> {
+            termList.add(Tokenizer.stemWord(word));
+            if (Vocabulary.isPlainWord(word)) {
+                realWords.add(word);
+            }
+            return true;
+        });
+        return termList;
+    }
+
+    /** Optional: PageRank per document (same order as the documents were added). Call before {@link #build}. */
+    public void setPageRank(double[] pageRank) {
+        this.pageRank = pageRank;
+    }
+
+    /** The words that are in at least {@link Vocabulary#MIN_DOCUMENTS} documents, sorted. */
+    private Vocabulary buildVocabulary() {
+        List<String> kept = new ArrayList<>();
+        for (Map.Entry<String, int[]> e : wordDocumentCounts.entrySet()) {
+            if (e.getValue()[0] >= Vocabulary.MIN_DOCUMENTS) {
+                kept.add(e.getKey());
+            }
+        }
+        Collections.sort(kept);
+        int[] counts = new int[kept.size()];
+        for (int i = 0; i < counts.length; i++) {
+            counts[i] = wordDocumentCounts.get(kept.get(i))[0];
+        }
+        return new Vocabulary(kept.toArray(new String[0]), counts);
+    }
+
     public InvertedIndex build() {
         Map<String, PostingList> postings = new HashMap<>(terms.size() * 2);
         for (Map.Entry<String, PostingList.Builder> e : terms.entrySet()) {
@@ -85,7 +129,9 @@ public final class IndexBuilder {
         terms.clear(); // let the growable builder arrays be garbage-collected
         Map<String, FieldPostingList> titlePostings = buildField(titleTerms);
         Map<String, FieldPostingList> aliasPostings = buildField(aliasTerms);
-        return new InvertedIndex(postings, titlePostings, aliasPostings, docs.build());
+        Vocabulary vocabulary = buildVocabulary();
+        wordDocumentCounts.clear();
+        return new InvertedIndex(postings, titlePostings, aliasPostings, docs.build(pageRank), vocabulary);
     }
 
     private static Map<String, FieldPostingList> buildField(Map<String, FieldPostingList.Builder> builders) {

@@ -24,9 +24,11 @@ public final class RedirectAliases {
     static final int MAX_HOPS = 10;
 
     private final Map<String, List<String>> aliasesByTarget;
+    private final Map<String, String> next;   // redirect title → what it points to (one hop)
 
-    private RedirectAliases(Map<String, List<String>> aliasesByTarget) {
+    private RedirectAliases(Map<String, List<String>> aliasesByTarget, Map<String, String> next) {
         this.aliasesByTarget = aliasesByTarget;
+        this.next = next;
     }
 
     public record Redirect(String from, String to) {
@@ -55,7 +57,7 @@ public final class RedirectAliases {
                 byTarget.computeIfAbsent(target, t -> new ArrayList<>()).add(r.from());
             }
         }
-        return new RedirectAliases(byTarget);
+        return new RedirectAliases(byTarget, next);
     }
 
     /** Follows redirects from {@code title}; null if the chain is longer than {@link #MAX_HOPS} (e.g. a loop). */
@@ -69,6 +71,14 @@ public final class RedirectAliases {
             t = n;
         }
         return null;
+    }
+
+    /**
+     * Where a title finally leads: the title itself if it is not a redirect, the end of the chain if it is,
+     * or null for a redirect loop. Used to resolve links for PageRank.
+     */
+    public String resolve(String title) {
+        return finalTarget(title, next);
     }
 
     /** Alternate titles of an article, in file order (empty if none). */

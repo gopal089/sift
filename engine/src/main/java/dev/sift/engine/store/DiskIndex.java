@@ -5,6 +5,7 @@ import dev.sift.engine.index.DocTable;
 import dev.sift.engine.index.FieldPostingList;
 import dev.sift.engine.index.PostingList;
 import dev.sift.engine.index.SearchIndex;
+import dev.sift.engine.index.Vocabulary;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -32,17 +33,20 @@ public final class DiskIndex implements SearchIndex {
     private final TermDictionary dictionary;
     private final DocTable docs;
     private final long[] textOffsets;
+    private final Vocabulary vocabulary;
     private final ByteBuffer postings;
     private final ByteBuffer title;
     private final ByteBuffer alias;
     private final ByteBuffer text;
 
     private DiskIndex(IndexMeta meta, TermDictionary dictionary, DocTable docs, long[] textOffsets,
+                      Vocabulary vocabulary,
                       ByteBuffer postings, ByteBuffer title, ByteBuffer alias, ByteBuffer text) {
         this.meta = meta;
         this.dictionary = dictionary;
         this.docs = docs;
         this.textOffsets = textOffsets;
+        this.vocabulary = vocabulary;
         this.postings = postings;
         this.title = title;
         this.alias = alias;
@@ -89,8 +93,27 @@ public final class DiskIndex implements SearchIndex {
             titles[i] = new String(bytes, StandardCharsets.UTF_8);
         }
 
+        ByteBuffer pr = ByteBuffer.wrap(Files.readAllBytes(dir.resolve(IndexFileWriter.PAGERANK)));
+        double[] pageRank = new double[n];
+        boolean anyRank = false;
+        for (int i = 0; i < n; i++) {
+            pageRank[i] = pr.getDouble();
+            anyRank |= pageRank[i] > 0;
+        }
+
+        ByteBuffer w = ByteBuffer.wrap(Files.readAllBytes(dir.resolve(IndexFileWriter.WORDS)));
+        String[] words = new String[w.getInt()];
+        int[] wordCounts = new int[words.length];
+        for (int i = 0; i < words.length; i++) {
+            byte[] bytes = new byte[VarInt.read(w)];
+            w.get(bytes);
+            words[i] = new String(bytes, StandardCharsets.UTF_8);
+            wordCounts[i] = VarInt.read(w);
+        }
+
         return new DiskIndex(meta, dictionary,
-                new DocTable(wikiIds, titles, titleLengths, bodyLengths, aliasLengths), textOffsets,
+                new DocTable(wikiIds, titles, titleLengths, bodyLengths, aliasLengths, anyRank ? pageRank : null),
+                textOffsets, new Vocabulary(words, wordCounts),
                 map(dir.resolve(IndexFileWriter.POSTINGS)), map(dir.resolve(IndexFileWriter.TITLE)),
                 map(dir.resolve(IndexFileWriter.ALIAS)), map(dir.resolve(IndexFileWriter.TEXT)));
     }
@@ -237,6 +260,11 @@ public final class DiskIndex implements SearchIndex {
         byte[] bytes = new byte[length];
         text.duplicate().position((int) start).get(bytes);
         return new String(bytes, StandardCharsets.UTF_8);
+    }
+
+    /** The real (unstemmed) words for spelling suggestions. */
+    public Vocabulary vocabulary() {
+        return vocabulary;
     }
 
     public TermDictionary dictionary() {

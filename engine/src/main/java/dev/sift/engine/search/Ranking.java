@@ -17,27 +17,28 @@ import java.util.Locale;
  * @param bTitle            length normalisation of the title
  * @param wTitle            how much the title counts compared with the body
  * @param wAlias            bonus weight when a term is one of the document's alias (redirect) words; 0 = off
+ * @param alpha             PageRank weight: final score = score × (1 + alpha × PageRank on a 0..1 scale); 0 = off
  * @param softAnd           false: AND, with OR only if AND finds nothing. true: documents with all terms
  *                          first, then documents with fewer terms (more matched terms first, then score)
  * @param dropQuestionWords treat who/what/when/where/why/how/did/does/is as stop words in queries
  */
 public record Ranking(Model model, double k1, double bBody, double bTitle, double wTitle, double wAlias,
-                      boolean softAnd, boolean dropQuestionWords) {
+                      double alpha, boolean softAnd, boolean dropQuestionWords) {
 
     public enum Model { BM25, BM25F, BM25_SUM }
 
     /** The Phase 1 ranking: single-field BM25, k1 = 1.2, b = 0.75, strict AND. */
-    public static final Ranking BASELINE = new Ranking(Model.BM25, 1.2, 0.75, 0.75, 1.0, 0.0, false, false);
+    public static final Ranking BASELINE = new Ranking(Model.BM25, 1.2, 0.75, 0.75, 1.0, 0.0, 0.0, false, false);
 
     /**
      * What {@link Searcher} uses unless told otherwise. Chosen on the 50 frozen eval queries (2026-11-11):
      * BM25(body) + 2 × BM25(title), body b = 0.3, question words dropped. No alias bonus (it gained only
      * 0.002 MRR). Locked until Phase 6; see docs/learning/phase-1.md, "Ranking fixes".
      */
-    public static final Ranking DEFAULT = new Ranking(Model.BM25_SUM, 1.2, 0.3, 0.75, 2.0, 0.0, false, true);
+    public static final Ranking DEFAULT = new Ranking(Model.BM25_SUM, 1.2, 0.3, 0.75, 2.0, 0.0, 0.0, false, true);
 
     public Ranking {
-        if (k1 <= 0 || bBody < 0 || bBody > 1 || bTitle < 0 || bTitle > 1 || wTitle < 0 || wAlias < 0) {
+        if (k1 <= 0 || bBody < 0 || bBody > 1 || bTitle < 0 || bTitle > 1 || wTitle < 0 || wAlias < 0 || alpha < 0) {
             throw new IllegalArgumentException("need k1 > 0, 0 <= b <= 1, weights >= 0");
         }
     }
@@ -45,7 +46,7 @@ public record Ranking(Model model, double k1, double bBody, double bTitle, doubl
     /**
      * Parses a short spec such as {@code "bm25sum:w=2,bb=0.3,wa=1,soft=1,qstop=1"}. Missing keys keep their
      * {@link #BASELINE} values. Keys: {@code w} (title weight), {@code bb} (body b), {@code bt} (title b),
-     * {@code k1}, {@code wa} (alias weight), {@code soft} (1 = soft AND), {@code qstop} (1 = drop question words).
+     * {@code k1}, {@code wa} (alias weight), {@code a} (PageRank weight alpha), {@code soft} (1 = soft AND), {@code qstop} (1 = drop question words).
      */
     public static Ranking parse(String spec) {
         String[] modelAndParams = spec.split(":", 2);
@@ -60,6 +61,7 @@ public record Ranking(Model model, double k1, double bBody, double bTitle, doubl
         double bTitle = BASELINE.bTitle;
         double wTitle = BASELINE.wTitle;
         double wAlias = BASELINE.wAlias;
+        double alpha = BASELINE.alpha;
         boolean softAnd = BASELINE.softAnd;
         boolean dropQuestionWords = BASELINE.dropQuestionWords;
         if (modelAndParams.length == 2 && !modelAndParams[1].isBlank()) {
@@ -75,13 +77,14 @@ public record Ranking(Model model, double k1, double bBody, double bTitle, doubl
                     case "bt" -> bTitle = v;
                     case "w" -> wTitle = v;
                     case "wa" -> wAlias = v;
+                    case "a" -> alpha = v;
                     case "soft" -> softAnd = v != 0;
                     case "qstop" -> dropQuestionWords = v != 0;
                     default -> throw new IllegalArgumentException("unknown key \"" + p[0] + "\" in \"" + spec + "\"");
                 }
             }
         }
-        return new Ranking(model, k1, bBody, bTitle, wTitle, wAlias, softAnd, dropQuestionWords);
+        return new Ranking(model, k1, bBody, bTitle, wTitle, wAlias, alpha, softAnd, dropQuestionWords);
     }
 
     @Override
@@ -95,6 +98,7 @@ public record Ranking(Model model, double k1, double bBody, double bTitle, doubl
         };
         return scoring
                 + (wAlias > 0 ? " + alias bonus w_alias=" + num(wAlias) : "")
+                + (alpha > 0 ? " | x (1 + " + num(alpha) + " x PageRank)" : "")
                 + (softAnd ? " | soft AND" : " | AND, else OR")
                 + (dropQuestionWords ? " | question words dropped" : "");
     }

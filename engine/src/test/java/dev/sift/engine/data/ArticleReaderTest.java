@@ -14,7 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 class ArticleReaderTest {
 
     @Test
-    void readsJsonLinesAndIgnoresLinks(@TempDir Path dir) throws IOException {
+    void readsJsonLinesWithLinks(@TempDir Path dir) throws IOException {
         Path file = dir.resolve("articles.jsonl");
         Files.writeString(file, """
                 {"id": 1, "title": "April", "text": "April is a month.", "links": ["Month"]}
@@ -25,7 +25,7 @@ class ArticleReaderTest {
         int count = ArticleReader.forEach(file, articles::add);
 
         assertEquals(2, count);
-        assertEquals(new Article(1, "April", "April is a month."), articles.get(0));
-        assertEquals(new Article(3518, "Photosynthesis", "Plants make food.\nLine two."), articles.get(1));
+        assertEquals(new Article(1, "April", "April is a month.", List.of("Month")), articles.get(0));
+        assertEquals(new Article(3518, "Photosynthesis", "Plants make food.\nLine two.", List.of()), articles.get(1));
     }
 }
