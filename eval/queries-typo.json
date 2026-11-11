@@ -1,0 +1,92 @@
+[
+ {
+  "id": 1,
+  "query": "einstien",
+  "expected": "einstein",
+  "type": "swap"
+ },
+ {
+  "id": 2,
+  "query": "photosyntesis",
+  "expected": "photosynthesis",
+  "type": "missing letter"
+ },
+ {
+  "id": 3,
+  "query": "pyhton",
+  "expected": "python",
+  "type": "swap"
+ },
+ {
+  "id": 4,
+  "query": "shakespere",
+  "expected": "shakespeare",
+  "type": "missing letter"
+ },
+ {
+  "id": 5,
+  "query": "volcanoe",
+  "expected": "volcano",
+  "type": "extra letter"
+ },
+ {
+  "id": 6,
+  "query": "dinosour",
+  "expected": "dinosaur",
+  "type": "wrong letter"
+ },
+ {
+  "id": 7,
+  "query": "electricty",
+  "expected": "electricity",
+  "type": "missing letter"
+ },
+ {
+  "id": 8,
+  "query": "goverment",
+  "expected": "government",
+  "type": "missing letter"
+ },
+ {
+  "id": 9,
+  "query": "mountian",
+  "expected": "mountain",
+  "type": "swap"
+ },
+ {
+  "id": 10,
+  "query": "choclate",
+  "expected": "chocolate",
+  "type": "missing letter"
+ },
+ {
+  "id": 11,
+  "query": "langauge",
+  "expected": "language",
+  "type": "swap"
+ },
+ {
+  "id": 12,
+  "query": "elefant",
+  "expected": "elephant",
+  "type": "two edits (ph -> f)"
+ },
+ {
+  "id": 13,
+  "query": "austrailia",
+  "expected": "australia",
+  "type": "extra letter"
+ },
+ {
+  "id": 14,
+  "query": "medecine",
+  "expected": "medicine",
+  "type": "wrong letter"
+ },
+ {
+  "id": 15,
+  "query": "histroy of india",
+  "expected": "history of india",
+  "type": "swap, in a 3-word query"
+ }
+]
