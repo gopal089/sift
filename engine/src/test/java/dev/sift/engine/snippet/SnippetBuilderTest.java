@@ -1,5 +1,6 @@
 package dev.sift.engine.snippet;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -113,9 +114,19 @@ class SnippetBuilderTest {
         // (word, term): term 0 at 0, 1, 2; term 1 at 50; both at 100 and 103
         List<int[]> m = List.of(new int[] {0, 0}, new int[] {1, 0}, new int[] {2, 0}, new int[] {50, 1},
                 new int[] {100, 0}, new int[] {103, 1});
-        assertEquals(100, SnippetBuilder.bestWindowStart(m, 2, 10));   // 2 distinct terms beat 3 matches of one
-        assertEquals(0, SnippetBuilder.bestWindowStart(m.subList(0, 4), 2, 10));   // 3 matches beat 1
-        assertEquals(0, SnippetBuilder.bestWindowStart(List.of(), 2, 10));
-        assertEquals(7, SnippetBuilder.bestWindowStart(List.of(new int[] {7, 0}, new int[] {90, 0}), 1, 10));
+        assertArrayEquals(new int[] {100, 103}, SnippetBuilder.bestWindow(m, 2, 10));   // 2 distinct beat 3 of one
+        assertArrayEquals(new int[] {0, 2}, SnippetBuilder.bestWindow(m.subList(0, 4), 2, 10));   // 3 matches beat 1
+        assertArrayEquals(new int[] {0, 0}, SnippetBuilder.bestWindow(List.of(), 2, 10));
+        assertArrayEquals(new int[] {7, 7},
+                SnippetBuilder.bestWindow(List.of(new int[] {7, 0}, new int[] {90, 0}), 1, 10));
+    }
+
+    @Test
+    void leadWordsNeverPushTheLastMatchOutOfTheWindow() {
+        // "lava" is word 20 and "volcano" word 27: an 8-word window has no room for lead words
+        String text = FILLER.repeat(2) + "lava a b c d e f volcano. " + FILLER.repeat(3);
+        Snippet s = SnippetBuilder.build(index("X", text, List.of()), 0, List.of("volcano", "lava"), text, 8);
+        assertEquals("… lava a b c d e f volcano …", s.text());
+        assertEquals(List.of("lava", "volcano"), highlighted(s));
     }
 }

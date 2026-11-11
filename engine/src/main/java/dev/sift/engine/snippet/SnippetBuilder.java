@@ -57,7 +57,10 @@ public final class SnippetBuilder {
         matches.sort((a, b) -> Integer.compare(a[0], b[0]));
 
         // 2. choose the window
-        int firstWord = Math.max(0, bestWindowStart(matches, terms.size(), windowWords) - LEAD_WORDS);
+        int[] best = bestWindow(matches, terms.size(), windowWords);   // first and last matching word in it
+        // Show a few words before the first match, but never so many that the last match falls out.
+        int spare = windowWords - (best[1] - best[0] + 1);
+        int firstWord = Math.max(0, best[0] - Math.min(LEAD_WORDS, spare));
         int lastWord = firstWord + windowWords;   // exclusive
 
         // 3. find the characters of words firstWord .. lastWord-1 and which of them are query words
@@ -100,16 +103,17 @@ public final class SnippetBuilder {
     }
 
     /**
-     * The body word number of the first match in the best window, or 0 if there are no matches.
+     * The body word numbers of the first and last match in the best window, or {0, 0} if there are no matches.
      * {@code matches} are (word number, term index) pairs sorted by word number. Two pointers: for each
      * left match, the right pointer only ever moves forward, so this is O(number of matches).
      */
-    static int bestWindowStart(List<int[]> matches, int termCount, int windowWords) {
+    static int[] bestWindow(List<int[]> matches, int termCount, int windowWords) {
         int[] perTerm = new int[termCount];   // how many matches of each term are inside the window
         int distinct = 0;
         int bestDistinct = 0;
         int bestCount = 0;
         int bestStart = 0;
+        int bestEnd = 0;
         int right = 0;
         for (int left = 0; left < matches.size(); left++) {
             int windowEnd = matches.get(left)[0] + windowWords;
@@ -124,11 +128,12 @@ public final class SnippetBuilder {
                 bestDistinct = distinct;
                 bestCount = count;
                 bestStart = matches.get(left)[0];
+                bestEnd = matches.get(right - 1)[0];
             }
             if (--perTerm[matches.get(left)[1]] == 0) {   // the left match leaves the window
                 distinct--;
             }
         }
-        return bestStart;
+        return new int[] {bestStart, bestEnd};
     }
 }

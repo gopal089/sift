@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Map;
+import java.util.function.IntFunction;
 
 /**
  * An index read from the files written by {@link IndexFileWriter}.
@@ -124,30 +125,58 @@ public final class DiskIndex implements SearchIndex {
         int df = VarInt.read(in);
         int[] docIds = readGaps(in, df);
         int[] freqs = new int[df];
-        int total = 0;
         for (int k = 0; k < df; k++) {
             freqs[k] = VarInt.read(in);
-            total += freqs[k];
         }
-        int positionsStart = in.position();
-        int positionCount = total;
-        // Positions are decoded only if somebody asks for them (snippets), never for ranking.
-        return new PostingList(docIds, freqs, () -> readPositions(positionsStart, freqs, positionCount));
+        int skipTableStart = in.position();
+        // Positions are never needed for ranking. They are decoded per document, only when asked for (snippets).
+        return new PostingList(docIds, freqs, new PositionsReader(skipTableStart, freqs));
     }
 
-    private int[] readPositions(int start, int[] freqs, int count) {
-        ByteBuffer in = postings.duplicate();
-        in.position(start);
-        int[] positions = new int[count];
-        int p = 0;
-        for (int freq : freqs) {
-            int previous = 0;
-            for (int j = 0; j < freq; j++) {
-                previous += VarInt.read(in);   // undo the gap encoding inside this document
-                positions[p++] = previous;
-            }
+    /**
+     * Reads the positions of single postings of one term. The skip table (one entry per 64 postings) is
+     * decoded on first use; after that, reading posting i means: jump to the start of its block of 64,
+     * skip the positions of at most 63 earlier postings, then decode its own.
+     */
+    private final class PositionsReader implements IntFunction<int[]> {
+        private final int skipTableStart;
+        private final int[] freqs;
+        private int[] blockOffset;   // blockOffset[b] = position bytes before posting b × 64
+        private int positionsStart;  // file offset where this term's position bytes begin
+
+        PositionsReader(int skipTableStart, int[] freqs) {
+            this.skipTableStart = skipTableStart;
+            this.freqs = freqs;
         }
-        return positions;
+
+        @Override
+        public int[] apply(int i) {
+            ByteBuffer in = postings.duplicate();
+            if (blockOffset == null) {
+                in.position(skipTableStart);
+                int blocks = (freqs.length + IndexFileWriter.SKIP_EVERY - 1) / IndexFileWriter.SKIP_EVERY;
+                int[] offsets = new int[Math.max(blocks, 1)];
+                for (int b = 1; b < blocks; b++) {
+                    offsets[b] = offsets[b - 1] + VarInt.read(in);
+                }
+                positionsStart = in.position();
+                blockOffset = offsets;
+            }
+            int block = i / IndexFileWriter.SKIP_EVERY;
+            in.position(positionsStart + blockOffset[block]);
+            for (int k = block * IndexFileWriter.SKIP_EVERY; k < i; k++) {   // skip the earlier postings in this block
+                for (int j = 0; j < freqs[k]; j++) {
+                    VarInt.read(in);
+                }
+            }
+            int[] positions = new int[freqs[i]];
+            int previous = 0;
+            for (int j = 0; j < positions.length; j++) {
+                previous += VarInt.read(in);   // undo the gap encoding inside this document
+                positions[j] = previous;
+            }
+            return positions;
+        }
     }
 
     @Override

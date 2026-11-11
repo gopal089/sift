@@ -1,7 +1,7 @@
 package dev.sift.engine.index;
 
 import java.util.Arrays;
-import java.util.function.Supplier;
+import java.util.function.IntFunction;
 
 /**
  * All occurrences of one term: which documents contain it, how often, and where.
@@ -14,33 +14,29 @@ import java.util.function.Supplier;
  * </pre>
  * The positions of posting {@code i} start at {@code freqs[0] + ... + freqs[i-1]}.
  *
- * <p>Ranking needs only doc ids and freqs. Positions are needed for snippets, so a list read from disk
- * decodes them lazily: only when {@link #positions(int)} is first called.
+ * <p>Ranking needs only doc ids and freqs. Positions are needed for snippets. A list read from disk does
+ * not hold them at all: it asks the index file for one posting's positions when {@link #positions(int)} is called.
  */
 public final class PostingList {
 
     private final int[] docIds;
     private final int[] freqs;
-    private final Supplier<int[]> positionsLoader;
-    private int[] positions;   // null until first needed
+    private final int[] positions;                       // in-memory lists: all positions, grouped per doc
+    private final IntFunction<int[]> positionsOfPosting; // disk lists: decodes the positions of posting i
 
     public PostingList(int[] docIds, int[] freqs, int[] positions) {
-        this(docIds, freqs, () -> positions);
-        this.positions = positions;
-    }
-
-    /** {@code positionsLoader} is called at most when positions are first asked for (e.g. decode from disk). */
-    public PostingList(int[] docIds, int[] freqs, Supplier<int[]> positionsLoader) {
         this.docIds = docIds;
         this.freqs = freqs;
-        this.positionsLoader = positionsLoader;
+        this.positions = positions;
+        this.positionsOfPosting = null;
     }
 
-    private int[] allPositions() {
-        if (positions == null) {
-            positions = positionsLoader.get();
-        }
-        return positions;
+    /** For lists read from disk: {@code positionsOfPosting.apply(i)} returns the positions of posting i. */
+    public PostingList(int[] docIds, int[] freqs, IntFunction<int[]> positionsOfPosting) {
+        this.docIds = docIds;
+        this.freqs = freqs;
+        this.positions = null;
+        this.positionsOfPosting = positionsOfPosting;
     }
 
     /** Number of documents that contain the term (the "document frequency", n). */
@@ -61,18 +57,16 @@ public final class PostingList {
         return docIds;
     }
 
-    /** Word positions of the term in posting {@code i}. O(i): adds up the freqs before it. */
+    /** Word positions of the term in posting {@code i}. In memory this is O(i): it adds up the freqs before it. */
     public int[] positions(int i) {
+        if (positions == null) {
+            return positionsOfPosting.apply(i);
+        }
         int start = 0;
         for (int p = 0; p < i; p++) {
             start += freqs[p];
         }
-        return Arrays.copyOfRange(allPositions(), start, start + freqs[i]);
-    }
-
-    /** Every position of every posting, grouped per document. For the index file writer; do not modify. */
-    public int[] allPositionsForWriting() {
-        return allPositions();
+        return Arrays.copyOfRange(positions, start, start + freqs[i]);
     }
 
     /** Number of stored positions = the sum of all freqs. */

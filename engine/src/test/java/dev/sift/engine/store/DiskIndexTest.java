@@ -50,6 +50,12 @@ class DiskIndexTest {
                 builder.addDocument(100 + d, DOCS[d][0], DOCS[d][1], ALIASES.get(d));
                 writer.appendText(DOCS[d][1]);
             }
+            // 200 more documents sharing words, so posting lists are longer than one skip block (64)
+            for (int d = 0; d < 200; d++) {
+                String text = "common word number " + d + " common ".repeat(d % 7) + "tail";
+                builder.addDocument(1000 + d, "Doc " + d, text);
+                writer.appendText(text);
+            }
             memory = builder.build();
             meta = writer.write(memory, true);
         }
@@ -132,13 +138,15 @@ class DiskIndexTest {
 
     @Test
     void metaRecordsCountsSizesAndCompression() throws IOException {
-        assertEquals(DOCS.length, meta.documents());
+        assertEquals(DOCS.length + 200, meta.documents());
         assertEquals(memory.termCount(), meta.terms());
         assertTrue(meta.withAliases());
         assertEquals(Files.size(dir.resolve("postings.bin")), meta.fileSizes().get("postings.bin"));
         // raw = 4 bytes per int; every number here is small, so each takes 1 byte when compressed
         assertEquals(4 * memory.postingCount(), meta.rawBytes().get("docIds"));
-        assertEquals(memory.positionCount(), meta.compressedBytes().get("positions"));
+        // positions: one byte each here, plus the skip-table bytes for lists longer than 64 postings
+        assertTrue(meta.compressedBytes().get("positions") >= memory.positionCount());
+        assertTrue(meta.compressedBytes().get("positions") < memory.positionCount() + 100);
         assertEquals(4 * memory.positionCount(), meta.rawBytes().get("positions"));
     }
 

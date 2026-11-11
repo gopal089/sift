@@ -9,6 +9,7 @@ import dev.sift.engine.index.IndexBuilder;
 import dev.sift.engine.index.InvertedIndex;
 import dev.sift.engine.index.PostingList;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -163,7 +164,18 @@ public final class IndexFileWriter implements Closeable {
         return meta;
     }
 
-    /** Block of one term: df, then df doc-id gaps, then df freqs, then every document's position gaps. */
+    /** Every this many postings, the block stores where that posting's positions start (a "skip" entry). */
+    static final int SKIP_EVERY = 64;
+
+    /**
+     * Block of one term:
+     * <pre>
+     *   df | df doc-id gaps | df freqs | skip table | position gaps of every document
+     * </pre>
+     * The skip table lets a reader jump close to one document's positions instead of decoding the positions
+     * of all documents before it: entry k is the number of position bytes between posting (k−1)×64 and
+     * posting k×64. The positions are first written to a memory buffer so the skip table can go in front.
+     */
     private static void writeMainBlock(CountingStream out, PostingList list, long[] counts, long[] bytes)
             throws IOException {
         int df = list.size();
@@ -176,18 +188,27 @@ public final class IndexFileWriter implements Closeable {
         for (int i = 0; i < df; i++) {
             bytes[1] += VarInt.write(out, list.freq(i));
         }
-        int[] positions = list.allPositionsForWriting();
-        int p = 0;
+
+        ByteArrayOutputStream positionBytes = new ByteArrayOutputStream();
+        int positionCount = 0;
+        int blockStart = 0;   // size of positionBytes when the current block of 64 postings began
         for (int i = 0; i < df; i++) {
+            if (i > 0 && i % SKIP_EVERY == 0) {
+                bytes[2] += VarInt.write(out, positionBytes.size() - blockStart);   // one skip entry
+                blockStart = positionBytes.size();
+            }
             int previous = 0;
-            for (int j = 0; j < list.freq(i); j++) {
-                bytes[2] += VarInt.write(out, positions[p] - previous);   // the first gap is the position itself
-                previous = positions[p++];
+            for (int position : list.positions(i)) {
+                VarInt.write(positionBytes, position - previous);   // the first gap is the position itself
+                previous = position;
+                positionCount++;
             }
         }
+        positionBytes.writeTo(out);
+        bytes[2] += positionBytes.size();
         counts[0] += df;
         counts[1] += df;
-        counts[2] += positions.length;
+        counts[2] += positionCount;
     }
 
     /** Block of one term in the title or alias file: n, then n doc-id gaps, then n freqs. */
