@@ -1,0 +1,14 @@
+{
+  "count": 280748,
+  "dimensions": 384,
+  "dtype": "float32 little-endian, L2-normalised",
+  "model": "BAAI/bge-small-en-v1.5",
+  "revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+  "text": "title + '. ' + first 200 whitespace words; model cuts at 512 word pieces",
+  "words": 200,
+  "titles_sha256": "8ffe338bec74249da0ce1856e5403af549389a3cbc31b3a34e7fa9e6cb8ffc40",
+  "device": "mps",
+  "batch": 128,
+  "seconds": 132495.8,
+  "bytes": 431228928
+}
