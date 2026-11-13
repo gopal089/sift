@@ -1,0 +1,251 @@
+config	id	category	query	expected	rank	mode	matches	terms	top1	median_ms
+keyword	1	diagnostic	world war 2	World War II	1	AND	2261	world war 2	World War II	1.1704
+keyword	2	diagnostic	world war ii	World War II	1	AND	4951	world war ii	World War II	0.7104
+keyword	3	diagnostic	the who	The Who	1	AND	37705	the who	The Who	2.3593
+keyword	4	diagnostic	the history of india	History of India	1	AND	1490	histori india	History of India	0.1966
+keyword	5	diagnostic	photosynthesis	Photosynthesis	1	AND	163	photosynthesi	Photosynthesis	0.0139
+keyword	6	diagnostic	python programming	Python (programming language)	1	AND	77	python program	Python (programming language)	0.0498
+keyword	7	famous-single	einstein	Albert Einstein	1	AND	353	einstein	Albert Einstein	0.0144
+keyword	8	famous-single	volcano	Volcano	1	AND	725	volcano	Volcano	0.0208
+keyword	9	famous-single	shakespeare	William Shakespeare	1	AND	606	shakespear	William Shakespeare	0.0207
+keyword	10	famous-single	dinosaur	Dinosaur	1	AND	886	dinosaur	Dinosaur	0.0233
+keyword	11	famous-single	mozart	Wolfgang Amadeus Mozart	1	AND	351	mozart	Wolfgang Amadeus Mozart	0.0150
+keyword	12	famous-single	tokyo	Tokyo	1	AND	1869	tokyo	Tokyo	0.0439
+keyword	13	famous-single	gravity	Gravity	1	AND	577	graviti	Gravity	0.0174
+keyword	14	famous-single	chess	Chess	1	AND	755	chess	Chess	0.0208
+keyword	15	famous-single	electricity	Electricity	1	AND	3825	electr	Electricity	0.0733
+keyword	16	famous-single	tiger	Tiger	1	AND	1246	tiger	Tiger	0.0293
+keyword	17	famous-single	olympics	Olympic Games	1	AND	6987	olymp	Olympic Games	0.1201
+keyword	18	famous-single	bitcoin	Bitcoin	1	AND	45	bitcoin	Bitcoin	0.0069
+keyword	19	famous-single	napoleon	Napoleon	1	AND	825	napoleon	Napoleon	0.0228
+keyword	20	famous-single	evolution	Evolution	1	AND	1528	evolut	Evolution	0.0343
+keyword	21	famous-multi	solar system	Solar System	1	AND	642	solar system	Solar System	0.0716
+keyword	22	famous-multi	french revolution	French Revolution	1	AND	858	french revolut	French Revolution	0.0910
+keyword	23	famous-multi	united nations	United Nations	1	AND	8684	unit nation	United Nations	0.7090
+keyword	24	famous-multi	great wall of china	Great Wall of China	1	AND	141	great wall china	Great Wall of China	0.1032
+keyword	25	famous-multi	theory of relativity	Theory of relativity	1	AND	282	theori rel	Theory of relativity	0.0457
+keyword	26	famous-multi	black hole	Black hole	1	AND	386	black hole	Black hole	0.0600
+keyword	27	famous-multi	martin luther king	Martin Luther King Jr.	1	AND	287	martin luther king	Martin Luther King Jr.	0.0939
+keyword	28	famous-multi	human heart	Heart	1	AND	711	human heart	Heart	0.1146
+keyword	29	famous-multi	climate change	Climate change	1	AND	1161	climat chang	Climate change	0.1168
+keyword	30	famous-multi	statue of liberty	Statue of Liberty	1	AND	103	statu liberti	Statue of Liberty	0.0368
+keyword	31	obscure	axolotl	Axolotl	1	AND	16	axolotl	Axolotl	0.0073
+keyword	32	obscure	tardigrade	Tardigrade	1	AND	8	tardigrad	Tardigrade	0.0070
+keyword	33	obscure	bauhaus	Bauhaus	1	AND	44	bauhau	Bauhaus	0.0065
+keyword	34	obscure	haiku	Haiku	1	AND	39	haiku	Haiku	0.0071
+keyword	35	obscure	ada lovelace	Ada Lovelace	1	AND	13	ada lovelac	Ada Lovelace	0.0086
+keyword	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	AND	17	mount kilimanjaro	Mount Kilimanjaro	0.0219
+keyword	37	obscure	rosetta stone	Rosetta Stone	1	AND	27	rosetta stone	Rosetta Stone	0.0253
+keyword	38	obscure	fibonacci numbers	Fibonacci number	1	AND	24	fibonacci number	Fibonacci number	0.0740
+keyword	39	question	how do plants make food	Photosynthesis	15	AND	320	do plant make food	Food	0.2422
+keyword	40	question	who discovered penicillin	Alexander Fleming	2	AND	30	discov penicillin	Penicillin	0.0286
+keyword	41	question	what is the largest planet	Jupiter	12	AND	166	largest planet	Mercury (planet)	0.0615
+keyword	42	question	who invented the telephone	Alexander Graham Bell	2	AND	61	invent telephon	Wireless	0.0266
+keyword	43	question	what causes earthquakes	Earthquake	1	AND	402	caus earthquak	Earthquake	0.0753
+keyword	44	question	who was the first person on the moon	Neil Armstrong	7	AND	385	first person moon	Moon	0.3129
+keyword	45	question	when did the titanic sink	Titanic	1	AND	70	titan sink	Titanic	0.0146
+keyword	46	question	what is the capital of australia	Canberra	42	AND	422	capit australia	Australia	0.1129
+keyword	47	abbreviation	usa	United States	1702	AND	2372	usa	USA Today	0.0446
+keyword	48	abbreviation	dna	DNA	1	AND	847	dna	DNA	0.0196
+keyword	49	abbreviation	nasa	NASA	1	AND	851	nasa	NASA	0.0200
+keyword	50	abbreviation	ww1	World War I	16	AND	16	ww1	Siege of Tsingtao	0.0044
+semantic-f32	1	diagnostic	world war 2	World War II	1	SEMANTIC	100	world war 2	World War II	3.6538
+semantic-f32	2	diagnostic	world war ii	World War II	1	SEMANTIC	100	world war ii	World War II	3.4471
+semantic-f32	3	diagnostic	the who	The Who	1	SEMANTIC	100	the who	The Who	4.0636
+semantic-f32	4	diagnostic	the history of india	History of India	1	SEMANTIC	100	histori india	History of India	3.8926
+semantic-f32	5	diagnostic	photosynthesis	Photosynthesis	1	SEMANTIC	100	photosynthesi	Photosynthesis	3.6080
+semantic-f32	6	diagnostic	python programming	Python (programming language)	1	SEMANTIC	100	python program	Python (programming language)	3.6923
+semantic-f32	7	famous-single	einstein	Albert Einstein	1	SEMANTIC	100	einstein	Albert Einstein	3.6215
+semantic-f32	8	famous-single	volcano	Volcano	1	SEMANTIC	100	volcano	Volcano	3.8213
+semantic-f32	9	famous-single	shakespeare	William Shakespeare	1	SEMANTIC	100	shakespear	William Shakespeare	3.7471
+semantic-f32	10	famous-single	dinosaur	Dinosaur	1	SEMANTIC	100	dinosaur	Dinosaur	3.0444
+semantic-f32	11	famous-single	mozart	Wolfgang Amadeus Mozart	1	SEMANTIC	100	mozart	Wolfgang Amadeus Mozart	3.3997
+semantic-f32	12	famous-single	tokyo	Tokyo	1	SEMANTIC	100	tokyo	Tokyo	3.5772
+semantic-f32	13	famous-single	gravity	Gravity	1	SEMANTIC	100	graviti	Gravity	3.6014
+semantic-f32	14	famous-single	chess	Chess	1	SEMANTIC	100	chess	Chess	3.7599
+semantic-f32	15	famous-single	electricity	Electricity	1	SEMANTIC	100	electr	Electricity	3.5248
+semantic-f32	16	famous-single	tiger	Tiger	1	SEMANTIC	100	tiger	Tiger	3.9433
+semantic-f32	17	famous-single	olympics	Olympic Games	1	SEMANTIC	100	olymp	Olympic Games	3.7141
+semantic-f32	18	famous-single	bitcoin	Bitcoin	1	SEMANTIC	100	bitcoin	Bitcoin	3.9135
+semantic-f32	19	famous-single	napoleon	Napoleon	1	SEMANTIC	100	napoleon	Napoleon	3.8533
+semantic-f32	20	famous-single	evolution	Evolution	1	SEMANTIC	100	evolut	Evolution	3.6958
+semantic-f32	21	famous-multi	solar system	Solar System	1	SEMANTIC	100	solar system	Solar System	3.4686
+semantic-f32	22	famous-multi	french revolution	French Revolution	1	SEMANTIC	100	french revolut	French Revolution	3.7943
+semantic-f32	23	famous-multi	united nations	United Nations	1	SEMANTIC	100	unit nation	United Nations	3.8322
+semantic-f32	24	famous-multi	great wall of china	Great Wall of China	1	SEMANTIC	100	great wall china	Great Wall of China	4.0788
+semantic-f32	25	famous-multi	theory of relativity	Theory of relativity	1	SEMANTIC	100	theori rel	Theory of relativity	3.3187
+semantic-f32	26	famous-multi	black hole	Black hole	1	SEMANTIC	100	black hole	Black hole	3.3557
+semantic-f32	27	famous-multi	martin luther king	Martin Luther King Jr.	1	SEMANTIC	100	martin luther king	Martin Luther King Jr.	3.8068
+semantic-f32	28	famous-multi	human heart	Heart	1	SEMANTIC	100	human heart	Heart	3.4416
+semantic-f32	29	famous-multi	climate change	Climate change	1	SEMANTIC	100	climat chang	Climate change	3.4265
+semantic-f32	30	famous-multi	statue of liberty	Statue of Liberty	1	SEMANTIC	100	statu liberti	Statue of Liberty	3.6863
+semantic-f32	31	obscure	axolotl	Axolotl	1	SEMANTIC	100	axolotl	Axolotl	3.1843
+semantic-f32	32	obscure	tardigrade	Tardigrade	1	SEMANTIC	100	tardigrad	Tardigrade	3.3607
+semantic-f32	33	obscure	bauhaus	Bauhaus	1	SEMANTIC	100	bauhau	Bauhaus	3.9745
+semantic-f32	34	obscure	haiku	Haiku	1	SEMANTIC	100	haiku	Haiku	3.6123
+semantic-f32	35	obscure	ada lovelace	Ada Lovelace	1	SEMANTIC	100	ada lovelac	Ada Lovelace	4.1013
+semantic-f32	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	SEMANTIC	100	mount kilimanjaro	Mount Kilimanjaro	3.6319
+semantic-f32	37	obscure	rosetta stone	Rosetta Stone	1	SEMANTIC	100	rosetta stone	Rosetta Stone	3.8515
+semantic-f32	38	obscure	fibonacci numbers	Fibonacci number	1	SEMANTIC	100	fibonacci number	Fibonacci number	2.9888
+semantic-f32	39	question	how do plants make food	Photosynthesis	1	SEMANTIC	100	do plant make food	Photosynthesis	3.4360
+semantic-f32	40	question	who discovered penicillin	Alexander Fleming	1	SEMANTIC	100	discov penicillin	Alexander Fleming	3.4883
+semantic-f32	41	question	what is the largest planet	Jupiter	2	SEMANTIC	100	largest planet	Giant planet	3.6478
+semantic-f32	42	question	who invented the telephone	Alexander Graham Bell	2	SEMANTIC	100	invent telephon	Antonio Meucci	3.7786
+semantic-f32	43	question	what causes earthquakes	Earthquake	1	SEMANTIC	100	caus earthquak	Earthquake	3.3930
+semantic-f32	44	question	who was the first person on the moon	Neil Armstrong	1	SEMANTIC	100	first person moon	Neil Armstrong	4.1064
+semantic-f32	45	question	when did the titanic sink	Titanic	1	SEMANTIC	100	titan sink	Titanic	3.7967
+semantic-f32	46	question	what is the capital of australia	Canberra	3	SEMANTIC	100	capit australia	New South Wales	3.8705
+semantic-f32	47	abbreviation	usa	United States	2	SEMANTIC	100	usa	Americana	3.6328
+semantic-f32	48	abbreviation	dna	DNA	1	SEMANTIC	100	dna	DNA	3.2937
+semantic-f32	49	abbreviation	nasa	NASA	1	SEMANTIC	100	nasa	NASA	3.0093
+semantic-f32	50	abbreviation	ww1	World War I	1	SEMANTIC	100	ww1	World War I	3.7232
+hybrid-f32	1	diagnostic	world war 2	World War II	1	HYBRID	184	world war 2	World War II	4.3766
+hybrid-f32	2	diagnostic	world war ii	World War II	1	HYBRID	146	world war ii	World War II	4.0688
+hybrid-f32	3	diagnostic	the who	The Who	1	HYBRID	187	the who	The Who	5.9507
+hybrid-f32	4	diagnostic	the history of india	History of India	1	HYBRID	182	histori india	History of India	4.1131
+hybrid-f32	5	diagnostic	photosynthesis	Photosynthesis	1	HYBRID	153	photosynthesi	Photosynthesis	3.6974
+hybrid-f32	6	diagnostic	python programming	Python (programming language)	1	HYBRID	148	python program	Python (programming language)	3.6472
+hybrid-f32	7	famous-single	einstein	Albert Einstein	1	HYBRID	165	einstein	Albert Einstein	3.8348
+hybrid-f32	8	famous-single	volcano	Volcano	1	HYBRID	154	volcano	Volcano	3.7483
+hybrid-f32	9	famous-single	shakespeare	William Shakespeare	1	HYBRID	138	shakespear	William Shakespeare	3.8436
+hybrid-f32	10	famous-single	dinosaur	Dinosaur	1	HYBRID	182	dinosaur	Dinosaur	3.0900
+hybrid-f32	11	famous-single	mozart	Wolfgang Amadeus Mozart	1	HYBRID	141	mozart	Wolfgang Amadeus Mozart	3.6007
+hybrid-f32	12	famous-single	tokyo	Tokyo	1	HYBRID	159	tokyo	Tokyo	3.6148
+hybrid-f32	13	famous-single	gravity	Gravity	1	HYBRID	163	graviti	Gravity	3.7403
+hybrid-f32	14	famous-single	chess	Chess	1	HYBRID	142	chess	Chess	4.0180
+hybrid-f32	15	famous-single	electricity	Electricity	1	HYBRID	155	electr	Electricity	3.4728
+hybrid-f32	16	famous-single	tiger	Tiger	1	HYBRID	143	tiger	Tiger	4.0980
+hybrid-f32	17	famous-single	olympics	Olympic Games	1	HYBRID	153	olymp	Olympic Games	3.6585
+hybrid-f32	18	famous-single	bitcoin	Bitcoin	1	HYBRID	130	bitcoin	Bitcoin	4.0492
+hybrid-f32	19	famous-single	napoleon	Napoleon	1	HYBRID	159	napoleon	Napoleon	3.8426
+hybrid-f32	20	famous-single	evolution	Evolution	1	HYBRID	165	evolut	Evolution	3.6905
+hybrid-f32	21	famous-multi	solar system	Solar System	1	HYBRID	162	solar system	Solar System	3.7019
+hybrid-f32	22	famous-multi	french revolution	French Revolution	1	HYBRID	165	french revolut	French Revolution	3.9375
+hybrid-f32	23	famous-multi	united nations	United Nations	1	HYBRID	165	unit nation	United Nations	4.6144
+hybrid-f32	24	famous-multi	great wall of china	Great Wall of China	1	HYBRID	189	great wall china	Great Wall of China	4.0809
+hybrid-f32	25	famous-multi	theory of relativity	Theory of relativity	1	HYBRID	170	theori rel	Theory of relativity	3.6522
+hybrid-f32	26	famous-multi	black hole	Black hole	1	HYBRID	152	black hole	Black hole	3.5513
+hybrid-f32	27	famous-multi	martin luther king	Martin Luther King Jr.	1	HYBRID	168	martin luther king	Martin Luther King Jr.	4.2474
+hybrid-f32	28	famous-multi	human heart	Heart	1	HYBRID	183	human heart	Heart	4.1015
+hybrid-f32	29	famous-multi	climate change	Climate change	1	HYBRID	165	climat chang	Climate change	3.8571
+hybrid-f32	30	famous-multi	statue of liberty	Statue of Liberty	1	HYBRID	192	statu liberti	Statue of Liberty	4.2408
+hybrid-f32	31	obscure	axolotl	Axolotl	1	HYBRID	110	axolotl	Axolotl	3.4875
+hybrid-f32	32	obscure	tardigrade	Tardigrade	1	HYBRID	107	tardigrad	Tardigrade	3.7152
+hybrid-f32	33	obscure	bauhaus	Bauhaus	1	HYBRID	132	bauhau	Bauhaus	4.2772
+hybrid-f32	34	obscure	haiku	Haiku	1	HYBRID	127	haiku	Haiku	3.9329
+hybrid-f32	35	obscure	ada lovelace	Ada Lovelace	1	HYBRID	111	ada lovelac	Ada Lovelace	4.3998
+hybrid-f32	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	HYBRID	114	mount kilimanjaro	Mount Kilimanjaro	3.8904
+hybrid-f32	37	obscure	rosetta stone	Rosetta Stone	1	HYBRID	124	rosetta stone	Rosetta Stone	4.0639
+hybrid-f32	38	obscure	fibonacci numbers	Fibonacci number	1	HYBRID	116	fibonacci number	Fibonacci number	3.3957
+hybrid-f32	39	question	how do plants make food	Photosynthesis	2	HYBRID	185	do plant make food	Carnivorous plant	4.0488
+hybrid-f32	40	question	who discovered penicillin	Alexander Fleming	1	HYBRID	126	discov penicillin	Alexander Fleming	3.9890
+hybrid-f32	41	question	what is the largest planet	Jupiter	1	HYBRID	184	largest planet	Jupiter	3.7875
+hybrid-f32	42	question	who invented the telephone	Alexander Graham Bell	1	HYBRID	149	invent telephon	Alexander Graham Bell	3.9786
+hybrid-f32	43	question	what causes earthquakes	Earthquake	1	HYBRID	164	caus earthquak	Earthquake	3.8451
+hybrid-f32	44	question	who was the first person on the moon	Neil Armstrong	1	HYBRID	185	first person moon	Neil Armstrong	4.4794
+hybrid-f32	45	question	when did the titanic sink	Titanic	1	HYBRID	148	titan sink	Titanic	4.0305
+hybrid-f32	46	question	what is the capital of australia	Canberra	9	HYBRID	167	capit australia	Australia	4.2510
+hybrid-f32	47	abbreviation	usa	United States	5	HYBRID	196	usa	Usa, Ōita	3.9185
+hybrid-f32	48	abbreviation	dna	DNA	1	HYBRID	137	dna	DNA	3.6751
+hybrid-f32	49	abbreviation	nasa	NASA	1	HYBRID	172	nasa	NASA	3.4083
+hybrid-f32	50	abbreviation	ww1	World War I	1	HYBRID	114	ww1	World War I	3.7737
+semantic-i8	1	diagnostic	world war 2	World War II	1	SEMANTIC	100	world war 2	World War II	3.3910
+semantic-i8	2	diagnostic	world war ii	World War II	1	SEMANTIC	100	world war ii	World War II	3.4265
+semantic-i8	3	diagnostic	the who	The Who	1	SEMANTIC	100	the who	The Who	4.0034
+semantic-i8	4	diagnostic	the history of india	History of India	1	SEMANTIC	100	histori india	History of India	3.7622
+semantic-i8	5	diagnostic	photosynthesis	Photosynthesis	1	SEMANTIC	100	photosynthesi	Photosynthesis	3.4689
+semantic-i8	6	diagnostic	python programming	Python (programming language)	1	SEMANTIC	100	python program	Python (programming language)	3.6148
+semantic-i8	7	famous-single	einstein	Albert Einstein	1	SEMANTIC	100	einstein	Albert Einstein	3.5003
+semantic-i8	8	famous-single	volcano	Volcano	1	SEMANTIC	100	volcano	Volcano	3.4544
+semantic-i8	9	famous-single	shakespeare	William Shakespeare	1	SEMANTIC	100	shakespear	William Shakespeare	3.5727
+semantic-i8	10	famous-single	dinosaur	Dinosaur	1	SEMANTIC	100	dinosaur	Dinosaur	3.0588
+semantic-i8	11	famous-single	mozart	Wolfgang Amadeus Mozart	1	SEMANTIC	100	mozart	Wolfgang Amadeus Mozart	3.1755
+semantic-i8	12	famous-single	tokyo	Tokyo	1	SEMANTIC	100	tokyo	Tokyo	3.5269
+semantic-i8	13	famous-single	gravity	Gravity	1	SEMANTIC	100	graviti	Gravity	3.4058
+semantic-i8	14	famous-single	chess	Chess	1	SEMANTIC	100	chess	Chess	3.9395
+semantic-i8	15	famous-single	electricity	Electricity	1	SEMANTIC	100	electr	Electricity	3.1891
+semantic-i8	16	famous-single	tiger	Tiger	1	SEMANTIC	100	tiger	Tiger	3.7881
+semantic-i8	17	famous-single	olympics	Olympic Games	1	SEMANTIC	100	olymp	Olympic Games	3.3367
+semantic-i8	18	famous-single	bitcoin	Bitcoin	1	SEMANTIC	100	bitcoin	Bitcoin	3.8515
+semantic-i8	19	famous-single	napoleon	Napoleon	1	SEMANTIC	100	napoleon	Napoleon	3.6146
+semantic-i8	20	famous-single	evolution	Evolution	1	SEMANTIC	100	evolut	Evolution	3.4132
+semantic-i8	21	famous-multi	solar system	Solar System	1	SEMANTIC	100	solar system	Solar System	3.4776
+semantic-i8	22	famous-multi	french revolution	French Revolution	1	SEMANTIC	100	french revolut	French Revolution	3.5392
+semantic-i8	23	famous-multi	united nations	United Nations	1	SEMANTIC	100	unit nation	United Nations	3.7692
+semantic-i8	24	famous-multi	great wall of china	Great Wall of China	1	SEMANTIC	100	great wall china	Great Wall of China	3.7241
+semantic-i8	25	famous-multi	theory of relativity	Theory of relativity	1	SEMANTIC	100	theori rel	Theory of relativity	3.7267
+semantic-i8	26	famous-multi	black hole	Black hole	1	SEMANTIC	100	black hole	Black hole	3.3786
+semantic-i8	27	famous-multi	martin luther king	Martin Luther King Jr.	1	SEMANTIC	100	martin luther king	Martin Luther King Jr.	4.0576
+semantic-i8	28	famous-multi	human heart	Heart	1	SEMANTIC	100	human heart	Heart	3.7637
+semantic-i8	29	famous-multi	climate change	Climate change	1	SEMANTIC	100	climat chang	Climate change	3.4348
+semantic-i8	30	famous-multi	statue of liberty	Statue of Liberty	1	SEMANTIC	100	statu liberti	Statue of Liberty	3.9430
+semantic-i8	31	obscure	axolotl	Axolotl	1	SEMANTIC	100	axolotl	Axolotl	3.3720
+semantic-i8	32	obscure	tardigrade	Tardigrade	1	SEMANTIC	100	tardigrad	Tardigrade	3.6300
+semantic-i8	33	obscure	bauhaus	Bauhaus	1	SEMANTIC	100	bauhau	Bauhaus	3.9179
+semantic-i8	34	obscure	haiku	Haiku	1	SEMANTIC	100	haiku	Haiku	3.8186
+semantic-i8	35	obscure	ada lovelace	Ada Lovelace	1	SEMANTIC	100	ada lovelac	Ada Lovelace	4.1820
+semantic-i8	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	SEMANTIC	100	mount kilimanjaro	Mount Kilimanjaro	3.6465
+semantic-i8	37	obscure	rosetta stone	Rosetta Stone	1	SEMANTIC	100	rosetta stone	Rosetta Stone	3.9495
+semantic-i8	38	obscure	fibonacci numbers	Fibonacci number	1	SEMANTIC	100	fibonacci number	Fibonacci number	3.1228
+semantic-i8	39	question	how do plants make food	Photosynthesis	1	SEMANTIC	100	do plant make food	Photosynthesis	3.6598
+semantic-i8	40	question	who discovered penicillin	Alexander Fleming	1	SEMANTIC	100	discov penicillin	Alexander Fleming	3.6034
+semantic-i8	41	question	what is the largest planet	Jupiter	2	SEMANTIC	100	largest planet	Giant planet	3.6657
+semantic-i8	42	question	who invented the telephone	Alexander Graham Bell	2	SEMANTIC	100	invent telephon	Antonio Meucci	3.6553
+semantic-i8	43	question	what causes earthquakes	Earthquake	1	SEMANTIC	100	caus earthquak	Earthquake	3.7683
+semantic-i8	44	question	who was the first person on the moon	Neil Armstrong	1	SEMANTIC	100	first person moon	Neil Armstrong	3.9450
+semantic-i8	45	question	when did the titanic sink	Titanic	1	SEMANTIC	100	titan sink	Titanic	3.7206
+semantic-i8	46	question	what is the capital of australia	Canberra	3	SEMANTIC	100	capit australia	New South Wales	4.0277
+semantic-i8	47	abbreviation	usa	United States	2	SEMANTIC	100	usa	Americana	3.5801
+semantic-i8	48	abbreviation	dna	DNA	1	SEMANTIC	100	dna	DNA	3.3288
+semantic-i8	49	abbreviation	nasa	NASA	1	SEMANTIC	100	nasa	NASA	3.1408
+semantic-i8	50	abbreviation	ww1	World War I	1	SEMANTIC	100	ww1	World War I	3.6732
+hybrid-i8	1	diagnostic	world war 2	World War II	1	HYBRID	184	world war 2	World War II	4.2053
+hybrid-i8	2	diagnostic	world war ii	World War II	1	HYBRID	146	world war ii	World War II	4.3090
+hybrid-i8	3	diagnostic	the who	The Who	1	HYBRID	187	the who	The Who	5.9969
+hybrid-i8	4	diagnostic	the history of india	History of India	1	HYBRID	182	histori india	History of India	3.8099
+hybrid-i8	5	diagnostic	photosynthesis	Photosynthesis	1	HYBRID	154	photosynthesi	Photosynthesis	3.4803
+hybrid-i8	6	diagnostic	python programming	Python (programming language)	1	HYBRID	148	python program	Python (programming language)	3.3913
+hybrid-i8	7	famous-single	einstein	Albert Einstein	1	HYBRID	165	einstein	Albert Einstein	3.5444
+hybrid-i8	8	famous-single	volcano	Volcano	1	HYBRID	154	volcano	Volcano	3.6393
+hybrid-i8	9	famous-single	shakespeare	William Shakespeare	1	HYBRID	137	shakespear	William Shakespeare	3.6071
+hybrid-i8	10	famous-single	dinosaur	Dinosaur	1	HYBRID	182	dinosaur	Dinosaur	3.0710
+hybrid-i8	11	famous-single	mozart	Wolfgang Amadeus Mozart	1	HYBRID	141	mozart	Wolfgang Amadeus Mozart	3.2542
+hybrid-i8	12	famous-single	tokyo	Tokyo	1	HYBRID	159	tokyo	Tokyo	3.5130
+hybrid-i8	13	famous-single	gravity	Gravity	1	HYBRID	163	graviti	Gravity	3.4396
+hybrid-i8	14	famous-single	chess	Chess	1	HYBRID	142	chess	Chess	3.8286
+hybrid-i8	15	famous-single	electricity	Electricity	1	HYBRID	155	electr	Electricity	3.2755
+hybrid-i8	16	famous-single	tiger	Tiger	1	HYBRID	143	tiger	Tiger	3.9102
+hybrid-i8	17	famous-single	olympics	Olympic Games	1	HYBRID	153	olymp	Olympic Games	3.4676
+hybrid-i8	18	famous-single	bitcoin	Bitcoin	1	HYBRID	130	bitcoin	Bitcoin	4.0062
+hybrid-i8	19	famous-single	napoleon	Napoleon	1	HYBRID	158	napoleon	Napoleon	3.6847
+hybrid-i8	20	famous-single	evolution	Evolution	1	HYBRID	165	evolut	Evolution	3.4045
+hybrid-i8	21	famous-multi	solar system	Solar System	1	HYBRID	162	solar system	Solar System	3.5083
+hybrid-i8	22	famous-multi	french revolution	French Revolution	1	HYBRID	165	french revolut	French Revolution	3.7673
+hybrid-i8	23	famous-multi	united nations	United Nations	1	HYBRID	166	unit nation	United Nations	4.3403
+hybrid-i8	24	famous-multi	great wall of china	Great Wall of China	1	HYBRID	188	great wall china	Great Wall of China	3.9017
+hybrid-i8	25	famous-multi	theory of relativity	Theory of relativity	1	HYBRID	170	theori rel	Theory of relativity	3.8514
+hybrid-i8	26	famous-multi	black hole	Black hole	1	HYBRID	152	black hole	Black hole	3.4558
+hybrid-i8	27	famous-multi	martin luther king	Martin Luther King Jr.	1	HYBRID	168	martin luther king	Martin Luther King Jr.	4.1703
+hybrid-i8	28	famous-multi	human heart	Heart	1	HYBRID	183	human heart	Heart	3.8072
+hybrid-i8	29	famous-multi	climate change	Climate change	1	HYBRID	165	climat chang	Climate change	4.0005
+hybrid-i8	30	famous-multi	statue of liberty	Statue of Liberty	1	HYBRID	192	statu liberti	Statue of Liberty	4.4048
+hybrid-i8	31	obscure	axolotl	Axolotl	1	HYBRID	110	axolotl	Axolotl	3.8225
+hybrid-i8	32	obscure	tardigrade	Tardigrade	1	HYBRID	107	tardigrad	Tardigrade	3.9616
+hybrid-i8	33	obscure	bauhaus	Bauhaus	1	HYBRID	132	bauhau	Bauhaus	4.5502
+hybrid-i8	34	obscure	haiku	Haiku	1	HYBRID	127	haiku	Haiku	3.7398
+hybrid-i8	35	obscure	ada lovelace	Ada Lovelace	1	HYBRID	111	ada lovelac	Ada Lovelace	4.4678
+hybrid-i8	36	obscure	mount kilimanjaro	Mount Kilimanjaro	1	HYBRID	114	mount kilimanjaro	Mount Kilimanjaro	3.8910
+hybrid-i8	37	obscure	rosetta stone	Rosetta Stone	1	HYBRID	124	rosetta stone	Rosetta Stone	3.9925
+hybrid-i8	38	obscure	fibonacci numbers	Fibonacci number	1	HYBRID	116	fibonacci number	Fibonacci number	3.2829
+hybrid-i8	39	question	how do plants make food	Photosynthesis	2	HYBRID	184	do plant make food	Carnivorous plant	3.8249
+hybrid-i8	40	question	who discovered penicillin	Alexander Fleming	1	HYBRID	126	discov penicillin	Alexander Fleming	3.8901
+hybrid-i8	41	question	what is the largest planet	Jupiter	1	HYBRID	183	largest planet	Jupiter	3.6629
+hybrid-i8	42	question	who invented the telephone	Alexander Graham Bell	1	HYBRID	149	invent telephon	Alexander Graham Bell	3.9092
+hybrid-i8	43	question	what causes earthquakes	Earthquake	1	HYBRID	164	caus earthquak	Earthquake	4.1284
+hybrid-i8	44	question	who was the first person on the moon	Neil Armstrong	1	HYBRID	185	first person moon	Neil Armstrong	4.6482
+hybrid-i8	45	question	when did the titanic sink	Titanic	1	HYBRID	148	titan sink	Titanic	4.2136
+hybrid-i8	46	question	what is the capital of australia	Canberra	9	HYBRID	167	capit australia	Australia	4.3279
+hybrid-i8	47	abbreviation	usa	United States	5	HYBRID	196	usa	Usa, Ōita	4.3686
+hybrid-i8	48	abbreviation	dna	DNA	1	HYBRID	136	dna	DNA	3.7471
+hybrid-i8	49	abbreviation	nasa	NASA	1	HYBRID	172	nasa	NASA	3.3314
+hybrid-i8	50	abbreviation	ww1	World War I	1	HYBRID	114	ww1	World War I	3.7354
