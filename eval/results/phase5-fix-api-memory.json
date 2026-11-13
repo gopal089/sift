@@ -1,0 +1,44 @@
+{
+ "commit": "ba5d21b + default switched to bge-60",
+ "machine": "Apple M5, 10 cores, on battery (11%)",
+ "jvm": "Java 21, -Xmx512m (scripts/sift-api)",
+ "method": "python3 eval/measure_api.py JAVA_HOME int8 8093: server started fresh; /stats; jcmd GC.run then GC.heap_info for heap; ps RSS; then 200 queries (main 50 + 150 check queries) x 3 rounds x {smart, keyword}; tookMs = server-side time incl. snippets",
+ "int8": {
+  "vectorKind": "int8",
+  "startupSeconds": 2.332,
+  "vectorBytes": 108930224,
+  "smartRanking": "hybrid RRF k=60: keyword top 100 [BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped] + HNSW data/vectors-bge60 M=16 efC=200 efSearch=400, 1 vector per article (int8), top 100",
+  "afterStart": {
+   "rssMb": 784.4,
+   "heapUsedAfterGcMb": 254.9
+  },
+  "afterQueries": {
+   "rssMb": 1059.2,
+   "heapUsedAfterGcMb": 275.4
+  },
+  "queries": 200,
+  "rounds": 3,
+  "smart": {
+   "serverTookMs": {
+    "median": 5.31,
+    "p95": 11.85,
+    "max": 18.57
+   },
+   "httpWallMs": {
+    "median": 6.21,
+    "p95": 12.96
+   }
+  },
+  "keyword": {
+   "serverTookMs": {
+    "median": 0.57,
+    "p95": 5.47,
+    "max": 10.39
+   },
+   "httpWallMs": {
+    "median": 1.23,
+    "p95": 6.12
+   }
+  }
+ }
+}
