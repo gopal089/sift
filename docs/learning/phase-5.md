@@ -4,35 +4,48 @@
 Keyword search only finds articles that share words with the query. "how do plants make food" never says
 "photosynthesis", so keywords alone rank it low. Phase 5 adds **meaning search**:
 
-1. A small neural network (all-MiniLM-L6-v2) turns any text into a list of 384 numbers, an **embedding**.
-   Texts with similar meaning get similar lists.
-2. We embedded every article once (title + first 200 words) in Python and saved the 280,748 vectors.
+1. A small neural network turns any text into a list of 384 numbers, an **embedding**. Texts with similar
+   meaning get similar lists. The final model is **bge-small-en-v1.5** (the first version used all-MiniLM-L6-v2).
+2. We embedded every article once in Python (final recipe: **title + first 60 words**) and saved the
+   280,748 vectors.
 3. At query time Java embeds the query (our own WordPiece tokenizer + the model in ONNX Runtime + our own
-   pooling) and finds the most similar article vectors with our own **HNSW** graph.
+   pooling; bge also gets an instruction prefix in front of the query) and finds the most similar article
+   vectors with our own **HNSW** graph.
 4. **Smart mode** mixes the keyword list and the meaning list with **Reciprocal Rank Fusion** (RRF).
 
-## Status: built and measured, but NOT done
-Two checks fail, so I stopped for a decision (see PROGRESS.md "Next step"):
-- **Done when:** "how do plants make food" → Photosynthesis is **#4** in Smart mode (needs top 3).
-  Even the exact Python search ranks it #20 for meaning alone, so the cause is the model + the
-  "title + first 200 words" recipe, not my tokenizer, ONNX or HNSW.
-- **Held-out sanity:** Smart 0.748 vs keyword 0.763 on the old 20 (one query, "narwhal", went #1 → #2).
+## Status: done (2026-11-13)
+The first version (MiniLM, 200 words) failed two checks. I then ran **one** pre-registered experiment
+(see "Fixing semantic search" below). Its rule picked bge-small + 60 words + plain RRF:
+- **Done when:** "how do plants make food" → Photosynthesis is **#2** in Smart mode (was #4). ✅
+- Smart MRR on the main 50: **0.956** (keyword 0.868, first Smart version 0.868). ✅
+- Smart p95 over HTTP **13.0 ms** (limit 100 ms). All 261 Java and 21 website tests pass. ✅
+- The old held-out 20 are not re-run (explained below). The final unseen check is `queries-holdout-v2.json`,
+  run once in Phase 6.
 
 ## Results (all from real runs; raw files in `eval/results/`)
+Final settings (bge-small, title + 60 words):
 | What | Number |
 | --- | --- |
-| WordPiece ids, Java vs model tokenizer | 1,000 / 1,000 strings identical |
-| Query vector, Java vs Python | min cosine 1.0000000 on 200 queries |
-| Query embedding (Java, 1 thread) | median 0.97 ms, p95 1.22 ms |
-| Embedding all 280,748 articles (Mac GPU) | 641.5 s |
-| HNSW build (M 16, efConstruction 200, 1 thread) | 225 s; graph 39.2 MB |
-| recall@10 at efSearch 50 / 100 / 200 | 0.878 / 0.931 / 0.966 → **200** (rule: smallest ≥ 0.95) |
-| HNSW vs brute force time | 0.83 ms vs 26.0 ms median |
-| int8 | 103.9 MB vs 411.3 MB; recall vs float32 0.995 → **adopted** |
-| MRR main 50: keyword / semantic / hybrid | 0.868 / 0.649 / 0.868 → Smart = **hybrid** |
-| MRR per category, keyword → hybrid | questions 0.415 → 0.630, abbreviations 0.516 → 0.751, diagnostic 1.000 → 0.861, single 1.000 → 0.907, obscure 1.000 → 0.938 |
-| Smart query time in the server | median 3.3 ms, p95 10.0 ms |
-| Server RSS after 1,200 queries, int8 / float32 | 1,013 MB / 1,332 MB |
+| WordPiece ids, Java vs model tokenizer (bge) | 1,000 / 1,000 strings identical, no tokenizer change needed |
+| Query vector, Java vs Python (bge, with prefix) | min cosine 1.0000000 on 200 queries |
+| Query embedding (Java, 1 thread, 500 titles) | median 2.49 ms, p95 2.87 ms (MiniLM: 0.97 / 1.22 ms) |
+| Embedding all 280,748 articles (Mac GPU) | 1,000.6 s (shared the GPU with another embedding run) |
+| HNSW build (M 16, efConstruction 200, 1 thread) | 206.5 s; graph 39.2 MB in memory, 36.8 MB file |
+| recall@10 at efSearch 50 / 100 / 200 / 300 / 400 | 0.830 / 0.890 / 0.932 / 0.944 / 0.957 → **400** (rule: smallest ≥ 0.95) |
+| HNSW (efSearch 400) vs brute force time | 1.51 ms vs 24.8 ms median |
+| int8 | 103.9 MB vs 411.3 MB; brute-force recall vs float32 0.986 (≥ 0.97) → **kept** |
+| MRR main 50 through HNSW: keyword / semantic / hybrid | 0.868 / 0.957 / **0.956** (float32 and int8 identical) |
+| MRR per category, keyword → hybrid | questions 0.415 → 0.826, abbreviations 0.516 → 0.800, diagnostic, single, multi, obscure all stay 1.000 |
+| Smart query time over HTTP | server median 5.3 ms, p95 11.9 ms; HTTP p95 13.0 ms |
+| Server RSS after start / after 1,200 queries | 784 MB / 1,059 MB (heap after GC 275 MB) |
+
+First version (MiniLM, title + 200 words), kept for comparison:
+| What | Number |
+| --- | --- |
+| recall@10 at efSearch 50 / 100 / 200 | 0.878 / 0.931 / 0.966 → 200 |
+| MRR main 50: keyword / semantic / hybrid | 0.868 / 0.649 / 0.868 |
+| Photosynthesis for "how do plants make food" | keyword #15, semantic #20, hybrid #4 |
+| Smart query time in the server | median 3.3 ms, p95 10.0 ms; RSS after queries 1,013 MB |
 
 ## New files
 | File | What it is for |
@@ -54,6 +67,11 @@ Two checks fail, so I stopped for a decision (see PROGRESS.md "Next step"):
 | `engine/.../eval/EmbedCheckCli.java`, `VectorEvalCli.java`, `SmartEvalCli.java` | The three measurements: Java = Python, HNSW recall, MRR per mode. |
 | `scripts/sift-run` | Runs any engine tool on Java 21 and records commit + machine. |
 | `api/...` | `mode=smart` is real now; stats show model and vector time. |
+| `engine/.../vector/SemanticIndex.java` | "Top k articles by meaning": one interface for exact and HNSW search. |
+| `engine/.../vector/ExactIndex.java` | Exact search over one or two vectors per article (score = max). |
+| `engine/.../vector/StackedVectors.java`, `HnswIndex.java` | Two vector sets seen as one, so one HNSW graph can hold both; maps nodes back to articles. |
+| `engine/.../eval/FixExperimentCli.java` | The pre-registered experiment: 5 variants × 2 fusions, selection rule in code (and tested). |
+| `eval/measure_api.py` | Starts the server, sends 1,200 queries over HTTP, reports p50/p95 and memory. |
 
 ## The key ideas, each with a small worked example
 
@@ -185,6 +203,29 @@ can fail measures noise, not quality. The fix is to judge on more queries and to
 difference counts. Here the selection uses the main 50 with a 0.01 tie margin. The final verdict comes once,
 in Phase 6, on the untouched 30 queries in `queries-holdout-v2.json`. The old 20 are never re-run, because
 after looking at them they are no longer "unseen".
+
+### What the experiment found (`eval/results/fix-variants.txt`)
+Exact search over int8 vectors, main 50, overall MRR (the rule uses the hybrid columns only):
+| Variant | semantic only | hybrid, plain RRF | hybrid, keyword weight 2 | Photosynthesis (plain RRF) |
+| --- | --- | --- | --- | --- |
+| A. MiniLM, 200 words | 0.665 | 0.868 | 0.871 | #4 |
+| B. MiniLM, 60 words | 0.885 | 0.928 | 0.919 | #2 |
+| C. MiniLM, 60 + 200, max | 0.894 | 0.932 | 0.922 | #2 |
+| **D. bge, 60 words, prefix** | 0.957 | **0.956** | 0.934 | **#2** |
+| E. bge, 60 + 200, max, prefix | 0.955 | 0.944 | 0.925 | #3 |
+
+Rule 1: the best is D with plain RRF (0.956). Rule 2: nothing else is within 0.01 (E is 0.944, needs
+≥ 0.946), so there was no tie to break. Keyword search alone: 0.868.
+
+What I learned from the table:
+- **Dilution was real.** Same model, fewer words: 0.665 → 0.885 for meaning alone (A → B).
+- **The retrieval model helped most.** bge 60 words beat MiniLM 60 words: 0.885 → 0.957 (B → D).
+- **Two vectors helped only a little, then hurt.** MiniLM gained 0.004 (B → C); bge lost 0.012 (D → E).
+  The long vector adds the drifting text back in.
+- **Keyword weight 2 hurt with good vectors** (D 0.956 → 0.934). Once the meaning list is good, giving
+  keywords the louder vote mainly hurts question queries (0.826 → 0.709).
+- With D, the categories keyword search already got right (diagnostic, single, multi, obscure) all stay
+  1.000. The first Smart version made them worse.
 
 ## Complexity
 | Operation | Time | Space |

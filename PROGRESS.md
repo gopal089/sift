@@ -13,7 +13,7 @@
 | 2 — Persist the index + API | ✅ Done (2026-11-11) |
 | 3 — Website | ✅ Done (2026-11-11) |
 | 4 — PageRank, autocomplete, spelling | ✅ Done (2026-11-11) |
-| 5 — Smart (meaning) search | ⚠️ Built and measured (2026-11-12); **2 checks fail**, waiting for your decision |
+| 5 — Smart (meaning) search | ✅ Done (2026-11-13), after one pre-registered fix experiment |
 | 6 — Prove quality and speed | Not started |
 | 7 — Ship it | Not started |
 
@@ -179,13 +179,34 @@ Explanation: `docs/learning/phase-4.md`. Screenshots: `docs/screenshots/phase4-*
 
 **"Done when": ✅** "pyt" shows suggestions, "pyhton" suggests "python", typo accuracy reported, all queries under 100 ms.
 
-## Phase 5 — Smart (meaning) search (built; not done: 2 checks fail)
+## Phase 5 — Smart (meaning) search (done 2026-11-13)
 
 Plan + self-review: `docs/learning/phase-5-plan.md`. Explanation: `docs/learning/phase-5.md`.
 Fresh held-out set for Phase 6: `eval/queries-holdout-v2.json` (30 queries, frozen first, **never run**).
 
-**Smart mode now:** hybrid RRF (k = 60) of keyword top 100 + HNSW top 100 (M 16, efConstruction 200,
-efSearch 200) over **int8** vectors of all-MiniLM-L6-v2 ("title + first 200 words"). Keyword mode unchanged.
+**Smart mode (locked):** hybrid, plain RRF (k = 60), of keyword top 100 + HNSW top 100 (M 16,
+efConstruction 200, **efSearch 400**) over **int8** vectors of **BAAI/bge-small-en-v1.5**, "title + first 60
+words", with bge's query instruction prefix. Keyword mode unchanged. Chosen by the pre-registered experiment below.
+
+| Final measure (Java 21, Apple M5) | Value | Raw file |
+| --- | --- | --- |
+| Experiment winner (rule applied in code) | D, plain RRF: hybrid MRR **0.956** (next best E 0.944, outside the 0.01 tie) | `eval/results/fix-variants.txt` |
+| bge tokenizer check / Java vs Python | 1,000 / 1,000 ids identical; min cosine 1.0000000 | `engine/src/test/resources/wordpiece/cases-bge.jsonl`, `eval/results/embed-check-bge.txt` |
+| Embedding all articles (bge, 60 words) | 1,000.6 s on the Mac GPU (shared with the MiniLM-60 run); 411.3 MB | `eval/results/embedding-run-bge60.json` |
+| HNSW build | 206.5 s; graph 39.2 MB heap, 36.8 MB file | `eval/results/hnsw-build-bge60.txt` |
+| recall@10, efSearch 50/100/200/300/400 | 0.830 / 0.890 / 0.932 / 0.944 / **0.957** → efSearch = **400** (1.51 ms median) | `eval/results/vector-recall-bge60.txt` |
+| int8 | brute-force recall vs float32 **0.986** (≥ 0.97 ✅); HNSW int8 at 400: 0.948; MRR unchanged | same + `smart-main-bge60.txt` |
+| MRR main 50 through HNSW: keyword / semantic / hybrid | 0.868 / 0.957 / **0.956** | `eval/results/smart-main-bge60.txt` |
+| "how do plants make food" → Photosynthesis | **#2** in Smart ✅ (first version #4) | same |
+| Query embedding (bge, Java) | median 2.49 ms, p95 2.87 ms | `eval/results/vector-recall-bge60.txt` |
+| Smart over HTTP (1,200 queries) | server median 5.3 ms, p95 11.9 ms; **HTTP p95 13.0 ms** ✅ | `eval/results/phase5-fix-api-memory.json` |
+| Server memory | RSS 784 MB at start, 1,059 MB after queries; heap after GC 275 MB | same |
+| Tests | 282 (240 engine, 21 API, 21 Vitest), all pass | |
+
+**"Done when": ✅** Photosynthesis #2 in Smart mode, the HNSW vs brute-force table is saved, all tests pass,
+Smart p95 13 ms.
+
+### First version (MiniLM, title + 200 words), kept for the record
 
 | Measure (Java 21, Apple M5) | Value | Raw file |
 | --- | --- | --- |
@@ -203,10 +224,9 @@ efSearch 200) over **int8** vectors of all-MiniLM-L6-v2 ("title + first 200 word
 | Server memory, int8 / float32 | RSS 716 / 742 MB at start, 1,013 / 1,332 MB after 1,200 queries; heap after GC 275 / 274 MB | same |
 | Tests | 265 (223 engine, 21 API, 21 Vitest) | |
 
-**"Done when": ❌ not yet.** p95 < 100 ms ✅ and all tests pass ✅, but "how do plants make food" puts
-Photosynthesis at **#4** in Smart mode (needs top 3). Root cause: the *exact* semantic rank is #20 even
-in Python brute force (cosine 0.471; "Eating" 0.583, "Plant" 0.580 are above it), so it is the model + the
-"title + first 200 words" recipe, not the tokenizer, ONNX or HNSW. Fixing it needs a plan change (see Next step).
+The first version failed: Photosynthesis was **#4** in Smart mode (needs top 3). The *exact* semantic rank was #20
+even in Python brute force (cosine 0.471; "Eating" 0.583, "Plant" 0.580 above it), so the cause was the model +
+the "title + first 200 words" recipe, not the tokenizer, ONNX or HNSW. That led to the experiment below.
 
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
@@ -222,12 +242,21 @@ in Python brute force (cosine 0.471; "Eating" 0.583, "Plant" 0.580 are above it)
 - **Ranking weak spots left** (after PageRank): questions whose answer is not named in the query (held-out MRR
   0.060 keyword, 0.112 Smart); redirect-only abbreviations ("usa" #1,702 keyword, #172 Smart; "uk" #54 / #107)
   → alias field retry in Phase 6.
-- **Smart vs keyword is a near tie.** Main 50: hybrid int8 0.86828 vs keyword 0.86760 (hybrid float32 would be
-  0.85828, *below* keyword). Hybrid wins questions (0.630 vs 0.415) and abbreviations (0.751 vs 0.516) but loses
-  exact-title queries ("the who" #1 → #6, "dinosaur" #1 → #5). Held-out 20: 0.748 vs 0.763, the loss is one
-  query ("narwhal" #1 → #2). Note the keyword ranking was tuned on the main 50; hybrid was not tuned at all.
-- **HNSW recall is lower than typical published numbers** (0.878 at efSearch 50). Queries are short titles,
-  documents are 200-word passages (different "shape"), which is harder for HNSW. The rule picked efSearch 200.
+- ~~Smart vs keyword is a near tie~~ **Resolved 2026-11-13** by the fix experiment: Smart 0.956 vs keyword 0.868
+  on the main 50, and Smart no longer loses any exact-title category. The variant was *selected* on these 50
+  queries (10 configs compared), so 0.956 is optimistic. The honest unseen number comes from
+  `queries-holdout-v2.json` in Phase 6.
+- **Still weak in Smart:** "usa" #5 (keyword #1,702) and "what is the capital of australia" (Canberra) #9.
+- **HNSW recall is lower than typical published numbers** (bge-60: 0.830 at efSearch 50). Queries are short titles,
+  documents are passages (different "shape"), which is harder for HNSW. The rule picked efSearch 400
+  (1.5 ms per search, still tiny next to the 2.5 ms query embedding).
+- **int8 + HNSW recall is 0.948 at efSearch 400** (float32 0.957). The efSearch rule is applied to float32, as
+  pre-registered. MRR is identical for int8 and float32 (0.956), so int8 stays for the memory saving.
+- **The bge 200-word embedding (variant E) took 36.8 h wall-clock** because the Mac slept with the lid closed
+  during the run. It is not a speed measurement and is not quoted as one. The vectors are fine (count and title
+  hash match).
+- The old MiniLM files (`data/model`, `data/vectors`, `data/vectors-minilm60`, `data/vectors-bge200`) are no
+  longer used by the server. They stay in `data/` (git-ignored) only for re-running `fix-variants`.
 - **int8 is not faster in Java** (brute force 30.6 vs 26.0 ms): reading bytes one by one from a ByteBuffer costs
   more than it saves. It still saves 307 MB of memory, which matters for hosting.
 - **Spelling misses** (3 of 15): misspellings that occur in 5+ articles count as known words ("goverment",
@@ -299,13 +328,6 @@ int8 recall vs float32 ≥ 0.97, Smart p95 over HTTP and server memory, make it 
 (keyword mode unchanged). Done when: winner locked, all tests pass, Smart p95 < 100 ms. If Photosynthesis is
 still not top 3, it is documented as a known limitation, with no further tuning.
 
-## Next step (before the experiment above was decided)
-Phase 5 needs **your decision** on the two failed checks (the photosynthesis "Done when" and the held-out sanity
-rule). Options, none started:
-1. **Embed a shorter text** (title + first sentence or ~60 words), or **two vectors per article** (opening + rest,
-   score = max). Plan change to the CLAUDE.md recipe; 11 min to re-embed + 4 min HNSW rebuild. Must be judged on
-   the main 50 *and* the photosynthesis query, with the rule written before measuring.
-2. **A stronger embedding model** (same size class, e.g. a newer 384-dim model). Plan change; the tokenizer test
-   and export would be redone.
-3. **Accept the measured result** and document the limit: Smart = hybrid is shipped, the photosynthesis check is
-   recorded as failing (#4), and the held-out loss (one rank) is noted.
+## Next step
+Phase 5 is done and locked. **Phase 6 (prove quality and speed) waits for your go.** It starts with the one-time run
+of `eval/queries-holdout-v2.json`, then the alias retry, the Caffeine cache and the k6 load test.
