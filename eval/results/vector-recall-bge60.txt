@@ -1,0 +1,26 @@
+# Vector search: HNSW vs exact, int8 vs float32
+# commit 0256732-dirty | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+# 500 random article titles (seed 42) as queries; recall@10 vs exact float32 brute force; times = one search per query after a warm-up, single thread
+# vectors: data/vectors-bge60 (1 per article); graph data/vectors-bge60/hnsw.bin: M = 16, efConstruction = 200, 280,748 nodes
+
+method                              recall@10  median ms     p95 ms
+brute force float32 (exact)             1.000     24.831     25.237
+brute force int8                        0.986     30.326     30.674
+HNSW float32 efSearch=50                0.830      0.256      0.364
+HNSW float32 efSearch=100               0.890      0.453      0.579
+HNSW float32 efSearch=200               0.932      0.811      1.021
+HNSW float32 efSearch=300               0.944      1.160      1.433
+HNSW float32 efSearch=400               0.957      1.512      1.849
+HNSW float32 efSearch=600               0.970      2.129      2.663
+HNSW float32 efSearch=800               0.976      2.750      3.516
+HNSW int8 efSearch=50                   0.837      0.260      0.377
+HNSW int8 efSearch=100                  0.888      0.434      0.544
+HNSW int8 efSearch=200                  0.924      0.768      0.945
+HNSW int8 efSearch=300                  0.936      1.096      1.340
+HNSW int8 efSearch=400                  0.948      1.410      1.728
+HNSW int8 efSearch=600                  0.960      1.994      2.473
+HNSW int8 efSearch=800                  0.966      2.528      3.172
+
+efSearch rule (smallest with recall@10 >= 0.95): efSearch = 400 (recall 0.957)
+int8 rule part (a), quantisation alone: brute-force int8 vs float32 recall@10 = 0.986 -> PASS (needs >= 0.97; part (b), the MRR check, is in the Smart eval)
+Query embedding of the 500 titles: median 2.49 ms, p95 2.87 ms

@@ -79,7 +79,7 @@ public final class SmartEvalCli {
                 }
                 SmartSearcher.Mode m = parts[0].equals("semantic") ? SmartSearcher.Mode.SEMANTIC : SmartSearcher.Mode.HYBRID;
                 configs.add(new Config(mode, new SmartSearcher(keyword, embedder,
-                        new HnswIndex("MiniLM-200", int8 ? graphI8 : graphF32, ef, index.docs().size()), index.docs(), m, 1)));
+                        new HnswIndex(vectorDir.getFileName().toString(), int8 ? graphI8 : graphF32, ef, index.docs().size()), index.docs(), m, 1)));
             }
 
             List<List<Evaluator.Outcome>> outcomes = new ArrayList<>();

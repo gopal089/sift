@@ -40,7 +40,7 @@ public final class VectorEvalCli {
     static final int QUERIES = 500;
     static final long SEED = 42;
     static final int K = 10;
-    static final int[] EF_SEARCH = {50, 100, 200};
+    static final int[] EF_SEARCH = {50, 100, 200, 300, 400, 600, 800};
     static final double MIN_RECALL = 0.95;        // rule for choosing efSearch
     static final double MIN_INT8_RECALL = 0.97;   // rule (a) for adopting int8
 

@@ -1,0 +1,10 @@
+# HNSW build over data/vectors-bge60
+# commit 0256732 | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+Vectors: 280,748 × 384 float32 = 411.3 MB
+Settings: M = 16 (layer 0: 32), efConstruction = 200, seed = 42, single thread, insert order = doc id
+Build time: 206.5 s (1359 inserts/s)
+Layers (nodes at each level or above): 0: 280,748, 1: 17,561, 2: 1,039, 3: 63, 4: 6
+Average links per node on layer 0: 22.90
+Graph in memory: 39.2 MB (arrays); heap after GC grew by 43.8 MB during the build
+Graph file data/vectors-bge60/hnsw.bin: 36.8 MB
+int8 vectors data/vectors-bge60/vectors-i8.bin: 103.9 MB (float32: 411.3 MB), quantised in 0.4 s
