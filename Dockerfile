@@ -5,8 +5,11 @@
 # Run:
 #   docker run -p 8080:8080 sift        then open http://localhost:8080
 
+# Stages 1 and 2 run on the build machine's own CPU type ($BUILDPLATFORM): the website and the jar are the same
+# for every platform (the ONNX Runtime jar carries native code for x86 and ARM), so only stage 3 is per platform.
+
 # ---- stage 1: build the website (React + Vite) into web/dist
-FROM node:24-bookworm-slim AS web
+FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS web
 WORKDIR /src/web
 COPY web/package.json web/package-lock.json ./
 RUN npm ci
@@ -14,7 +17,7 @@ COPY web/ ./
 RUN npm run build
 
 # ---- stage 2: build one runnable jar with the website inside (Spring Boot plugin: bootJar)
-FROM eclipse-temurin:21-jdk-noble AS jar
+FROM --platform=$BUILDPLATFORM eclipse-temurin:21-jdk-noble AS jar
 WORKDIR /src
 COPY gradlew settings.gradle.kts build.gradle.kts ./
 COPY gradle/wrapper/ gradle/wrapper/

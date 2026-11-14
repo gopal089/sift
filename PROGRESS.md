@@ -15,7 +15,7 @@
 | 4 — PageRank, autocomplete, spelling | ✅ Done (2026-11-11) |
 | 5 — Smart (meaning) search | ✅ Done (2026-11-13), after one pre-registered fix experiment |
 | 6 — Prove quality and speed | ✅ Done (2026-11-14) |
-| 7 — Ship it | Not started |
+| 7 — Ship it | 🟡 Local parts done (2026-11-14); deployment waits for your OK on the cost |
 
 ## Phase 0 — Setup (done)
 
@@ -247,6 +247,23 @@ Not tuned after the held-out run. Weak spots on held-out v2 (Smart): "what is th
 "who invented the light bulb" (Thomas Edison #3), "what is the capital of brazil" (Brasília #3), "fbi" (#3), "newton" (#2,
 keyword #1). Questions are still the weakest category (Smart 0.561, keyword 0.236).
 
+## Phase 7 — Ship it: local parts (done 2026-11-14; not deployed)
+
+| Step | Result | Where |
+| --- | --- | --- |
+| Packaging | Spring Boot Gradle plugin → one runnable jar (73 MB) that serves the website (`/`) and the API (`/search` and `/api/search`) | `api/build.gradle.kts`, `WebConfig.java` |
+| Docker | 3-stage Dockerfile (Node → JDK → JRE), data baked in, non-root; built in 98 s | `Dockerfile`, `.dockerignore` |
+| Image size | 553 MB compressed, 1.1 GB unpacked (index 433, vectors + graph 148, model 133, jar 73 MB) | `eval/results/phase7-docker.json` |
+| Container | starts in 2.3 s; 795 MiB at start, 900 MiB after 1,200 queries; fits a **1 GiB** limit under 10-user load (836 MiB, no OOM) | same |
+| amd64 image (for the cloud) | builds in 36 s with `docker buildx --platform linux/amd64`; runs and answers correctly under emulation | same |
+| Data | baked into the image (chosen over cloud-storage download and CI builds); `scripts/sift-data` builds it all in one command | `DESIGN.md` §11 |
+| CI | GitHub Actions: Java build + 263 tests (`-Pci`), website type check + 21 tests + build. `RealDataSmokeTest` is tagged `needs-data` and left out in CI | `.github/workflows/ci.yml` |
+| Docs | README (results, Mermaid architecture, what I built, 3-command setup, CC BY-SA credit), DESIGN.md (13 decisions with numbers) | `README.md`, `DESIGN.md` |
+| Deployment plan | **Cloud Run, 1 vCPU, 2 GiB, min 1 / max 2: about $15–20/month** (Render's only plan that fits: $25/month) | `docs/deployment-plan.md` |
+
+Not done yet: the actual deployment (needs your Google Cloud account, billing and OK), the live link, the demo GIF,
+fresh screenshots of Smart mode, and the "works on my phone on mobile data" check.
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -350,5 +367,7 @@ int8 recall vs float32 ≥ 0.97, Smart p95 over HTTP and server memory, make it 
 still not top 3, it is documented as a known limitation, with no further tuning.
 
 ## Next step
-Phase 6 is done. Phase 7 local parts (packaging, Docker, CI, README, DESIGN.md, deployment plan) come next;
-deployment itself waits for your OK on the cost.
+Phase 6 is done; Phase 7's local parts are done. **Deployment waits for you:** create the Google Cloud project, turn
+on billing with a budget alert, install gcloud, and give the OK on about $15–20 per month
+(steps in `docs/deployment-plan.md`). Then: deploy, measure memory and latency on the server, add the live link, GIF
+and screenshots to the README, and check it on a phone over mobile data.
