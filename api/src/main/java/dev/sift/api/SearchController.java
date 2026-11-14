@@ -94,7 +94,9 @@ public class SearchController {
         long start = System.nanoTime();
         queriesServed.incrementAndGet();
         String key = mode + '\u0000' + page + '\u0000' + query;
-        SearchResponse cached = cache.getIfPresent(key);
+        // size 0 = off: skip the cache completely (Caffeine evicts in the background, so even a 0-size cache
+        // can briefly hold an entry)
+        SearchResponse cached = cacheSize > 0 ? cache.getIfPresent(key) : null;
         if (cached != null) {
             QueryStats s = cached.stats();
             QueryStats hitStats = new QueryStats((System.nanoTime() - start) / 1e6, s.documentsSearched(),
@@ -104,7 +106,9 @@ public class SearchController {
                     cached.results(), hitStats);
         }
         SearchResponse fresh = compute(query, mode, page, start);
-        cache.put(key, fresh);
+        if (cacheSize > 0) {
+            cache.put(key, fresh);
+        }
         return fresh;
     }
 
