@@ -24,7 +24,16 @@ subprojects {
     }
 
     tasks.withType<Test>().configureEach {
-        useJUnitPlatform()
+        // Tests tagged "needs-data" read the real index, vectors and model from data/ (built locally, never in
+        // git). CI runs `./gradlew test -Pci`, which leaves them out.
+        val ci = providers.gradleProperty("ci").isPresent
+        useJUnitPlatform {
+            if (ci) {
+                excludeTags("needs-data")
+            }
+        }
+        systemProperty("sift.dataDir", rootProject.file("data").absolutePath)
+        maxHeapSize = "1g"
         testLogging {
             events("passed", "skipped", "failed")
         }

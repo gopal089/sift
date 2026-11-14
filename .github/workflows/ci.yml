@@ -1,0 +1,48 @@
+# Build and test on every push and pull request.
+# The real data (index, vectors, model) is not in git, so tests tagged "needs-data" are left out (-Pci),
+# and the Docker image (which bakes the data in) is built locally, not here. See DESIGN.md.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  java:
+    name: Java build + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@v6      # caches Gradle downloads between runs
+      - name: Build and run all tests that need no local data
+        run: ./gradlew --no-daemon build -Pci
+      - name: Keep the test reports if something failed
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: "*/build/reports/tests/"
+
+  web:
+    name: Website type check + tests + build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm test          # Vitest
+      - run: npm run build     # tsc --noEmit (type check) + vite build
