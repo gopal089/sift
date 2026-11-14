@@ -1,0 +1,33 @@
+{
+ "date": "2026-11-14",
+ "machine": "Apple M5, 10 cores; Docker Desktop 29.9.2, Linux VM linux/arm64 with 7.7 GB",
+ "image": "sift:local (Dockerfile, 3 stages: node:24-bookworm-slim -> eclipse-temurin:21-jdk-noble -> eclipse-temurin:21-jre-noble)",
+ "buildSeconds": 98,
+ "imageSize": {
+  "layersUnpackedMb": 1115,
+  "compressedMb": 553,
+  "dockerImagesReportsGb": 1.67,
+  "note": "compressed = gzip -1 of docker save (about what a registry stores and a server downloads); Docker Desktop's 1.67 GB counts packed + unpacked copies",
+  "largestLayersMb": {"data/index": 433, "data/vectors-bge60 (int8 + graph)": 148, "data/model-bge": 133, "app.jar": 73.2}
+ },
+ "startup": {"dockerRunToHealthOkSeconds": 2.32, "springStartupSeconds": 1.968},
+ "smokeTest": {
+  "keyword 'world war 2'": ["World War II", "World War I", "Guild Wars 2"],
+  "smart 'how do plants make food'": ["Carnivorous plant", "Photosynthesis", "Algae"],
+  "didYouMean 'pyhton'": "python",
+  "website": "GET / returns index.html; assets cached 1 year (immutable)"
+ },
+ "noMemoryLimit_measure_container_py": {
+  "method": "python3 eval/measure_container.py http://localhost:8097 sift-test: 600 loadtest queries per mode, cache on (2.5% hits)",
+  "memAtStart": "795.5MiB",
+  "memAfter1200Queries": "899.8MiB",
+  "keyword": {"serverTookMs": {"median": 0.75, "p95": 11.87}, "httpWallMs": {"median": 1.97, "p95": 13.65}},
+  "smart": {"serverTookMs": {"median": 9.74, "p95": 22.7}, "httpWallMs": {"median": 11.05, "p95": 24.04}}
+ },
+ "memoryLimit1GiB_k6_10VUs_30s_cacheOff": {
+  "keyword": {"requestsPerSecond": 1900.9, "p50Ms": 2.29, "p95Ms": 18.16, "p99Ms": 24.95, "errors": 0, "containerMem": "827.6MiB / 1GiB"},
+  "smart": {"requestsPerSecond": 440.9, "p50Ms": 20.31, "p95Ms": 36.75, "p99Ms": 44.05, "errors": 0, "containerMem": "836.4MiB / 1GiB"},
+  "oomKilled": false,
+  "raw": "loadtest/results/docker-1g-*.json"
+ }
+}

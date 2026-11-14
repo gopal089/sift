@@ -1,0 +1,32 @@
+# Allowlist: send Docker only what the image needs. Everything else (the 300 MB dump, float32 vectors,
+# experiment vectors, node_modules, build output) stays out of the build context.
+*
+
+# sources to build the jar and the website
+!gradlew
+!gradle/wrapper/
+!settings.gradle.kts
+!build.gradle.kts
+!engine/build.gradle.kts
+!engine/src/main/
+!api/build.gradle.kts
+!api/src/main/
+!web/package.json
+!web/package-lock.json
+!web/index.html
+!web/tsconfig.json
+!web/vite.config.ts
+!web/src/
+
+# the data the server reads (built locally, never in git): index, int8 vectors + graph, bge model
+!data/index/
+!data/vectors-bge60/vectors-i8.bin
+!data/vectors-bge60/vectors-meta.json
+!data/vectors-bge60/hnsw.bin
+!data/model-bge/model.onnx
+!data/model-bge/model-config.json
+!data/model-bge/vocab.txt
+
+# never: tests are run by CI, not inside the image
+web/src/**/*.test.ts
+web/src/**/*.test.tsx

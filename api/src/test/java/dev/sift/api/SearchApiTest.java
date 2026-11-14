@@ -389,6 +389,17 @@ class SearchApiTest {
     }
 
     @Test
+    void everyEndpointAlsoAnswersUnderApiForTheWebsite() throws Exception {
+        mvc.perform(get("/api/search").param("q", "photosynthesis"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"));
+        mvc.perform(get("/api/suggest").param("prefix", "pho")).andExpect(status().isOk());
+        mvc.perform(get("/api/health")).andExpect(jsonPath("$.status").value("ok"));
+        mvc.perform(get("/api/nope")).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error.code").value("NOT_FOUND"));
+    }
+
+    @Test
     void healthIsOk() throws Exception {
         mvc.perform(get("/health"))
                 .andExpect(status().isOk())

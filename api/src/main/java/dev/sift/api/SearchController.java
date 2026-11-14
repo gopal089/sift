@@ -27,12 +27,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriUtils;
 
-/** The four HTTP endpoints. Each method checks its input, calls the engine and returns a record as JSON. */
+/**
+ * The four HTTP endpoints. Each method checks its input, calls the engine and returns a record as JSON.
+ * Every endpoint answers at two addresses: {@code /search} (short, for curl and health checks) and
+ * {@code /api/search} (what the website calls, so in one container the site and the API share one address).
+ */
 @RestController
+@RequestMapping({"", "/api"})
 public class SearchController {
 
     static final int PAGE_SIZE = 10;
