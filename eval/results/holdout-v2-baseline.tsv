@@ -1,0 +1,31 @@
+config	id	category	query	expected	rank	mode	matches	terms	top1	median_ms
+base	1	famous-single	newton	Isaac Newton	42	AND	705	newton	Newton, Kansas	0.0246
+base	2	famous-single	london	London	82	AND	7967	london	Greater London	0.1577
+base	3	famous-single	giraffe	Giraffe	2	AND	111	giraff	Thornicroft's giraffe	0.0098
+base	4	famous-single	piano	Piano	20	AND	1500	piano	Piano trio	0.0362
+base	5	famous-single	moon	Moon	8	AND	2198	moon	Phases of the Moon	0.0487
+base	6	famous-single	egypt	Egypt	18	AND	2114	egypt	Lower Egypt	0.0451
+base	7	famous-single	kangaroo	Kangaroo	3	AND	268	kangaroo	Kangaroo mouse	0.0110
+base	8	famous-single	democracy	Democracy	20	AND	1133	democraci	Participatory democracy	0.0273
+base	9	famous-single	galileo	Galileo Galilei	3	AND	145	galileo	Galileo (spacecraft)	0.0086
+base	10	famous-multi	amazon rainforest	Amazon rainforest	3	AND	111	amazon rainforest	Amazon World Zoo	0.0147
+base	11	famous-multi	pacific ocean	Pacific Ocean	1	AND	1035	pacif ocean	Pacific Ocean	0.0581
+base	12	famous-multi	nelson mandela	Nelson Mandela	13	AND	178	nelson mandela	Free Nelson Mandela	0.0153
+base	13	famous-multi	cold war	Cold War	71	AND	855	cold war	Second Cold War	0.0965
+base	14	famous-multi	milky way	Milky Way	6	AND	293	milki wai	List of satellites of the Milky Way	0.0664
+base	15	famous-multi	leaning tower of pisa	Leaning Tower of Pisa	1	AND	19	lean tower pisa	Leaning Tower of Pisa	0.0153
+base	16	famous-multi	american civil war	American Civil War	455	AND	1608	american civil war	Names of the American Civil War	0.2563
+base	17	obscure	platypus	Platypus	2	AND	56	platypu	Platypus (weevil)	0.0037
+base	18	obscure	stonehenge	Stonehenge	2	AND	51	stoneheng	Stonehenge, Avebury and Associated Sites	0.0037
+base	19	obscure	pangolin	Pangolin	1	AND	22	pangolin	Pangolin	0.0029
+base	20	obscure	rubiks cube	Rubik's Cube	3	AND	18	rubik cube	Professor's Cube	0.0044
+base	21	question	what is the fastest land animal	Cheetah	0	AND	9	what fastest land anim	Eastern grey kangaroo	0.0927
+base	22	question	who invented the light bulb	Thomas Edison	3	AND	7	who invent light bulb	Joseph Swan	0.1216
+base	23	question	what is the hottest planet	Venus	0	AND	6	what hottest planet	Gamma ray	0.0538
+base	24	question	how do bees make honey	Honey	2	AND	12	how do bee make honei	Africanized bee	0.1461
+base	25	question	what is the capital of brazil	Brasília	0	AND	57	what capit brazil	Paraíba	0.0880
+base	26	question	who wrote the odyssey	Homer	5	AND	27	who wrote odyssei	Symphonic poem	0.1769
+base	27	abbreviation	fbi	Federal Bureau of Investigation	1	AND	463	fbi	Federal Bureau of Investigation	0.0093
+base	28	abbreviation	eu	European Union	23	AND	506	eu	Eleutherodactylus	0.0093
+base	29	abbreviation	nato	NATO	3	AND	496	nato	7.62×51mm NATO	0.0094
+base	30	abbreviation	cpu	Central processing unit	3	AND	200	cpu	Direct memory access	0.0044

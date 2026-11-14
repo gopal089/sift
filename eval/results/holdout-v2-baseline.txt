@@ -1,0 +1,57 @@
+# Sift eval: holdout-v2-baseline
+# 2026-11-14 10:22 IST | commit d1f57db | Java 21.0.12.1+1-LTS | Apple M5, 10 cores
+# queries: eval/queries-holdout-v2.json (30 queries, sha256 d0ed188bf7d148592935827b9e3003b4d4e43444f69b5deee20cb0c326a257af)
+# articles: data/articles.jsonl | redirects: data/redirects.jsonl (109461 resolved)
+# pagerank: d=0.85, 37 rounds, last change 7.70e-07, 1.6 s
+# index (no aliases): 280,748 docs, built in 10.83 s, heap 550.4 MB; avg title 2.50 tokens, avg body 166.0 tokens; title postings 697,412; alias postings 0
+# speed (in-memory index): k = 10, per query the median of 20 runs after 3 warm-up runs
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  base         BM25 k1=1.2 b=0.75 (one field) | AND, else OR
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  base                 0.305         0.165         0.370         0.583         0.172         0.428     4/30  15/30  18/30     3   0/0/30
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL famous-single  famous-multi       obscure      question  abbreviation
+  base            4/30 18/30       0/9 4/9       2/7 4/7       1/4 4/4       0/6 3/6       1/4 3/4
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  base            0.027    0.256   "american civil war"
+
+Rank of the expected article
+   id category       query                                      base   expected
+    1 famous-single  "newton"                                     42   Isaac Newton
+    2 famous-single  "london"                                     82   London
+    3 famous-single  "giraffe"                                     2   Giraffe
+    4 famous-single  "piano"                                      20   Piano
+    5 famous-single  "moon"                                        8   Moon
+    6 famous-single  "egypt"                                      18   Egypt
+    7 famous-single  "kangaroo"                                    3   Kangaroo
+    8 famous-single  "democracy"                                  20   Democracy
+    9 famous-single  "galileo"                                     3   Galileo Galilei
+   10 famous-multi   "amazon rainforest"                           3   Amazon rainforest
+   11 famous-multi   "pacific ocean"                               1   Pacific Ocean
+   12 famous-multi   "nelson mandela"                             13   Nelson Mandela
+   13 famous-multi   "cold war"                                   71   Cold War
+   14 famous-multi   "milky way"                                   6   Milky Way
+   15 famous-multi   "leaning tower of pisa"                       1   Leaning Tower of Pisa
+   16 famous-multi   "american civil war"                        455   American Civil War
+   17 obscure        "platypus"                                    2   Platypus
+   18 obscure        "stonehenge"                                  2   Stonehenge
+   19 obscure        "pangolin"                                    1   Pangolin
+   20 obscure        "rubiks cube"                                 3   Rubik's Cube
+   21 question       "what is the fastest land animal"             -   Cheetah
+   22 question       "who invented the light bulb"                 3   Thomas Edison
+   23 question       "what is the hottest planet"                  -   Venus
+   24 question       "how do bees make honey"                      2   Honey
+   25 question       "what is the capital of brazil"               -   Brasília
+   26 question       "who wrote the odyssey"                       5   Homer
+   27 abbreviation   "fbi"                                         1   Federal Bureau of Investigation
+   28 abbreviation   "eu"                                         23   European Union
+   29 abbreviation   "nato"                                        3   NATO
+   30 abbreviation   "cpu"                                         3   Central processing unit

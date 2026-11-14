@@ -1,0 +1,91 @@
+config	id	category	query	expected	rank	mode	matches	terms	top1	median_ms
+keyword	1	famous-single	newton	Isaac Newton	1	AND	705	newton	Isaac Newton	0.0258
+keyword	2	famous-single	london	London	1	AND	7967	london	London	0.1427
+keyword	3	famous-single	giraffe	Giraffe	1	AND	111	giraff	Giraffe	0.0132
+keyword	4	famous-single	piano	Piano	1	AND	1500	piano	Piano	0.0361
+keyword	5	famous-single	moon	Moon	1	AND	2198	moon	Moon	0.0501
+keyword	6	famous-single	egypt	Egypt	1	AND	2114	egypt	Egypt	0.0538
+keyword	7	famous-single	kangaroo	Kangaroo	1	AND	268	kangaroo	Kangaroo	0.0152
+keyword	8	famous-single	democracy	Democracy	1	AND	1133	democraci	Democracy	0.0345
+keyword	9	famous-single	galileo	Galileo Galilei	1	AND	145	galileo	Galileo Galilei	0.0140
+keyword	10	famous-multi	amazon rainforest	Amazon rainforest	1	AND	111	amazon rainforest	Amazon rainforest	0.0276
+keyword	11	famous-multi	pacific ocean	Pacific Ocean	1	AND	1035	pacif ocean	Pacific Ocean	0.0918
+keyword	12	famous-multi	nelson mandela	Nelson Mandela	1	AND	178	nelson mandela	Nelson Mandela	0.0259
+keyword	13	famous-multi	cold war	Cold War	1	AND	855	cold war	Cold War	0.1320
+keyword	14	famous-multi	milky way	Milky Way	1	AND	293	milki wai	Milky Way	0.0955
+keyword	15	famous-multi	leaning tower of pisa	Leaning Tower of Pisa	1	AND	19	lean tower pisa	Leaning Tower of Pisa	0.0290
+keyword	16	famous-multi	american civil war	American Civil War	2	AND	1608	american civil war	Civil war	0.3603
+keyword	17	obscure	platypus	Platypus	1	AND	56	platypu	Platypus	0.0120
+keyword	18	obscure	stonehenge	Stonehenge	1	AND	51	stoneheng	Stonehenge	0.0092
+keyword	19	obscure	pangolin	Pangolin	1	AND	22	pangolin	Pangolin	0.0077
+keyword	20	obscure	rubiks cube	Rubik's Cube	1	AND	18	rubik cube	Rubik's Cube	0.0144
+keyword	21	question	what is the fastest land animal	Cheetah	5	AND	21	fastest land anim	Peregrine falcon	0.1013
+keyword	22	question	who invented the light bulb	Thomas Edison	5	AND	16	invent light bulb	Light bulb	0.0493
+keyword	23	question	what is the hottest planet	Venus	2	AND	16	hottest planet	Mercury (planet)	0.0241
+keyword	24	question	how do bees make honey	Honey	3	AND	24	do bee make honei	Honey bee	0.1710
+keyword	25	question	what is the capital of brazil	Brasília	11	AND	295	capit brazil	Brazil	0.0862
+keyword	26	question	who wrote the odyssey	Homer	11	AND	36	wrote odyssei	Iliad	0.0454
+keyword	27	abbreviation	fbi	Federal Bureau of Investigation	6	AND	463	fbi	FBI Intelligence Branch	0.0166
+keyword	28	abbreviation	eu	European Union	8	AND	506	eu	Eus	0.0164
+keyword	29	abbreviation	nato	NATO	1	AND	496	nato	NATO	0.0178
+keyword	30	abbreviation	cpu	Central processing unit	1	AND	200	cpu	Central processing unit	0.0102
+hybrid-i8	1	famous-single	newton	Isaac Newton	2	HYBRID	178	newton	Newton (unit)	3.6825
+hybrid-i8	2	famous-single	london	London	1	HYBRID	166	london	London	3.6395
+hybrid-i8	3	famous-single	giraffe	Giraffe	1	HYBRID	186	giraff	Giraffe	3.9990
+hybrid-i8	4	famous-single	piano	Piano	1	HYBRID	138	piano	Piano	3.4468
+hybrid-i8	5	famous-single	moon	Moon	1	HYBRID	153	moon	Moon	3.4541
+hybrid-i8	6	famous-single	egypt	Egypt	1	HYBRID	147	egypt	Egypt	3.8583
+hybrid-i8	7	famous-single	kangaroo	Kangaroo	1	HYBRID	151	kangaroo	Kangaroo	3.7311
+hybrid-i8	8	famous-single	democracy	Democracy	1	HYBRID	161	democraci	Democracy	3.7301
+hybrid-i8	9	famous-single	galileo	Galileo Galilei	1	HYBRID	182	galileo	Galileo Galilei	3.8078
+hybrid-i8	10	famous-multi	amazon rainforest	Amazon rainforest	1	HYBRID	170	amazon rainforest	Amazon rainforest	3.6753
+hybrid-i8	11	famous-multi	pacific ocean	Pacific Ocean	1	HYBRID	171	pacif ocean	Pacific Ocean	3.7088
+hybrid-i8	12	famous-multi	nelson mandela	Nelson Mandela	1	HYBRID	147	nelson mandela	Nelson Mandela	3.9531
+hybrid-i8	13	famous-multi	cold war	Cold War	1	HYBRID	172	cold war	Cold War	3.8201
+hybrid-i8	14	famous-multi	milky way	Milky Way	1	HYBRID	150	milki wai	Milky Way	3.4015
+hybrid-i8	15	famous-multi	leaning tower of pisa	Leaning Tower of Pisa	1	HYBRID	113	lean tower pisa	Leaning Tower of Pisa	4.4436
+hybrid-i8	16	famous-multi	american civil war	American Civil War	1	HYBRID	170	american civil war	American Civil War	4.0200
+hybrid-i8	17	obscure	platypus	Platypus	1	HYBRID	146	platypu	Platypus	3.7403
+hybrid-i8	18	obscure	stonehenge	Stonehenge	1	HYBRID	136	stoneheng	Stonehenge	4.1005
+hybrid-i8	19	obscure	pangolin	Pangolin	1	HYBRID	119	pangolin	Pangolin	3.5441
+hybrid-i8	20	obscure	rubiks cube	Rubik's Cube	1	HYBRID	107	rubik cube	Rubik's Cube	4.0270
+hybrid-i8	21	question	what is the fastest land animal	Cheetah	1	HYBRID	119	fastest land anim	Cheetah	3.8343
+hybrid-i8	22	question	who invented the light bulb	Thomas Edison	3	HYBRID	111	invent light bulb	Light bulb	3.9335
+hybrid-i8	23	question	what is the hottest planet	Venus	5	HYBRID	112	hottest planet	WASP-12b	3.7460
+hybrid-i8	24	question	how do bees make honey	Honey	1	HYBRID	115	do bee make honei	Honey	3.9996
+hybrid-i8	25	question	what is the capital of brazil	Brasília	3	HYBRID	160	capit brazil	Capitals of Brazil	3.9847
+hybrid-i8	26	question	who wrote the odyssey	Homer	2	HYBRID	132	wrote odyssei	Iliad	3.8149
+hybrid-i8	27	abbreviation	fbi	Federal Bureau of Investigation	3	HYBRID	171	fbi	FBI Intelligence Branch	3.5144
+hybrid-i8	28	abbreviation	eu	European Union	2	HYBRID	168	eu	Eu, Seine-Maritime	3.4685
+hybrid-i8	29	abbreviation	nato	NATO	1	HYBRID	165	nato	NATO	3.4633
+hybrid-i8	30	abbreviation	cpu	Central processing unit	1	HYBRID	162	cpu	Central processing unit	3.1861
+semantic-i8	1	famous-single	newton	Isaac Newton	4	SEMANTIC	100	newton	Newton (unit)	3.2531
+semantic-i8	2	famous-single	london	London	3	SEMANTIC	100	london	London, Kentucky	3.1786
+semantic-i8	3	famous-single	giraffe	Giraffe	1	SEMANTIC	100	giraff	Giraffe	3.4864
+semantic-i8	4	famous-single	piano	Piano	1	SEMANTIC	100	piano	Piano	3.0569
+semantic-i8	5	famous-single	moon	Moon	1	SEMANTIC	100	moon	Moon	3.1115
+semantic-i8	6	famous-single	egypt	Egypt	1	SEMANTIC	100	egypt	Egypt	3.4490
+semantic-i8	7	famous-single	kangaroo	Kangaroo	1	SEMANTIC	100	kangaroo	Kangaroo	3.2781
+semantic-i8	8	famous-single	democracy	Democracy	1	SEMANTIC	100	democraci	Democracy	3.3134
+semantic-i8	9	famous-single	galileo	Galileo Galilei	2	SEMANTIC	100	galileo	Galileo (spacecraft)	3.6225
+semantic-i8	10	famous-multi	amazon rainforest	Amazon rainforest	1	SEMANTIC	100	amazon rainforest	Amazon rainforest	3.5867
+semantic-i8	11	famous-multi	pacific ocean	Pacific Ocean	1	SEMANTIC	100	pacif ocean	Pacific Ocean	3.6580
+semantic-i8	12	famous-multi	nelson mandela	Nelson Mandela	1	SEMANTIC	100	nelson mandela	Nelson Mandela	4.0214
+semantic-i8	13	famous-multi	cold war	Cold War	2	SEMANTIC	100	cold war	Cold war (term)	3.6146
+semantic-i8	14	famous-multi	milky way	Milky Way	1	SEMANTIC	100	milki wai	Milky Way	3.1907
+semantic-i8	15	famous-multi	leaning tower of pisa	Leaning Tower of Pisa	1	SEMANTIC	100	lean tower pisa	Leaning Tower of Pisa	4.2313
+semantic-i8	16	famous-multi	american civil war	American Civil War	1	SEMANTIC	100	american civil war	American Civil War	3.5830
+semantic-i8	17	obscure	platypus	Platypus	2	SEMANTIC	100	platypu	Platypus (weevil)	3.7022
+semantic-i8	18	obscure	stonehenge	Stonehenge	1	SEMANTIC	100	stoneheng	Stonehenge	4.0115
+semantic-i8	19	obscure	pangolin	Pangolin	1	SEMANTIC	100	pangolin	Pangolin	3.5949
+semantic-i8	20	obscure	rubiks cube	Rubik's Cube	1	SEMANTIC	100	rubik cube	Rubik's Cube	3.7969
+semantic-i8	21	question	what is the fastest land animal	Cheetah	1	SEMANTIC	100	fastest land anim	Cheetah	3.6506
+semantic-i8	22	question	who invented the light bulb	Thomas Edison	5	SEMANTIC	100	invent light bulb	Joseph Swan	3.8339
+semantic-i8	23	question	what is the hottest planet	Venus	0	SEMANTIC	100	hottest planet	WASP-12b	3.7476
+semantic-i8	24	question	how do bees make honey	Honey	1	SEMANTIC	100	do bee make honei	Honey	4.0048
+semantic-i8	25	question	what is the capital of brazil	Brasília	2	SEMANTIC	100	capit brazil	Capitals of Brazil	4.0646
+semantic-i8	26	question	who wrote the odyssey	Homer	4	SEMANTIC	100	wrote odyssei	Odyssey	3.8735
+semantic-i8	27	abbreviation	fbi	Federal Bureau of Investigation	1	SEMANTIC	100	fbi	Federal Bureau of Investigation	3.6318
+semantic-i8	28	abbreviation	eu	European Union	1	SEMANTIC	100	eu	European Union	3.6858
+semantic-i8	29	abbreviation	nato	NATO	1	SEMANTIC	100	nato	NATO	3.6583
+semantic-i8	30	abbreviation	cpu	Central processing unit	1	SEMANTIC	100	cpu	Central processing unit	3.3593
