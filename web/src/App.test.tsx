@@ -46,6 +46,7 @@ describe("App", () => {
     const fetchMock = vi.fn(async (_url: string) => new Response(JSON.stringify(answer), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
     vi.stubGlobal("scrollTo", vi.fn());
+    window.history.replaceState(null, "", "/?mode=keyword");
     render(<App />);
 
     fireEvent.change(screen.getByLabelText("Search Simple English Wikipedia"), { target: { value: " plants " } });
@@ -53,7 +54,7 @@ describe("App", () => {
 
     await screen.findByRole("link", { name: "Plant" });
     expect(fetchMock.mock.calls[0][0]).toBe("/api/search?q=plants&mode=keyword&page=1");
-    expect(window.location.search).toBe("?q=plants");
+    expect(window.location.search).toBe("?q=plants&mode=keyword");
     expect(screen.getByRole("status").textContent).toContain("25 results for “plants”");
     expect(screen.getByText("Plants").tagName).toBe("STRONG");
     // HTML in a snippet is shown as text, never run
@@ -64,10 +65,10 @@ describe("App", () => {
     expect(screen.queryByText("Meaning search")).toBeNull();   // keyword mode: no model time
 
     fireEvent.click(screen.getByRole("button", { name: "Next →" }));
-    await waitFor(() => expect(window.location.search).toBe("?q=plants&page=2"));
+    await waitFor(() => expect(window.location.search).toBe("?q=plants&mode=keyword&page=2"));
   });
 
-  it("Smart mode sends mode=smart and shows the model and vector times", async () => {
+  it("Smart is the default mode: sends mode=smart and shows the model and vector times", async () => {
     const smart = {
       ...answer,
       mode: "smart",
@@ -77,7 +78,7 @@ describe("App", () => {
     const fetchMock = vi.fn(async (_url: string) => new Response(JSON.stringify(smart), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
     vi.stubGlobal("scrollTo", vi.fn());
-    window.history.replaceState(null, "", "/?q=plants&mode=smart");
+    window.history.replaceState(null, "", "/?q=plants");
     render(<App />);
     await screen.findByRole("link", { name: "Plant" });
     expect(fetchMock.mock.calls[0][0]).toBe("/api/search?q=plants&mode=smart&page=1");
@@ -144,9 +145,10 @@ describe("autocomplete and did you mean", () => {
 describe("address bar state", () => {
   it("reads and writes the search, leaving out defaults", () => {
     expect(readState("?q=world+war+2&mode=smart&page=3")).toEqual({ query: "world war 2", mode: "smart", page: 3 });
-    expect(readState("?page=abc&mode=magic")).toEqual({ query: "", mode: "keyword", page: 1 });
-    expect(readState("?q=x&page=101")).toEqual({ query: "x", mode: "keyword", page: 1 });
-    expect(writeState({ query: "world war 2", mode: "keyword", page: 1 })).toBe("?q=world+war+2");
-    expect(writeState({ query: "", mode: "keyword", page: 1 })).toBe("");
+    expect(readState("?page=abc&mode=magic")).toEqual({ query: "", mode: "smart", page: 1 });
+    expect(readState("?q=x&page=101&mode=keyword")).toEqual({ query: "x", mode: "keyword", page: 1 });
+    expect(writeState({ query: "world war 2", mode: "smart", page: 1 })).toBe("?q=world+war+2");
+    expect(writeState({ query: "world war 2", mode: "keyword", page: 1 })).toBe("?q=world+war+2&mode=keyword");
+    expect(writeState({ query: "", mode: "smart", page: 1 })).toBe("");
   });
 });
