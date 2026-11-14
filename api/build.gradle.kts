@@ -10,6 +10,7 @@ dependencies {
     // Spring's "bill of materials": one list that fixes matching versions of all Spring libraries.
     implementation(platform("org.springframework.boot:spring-boot-dependencies:3.5.6"))
     implementation("org.springframework.boot:spring-boot-starter-web")   // embedded Tomcat + JSON (Jackson)
+    implementation("com.github.ben-manes.caffeine:caffeine")              // in-memory cache (version from Spring's list)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")   // MockMvc: call endpoints in tests
 }

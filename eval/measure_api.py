@@ -5,7 +5,7 @@ Queries: the main 50 + 150 check queries (titles and phrases, no held-out querie
 """
 import json, os, statistics, subprocess, sys, time, urllib.parse, urllib.request
 java_home, kind, port = sys.argv[1], sys.argv[2], sys.argv[3]
-env = dict(os.environ, JAVA_HOME=java_home, SIFT_VECTOR_KIND=kind, PORT=port)
+env = dict(os.environ, JAVA_HOME=java_home, SIFT_VECTOR_KIND=kind, PORT=port, SIFT_CACHE_SIZE="0")  # no cache: every query is computed
 t0 = time.time()
 p = subprocess.Popen(["api/build/install/sift-api/bin/sift-api"], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 base = f"http://localhost:{port}"
@@ -29,7 +29,7 @@ def heap_mb():
 stats = get("/stats")
 start_rss, start_heap = rss_mb(), heap_mb()
 queries = [q["query"] for q in json.load(open("eval/queries.json"))]
-queries += [json.loads(l)["text"] for l in open("data/vectors/check-queries.jsonl")][50:]
+queries += [json.loads(l)["text"] for l in open("data/model-bge/check-queries.jsonl")][50:]
 for q in queries[:20]:   # warm-up
     get("/search?" + urllib.parse.urlencode({"q": q, "mode": "smart"}))
 took, wall = {"smart": [], "keyword": []}, {"smart": [], "keyword": []}

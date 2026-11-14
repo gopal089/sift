@@ -1,0 +1,61 @@
+{
+ "commit": "52d441c + cache (uncommitted at run time)",
+ "machine": "Apple M5, 10 cores, on battery (97%)",
+ "jvm": "Java 21, -Xmx512m (scripts/sift-api)",
+ "method": "python3 eval/measure_cache.py JAVA_HOME 8094: fresh server, cache 10,000 entries; warm-up on other text; each of 200 queries (main 50 + 150 check queries) sent twice per mode: 1st = miss, 2nd = hit. tookMs = inside the server; httpWallMs = full round trip on localhost",
+ "queries": 200,
+ "keyword": {
+  "miss": {
+   "serverTookMs": {
+    "median": 2.096,
+    "p95": 7.63
+   },
+   "httpWallMs": {
+    "median": 2.768,
+    "p95": 8.425
+   }
+  },
+  "hit": {
+   "serverTookMs": {
+    "median": 0.006,
+    "p95": 0.011
+   },
+   "httpWallMs": {
+    "median": 0.667,
+    "p95": 0.841
+   }
+  },
+  "unexpectedCacheState": 0
+ },
+ "smart": {
+  "miss": {
+   "serverTookMs": {
+    "median": 5.367,
+    "p95": 11.489
+   },
+   "httpWallMs": {
+    "median": 5.994,
+    "p95": 12.135
+   }
+  },
+  "hit": {
+   "serverTookMs": {
+    "median": 0.006,
+    "p95": 0.011
+   },
+   "httpWallMs": {
+    "median": 0.62,
+    "p95": 0.779
+   }
+  },
+  "unexpectedCacheState": 0
+ },
+ "cacheStats": {
+  "maxEntries": 10000,
+  "enabled": true,
+  "entries": 406,
+  "hits": 436,
+  "misses": 406,
+  "hitRate": 0.517814726840855
+ }
+}

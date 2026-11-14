@@ -1,5 +1,7 @@
 package dev.sift.api;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import dev.sift.engine.embed.Embedder;
 import dev.sift.engine.embed.QueryEmbedder;
 import dev.sift.engine.search.Ranking;
@@ -31,6 +33,16 @@ import org.springframework.context.annotation.Configuration;
 public class EngineConfig {
 
     /** Opens the on-disk index. If the folder is missing the server refuses to start, with a clear message. */
+    /**
+     * Finished search pages for repeated queries. At most {@code sift.cache-size} entries (0 = off); when it is
+     * full, Caffeine drops the entries least likely to be used again. No expiry: the index never changes while
+     * the server runs, so a cached page never goes stale.
+     */
+    @Bean
+    public Cache<String, ApiModels.SearchResponse> searchCache(@Value("${sift.cache-size}") long size) {
+        return Caffeine.newBuilder().maximumSize(size).recordStats().build();
+    }
+
     @Bean
     public DiskIndex diskIndex(@Value("${sift.index-dir}") String indexDir) throws IOException {
         return DiskIndex.open(Path.of(indexDir));

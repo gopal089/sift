@@ -5,6 +5,8 @@ import dev.sift.api.ApiModels.Result;
 import dev.sift.api.ApiModels.SearchResponse;
 import dev.sift.api.ApiModels.StatsResponse;
 import dev.sift.api.ApiModels.SuggestResponse;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import dev.sift.engine.search.SearchResult;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.Searcher;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,12 +47,17 @@ public class SearchController {
     private final SmartSearcher smartSearcher;
     private final TitleTrie suggester;
     private final SpellChecker spellChecker;
+    private final Cache<String, SearchResponse> cache;   // finished pages: key = mode + page + query
+    private final long cacheSize;
     private final AtomicLong queriesServed = new AtomicLong();   // a counter that is safe with many threads
     private volatile double startupSeconds;
 
     public SearchController(DiskIndex index, Searcher searcher, SmartSearcher smartSearcher,
-                            TitleTrie suggester, SpellChecker spellChecker) {
+                            TitleTrie suggester, SpellChecker spellChecker, Cache<String, SearchResponse> cache,
+                            @Value("${sift.cache-size}") long cacheSize) {
         this.index = index;
+        this.cache = cache;
+        this.cacheSize = cacheSize;
         this.searcher = searcher;
         this.smartSearcher = smartSearcher;
         this.suggester = suggester;
@@ -81,7 +89,27 @@ public class SearchController {
             throw new BadRequestException("BAD_PAGE", "'page' must be between 1 and " + MAX_PAGE + ".");
         }
 
+        // The same query, mode and page always give the same page (the index never changes while the server
+        // runs), so a finished page can be reused. On a hit we skip ranking, the model and the snippets.
         long start = System.nanoTime();
+        queriesServed.incrementAndGet();
+        String key = mode + '\u0000' + page + '\u0000' + query;
+        SearchResponse cached = cache.getIfPresent(key);
+        if (cached != null) {
+            QueryStats s = cached.stats();
+            QueryStats hitStats = new QueryStats((System.nanoTime() - start) / 1e6, s.documentsSearched(),
+                    s.totalMatches(), s.terms(), s.matchMode(), "hit", null, null);
+            return new SearchResponse(cached.query(), cached.mode(), cached.modeUsed(), cached.notice(),
+                    cached.didYouMean(), cached.page(), cached.pageSize(), cached.totalMatches(), cached.hasMore(),
+                    cached.results(), hitStats);
+        }
+        SearchResponse fresh = compute(query, mode, page, start);
+        cache.put(key, fresh);
+        return fresh;
+    }
+
+    /** Runs the search for real: keyword or Smart ranking, then snippets and "did you mean". */
+    private SearchResponse compute(String query, String mode, int page, long start) {
         // Ask for everything up to the end of this page, then keep only this page's slice.
         boolean smart = mode.equals("smart");
         SearchResult result;
@@ -109,16 +137,15 @@ public class SearchController {
         // "Did you mean": only words that are not in the vocabulary are corrected; null if all are known
         String didYouMean = spellChecker.correctQuery(query);
         double tookMs = (System.nanoTime() - start) / 1e6;
-        queriesServed.incrementAndGet();
 
         String notice = null;
         if (result.terms().isEmpty()) {
             notice = "Your search has no letters or numbers to look for. Try a word like 'volcano'.";
         }
         QueryStats stats = new QueryStats(tookMs, index.docs().size(), result.totalMatches(), result.terms(),
-                result.mode().name(), "off", embedMs, vectorMs);
+                result.mode().name(), cacheSize > 0 ? "miss" : "off", embedMs, vectorMs);
         return new SearchResponse(query, mode, mode, notice, didYouMean, page, PAGE_SIZE, result.totalMatches(),
-                result.totalMatches() > page * PAGE_SIZE, results, stats);
+                result.totalMatches() > page * PAGE_SIZE, List.copyOf(results), stats);   // read-only: it may be cached
     }
 
     @GetMapping("/suggest")
@@ -142,8 +169,14 @@ public class SearchController {
         Runtime rt = Runtime.getRuntime();
         return new StatsResponse(meta.documents(), meta.terms(), meta.totalBytes(), meta.fileSizes(), before, after,
                 searcher.description(), smartSearcher.description(), smartSearcher.semanticIndex().vectorBytes(),
-                Map.of("enabled", false, "note", "the cache arrives in Phase 6"),
+                cacheStats(),
                 queriesServed.get(), (rt.totalMemory() - rt.freeMemory()) / (1024.0 * 1024.0), startupSeconds);
+    }
+
+    private Map<String, Object> cacheStats() {
+        CacheStats c = cache.stats();
+        return Map.of("enabled", cacheSize > 0, "maxEntries", cacheSize, "entries", cache.estimatedSize(),
+                "hits", c.hitCount(), "misses", c.missCount(), "hitRate", c.requestCount() == 0 ? 0.0 : c.hitRate());
     }
 
     @GetMapping("/health")

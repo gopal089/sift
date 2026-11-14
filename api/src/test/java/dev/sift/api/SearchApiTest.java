@@ -1,10 +1,16 @@
 package dev.sift.api;
 
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -140,7 +146,7 @@ class SearchApiTest {
                 .andExpect(jsonPath("$.stats.documentsSearched").value(15))
                 .andExpect(jsonPath("$.stats.terms", contains("photosynthesi")))
                 .andExpect(jsonPath("$.stats.matchMode").value("AND"))
-                .andExpect(jsonPath("$.stats.cache").value("off"))
+                .andExpect(jsonPath("$.stats.cache", anyOf(is("miss"), is("hit"))))   // other tests may run first
                 .andExpect(jsonPath("$.stats.tookMs", greaterThan(0.0)));
     }
 
@@ -351,7 +357,35 @@ class SearchApiTest {
                 .andExpect(jsonPath("$.ranking", containsString("BM25")))
                 .andExpect(jsonPath("$.smartRanking", containsString("hybrid RRF k=60")))
                 .andExpect(jsonPath("$.vectorBytes").value(15 * 4 * 4))
-                .andExpect(jsonPath("$.cache.enabled").value(false));
+                .andExpect(jsonPath("$.cache.enabled").value(true))
+                .andExpect(jsonPath("$.cache.maxEntries").value(10000));
+    }
+
+    @Test
+    void repeatedSearchIsACacheHitWithTheSameResultsAndNoModelCall() throws Exception {
+        String q = "green plants sunlight";     // used by no other test, so the first call is a miss
+        String first = mvc.perform(get("/search").param("q", q).param("mode", "smart"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stats.cache").value("miss"))
+                .andExpect(jsonPath("$.stats.embedMs", greaterThan(-1.0)))
+                .andReturn().getResponse().getContentAsString();
+        String second = mvc.perform(get("/search").param("q", "  " + q + " ").param("mode", "smart"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stats.cache").value("hit"))
+                .andExpect(jsonPath("$.stats.embedMs").value(nullValue()))   // the model did not run
+                .andReturn().getResponse().getContentAsString();
+        verify(embedder, times(1)).embed(q);
+        // everything except the stats block is identical
+        assertEquals(first.substring(0, first.indexOf("\"stats\"")), second.substring(0, second.indexOf("\"stats\"")));
+
+        // another page or another mode is a different entry
+        mvc.perform(get("/search").param("q", q).param("mode", "keyword"))
+                .andExpect(jsonPath("$.stats.cache").value("miss"));
+        mvc.perform(get("/search").param("q", q).param("mode", "smart").param("page", "2"))
+                .andExpect(jsonPath("$.stats.cache").value("miss"));
+        mvc.perform(get("/stats"))
+                .andExpect(jsonPath("$.cache.hits", greaterThan(0)))
+                .andExpect(jsonPath("$.cache.entries", greaterThan(2)));
     }
 
     @Test
