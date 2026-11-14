@@ -14,7 +14,7 @@
 | 3 — Website | ✅ Done (2026-11-11) |
 | 4 — PageRank, autocomplete, spelling | ✅ Done (2026-11-11) |
 | 5 — Smart (meaning) search | ✅ Done (2026-11-13), after one pre-registered fix experiment |
-| 6 — Prove quality and speed | Not started |
+| 6 — Prove quality and speed | ✅ Done (2026-11-14) |
 | 7 — Ship it | Not started |
 
 ## Phase 0 — Setup (done)
@@ -228,6 +228,25 @@ The first version failed: Photosynthesis was **#4** in Smart mode (needs top 3).
 even in Python brute force (cosine 0.471; "Eating" 0.583, "Plant" 0.580 above it), so the cause was the model +
 the "title + first 200 words" recipe, not the tokenizer, ONNX or HNSW. That led to the experiment below.
 
+## Phase 6 — Prove quality and speed (done 2026-11-14)
+
+Results table: `eval/results/final-summary.md`. Explanation: `docs/learning/phase-6.md`.
+
+| Step | Result | Raw file |
+| --- | --- | --- |
+| Alias re-test, main 50 (rule fixed first: keyword +0.01 and hybrid not −0.01) | keyword 0.86760 → 0.87519 (+0.0076), hybrid 0.95622 → 0.96000 → **not adopted** | `eval/results/phase6-alias-wa*.txt` |
+| `queries-holdout-v2.json`, run **once**: baseline / keyword / Smart MRR | 0.305 / 0.774 / **0.857**; hit@3 15 / 24 / 29 of 30 | `eval/results/holdout-v2-*.txt` |
+| Default-mode rule (Smart ≥ keyword − 0.01) | 0.857 ≥ 0.764 → **Smart is the website's default** (the API's default stays keyword) | same |
+| Caffeine cache (10,000 pages, both modes) | hit 0.006 ms in the server, ~0.65 ms HTTP; miss 2.8 ms keyword / 6.0 ms Smart HTTP median | `eval/results/phase6-cache.json` |
+| k6, cache off, 10 VUs, 60 s | keyword 1,663 req/s, p95 23 ms; Smart 386 req/s, p95 54 ms; 0 errors | `loadtest/results/cache-off-*.json` |
+| k6, cache off, 50 VUs | keyword 1,800 req/s, p95 130 ms; Smart 364 req/s, p95 282 ms (CPU full, queueing) | same |
+| k6, cache on (99.9% hits: best case) | 45,000–54,000 req/s, p95 ≤ 1.8 ms | `loadtest/results/cache-on-*.json` |
+| Server RSS after load | 1,146–1,331 MB | `loadtest/results/*-server.json` |
+
+Not tuned after the held-out run. Weak spots on held-out v2 (Smart): "what is the hottest planet" (Venus #5),
+"who invented the light bulb" (Thomas Edison #3), "what is the capital of brazil" (Brasília #3), "fbi" (#3), "newton" (#2,
+keyword #1). Questions are still the weakest category (Smart 0.561, keyword 0.236).
+
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
   with redirect chains resolved from `redirects.jsonl`):
@@ -239,6 +258,8 @@ the "title + first 200 words" recipe, not the tokenizer, ONNX or HNSW. That led 
 
   This is real data, not a parser bug (only 0.3% would match if case were ignored).
   PageRank (Phase 4) must follow redirects and then drop links whose final target is not an article.
+- **Load numbers are laptop numbers** (k6 and the server shared 10 cores; runs vary by ~15%). Re-measure on the
+  server in Phase 7.
 - **Ranking weak spots left** (after PageRank): questions whose answer is not named in the query (held-out MRR
   0.060 keyword, 0.112 Smart); redirect-only abbreviations ("usa" #1,702 keyword, #172 Smart; "uk" #54 / #107)
   → alias field retry in Phase 6.
@@ -329,5 +350,5 @@ int8 recall vs float32 ≥ 0.97, Smart p95 over HTTP and server memory, make it 
 still not top 3, it is documented as a known limitation, with no further tuning.
 
 ## Next step
-Phase 5 is done and locked. **Phase 6 (prove quality and speed) waits for your go.** It starts with the one-time run
-of `eval/queries-holdout-v2.json`, then the alias retry, the Caffeine cache and the k6 load test.
+Phase 6 is done. Phase 7 local parts (packaging, Docker, CI, README, DESIGN.md, deployment plan) come next;
+deployment itself waits for your OK on the cost.
