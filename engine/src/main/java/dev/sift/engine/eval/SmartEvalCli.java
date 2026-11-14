@@ -23,7 +23,9 @@ import java.util.Locale;
  * Compares keyword, semantic and hybrid ranking on an eval query file (MRR overall and per category).
  *
  * <pre>scripts/sift-run eval.SmartEvalCli data/index data/vectors data/model eval/queries.json LABEL
- *        --ef 100 --modes keyword,semantic-f32,hybrid-f32,semantic-i8,hybrid-i8</pre>
+ *        --ef 100 --modes keyword,semantic-f32,hybrid-f32,semantic-i8,hybrid-i8 [--ranking SPEC]</pre>
+ * {@code --ranking} sets the keyword ranking (a {@link Ranking#parse} spec) for keyword AND hybrid; default
+ * {@link Ranking#DEFAULT}. A spec with an alias weight needs an index built with {@code --aliases}.
  * Writes {@code eval/results/LABEL.txt} and {@code .tsv}.
  */
 public final class SmartEvalCli {
@@ -48,17 +50,19 @@ public final class SmartEvalCli {
         String label = args[4];
         int ef = 100;
         List<String> modes = List.of("keyword", "semantic-f32", "hybrid-f32");
+        Ranking ranking = Ranking.DEFAULT;
         for (int i = 5; i < args.length; i++) {
             switch (args[i]) {
                 case "--ef" -> ef = Integer.parseInt(args[++i]);
                 case "--modes" -> modes = Arrays.asList(args[++i].split(","));
+                case "--ranking" -> ranking = Ranking.parse(args[++i]);
                 default -> throw new IllegalArgumentException("unknown option " + args[i]);
             }
         }
         byte[] queryBytes = Files.readAllBytes(queriesPath);
         List<EvalQuery> queries = Arrays.asList(new ObjectMapper().readValue(queryBytes, EvalQuery[].class));
 
-        Searcher keyword = new Searcher(index, Ranking.DEFAULT);
+        Searcher keyword = new Searcher(index, ranking);
         try (QueryEmbedder embedder = QueryEmbedder.open(modelDir)) {
             Hnsw graphF32 = null;
             Hnsw graphI8 = null;

@@ -1,0 +1,81 @@
+# Smart search eval: keyword vs semantic vs hybrid (RRF)
+# commit d8d43e1-dirty | Apple M5, 10 cores | Java 21.0.12.1+1-LTS
+# queries: eval/queries.json (50 queries)
+# semantic/hybrid rank only their own lists (semantic: top 100; hybrid: union of keyword top 100 and semantic top 100). An article outside them = not found ("-").
+# speed = whole query incl. embedding, single thread, median of 5 runs per query after a warm-up
+# p95 over all runs (queries x repeats): keyword 0.61 ms; hybrid-i8 4.80 ms;
+
+# rank = position of the expected article in the full ranking (equal scores: smaller doc id first); "-" = did not match at all
+# better/worse/same: per query, rank compared with the FIRST config
+
+Configs
+  keyword      BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 + alias bonus w_alias=1 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped
+  hybrid-i8    hybrid RRF k=60: keyword top 100 [BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 + alias bonus w_alias=1 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped] + HNSW vectors-bge60 M=16 efC=200 efSearch=400, 1 vector per article (int8), top 100
+
+MRR per category (the selection rule uses ALL)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation    hit@1  hit@3 hit@10   n/f   better/worse/same
+  keyword              0.875         0.833         1.000         1.000         1.000         0.466         0.758    41/50  46/50  47/50     0   0/0/50
+  hybrid-i8            0.960         1.000         1.000         1.000         1.000         0.813         0.875    46/50  50/50  50/50     0   9/0/41
+
+hit@1 and hit@10 per category (count/queries)
+  config                 ALL    diagnostic famous-single  famous-multi       obscure      question  abbreviation
+  keyword        41/50 47/50       4/6 6/6   14/14 14/14   10/10 10/10       8/8 8/8       2/8 6/8       3/4 3/4
+  hybrid-i8      46/50 50/50       6/6 6/6   14/14 14/14   10/10 10/10       8/8 8/8       5/8 8/8       3/4 4/4
+
+Speed (ms, K = 10)
+  config         median  slowest   slowest query
+  keyword         0.062    2.565   "the who"
+  hybrid-i8       4.033    6.272   "the who"
+
+Rank of the expected article
+   id category       query                                   keyword hybrid-…   expected
+    1 diagnostic     "world war 2"                                 1        1   World War II
+    2 diagnostic     "world war ii"                                1        1   World War II
+    3 diagnostic     "the who"                                     2        1   The Who
+    4 diagnostic     "the history of india"                        2        1   History of India
+    5 diagnostic     "photosynthesis"                              1        1   Photosynthesis
+    6 diagnostic     "python programming"                          1        1   Python (programming language)
+    7 famous-single  "einstein"                                    1        1   Albert Einstein
+    8 famous-single  "volcano"                                     1        1   Volcano
+    9 famous-single  "shakespeare"                                 1        1   William Shakespeare
+   10 famous-single  "dinosaur"                                    1        1   Dinosaur
+   11 famous-single  "mozart"                                      1        1   Wolfgang Amadeus Mozart
+   12 famous-single  "tokyo"                                       1        1   Tokyo
+   13 famous-single  "gravity"                                     1        1   Gravity
+   14 famous-single  "chess"                                       1        1   Chess
+   15 famous-single  "electricity"                                 1        1   Electricity
+   16 famous-single  "tiger"                                       1        1   Tiger
+   17 famous-single  "olympics"                                    1        1   Olympic Games
+   18 famous-single  "bitcoin"                                     1        1   Bitcoin
+   19 famous-single  "napoleon"                                    1        1   Napoleon
+   20 famous-single  "evolution"                                   1        1   Evolution
+   21 famous-multi   "solar system"                                1        1   Solar System
+   22 famous-multi   "french revolution"                           1        1   French Revolution
+   23 famous-multi   "united nations"                              1        1   United Nations
+   24 famous-multi   "great wall of china"                         1        1   Great Wall of China
+   25 famous-multi   "theory of relativity"                        1        1   Theory of relativity
+   26 famous-multi   "black hole"                                  1        1   Black hole
+   27 famous-multi   "martin luther king"                          1        1   Martin Luther King Jr.
+   28 famous-multi   "human heart"                                 1        1   Heart
+   29 famous-multi   "climate change"                              1        1   Climate change
+   30 famous-multi   "statue of liberty"                           1        1   Statue of Liberty
+   31 obscure        "axolotl"                                     1        1   Axolotl
+   32 obscure        "tardigrade"                                  1        1   Tardigrade
+   33 obscure        "bauhaus"                                     1        1   Bauhaus
+   34 obscure        "haiku"                                       1        1   Haiku
+   35 obscure        "ada lovelace"                                1        1   Ada Lovelace
+   36 obscure        "mount kilimanjaro"                           1        1   Mount Kilimanjaro
+   37 obscure        "rosetta stone"                               1        1   Rosetta Stone
+   38 obscure        "fibonacci numbers"                           1        1   Fibonacci number
+   39 question       "how do plants make food"                    16        2   Photosynthesis
+   40 question       "who discovered penicillin"                   2        1   Alexander Fleming
+   41 question       "what is the largest planet"                 12        2   Jupiter
+   42 question       "who invented the telephone"                  2        1   Alexander Graham Bell
+   43 question       "what causes earthquakes"                     1        1   Earthquake
+   44 question       "who was the first person on the moon"        4        1   Neil Armstrong
+   45 question       "when did the titanic sink"                   1        1   Titanic
+   46 question       "what is the capital of australia"            3        2   Canberra
+   47 abbreviation   "usa"                                        33        2   United States
+   48 abbreviation   "dna"                                         1        1   DNA
+   49 abbreviation   "nasa"                                        1        1   NASA
+   50 abbreviation   "ww1"                                         1        1   World War I
