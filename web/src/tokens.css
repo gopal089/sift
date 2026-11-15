@@ -53,6 +53,8 @@
 
   /* ---------- sizes ---------- */
   --size-tap: 2.75rem; /* 44 px: the smallest thing a finger should have to hit */
+  --size-line-box: 1lh; /* the height of one line of the element's own text */
+  --size-em: 1em; /* the element's own font size */
   --size-icon: 1.25rem;
   --size-icon-small: 1rem;
   --size-measure: 40rem; /* reading column: about 70 characters per line */
@@ -76,7 +78,6 @@
   --delay-loading: 150ms; /* "Searching…" only shows if a search is slower than this */
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
   --angle-quarter: 90deg; /* the Details arrow turns from > to v */
-  --opacity-busy: 0.55; /* old results while new ones load */
   --opacity-none: 0;
   --opacity-full: 1;
 

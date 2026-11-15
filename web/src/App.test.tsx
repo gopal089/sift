@@ -149,7 +149,7 @@ describe("results", () => {
     expect(searchCalls(fetchMock).at(-1)).toBe("/api/search?q=plants&mode=keyword&page=1");
   });
 
-  it("keeps the old results on screen, dimmed, while the next page loads", async () => {
+  it("keeps the old results on screen while the next page loads, and says “Searching…”", async () => {
     let release: () => void = () => undefined;
     const slow = new Promise<void>((resolve) => (release = resolve));
     const fetchMock = vi.fn(async (url: string) => {
@@ -170,6 +170,26 @@ describe("results", () => {
     await act(async () => release());
     await waitFor(() => expect(screen.getByRole("main").getAttribute("aria-busy")).toBe("false"));
     expect(screen.queryByText("Searching…")).toBeNull();
+  });
+});
+
+describe("no layout shift", () => {
+  it("the footer waits until the first results arrive, so they never push it down", async () => {
+    let release: () => void = () => undefined;
+    const slow = new Promise<void>((resolve) => (release = resolve));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        await slow;
+        return new Response(JSON.stringify(answer));
+      }),
+    );
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    expect(screen.queryByRole("contentinfo")).toBeNull();
+    await act(async () => release());
+    await screen.findByRole("link", { name: "Plant" });
+    expect(screen.getByRole("contentinfo").textContent).toContain("CC BY-SA 4.0");
   });
 });
 

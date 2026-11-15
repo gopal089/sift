@@ -154,7 +154,7 @@ export function SearchForm({ query, mode, onSearch, explainMode }: Props) {
               checked={mode === m.value}
               onChange={() => onSearch(draft.trim() || query, m.value)}
             />
-            {m.label}
+            <span className="mode-name">{m.label}</span>
           </label>
         ))}
       </fieldset>

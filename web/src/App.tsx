@@ -227,19 +227,23 @@ export function App() {
         </main>
       )}
 
-      <footer className="footer">
-        <p>
-          Article text from{" "}
-          <a href="https://simple.wikipedia.org/" rel="noreferrer">
-            Simple English Wikipedia
-          </a>{" "}
-          ({DUMP_DATE} dump),{" "}
-          <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noreferrer">
-            CC BY-SA 4.0
-          </a>
-          .
-        </p>
-      </footer>
+      {/* While the first results load, the footer waits: if it were drawn now, the results would push it
+          down when they arrive, and the page would jump (a "layout shift"). */}
+      {(home || data || status.kind === "error") && (
+        <footer className="footer">
+          <p>
+            Article text from{" "}
+            <a href="https://simple.wikipedia.org/" rel="noreferrer">
+              Simple English Wikipedia
+            </a>{" "}
+            ({DUMP_DATE} dump),{" "}
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noreferrer">
+              CC BY-SA 4.0
+            </a>
+            .
+          </p>
+        </footer>
+      )}
     </div>
   );
 }

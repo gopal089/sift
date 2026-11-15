@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { ApiError, search, searchUrl, suggest } from "./api";
+import { ApiError, documentCount, search, searchUrl, suggest } from "./api";
 
 /** Replaces the browser's fetch with a fake that answers with the given status and body. */
 function fakeFetch(status: number, body: unknown) {
@@ -39,7 +39,10 @@ describe("search", () => {
         throw new TypeError("Failed to fetch");
       }),
     );
-    await expect(search("x", "keyword", 1)).rejects.toMatchObject({ code: "NETWORK" });
+    await expect(search("x", "keyword", 1)).rejects.toMatchObject({
+      code: "NETWORK",
+      message: "Sift cannot reach its search server. Check your connection, then try again.",
+    });
   });
 
   it("gives a friendly message when the answer is not JSON", async () => {
@@ -75,5 +78,22 @@ describe("suggest", () => {
       }),
     );
     await expect(suggest("py")).resolves.toEqual([]);
+  });
+});
+
+describe("documentCount", () => {
+  it("reads the number of articles from /health", async () => {
+    const fetchMock = fakeFetch(200, { status: "ok", documents: 280748 });
+    await expect(documentCount()).resolves.toBe(280748);
+    expect(fetchMock).toHaveBeenCalledWith("/api/health", { signal: undefined });
+  });
+
+  it("gives null when the server is down or answers something else, so the home page just leaves the line empty", async () => {
+    fakeFetch(503, "Service Unavailable");
+    await expect(documentCount()).resolves.toBeNull();
+    fakeFetch(200, { status: "ok" });
+    await expect(documentCount()).resolves.toBeNull();
+    vi.stubGlobal("fetch", vi.fn(async () => Promise.reject(new TypeError("Failed to fetch"))));
+    await expect(documentCount()).resolves.toBeNull();
   });
 });

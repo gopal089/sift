@@ -54,6 +54,17 @@ a {
   height: var(--size-icon-small);
 }
 
+/*
+ * Links inside text: padding above and below makes the tap area at least 44 px tall (the letters are a bit
+ * taller than 1em, so this always reaches 44). Padding on an inline element does not move the lines around
+ * it, so the text looks exactly the same.
+ */
+.message a,
+.empty-tips a,
+.footer a {
+  padding-block: calc((var(--size-tap) - var(--size-em)) / 2);
+}
+
 /* ---------- page layout: a gutter for the wordmark, then one reading column ---------- */
 
 .page {
@@ -78,6 +89,7 @@ a {
 .wordmark {
   grid-column: 1;
   justify-self: start;
+  min-width: var(--size-tap);
   color: var(--color-ink);
   font: var(--weight-bold) var(--step-3) / var(--size-tap) var(--font-serif);
   letter-spacing: var(--tracking-tight);
@@ -135,6 +147,12 @@ a {
 
 .field input:focus-visible {
   outline: none; /* the field draws the ring instead */
+}
+
+/* The browser's own clear button does not match the design; select the text to replace it instead. */
+.field input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .field input::placeholder {
@@ -208,16 +226,24 @@ a {
 
 .mode {
   display: inline-flex;
-  align-items: center;
+  min-width: var(--size-tap); /* the tap area; the underline only spans the word */
   min-height: var(--size-tap);
   color: var(--color-ink-2);
-  border-bottom: var(--size-line-strong) solid transparent;
   cursor: pointer;
+}
+
+.mode-name {
+  display: flex;
+  align-items: center;
+  border-bottom: var(--size-line-strong) solid transparent;
 }
 
 .mode:has(input:checked) {
   color: var(--color-ink);
   font-weight: var(--weight-bold);
+}
+
+.mode:has(input:checked) .mode-name {
   border-bottom-color: var(--color-ink);
 }
 
@@ -260,6 +286,8 @@ a {
 .examples a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-width: var(--size-tap);
   min-height: var(--size-tap);
 }
 
@@ -267,6 +295,7 @@ a {
 
 .meta {
   display: flex;
+  min-height: var(--size-tap);
   flex-wrap: wrap;
   align-items: center;
   gap: 0 var(--space-3);
@@ -338,23 +367,12 @@ a {
   font-size: var(--step-1);
 }
 
-.message a {
-  display: inline-block;
-  padding: calc((var(--size-tap) - var(--step-1) * var(--leading-body)) / 2) 0;
-  margin: calc((var(--step-1) * var(--leading-body) - var(--size-tap)) / 2) 0;
-}
-
 .empty-tips {
   margin: var(--space-2) 0 0;
   padding: 0 0 0 var(--space-5);
   color: var(--color-ink-2);
 }
 
-.empty-tips a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--size-tap);
-}
 
 .error {
   display: flex;
@@ -399,11 +417,6 @@ a {
   margin: var(--space-5) 0 0;
   padding: 0;
   list-style: none;
-  transition: opacity var(--duration-fast) var(--ease-out) var(--delay-loading);
-}
-
-.content[aria-busy="true"] .results {
-  opacity: var(--opacity-busy);
 }
 
 .result + .result {
@@ -416,11 +429,11 @@ a {
   overflow-wrap: anywhere;
 }
 
-/* The link's tap area is 44 px tall; the negative margin keeps the visible spacing the same. */
+/* The whole title line is the link (44 px tall at least); the negative margin keeps the spacing the same. */
 .result-title a {
-  display: inline-block;
-  padding: calc((var(--size-tap) - var(--step-1) * var(--leading-tight)) / 2) 0;
-  margin: calc((var(--step-1) * var(--leading-tight) - var(--size-tap)) / 2) 0;
+  display: block;
+  padding-block: calc((var(--size-tap) - var(--size-line-box)) / 2);
+  margin-block: calc((var(--size-line-box) - var(--size-tap)) / 2);
   text-decoration: none;
 }
 
@@ -481,9 +494,6 @@ mark {
   margin: 0;
 }
 
-.footer a {
-  padding: calc((var(--size-tap) - var(--step--1) * var(--leading-body)) / 2) 0;
-}
 
 /* ---------- phones and narrow windows (just under 768 px) ---------- */
 
@@ -521,9 +531,7 @@ mark {
     animation: none;
   }
 
-  /* No movement or fading; old results still dim, just without the fade. */
-  .disclosure-icon,
-  .results {
+  .disclosure-icon {
     transition-duration: var(--duration-none);
   }
 }

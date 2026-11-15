@@ -1,7 +1,7 @@
 import type { Mode, SearchResponse, SuggestResponse } from "./types";
 
 /** Where the API lives. "/api" is forwarded to the Spring server by Vite (see vite.config.ts). */
-export const API_BASE: string = import.meta.env.VITE_API_BASE ?? "/api";
+const API_BASE: string = import.meta.env.VITE_API_BASE ?? "/api";
 
 /** An error we can show to the user as it is. `code` is the server's error code, or NETWORK / BAD_RESPONSE. */
 export class ApiError extends Error {
@@ -34,14 +34,14 @@ export async function search(query: string, mode: Mode, page: number, signal?: A
     if (cause instanceof DOMException && cause.name === "AbortError") {
       throw cause;
     }
-    throw new ApiError("NETWORK", "Cannot reach the search server. Check that it is running, then try again.");
+    throw new ApiError("NETWORK", "Sift cannot reach its search server. Check your connection, then try again.");
   }
 
   let body: unknown;
   try {
     body = await response.json();
   } catch {
-    throw new ApiError("BAD_RESPONSE", "The search server sent an answer we could not read.", response.status);
+    throw new ApiError("BAD_RESPONSE", "The search server is not answering properly right now. Please try again in a moment.", response.status);
   }
 
   if (!response.ok) {

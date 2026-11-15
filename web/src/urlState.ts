@@ -4,7 +4,7 @@ import type { Mode } from "./types";
  * The mode used when the address bar does not say. Smart, by the rule fixed before the final held-out run
  * (Smart MRR >= keyword MRR - 0.01 on queries-holdout-v2): 0.857 vs 0.774. See eval/results/holdout-v2-final.txt.
  */
-export const DEFAULT_MODE: Mode = "smart";
+const DEFAULT_MODE: Mode = "smart";
 
 /** What the page is showing. It lives in the address bar: ?q=volcano&mode=keyword&page=2 (Smart, the default, is left out) */
 export interface SearchState {
