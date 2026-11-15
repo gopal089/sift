@@ -1,5 +1,6 @@
 package dev.sift.engine.text;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,6 +27,18 @@ public final class StopWords {
     public static final Set<String> QUESTION = Set.of(
             "who", "what", "when", "where", "why", "how", "did", "does", "is");
 
+    /**
+     * Words that are never worth <b>highlighting</b> in a snippet: the two lists above plus other helper words
+     * (do, have, can, my, from...). Marking "do" in "how do plants make food" only adds noise.
+     * Used for snippets only; it does not change which words are searched or how results are ranked.
+     * "us" and "may" are left out on purpose: they are also "US" and the month.
+     */
+    public static final Set<String> NOT_HIGHLIGHTED = union(ENGLISH, QUESTION, Set.of(
+            "which", "whom", "whose", "do", "doing", "done", "am", "were", "been", "being", "have", "has", "had",
+            "having", "can", "could", "would", "should", "shall", "might", "must", "i", "me", "my", "you", "your",
+            "he", "him", "his", "she", "her", "its", "we", "our", "them", "from", "about", "than", "so", "some",
+            "any"));
+
     private StopWords() {
     }
 
@@ -37,5 +50,14 @@ public final class StopWords {
     /** True if the word is in the basic list or, when {@code withQuestionWords}, in the question list. */
     public static boolean isStopWord(String word, boolean withQuestionWords) {
         return ENGLISH.contains(word) || (withQuestionWords && QUESTION.contains(word));
+    }
+
+    @SafeVarargs
+    private static Set<String> union(Set<String>... sets) {
+        HashSet<String> all = new HashSet<>();
+        for (Set<String> set : sets) {
+            all.addAll(set);
+        }
+        return Set.copyOf(all);
     }
 }

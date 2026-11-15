@@ -1,0 +1,6 @@
+# Highlight change: helper words (do, from, can...) are no longer marked in snippets
+# Before = commit 064719e, after = the same + the change. Server on localhost:8080, eval/queries.json (main 50), top 100 per query
+# Command: python3 eval/api_results.py compare eval/results/highlight-before.json eval/results/highlight-after.json
+keyword: MRR 0.86758 -> 0.86758 | queries with different ids/scores/order: 0 | results with a different snippet text: 34 | highlights 11176 -> 11148
+smart: MRR 0.95622 -> 0.95622 | queries with different ids/scores/order: 0 | results with a different snippet text: 22 | highlights 10862 -> 10839
+RANKING IDENTICAL

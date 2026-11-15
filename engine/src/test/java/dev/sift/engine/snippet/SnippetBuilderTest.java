@@ -129,4 +129,43 @@ class SnippetBuilderTest {
         assertEquals("… lava a b c d e f volcano …", s.text());
         assertEquals(List.of("lava", "volcano"), highlighted(s));
     }
+
+    // ---------- which query terms are highlighted ----------
+
+    @Test
+    void helperAndQuestionWordsAreNotHighlighted() {
+        List<String> searched = Tokenizer.queryTerms("how do plants make food", true);
+        assertEquals(List.of("do", "plant", "make", "food"), searched);       // "do" is still searched
+        assertEquals(List.of("plant", "make", "food"), SnippetBuilder.highlightTerms(searched));
+    }
+
+    @Test
+    void helperWordsAreMatchedAfterStemming() {
+        // "does" stems to "doe", "has" to "ha": the list is compared in stemmed form
+        List<String> searched = Tokenizer.queryTerms("does the sun has light", false);
+        assertEquals(List.of("sun", "light"), SnippetBuilder.highlightTerms(searched));
+    }
+
+    @Test
+    void allHelperWordsAreKeptSoSomethingIsMarked() {
+        List<String> toBe = Tokenizer.queryTerms("to be or not to be", true);
+        assertEquals(toBe, SnippetBuilder.highlightTerms(toBe));
+        List<String> theWho = Tokenizer.queryTerms("the who", true);
+        assertEquals(theWho, SnippetBuilder.highlightTerms(theWho));
+    }
+
+    @Test
+    void usAndMayStayHighlighted() {
+        assertEquals(List.of("us", "presid"), SnippetBuilder.highlightTerms(List.of("us", "presid")));
+        assertEquals(List.of("may", "1945"), SnippetBuilder.highlightTerms(List.of("may", "1945")));
+    }
+
+    @Test
+    void snippetMarksOnlyTheMeaningfulWords() {
+        String text = "How do plants make food? Plants do it with sunlight.";
+        List<String> terms = SnippetBuilder.highlightTerms(Tokenizer.queryTerms("how do plants make food", true));
+        Snippet s = SnippetBuilder.build(index("Plant", text, List.of()), 0, terms, text, 30);
+        assertEquals(text, s.text());
+        assertEquals(List.of("plants", "make", "food", "Plants"), highlighted(s));   // never "do" or "How"
+    }
 }

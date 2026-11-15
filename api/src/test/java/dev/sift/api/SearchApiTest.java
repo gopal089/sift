@@ -151,6 +151,20 @@ class SearchApiTest {
     }
 
     @Test
+    void helperWordsAreSearchedButNotHighlighted() throws Exception {
+        // "from" is searched (it is in stats.terms) but not marked: only "food" and "sunlight" are highlighted
+        mvc.perform(get("/search").param("q", "food from sunlight"))
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.stats.terms", contains("food", "from", "sunlight")))
+                // "… is how green plants make food from sunlight. …": 27 = "food", 37 = "sunlight", nothing at 32
+                .andExpect(jsonPath("$.results[0].snippet", org.hamcrest.Matchers.startsWith(
+                        "… is how green plants make food from sunlight.")))
+                .andExpect(jsonPath("$.results[0].highlights", hasSize(2)))
+                .andExpect(jsonPath("$.results[0].highlights[0].start").value(27))
+                .andExpect(jsonPath("$.results[0].highlights[1].start").value(37));
+    }
+
+    @Test
     void snippetIsAWindowOfTheTextWithHighlightRanges() throws Exception {
         // the article is long: the snippet is a 30-word window around "sunlight" and "leaves", cut on both sides
         mvc.perform(get("/search").param("q", "sunlight leaves"))

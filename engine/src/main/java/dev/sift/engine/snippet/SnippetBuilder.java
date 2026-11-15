@@ -4,6 +4,7 @@ import dev.sift.engine.index.DocTable;
 import dev.sift.engine.index.PostingList;
 import dev.sift.engine.index.SearchIndex;
 import dev.sift.engine.snippet.Snippet.Highlight;
+import dev.sift.engine.text.StopWords;
 import dev.sift.engine.text.Tokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,29 @@ public final class SnippetBuilder {
     /** Words shown before the first matching word, so the match is not the very first thing. */
     static final int LEAD_WORDS = 5;
 
+    /** Stems of {@link StopWords#NOT_HIGHLIGHTED}, so they can be compared with stemmed query terms. */
+    private static final Set<String> NOT_HIGHLIGHTED_STEMS = stems(StopWords.NOT_HIGHLIGHTED);
+
     private SnippetBuilder() {
+    }
+
+    /**
+     * The query terms worth marking in a snippet: the searched terms minus helper words such as "do" or "can".
+     * "how do plants make food" is searched as [do, plant, make, food]; this returns [plant, make, food].
+     * If every term is a helper word ("to be or not to be"), all of them are kept, so something is marked.
+     * Snippets only: ranking uses the full term list.
+     */
+    public static List<String> highlightTerms(List<String> terms) {
+        List<String> meaningful = terms.stream().filter(t -> !NOT_HIGHLIGHTED_STEMS.contains(t)).toList();
+        return meaningful.isEmpty() ? terms : meaningful;
+    }
+
+    private static Set<String> stems(Set<String> words) {
+        Set<String> out = new HashSet<>();
+        for (String word : words) {
+            out.add(Tokenizer.stemWord(word));
+        }
+        return Set.copyOf(out);
     }
 
     public static Snippet build(SearchIndex index, int docId, List<String> terms, String text, int windowWords) {

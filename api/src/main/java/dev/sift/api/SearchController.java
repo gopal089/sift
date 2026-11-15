@@ -136,10 +136,12 @@ public class SearchController {
         List<Hit> hits = result.hits();
         int from = Math.min((page - 1) * PAGE_SIZE, hits.size());
         List<Result> results = new ArrayList<>();
+        List<String> highlightTerms = SnippetBuilder.highlightTerms(result.terms());
         for (Hit hit : hits.subList(from, hits.size())) {
-            // the best 30-word window around the query words, chosen with the term positions from the index;
-            // a Smart result may contain none of the words: then the snippet is the article's opening
-            Snippet snippet = SnippetBuilder.build(index, hit.docId(), result.terms(), index.text(hit.docId()),
+            // the best 30-word window around the meaningful query words (helper words like "do" are not marked),
+            // chosen with the term positions from the index; a Smart result may contain none of the words: then
+            // the snippet is the article's opening
+            Snippet snippet = SnippetBuilder.build(index, hit.docId(), highlightTerms, index.text(hit.docId()),
                     SNIPPET_WORDS);
             results.add(new Result(hit.wikiId(), hit.title(), wikiUrl(hit.title()), snippet.text(),
                     snippet.highlights(), hit.score()));
