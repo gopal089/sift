@@ -1,0 +1,1105 @@
+[
+ {
+  "id": 1,
+  "query": "world war 2",
+  "expected": "World War II",
+  "keyword_top": "World War II",
+  "keyword_ok": true,
+  "keyword_ratio": 1.001937171268386,
+  "smart_top": "World War II",
+  "smart_ok": true,
+  "smart_ratio": 1.0489241803278688,
+  "qterms": [
+   "world",
+   "war",
+   "2"
+  ],
+  "smart_title_terms": [
+   "world",
+   "war",
+   "ii"
+  ],
+  "keyword_title_terms": [
+   "world",
+   "war",
+   "ii"
+  ]
+ },
+ {
+  "id": 2,
+  "query": "world war ii",
+  "expected": "World War II",
+  "keyword_top": "World War II",
+  "keyword_ok": true,
+  "keyword_ratio": 1.1720116659900937,
+  "smart_top": "World War II",
+  "smart_ok": true,
+  "smart_ratio": 1.0779930452061601,
+  "qterms": [
+   "world",
+   "war",
+   "ii"
+  ],
+  "smart_title_terms": [
+   "world",
+   "war",
+   "ii"
+  ],
+  "keyword_title_terms": [
+   "world",
+   "war",
+   "ii"
+  ]
+ },
+ {
+  "id": 3,
+  "query": "the who",
+  "expected": "The Who",
+  "keyword_top": "The Who",
+  "keyword_ok": true,
+  "keyword_ratio": 1.0774722827027121,
+  "smart_top": "The Who",
+  "smart_ok": true,
+  "smart_ratio": 1.081718827620467,
+  "qterms": [
+   "the",
+   "who"
+  ],
+  "smart_title_terms": [
+   "the",
+   "who"
+  ],
+  "keyword_title_terms": [
+   "the",
+   "who"
+  ]
+ },
+ {
+  "id": 4,
+  "query": "the history of india",
+  "expected": "History of India",
+  "keyword_top": "History of India",
+  "keyword_ok": true,
+  "keyword_ratio": 1.0190422250001632,
+  "smart_top": "History of India",
+  "smart_ok": true,
+  "smart_ratio": 1.0922436995351115,
+  "qterms": [
+   "histori",
+   "india"
+  ],
+  "smart_title_terms": [
+   "histori",
+   "india"
+  ],
+  "keyword_title_terms": [
+   "histori",
+   "india"
+  ]
+ },
+ {
+  "id": 5,
+  "query": "photosynthesis",
+  "expected": "Photosynthesis",
+  "keyword_top": "Photosynthesis",
+  "keyword_ok": true,
+  "keyword_ratio": 2.6586269618568164,
+  "smart_top": "Photosynthesis",
+  "smart_ok": true,
+  "smart_ratio": 1.0871440897325282,
+  "qterms": [
+   "photosynthesi"
+  ],
+  "smart_title_terms": [
+   "photosynthesi"
+  ],
+  "keyword_title_terms": [
+   "photosynthesi"
+  ]
+ },
+ {
+  "id": 6,
+  "query": "python programming",
+  "expected": "Python (programming language)",
+  "keyword_top": "Python (programming language)",
+  "keyword_ok": true,
+  "keyword_ratio": 1.4818687428317021,
+  "smart_top": "Python (programming language)",
+  "smart_ok": true,
+  "smart_ratio": 1.040402736543178,
+  "qterms": [
+   "python",
+   "program"
+  ],
+  "smart_title_terms": [
+   "python",
+   "program",
+   "languag"
+  ],
+  "keyword_title_terms": [
+   "python",
+   "program",
+   "languag"
+  ]
+ },
+ {
+  "id": 7,
+  "query": "einstein",
+  "expected": "Albert Einstein",
+  "keyword_top": "Albert Einstein",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2719353532788453,
+  "smart_top": "Albert Einstein",
+  "smart_ok": true,
+  "smart_ratio": 1.0655737704918034,
+  "qterms": [
+   "einstein"
+  ],
+  "smart_title_terms": [
+   "albert",
+   "einstein"
+  ],
+  "keyword_title_terms": [
+   "albert",
+   "einstein"
+  ]
+ },
+ {
+  "id": 8,
+  "query": "volcano",
+  "expected": "Volcano",
+  "keyword_top": "Volcano",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2516979237026555,
+  "smart_top": "Volcano",
+  "smart_ok": true,
+  "smart_ratio": 1.040402736543178,
+  "qterms": [
+   "volcano"
+  ],
+  "smart_title_terms": [
+   "volcano"
+  ],
+  "keyword_title_terms": [
+   "volcano"
+  ]
+ },
+ {
+  "id": 9,
+  "query": "shakespeare",
+  "expected": "William Shakespeare",
+  "keyword_top": "William Shakespeare",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2821144865690937,
+  "smart_top": "William Shakespeare",
+  "smart_ok": true,
+  "smart_ratio": 1.0409190654446883,
+  "qterms": [
+   "shakespear"
+  ],
+  "smart_title_terms": [
+   "william",
+   "shakespear"
+  ],
+  "keyword_title_terms": [
+   "william",
+   "shakespear"
+  ]
+ },
+ {
+  "id": 10,
+  "query": "dinosaur",
+  "expected": "Dinosaur",
+  "keyword_top": "Dinosaur",
+  "keyword_ok": true,
+  "keyword_ratio": 1.3803954721109841,
+  "smart_top": "Dinosaur",
+  "smart_ok": true,
+  "smart_ratio": 1.0245245901639346,
+  "qterms": [
+   "dinosaur"
+  ],
+  "smart_title_terms": [
+   "dinosaur"
+  ],
+  "keyword_title_terms": [
+   "dinosaur"
+  ]
+ },
+ {
+  "id": 11,
+  "query": "mozart",
+  "expected": "Wolfgang Amadeus Mozart",
+  "keyword_top": "Wolfgang Amadeus Mozart",
+  "keyword_ok": true,
+  "keyword_ratio": 1.0965295719439951,
+  "smart_top": "Wolfgang Amadeus Mozart",
+  "smart_ok": true,
+  "smart_ratio": 1.0245245901639346,
+  "qterms": [
+   "mozart"
+  ],
+  "smart_title_terms": [
+   "wolfgang",
+   "amadeu",
+   "mozart"
+  ],
+  "keyword_title_terms": [
+   "wolfgang",
+   "amadeu",
+   "mozart"
+  ]
+ },
+ {
+  "id": 12,
+  "query": "tokyo",
+  "expected": "Tokyo",
+  "keyword_top": "Tokyo",
+  "keyword_ok": true,
+  "keyword_ratio": 1.138111879870708,
+  "smart_top": "Tokyo",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "tokyo"
+  ],
+  "smart_title_terms": [
+   "tokyo"
+  ],
+  "keyword_title_terms": [
+   "tokyo"
+  ]
+ },
+ {
+  "id": 13,
+  "query": "gravity",
+  "expected": "Gravity",
+  "keyword_top": "Gravity",
+  "keyword_ok": true,
+  "keyword_ratio": 1.3400378251403289,
+  "smart_top": "Gravity",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "graviti"
+  ],
+  "smart_title_terms": [
+   "graviti"
+  ],
+  "keyword_title_terms": [
+   "graviti"
+  ]
+ },
+ {
+  "id": 14,
+  "query": "chess",
+  "expected": "Chess",
+  "keyword_top": "Chess",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2631166300838699,
+  "smart_top": "Chess",
+  "smart_ok": true,
+  "smart_ratio": 1.0809736711376057,
+  "qterms": [
+   "chess"
+  ],
+  "smart_title_terms": [
+   "chess"
+  ],
+  "keyword_title_terms": [
+   "chess"
+  ]
+ },
+ {
+  "id": 15,
+  "query": "electricity",
+  "expected": "Electricity",
+  "keyword_top": "Electricity",
+  "keyword_ok": true,
+  "keyword_ratio": 1.221708504471105,
+  "smart_top": "Electricity",
+  "smart_ok": true,
+  "smart_ratio": 1.048155737704918,
+  "qterms": [
+   "electr"
+  ],
+  "smart_title_terms": [
+   "electr"
+  ],
+  "keyword_title_terms": [
+   "electr"
+  ]
+ },
+ {
+  "id": 16,
+  "query": "tiger",
+  "expected": "Tiger",
+  "keyword_top": "Tiger",
+  "keyword_ok": true,
+  "keyword_ratio": 1.209154222450964,
+  "smart_top": "Tiger",
+  "smart_ok": true,
+  "smart_ratio": 1.0922436995351115,
+  "qterms": [
+   "tiger"
+  ],
+  "smart_title_terms": [
+   "tiger"
+  ],
+  "keyword_title_terms": [
+   "tiger"
+  ]
+ },
+ {
+  "id": 17,
+  "query": "olympics",
+  "expected": "Olympic Games",
+  "keyword_top": "Olympic Games",
+  "keyword_ok": true,
+  "keyword_ratio": 1.0791725218849035,
+  "smart_top": "Olympic Games",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "olymp"
+  ],
+  "smart_title_terms": [
+   "olymp",
+   "game"
+  ],
+  "keyword_title_terms": [
+   "olymp",
+   "game"
+  ]
+ },
+ {
+  "id": 18,
+  "query": "bitcoin",
+  "expected": "Bitcoin",
+  "keyword_top": "Bitcoin",
+  "keyword_ok": true,
+  "keyword_ratio": 1.403672975268735,
+  "smart_top": "Bitcoin",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "bitcoin"
+  ],
+  "smart_title_terms": [
+   "bitcoin"
+  ],
+  "keyword_title_terms": [
+   "bitcoin"
+  ]
+ },
+ {
+  "id": 19,
+  "query": "napoleon",
+  "expected": "Napoleon",
+  "keyword_top": "Napoleon",
+  "keyword_ok": true,
+  "keyword_ratio": 1.1632818558001465,
+  "smart_top": "Napoleon",
+  "smart_ok": true,
+  "smart_ratio": 1.0409190654446883,
+  "qterms": [
+   "napoleon"
+  ],
+  "smart_title_terms": [
+   "napoleon"
+  ],
+  "keyword_title_terms": [
+   "napoleon"
+  ]
+ },
+ {
+  "id": 20,
+  "query": "evolution",
+  "expected": "Evolution",
+  "keyword_top": "Evolution",
+  "keyword_ok": true,
+  "keyword_ratio": 1.299236765511436,
+  "smart_top": "Evolution",
+  "smart_ok": true,
+  "smart_ratio": 1.056805184902783,
+  "qterms": [
+   "evolut"
+  ],
+  "smart_title_terms": [
+   "evolut"
+  ],
+  "keyword_title_terms": [
+   "evolut"
+  ]
+ },
+ {
+  "id": 21,
+  "query": "solar system",
+  "expected": "Solar System",
+  "keyword_top": "Solar System",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2821360756950888,
+  "smart_top": "Solar System",
+  "smart_ok": true,
+  "smart_ratio": 1.0327868852459017,
+  "qterms": [
+   "solar",
+   "system"
+  ],
+  "smart_title_terms": [
+   "solar",
+   "system"
+  ],
+  "keyword_title_terms": [
+   "solar",
+   "system"
+  ]
+ },
+ {
+  "id": 22,
+  "query": "french revolution",
+  "expected": "French Revolution",
+  "keyword_top": "French Revolution",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2004593039643587,
+  "smart_top": "French Revolution",
+  "smart_ok": true,
+  "smart_ratio": 1.0245245901639346,
+  "qterms": [
+   "french",
+   "revolut"
+  ],
+  "smart_title_terms": [
+   "french",
+   "revolut"
+  ],
+  "keyword_title_terms": [
+   "french",
+   "revolut"
+  ]
+ },
+ {
+  "id": 23,
+  "query": "united nations",
+  "expected": "United Nations",
+  "keyword_top": "United Nations",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2516908777517055,
+  "smart_top": "United Nations",
+  "smart_ok": true,
+  "smart_ratio": 1.0633039092055487,
+  "qterms": [
+   "unit",
+   "nation"
+  ],
+  "smart_title_terms": [
+   "unit",
+   "nation"
+  ],
+  "keyword_title_terms": [
+   "unit",
+   "nation"
+  ]
+ },
+ {
+  "id": 24,
+  "query": "great wall of china",
+  "expected": "Great Wall of China",
+  "keyword_top": "Great Wall of China",
+  "keyword_ok": true,
+  "keyword_ratio": 1.4287768554437892,
+  "smart_top": "Great Wall of China",
+  "smart_ok": true,
+  "smart_ratio": 1.040402736543178,
+  "qterms": [
+   "great",
+   "wall",
+   "china"
+  ],
+  "smart_title_terms": [
+   "great",
+   "wall",
+   "china"
+  ],
+  "keyword_title_terms": [
+   "great",
+   "wall",
+   "china"
+  ]
+ },
+ {
+  "id": 25,
+  "query": "theory of relativity",
+  "expected": "Theory of relativity",
+  "keyword_top": "Theory of relativity",
+  "keyword_ok": true,
+  "keyword_ratio": 1.3300314606626946,
+  "smart_top": "Theory of relativity",
+  "smart_ok": true,
+  "smart_ratio": 1.0245245901639346,
+  "qterms": [
+   "theori",
+   "rel"
+  ],
+  "smart_title_terms": [
+   "theori",
+   "rel"
+  ],
+  "keyword_title_terms": [
+   "theori",
+   "rel"
+  ]
+ },
+ {
+  "id": 26,
+  "query": "black hole",
+  "expected": "Black hole",
+  "keyword_top": "Black hole",
+  "keyword_ok": true,
+  "keyword_ratio": 1.1864051855099902,
+  "smart_top": "Black hole",
+  "smart_ok": true,
+  "smart_ratio": 1.0489241803278688,
+  "qterms": [
+   "black",
+   "hole"
+  ],
+  "smart_title_terms": [
+   "black",
+   "hole"
+  ],
+  "keyword_title_terms": [
+   "black",
+   "hole"
+  ]
+ },
+ {
+  "id": 27,
+  "query": "martin luther king",
+  "expected": "Martin Luther King Jr.",
+  "keyword_top": "Martin Luther King Jr.",
+  "keyword_ok": true,
+  "keyword_ratio": 1.1494150863268553,
+  "smart_top": "Martin Luther King Jr.",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "martin",
+   "luther",
+   "king"
+  ],
+  "smart_title_terms": [
+   "martin",
+   "luther",
+   "king",
+   "jr"
+  ],
+  "keyword_title_terms": [
+   "martin",
+   "luther",
+   "king",
+   "jr"
+  ]
+ },
+ {
+  "id": 28,
+  "query": "human heart",
+  "expected": "Heart",
+  "keyword_top": "Heart",
+  "keyword_ok": true,
+  "keyword_ratio": 1.3044213305004662,
+  "smart_top": "Heart",
+  "smart_ok": true,
+  "smart_ratio": 1.040402736543178,
+  "qterms": [
+   "human",
+   "heart"
+  ],
+  "smart_title_terms": [
+   "heart"
+  ],
+  "keyword_title_terms": [
+   "heart"
+  ]
+ },
+ {
+  "id": 29,
+  "query": "climate change",
+  "expected": "Climate change",
+  "keyword_top": "Climate change",
+  "keyword_ok": true,
+  "keyword_ratio": 1.1329010642369013,
+  "smart_top": "Climate change",
+  "smart_ok": true,
+  "smart_ratio": 1.040402736543178,
+  "qterms": [
+   "climat",
+   "chang"
+  ],
+  "smart_title_terms": [
+   "climat",
+   "chang"
+  ],
+  "keyword_title_terms": [
+   "climat",
+   "chang"
+  ]
+ },
+ {
+  "id": 30,
+  "query": "statue of liberty",
+  "expected": "Statue of Liberty",
+  "keyword_top": "Statue of Liberty",
+  "keyword_ok": true,
+  "keyword_ratio": 1.3690768826105086,
+  "smart_top": "Statue of Liberty",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "statu",
+   "liberti"
+  ],
+  "smart_title_terms": [
+   "statu",
+   "liberti"
+  ],
+  "keyword_title_terms": [
+   "statu",
+   "liberti"
+  ]
+ },
+ {
+  "id": 31,
+  "query": "axolotl",
+  "expected": "Axolotl",
+  "keyword_top": "Axolotl",
+  "keyword_ok": true,
+  "keyword_ratio": 3.7233449429906447,
+  "smart_top": "Axolotl",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "axolotl"
+  ],
+  "smart_title_terms": [
+   "axolotl"
+  ],
+  "keyword_title_terms": [
+   "axolotl"
+  ]
+ },
+ {
+  "id": 32,
+  "query": "tardigrade",
+  "expected": "Tardigrade",
+  "keyword_top": "Tardigrade",
+  "keyword_ok": true,
+  "keyword_ratio": 2.9353169217040462,
+  "smart_top": "Tardigrade",
+  "smart_ok": true,
+  "smart_ratio": 2.0327868852459017,
+  "qterms": [
+   "tardigrad"
+  ],
+  "smart_title_terms": [
+   "tardigrad"
+  ],
+  "keyword_title_terms": [
+   "tardigrad"
+  ]
+ },
+ {
+  "id": 33,
+  "query": "bauhaus",
+  "expected": "Bauhaus",
+  "keyword_top": "Bauhaus",
+  "keyword_ok": true,
+  "keyword_ratio": 1.1199025490259595,
+  "smart_top": "Bauhaus",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "bauhau"
+  ],
+  "smart_title_terms": [
+   "bauhau"
+  ],
+  "keyword_title_terms": [
+   "bauhau"
+  ]
+ },
+ {
+  "id": 34,
+  "query": "haiku",
+  "expected": "Haiku",
+  "keyword_top": "Haiku",
+  "keyword_ok": true,
+  "keyword_ratio": 1.371126445019701,
+  "smart_top": "Haiku",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "haiku"
+  ],
+  "smart_title_terms": [
+   "haiku"
+  ],
+  "keyword_title_terms": [
+   "haiku"
+  ]
+ },
+ {
+  "id": 35,
+  "query": "ada lovelace",
+  "expected": "Ada Lovelace",
+  "keyword_top": "Ada Lovelace",
+  "keyword_ok": true,
+  "keyword_ratio": 1.7846316907089947,
+  "smart_top": "Ada Lovelace",
+  "smart_ok": true,
+  "smart_ratio": 1.1869292551435802,
+  "qterms": [
+   "ada",
+   "lovelac"
+  ],
+  "smart_title_terms": [
+   "ada",
+   "lovelac"
+  ],
+  "keyword_title_terms": [
+   "ada",
+   "lovelac"
+  ]
+ },
+ {
+  "id": 36,
+  "query": "mount kilimanjaro",
+  "expected": "Mount Kilimanjaro",
+  "keyword_top": "Mount Kilimanjaro",
+  "keyword_ok": true,
+  "keyword_ratio": 2.0940812000351485,
+  "smart_top": "Mount Kilimanjaro",
+  "smart_ok": true,
+  "smart_ratio": 1.1016393442622952,
+  "qterms": [
+   "mount",
+   "kilimanjaro"
+  ],
+  "smart_title_terms": [
+   "mount",
+   "kilimanjaro"
+  ],
+  "keyword_title_terms": [
+   "mount",
+   "kilimanjaro"
+  ]
+ },
+ {
+  "id": 37,
+  "query": "rosetta stone",
+  "expected": "Rosetta Stone",
+  "keyword_top": "Rosetta Stone",
+  "keyword_ok": true,
+  "keyword_ratio": 1.4204370345698718,
+  "smart_top": "Rosetta Stone",
+  "smart_ok": true,
+  "smart_ratio": 1.0163934426229508,
+  "qterms": [
+   "rosetta",
+   "stone"
+  ],
+  "smart_title_terms": [
+   "rosetta",
+   "stone"
+  ],
+  "keyword_title_terms": [
+   "rosetta",
+   "stone"
+  ]
+ },
+ {
+  "id": 38,
+  "query": "fibonacci numbers",
+  "expected": "Fibonacci number",
+  "keyword_top": "Fibonacci number",
+  "keyword_ok": true,
+  "keyword_ratio": 1.103003860099123,
+  "smart_top": "Fibonacci number",
+  "smart_ok": true,
+  "smart_ratio": 1.0325266718709343,
+  "qterms": [
+   "fibonacci",
+   "number"
+  ],
+  "smart_title_terms": [
+   "fibonacci",
+   "number"
+  ],
+  "keyword_title_terms": [
+   "fibonacci",
+   "number"
+  ]
+ },
+ {
+  "id": 39,
+  "query": "how do plants make food",
+  "expected": "Photosynthesis",
+  "keyword_top": "Food",
+  "keyword_ok": false,
+  "keyword_ratio": 1.2628439276609145,
+  "smart_top": "Carnivorous plant",
+  "smart_ok": false,
+  "smart_ratio": 1.0301078706377362,
+  "qterms": [
+   "do",
+   "plant",
+   "make",
+   "food"
+  ],
+  "smart_title_terms": [
+   "carnivor",
+   "plant"
+  ],
+  "keyword_title_terms": [
+   "food"
+  ]
+ },
+ {
+  "id": 40,
+  "query": "who discovered penicillin",
+  "expected": "Alexander Fleming",
+  "keyword_top": "Penicillin",
+  "keyword_ok": false,
+  "keyword_ratio": 2.656838138934799,
+  "smart_top": "Alexander Fleming",
+  "smart_ok": true,
+  "smart_ratio": 1.015741935483871,
+  "qterms": [
+   "discov",
+   "penicillin"
+  ],
+  "smart_title_terms": [
+   "alexand",
+   "fleme"
+  ],
+  "keyword_title_terms": [
+   "penicillin"
+  ]
+ },
+ {
+  "id": 41,
+  "query": "what is the largest planet",
+  "expected": "Jupiter",
+  "keyword_top": "Mercury (planet)",
+  "keyword_ok": false,
+  "keyword_ratio": 1.0487633556063736,
+  "smart_top": "Jupiter",
+  "smart_ok": true,
+  "smart_ratio": 1.003584229390681,
+  "qterms": [
+   "largest",
+   "planet"
+  ],
+  "smart_title_terms": [
+   "jupit"
+  ],
+  "keyword_title_terms": [
+   "mercuri",
+   "planet"
+  ]
+ },
+ {
+  "id": 42,
+  "query": "who invented the telephone",
+  "expected": "Alexander Graham Bell",
+  "keyword_top": "Wireless",
+  "keyword_ok": false,
+  "keyword_ratio": 1.0068672708997952,
+  "smart_top": "Alexander Graham Bell",
+  "smart_ok": true,
+  "smart_ratio": 1.0151049667178698,
+  "qterms": [
+   "invent",
+   "telephon"
+  ],
+  "smart_title_terms": [
+   "alexand",
+   "graham",
+   "bell"
+  ],
+  "keyword_title_terms": [
+   "wireless"
+  ]
+ },
+ {
+  "id": 43,
+  "query": "what causes earthquakes",
+  "expected": "Earthquake",
+  "keyword_top": "Earthquake",
+  "keyword_ok": true,
+  "keyword_ratio": 1.4019761977872405,
+  "smart_top": "Earthquake",
+  "smart_ok": true,
+  "smart_ratio": 1.0779930452061601,
+  "qterms": [
+   "caus",
+   "earthquak"
+  ],
+  "smart_title_terms": [
+   "earthquak"
+  ],
+  "keyword_title_terms": [
+   "earthquak"
+  ]
+ },
+ {
+  "id": 44,
+  "query": "who was the first person on the moon",
+  "expected": "Neil Armstrong",
+  "keyword_top": "Moon",
+  "keyword_ok": false,
+  "keyword_ratio": 1.5337141443679179,
+  "smart_top": "Neil Armstrong",
+  "smart_ok": true,
+  "smart_ratio": 1.048245437846247,
+  "qterms": [
+   "first",
+   "person",
+   "moon"
+  ],
+  "smart_title_terms": [
+   "neil",
+   "armstrong"
+  ],
+  "keyword_title_terms": [
+   "moon"
+  ]
+ },
+ {
+  "id": 45,
+  "query": "when did the titanic sink",
+  "expected": "Titanic",
+  "keyword_top": "Titanic",
+  "keyword_ok": true,
+  "keyword_ratio": 1.194867870900788,
+  "smart_top": "Titanic",
+  "smart_ok": true,
+  "smart_ratio": 1.048155737704918,
+  "qterms": [
+   "titan",
+   "sink"
+  ],
+  "smart_title_terms": [
+   "titan"
+  ],
+  "keyword_title_terms": [
+   "titan"
+  ]
+ },
+ {
+  "id": 46,
+  "query": "what is the capital of australia",
+  "expected": "Canberra",
+  "keyword_top": "Australia",
+  "keyword_ok": false,
+  "keyword_ratio": 1.1551839239475807,
+  "smart_top": "Australia",
+  "smart_ok": false,
+  "smart_ratio": 1.0722561415316572,
+  "qterms": [
+   "capit",
+   "australia"
+  ],
+  "smart_title_terms": [
+   "australia"
+  ],
+  "keyword_title_terms": [
+   "australia"
+  ]
+ },
+ {
+  "id": 47,
+  "query": "usa",
+  "expected": "United States",
+  "keyword_top": "USA Today",
+  "keyword_ok": false,
+  "keyword_ratio": 1.020057972291422,
+  "smart_top": "Usa, \u014cita",
+  "smart_ok": false,
+  "smart_ratio": 1.2922565996095408,
+  "qterms": [
+   "usa"
+  ],
+  "smart_title_terms": [
+   "usa",
+   "oita"
+  ],
+  "keyword_title_terms": [
+   "usa",
+   "todai"
+  ]
+ },
+ {
+  "id": 48,
+  "query": "dna",
+  "expected": "DNA",
+  "keyword_top": "DNA",
+  "keyword_ok": true,
+  "keyword_ratio": 1.2341363509097376,
+  "smart_top": "DNA",
+  "smart_ok": true,
+  "smart_ratio": 1.073707921411588,
+  "qterms": [
+   "dna"
+  ],
+  "smart_title_terms": [
+   "dna"
+  ],
+  "keyword_title_terms": [
+   "dna"
+  ]
+ },
+ {
+  "id": 49,
+  "query": "nasa",
+  "expected": "NASA",
+  "keyword_top": "NASA",
+  "keyword_ok": true,
+  "keyword_ratio": 1.5459583307545604,
+  "smart_top": "NASA",
+  "smart_ok": true,
+  "smart_ratio": 1.0245245901639346,
+  "qterms": [
+   "nasa"
+  ],
+  "smart_title_terms": [
+   "nasa"
+  ],
+  "keyword_title_terms": [
+   "nasa"
+  ]
+ },
+ {
+  "id": 50,
+  "query": "ww1",
+  "expected": "World War I",
+  "keyword_top": "Siege of Tsingtao",
+  "keyword_ok": false,
+  "keyword_ratio": 1.116158417193016,
+  "smart_top": "World War I",
+  "smart_ok": true,
+  "smart_ratio": 1.167021600243383,
+  "qterms": [
+   "ww1"
+  ],
+  "smart_title_terms": [
+   "world",
+   "war",
+   "i"
+  ],
+  "keyword_title_terms": [
+   "sieg",
+   "tsingtao"
+  ]
+ }
+]
