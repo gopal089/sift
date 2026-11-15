@@ -17,6 +17,7 @@
 | 6 — Prove quality and speed | ✅ Done (2026-11-14) |
 | 7 — Ship it | 🟡 Local parts done (2026-11-14); no free host fits (2026-11-16), so: localhost + demo video |
 | Website redesign | ✅ Done (2026-11-16), direction A "Reference" |
+| Definition card + related articles | ✅ Done (2026-11-16); Discussions tab researched, not built |
 
 ## Phase 0 — Setup (done)
 
@@ -386,11 +387,29 @@ int8 recall vs float32 ≥ 0.97, Smart p95 over HTTP and server memory, make it 
 (keyword mode unchanged). Done when: winner locked, all tests pass, Smart p95 < 100 ms. If Photosynthesis is
 still not top 3, it is documented as a known limitation, with no further tuning.
 
+## Definition card + related articles (done 2026-11-16)
+
+Plan and source research: `docs/learning/discussions-plan.md`. Decisions: `DESIGN.md` §15 (Discussions not built) and
+§16 (card). Explanation: `docs/learning/definition-card.md`. Design re-check: `docs/design/review.md` (last section).
+
+| Measure | Value | Raw file |
+| --- | --- | --- |
+| Cards on the main 50 | Smart 40 (32 title + 8 redirect), Keyword 39 (32 + 7); **0 wrong** | `eval/results/definition-card-main50.json` |
+| Redirect extension | adopted: +8 / +7 cards, 0 wrong in both modes | `eval/results/definition-card-redirects.json` |
+| Ranking | ids, scores, order and snippets identical; MRR 0.86758 / 0.95622 before and after | `eval/results/card-before.json`, `card-after.json` |
+| Smart p95 over HTTP | 13.07–13.33 → 13.73–13.93 ms | `eval/results/card-latency-*.json` |
+| Keyword p95 over HTTP | 6.80–7.10 → 8.27–8.39 ms | same |
+| Card + related time | median ~1 ms, p95 1.57–1.78 ms | same |
+| Heap after start | +26.7 MB (redirect map) | same |
+| Design checks | 0 tap failures (after a fix), 0 px overflow at 320 px and 200 %, CLS 0, Lighthouse mobile 97 / 100 / 100 | `docs/design/review/card/` |
+| Tests | 294 JUnit (293 in CI) + 46 Vitest, all pass | |
+
+Open: the 1 GiB container was not re-measured with the +27 MB heap; on phones the card pushes the first result
+from 236 px to 593 px.
+
 ## Next step
-- **Waiting for your "go"** on the definition card + Discussions plan (`docs/learning/discussions-plan.md`), with
-  3 decisions in its last section.
+- Definition card and related articles are done. Next: record the demo video (`docs/deployment-plan.md` §3), and
+  re-measure the container's memory with the card before any Railway trial.
 - **Hosting (2026-11-16, zero-cost rule):** no free host runs Sift all the time without a card
   (`docs/deployment-plan.md`). Plan: localhost + a 60–90 s demo video and GIF for the README. Optional: a few weeks
   live on Railway's no-card trial.
-- CLAUDE.md still names Google Cloud Run as the host (tech stack table and Phase 7). That conflicts with the new
-  rule 10 and should be updated when you decide.
