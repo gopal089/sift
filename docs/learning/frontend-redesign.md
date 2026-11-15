@@ -10,7 +10,7 @@ Only the look changed. The API, the ranking and the results are the same. The on
 beforehand: the API no longer highlights helper words like "do" or "from" in snippets (ranking still uses them,
 and the main-50 MRR stayed exactly the same).
 
-Screenshots: `docs/screenshots/` (home, results in light and dark, phone). Old design:
+Screenshots: `docs/screenshots/` (home, results, the definition card in dark, phone). Old design:
 `docs/design/screenshots/before-*.png`. The full 30-point review with measurements: `docs/design/review.md`.
 
 ## Each new or changed file and what it is for

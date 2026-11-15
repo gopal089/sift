@@ -6,9 +6,9 @@ search, answers in about 6 ms.**
 **Live demo:** none. This is a zero-cost project and no free host fits it ([why](docs/deployment-plan.md)); it runs
 locally ([3 commands](docs/run-locally.md)).  ·  Demo video and GIF: _coming soon_
 
-| Search results | Dark theme | "Did you mean" on a phone |
+| Search results | Definition card (dark theme) | "Did you mean" on a phone |
 | --- | --- | --- |
-| ![Smart search for "how do plants make food": the matched words have a pale yellow background](docs/screenshots/results-desktop.png) | ![The same results in the dark theme](docs/screenshots/results-desktop-dark.png) | ![Spelling correction at 375 px: "Did you mean python?"](docs/screenshots/did-you-mean-mobile.png) |
+| ![Smart search for "how do plants make food": the matched words have a pale yellow background](docs/screenshots/results-desktop.png) | ![Search for "einstein": a card with the first sentence of Albert Einstein and five related articles, in the dark theme](docs/screenshots/card-desktop-dark.png) | ![Spelling correction at 375 px: "Did you mean python?"](docs/screenshots/did-you-mean-mobile.png) |
 
 ## What it does
 - **Search box with autocomplete**: suggestions after one letter (a trie of titles).
@@ -17,6 +17,9 @@ locally ([3 commands](docs/run-locally.md)).  ·  Demo video and GIF: _coming so
   - **Keyword**: BM25 + PageRank.
   - **Smart** (the default): keyword results fused with meaning search, so "how do plants make food" finds
     *Photosynthesis* (#2).
+- **Definition card**: when the top result's title (or a redirect to it, like "einstein" → *Albert Einstein*)
+  has exactly the query's words, its first 1–2 sentences are shown above the results, with 5 **related articles**
+  nearest in meaning (from the HNSW index). Shown for 40 of the 50 main queries in Smart mode, none of them wrong.
 - **Results**: snippets (the best 30-word window) with the meaningful query words highlighted, pagination, and a
   one-line summary (result count and time) that opens a "Details" list (documents searched, cache hit or miss, …).
 - **Website**: hand-designed with plain CSS and design tokens, light and dark themes, works from 320 px wide
@@ -66,7 +69,7 @@ flowchart LR
 ```
 
 ## What I built myself
-Every search algorithm is my own Java code, with JUnit tests (270 tests):
+Every search algorithm is my own Java code, with JUnit tests (294 tests):
 - **Text**: tokenizer (one class shared by indexing and queries), Porter stemmer, BERT WordPiece tokenizer
   (matches the model's own tokenizer on 1,000 / 1,000 test strings).
 - **Index**: inverted index with positions, posting-list intersection (two pointers), gap + varint compression,
@@ -76,6 +79,8 @@ Every search algorithm is my own Java code, with JUnit tests (270 tests):
   BK-tree.
 - **Meaning search**: cosine similarity, brute-force search, **HNSW** (graph build, search, save and load), int8
   quantisation, Reciprocal Rank Fusion.
+- **Definition card**: the exact title/redirect rule, a sentence splitter for article openings, related articles
+  by HNSW search from an article's own vector.
 - **Evaluation**: MRR and hit@k tools, pre-registered experiments, held-out query sets.
 
 Libraries only do the plumbing:
