@@ -12,7 +12,7 @@ Final demo features:
 - Ranked results with highlighted snippets and pagination
 - Two modes: Keyword (BM25 + PageRank) and Smart (hybrid keyword + meaning)
 - Stats panel: query time in ms, documents searched, cache hit/miss
-- Public live link, README with real measured numbers, demo GIF
+- Runs locally with a demo video (no paid hosting), README with real measured numbers, demo GIF
 
 ## About me (how to work with me)
 - I am a student. I know Java basics. I am new to search engines.
@@ -65,7 +65,7 @@ Also update `PROGRESS.md`: phase status, what was done, open issues, next step.
 | Index storage | Own binary files, memory-mapped (gap + varint encoded postings) |
 | Tests | JUnit 5; k6 for load tests |
 | Packaging / CI | Docker; GitHub Actions |
-| Hosting | Google Cloud Run (min instances = 1), Render as fallback |
+| Hosting | Runs locally + demo video; optional short-lived Railway trial link (no card). See `docs/deployment-plan.md` |
 
 ## Folder layout
 ```
@@ -148,12 +148,13 @@ sift/
 
 ### Phase 7 — Ship it
 - Multi-stage Dockerfile; GitHub Actions: build + test on every push.
-- Deploy to Google Cloud Run (min instances 1, enough memory for the index); health check.
-  Before deploying, tell me the expected monthly cost and wait for my OK.
-- README: one-line pitch, live link, demo GIF placeholder, results table, architecture diagram
+- Hosting (zero-cost rule): runs locally + demo video; optional short-lived Railway trial link (no card).
+  No free host fits the server's ~1 GiB of memory without a card (`docs/deployment-plan.md`).
+  Never deploy anywhere that needs a card or billing; ask me before starting the Railway trial.
+- README: one-line pitch, demo video and GIF, results table, architecture diagram
   (Mermaid), "What I built myself", run locally in 3 commands.
 - DESIGN.md: key decisions and trade-offs with numbers.
-- **Done when:** the public link works on my phone on mobile data.
+- **Done when:** the demo video and GIF are in the README and a fresh clone runs locally with the 3 commands.
 
 ### Stretch (only if I ask)
 - Shard the index into 4 parts; a coordinator queries shards in parallel and merges top-10 lists.
