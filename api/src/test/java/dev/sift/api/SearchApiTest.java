@@ -4,10 +4,13 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -69,6 +72,7 @@ class SearchApiTest {
         registry.add("sift.vector-kind", () -> "float32");
         registry.add("sift.smart-mode", () -> "hybrid");
         registry.add("sift.ef-search", () -> "50");
+        registry.add("sift.redirects-file", () -> INDEX_DIR.resolve("redirects.jsonl").toString());
     }
 
     @BeforeEach
@@ -96,6 +100,8 @@ class SearchApiTest {
                 InvertedIndex index = builder.build();
                 writer.write(index, false);
                 writeTinyVectors(dir.resolve("vectors"), index);
+                // one redirect, for the definition card's rule ("Sunlight food" leads to Photosynthesis)
+                Files.writeString(dir.resolve("redirects.jsonl"), "{\"from\": \"Sunlight food\", \"to\": \"Photosynthesis\"}\n");
             }
             return dir;
         } catch (IOException e) {
@@ -148,6 +154,71 @@ class SearchApiTest {
                 .andExpect(jsonPath("$.stats.matchMode").value("AND"))
                 .andExpect(jsonPath("$.stats.cache", anyOf(is("miss"), is("hit"))))   // other tests may run first
                 .andExpect(jsonPath("$.stats.tookMs", greaterThan(0.0)));
+    }
+
+    // ------------------------------------------------------------------ definition card
+
+    @Test
+    void exactTitleMatchGetsADefinitionCardWithRelatedArticles() throws Exception {
+        mvc.perform(get("/search").param("q", "photosynthesis"))
+                .andExpect(jsonPath("$.definition.id").value(1000))
+                .andExpect(jsonPath("$.definition.title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.definition.url").value("https://simple.wikipedia.org/wiki/Photosynthesis"))
+                // the first sentence has 9 words (< 12), so the second one is added
+                .andExpect(jsonPath("$.definition.text")
+                        .value("Photosynthesis is how green plants make food from sunlight. It happens in the leaves."))
+                .andExpect(jsonPath("$.definition.matchedBy").value("title"))
+                .andExpect(jsonPath("$.definition.related", hasSize(5)))
+                .andExpect(jsonPath("$.definition.related[0].title").value("Plant"))   // nearest in meaning
+                .andExpect(jsonPath("$.definition.related[0].url").value("https://simple.wikipedia.org/wiki/Plant"))
+                .andExpect(jsonPath("$.definition.related[*].title", not(hasItem("Photosynthesis"))));
+    }
+
+    @Test
+    void redirectTitleMatchAlsoGetsTheCard() throws Exception {
+        mvc.perform(get("/search").param("q", "sunlight food"))
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.definition.title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.definition.matchedBy").value("redirect"));
+    }
+
+    @Test
+    void noCardWhenTheQueryIsNotExactlyTheTitle() throws Exception {
+        mvc.perform(get("/search").param("q", "green plants"))
+                .andExpect(jsonPath("$.results[0].title").value("Photosynthesis"))
+                .andExpect(jsonPath("$.definition").value(nullValue()));
+        mvc.perform(get("/search").param("q", "river").param("mode", "smart"))
+                .andExpect(jsonPath("$.definition").value(nullValue()));
+    }
+
+    @Test
+    void cardOnlyOnPageOneAndRelatedSkipsEverythingOnThePage() throws Exception {
+        String body = mvc.perform(get("/search").param("q", "river 3").param("mode", "smart"))
+                .andExpect(jsonPath("$.results[0].title").value("River 3"))
+                .andExpect(jsonPath("$.definition.title").value("River 3"))
+                .andExpect(jsonPath("$.stats.cache").value("miss"))
+                .andExpect(jsonPath("$.stats.cardMs", greaterThan(0.0)))
+                .andReturn().getResponse().getContentAsString();
+        com.fasterxml.jackson.databind.JsonNode json = new com.fasterxml.jackson.databind.ObjectMapper().readTree(body);
+        java.util.Set<Integer> onPage = new java.util.HashSet<>();
+        json.get("results").forEach(r -> onPage.add(r.get("id").asInt()));
+        assertEquals(10, onPage.size());
+        json.get("definition").get("related").forEach(r -> assertFalse(onPage.contains(r.get("id").asInt()),
+                r.get("title").asText() + " is already on the page"));
+        // 15 articles − the 10 on the page (River 3 itself is one of them) = 5 left, all of them related
+        assertEquals(5, json.get("definition").get("related").size());
+        mvc.perform(get("/search").param("q", "river 3").param("mode", "smart").param("page", "2"))
+                .andExpect(jsonPath("$.results", hasSize(5)))
+                .andExpect(jsonPath("$.definition").value(nullValue()))
+                .andExpect(jsonPath("$.stats.cardMs").value(nullValue()));
+    }
+
+    @Test
+    void cachedPageKeepsItsCard() throws Exception {
+        mvc.perform(get("/search").param("q", "photosynthesis").param("mode", "smart"));
+        mvc.perform(get("/search").param("q", "photosynthesis").param("mode", "smart"))
+                .andExpect(jsonPath("$.stats.cache").value("hit"))
+                .andExpect(jsonPath("$.definition.title").value("Photosynthesis"));
     }
 
     @Test

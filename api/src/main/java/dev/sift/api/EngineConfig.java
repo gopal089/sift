@@ -2,6 +2,9 @@ package dev.sift.api;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import dev.sift.engine.card.DefinitionRule;
+import dev.sift.engine.card.RelatedArticles;
+import dev.sift.engine.data.RedirectAliases;
 import dev.sift.engine.embed.Embedder;
 import dev.sift.engine.embed.QueryEmbedder;
 import dev.sift.engine.search.Ranking;
@@ -20,7 +23,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +37,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class EngineConfig {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EngineConfig.class);
 
     /** Opens the on-disk index. If the folder is missing the server refuses to start, with a clear message. */
     /**
@@ -76,17 +84,46 @@ public class EngineConfig {
      * index's titles) and the HNSW graph built over them.
      */
     @Bean
-    public SemanticIndex semanticIndex(DiskIndex index, @Value("${sift.vectors-dirs}") String vectorsDirs,
-                                       @Value("${sift.graph-file}") String graphFile,
-                                       @Value("${sift.vector-kind}") String kind,
-                                       @Value("${sift.ef-search}") int efSearch) throws IOException {
+    public VectorStore articleVectors(DiskIndex index, @Value("${sift.vectors-dirs}") String vectorsDirs,
+                                      @Value("${sift.vector-kind}") String kind) throws IOException {
         List<VectorStore> stores = new ArrayList<>();
         for (String dir : vectorsDirs.split(",")) {
             stores.add(VectorFiles.open(Path.of(dir.strip()), index.docs(), kind));
         }
-        VectorStore all = stores.size() == 1 ? stores.get(0) : new StackedVectors(stores.toArray(new VectorStore[0]));
-        Hnsw graph = Hnsw.load(Path.of(graphFile), all);
+        return stores.size() == 1 ? stores.get(0) : new StackedVectors(stores.toArray(new VectorStore[0]));
+    }
+
+    @Bean
+    public SemanticIndex semanticIndex(DiskIndex index, VectorStore articleVectors,
+                                       @Value("${sift.vectors-dirs}") String vectorsDirs,
+                                       @Value("${sift.graph-file}") String graphFile,
+                                       @Value("${sift.ef-search}") int efSearch) throws IOException {
+        Hnsw graph = Hnsw.load(Path.of(graphFile), articleVectors);
         return new HnswIndex(vectorsDirs, graph, efSearch, index.docs().size());
+    }
+
+    /**
+     * Redirect titles per article ("Einstein" → Albert Einstein), used only by the definition card's rule.
+     * If the file is missing the card still works, with exact title matches only.
+     */
+    @Bean
+    public RedirectAliases redirectAliases(@Value("${sift.redirects-file}") String file) throws IOException {
+        Path path = Path.of(file);
+        if (!Files.exists(path)) {
+            LOG.warn("No redirects file at {}: the definition card will use exact title matches only", path);
+            return RedirectAliases.of(List.of());
+        }
+        return RedirectAliases.load(path);
+    }
+
+    @Bean
+    public DefinitionRule definitionRule(RedirectAliases redirects, Searcher searcher) {
+        return new DefinitionRule(redirects::aliasesOf, searcher.ranking().dropQuestionWords());
+    }
+
+    @Bean
+    public RelatedArticles relatedArticles(VectorStore articleVectors, SemanticIndex semanticIndex) {
+        return new RelatedArticles(articleVectors, semanticIndex);
     }
 
     /** Smart mode: semantic-only or hybrid (RRF), as chosen in Phase 5 (see PROGRESS.md). */

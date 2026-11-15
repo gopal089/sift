@@ -20,6 +20,7 @@
 
 # the data the server reads (built locally, never in git): index, int8 vectors + graph, bge model
 !data/index/
+!data/redirects.jsonl
 !data/vectors-bge60/vectors-i8.bin
 !data/vectors-bge60/vectors-meta.json
 !data/vectors-bge60/hnsw.bin

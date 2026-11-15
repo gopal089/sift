@@ -33,6 +33,7 @@ queries += [json.loads(l)["text"] for l in open("data/model-bge/check-queries.js
 for q in queries[:20]:   # warm-up
     get("/search?" + urllib.parse.urlencode({"q": q, "mode": "smart"}))
 took, wall = {"smart": [], "keyword": []}, {"smart": [], "keyword": []}
+card_ms, cards = {"smart": [], "keyword": []}, {"smart": 0, "keyword": 0}   # definition card (absent before it existed)
 for rnd in range(3):
     for mode in ("smart", "keyword"):
         for q in queries:
@@ -40,6 +41,9 @@ for rnd in range(3):
             r = get("/search?" + urllib.parse.urlencode({"q": q, "mode": mode}))
             wall[mode].append((time.perf_counter() - s) * 1000)
             took[mode].append(r["stats"]["tookMs"])
+            if r["stats"].get("cardMs") is not None:
+                card_ms[mode].append(r["stats"]["cardMs"])
+            cards[mode] += r.get("definition") is not None
 def pct(xs, p): xs = sorted(xs); return xs[min(len(xs) - 1, int(len(xs) * p + 0.999999) - 1)]
 res = {"vectorKind": kind, "startupSeconds": stats["startupSeconds"], "vectorBytes": stats["vectorBytes"],
        "smartRanking": stats["smartRanking"], "afterStart": {"rssMb": round(start_rss, 1), "heapUsedAfterGcMb": round(start_heap, 1)},
@@ -48,5 +52,8 @@ res = {"vectorKind": kind, "startupSeconds": stats["startupSeconds"], "vectorByt
 for mode in ("smart", "keyword"):
     res[mode] = {"serverTookMs": {"median": round(statistics.median(took[mode]), 2), "p95": round(pct(took[mode], 0.95), 2), "max": round(max(took[mode]), 2)},
                  "httpWallMs": {"median": round(statistics.median(wall[mode]), 2), "p95": round(pct(wall[mode], 0.95), 2)}}
+    if card_ms[mode]:
+        res[mode]["cardMs"] = {"median": round(statistics.median(card_ms[mode]), 3), "p95": round(pct(card_ms[mode], 0.95), 3), "max": round(max(card_ms[mode]), 3)}
+        res[mode]["requestsWithACard"] = cards[mode]
 p.terminate(); p.wait()
 print(json.dumps(res, indent=1))

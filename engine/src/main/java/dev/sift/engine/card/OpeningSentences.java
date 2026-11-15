@@ -42,11 +42,24 @@ public final class OpeningSentences {
         if (Character.isLowerCase(paragraph.codePointAt(0))) {
             paragraph = title + " " + paragraph;
         }
+        paragraph = tidyBrackets(paragraph);
         int end = sentenceEnd(paragraph, 0);
         if (wordCount(paragraph.substring(0, end)) < minWords && end < paragraph.length()) {
             end = sentenceEnd(paragraph, end);
         }
         return cap(paragraph.substring(0, end).strip(), maxWords);
+    }
+
+    /**
+     * Removing wiki markup sometimes leaves a bracket with nothing or a comma at its start (a pronunciation
+     * or a foreign-language name was removed): "Great Wall of China (, literally ...)" → "(literally ...)",
+     * "Shakespeare ( 23 April 1564" → "(23 April 1564", "Kyoto () is" → "Kyoto is".
+     */
+    static String tidyBrackets(String s) {
+        return s.replaceAll("\\(\\s*[,;:]?\\s*\\)\\s?", "")
+                .replaceAll("\\(\\s*[,;:]\\s*", "(")
+                .replaceAll("\\(\\s+", "(")
+                .replaceAll("\\s{2,}", " ");
     }
 
     private static String firstParagraph(String text) {

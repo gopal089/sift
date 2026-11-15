@@ -1,0 +1,1300 @@
+[
+ {
+  "id": 1,
+  "query": "world war 2",
+  "expected": "World War II",
+  "smart": {
+   "title": "World War II",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "World War II, or the Second World War, was a global conflict (1 September 1939 – 2 September 1945) which involved fighting between the Allies and the Axis.",
+   "related": [
+    "World War III",
+    "World war",
+    "Axis powers",
+    "World War II in 1939",
+    "Cold War"
+   ]
+  },
+  "keyword": {
+   "title": "World War II",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "World War II, or the Second World War, was a global conflict (1 September 1939 – 2 September 1945) which involved fighting between the Allies and the Axis.",
+   "related": [
+    "World War III",
+    "World war",
+    "Axis powers",
+    "World War II in 1939",
+    "List of Medal of Honor recipients for World War II"
+   ]
+  }
+ },
+ {
+  "id": 2,
+  "query": "world war ii",
+  "expected": "World War II",
+  "smart": {
+   "title": "World War II",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "World War II, or the Second World War, was a global conflict (1 September 1939 – 2 September 1945) which involved fighting between the Allies and the Axis.",
+   "related": [
+    "Allies of World War II",
+    "World War I",
+    "Axis powers",
+    "Cold War",
+    "List of Medal of Honor recipients for World War II"
+   ]
+  },
+  "keyword": {
+   "title": "World War II",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "World War II, or the Second World War, was a global conflict (1 September 1939 – 2 September 1945) which involved fighting between the Allies and the Axis.",
+   "related": [
+    "Axis powers",
+    "World War II in 1939",
+    "List of Medal of Honor recipients for World War II",
+    "World War II casualties",
+    "Interwar period"
+   ]
+  }
+ },
+ {
+  "id": 3,
+  "query": "the who",
+  "expected": "The Who",
+  "smart": {
+   "title": "The Who",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Who are an English rock band formed in 1964. The main lineup from 1964 to 1978 was guitarist Pete Townshend, vocalist Roger Daltrey, bassist John Entwistle and drummer Keith Moon.",
+   "related": [
+    "Roger Daltrey",
+    "Pete Townshend",
+    "The The",
+    "Keith Moon",
+    "The Rolling Stones"
+   ]
+  },
+  "keyword": {
+   "title": "The Who",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Who are an English rock band formed in 1964. The main lineup from 1964 to 1978 was guitarist Pete Townshend, vocalist Roger Daltrey, bassist John Entwistle and drummer Keith Moon.",
+   "related": [
+    "Roger Daltrey",
+    "Pete Townshend",
+    "The The",
+    "Keith Moon",
+    "The Rolling Stones"
+   ]
+  }
+ },
+ {
+  "id": 4,
+  "query": "the history of india",
+  "expected": "History of India",
+  "smart": {
+   "title": "History of India",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The history of India covers thousands of years and discusses many diverse languages, cultures, periods, and dynasties in India.",
+   "related": [
+    "Vedic period",
+    "Gupta Empire",
+    "Ancient history of Pakistan",
+    "Indian Empire",
+    "Human history"
+   ]
+  },
+  "keyword": {
+   "title": "History of India",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The history of India covers thousands of years and discusses many diverse languages, cultures, periods, and dynasties in India.",
+   "related": [
+    "History of Tamil Nadu",
+    "Medieval India",
+    "Vedic period",
+    "History of cricket in India",
+    "Golden Age of India"
+   ]
+  }
+ },
+ {
+  "id": 5,
+  "query": "photosynthesis",
+  "expected": "Photosynthesis",
+  "smart": {
+   "title": "Photosynthesis",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Photosynthesis is a process in which green plants make their own food from sunlight, using the help of leaves to produce sugar.",
+   "related": [
+    "Light-independent reaction",
+    "Photochemistry",
+    "Grow light",
+    "Calvin cycle",
+    "Algae"
+   ]
+  },
+  "keyword": {
+   "title": "Photosynthesis",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Photosynthesis is a process in which green plants make their own food from sunlight, using the help of leaves to produce sugar.",
+   "related": [
+    "Chlorophyll",
+    "Chloroplast",
+    "Light-independent reaction",
+    "Photorespiration",
+    "Light-dependent reaction"
+   ]
+  }
+ },
+ {
+  "id": 6,
+  "query": "python programming",
+  "expected": "Python (programming language)",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 7,
+  "query": "einstein",
+  "expected": "Albert Einstein",
+  "smart": {
+   "title": "Albert Einstein",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "Albert Einstein (14 March 1879 – 18 April 1955) was a German-born Jewish scientist.",
+   "related": [
+    "Physicist",
+    "Isaac Newton",
+    "Albert Abraham Michelson",
+    "List of Nobel Prize winners in Physics",
+    "Nobel Prize in Physics"
+   ]
+  },
+  "keyword": {
+   "title": "Albert Einstein",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "Albert Einstein (14 March 1879 – 18 April 1955) was a German-born Jewish scientist.",
+   "related": [
+    "Physicist",
+    "Isaac Newton",
+    "Albert Abraham Michelson",
+    "Theory of relativity",
+    "Hermann Minkowski"
+   ]
+  }
+ },
+ {
+  "id": 8,
+  "query": "volcano",
+  "expected": "Volcano",
+  "smart": {
+   "title": "Volcano",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "A volcano is a mountain that has lava (hot, liquid rock) coming out from a magma chamber under the ground, or did have in the past.",
+   "related": [
+    "Lava",
+    "Caldera",
+    "Volcanic crater",
+    "Hotspot (geology)",
+    "Seamount"
+   ]
+  },
+  "keyword": {
+   "title": "Volcano",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "A volcano is a mountain that has lava (hot, liquid rock) coming out from a magma chamber under the ground, or did have in the past.",
+   "related": [
+    "Lava",
+    "Caldera",
+    "Volcanic eruption",
+    "Volcanic crater",
+    "Hotspot (geology)"
+   ]
+  }
+ },
+ {
+  "id": 9,
+  "query": "shakespeare",
+  "expected": "William Shakespeare",
+  "smart": {
+   "title": "William Shakespeare",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "William Shakespeare ( 23 April 1564 – 23 April 1616) was an English dramatist, poet and theatre actor.",
+   "related": [
+    "Christopher Marlowe",
+    "Ben Jonson",
+    "King Lear",
+    "Edward de Vere, 17th Earl of Oxford",
+    "Anne Hathaway (wife of Shakespeare)"
+   ]
+  },
+  "keyword": {
+   "title": "William Shakespeare",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "William Shakespeare ( 23 April 1564 – 23 April 1616) was an English dramatist, poet and theatre actor.",
+   "related": [
+    "Influence of William Shakespeare on the English language",
+    "Christopher Marlowe",
+    "Ben Jonson",
+    "King Lear",
+    "Edward de Vere, 17th Earl of Oxford"
+   ]
+  }
+ },
+ {
+  "id": 10,
+  "query": "dinosaur",
+  "expected": "Dinosaur",
+  "smart": {
+   "title": "Dinosaur",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Dinosaurs are a group of Archosaur reptiles of the clade Dinosauria. Dinosaurs eventually gave rise to birds.",
+   "related": [
+    "List of European dinosaurs",
+    "Bird",
+    "Mesozoic",
+    "Plateosauridae",
+    "Pterosaur"
+   ]
+  },
+  "keyword": {
+   "title": "Dinosaur",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Dinosaurs are a group of Archosaur reptiles of the clade Dinosauria. Dinosaurs eventually gave rise to birds.",
+   "related": [
+    "List of European dinosaurs",
+    "Bird",
+    "Mesozoic",
+    "Plateosauridae",
+    "Pterosaur"
+   ]
+  }
+ },
+ {
+  "id": 11,
+  "query": "mozart",
+  "expected": "Wolfgang Amadeus Mozart",
+  "smart": {
+   "title": "Wolfgang Amadeus Mozart",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "Wolfgang Amadeus Mozart (January 27, 1756 – December 5, 1791; pronounced MOHT-sart) was a composer, instrumentalist, and music teacher.",
+   "related": [
+    "Franz Schubert",
+    "Joseph Haydn",
+    "Maria Anna Mozart",
+    "Ernst Theodor Amadeus Hoffmann",
+    "Salzburg"
+   ]
+  },
+  "keyword": {
+   "title": "Wolfgang Amadeus Mozart",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "Wolfgang Amadeus Mozart (January 27, 1756 – December 5, 1791; pronounced MOHT-sart) was a composer, instrumentalist, and music teacher.",
+   "related": [
+    "Franz Mozart (1649–1694)",
+    "Franz Schubert",
+    "Joseph Haydn",
+    "Ernst Theodor Amadeus Hoffmann",
+    "Salzburg"
+   ]
+  }
+ },
+ {
+  "id": 12,
+  "query": "tokyo",
+  "expected": "Tokyo",
+  "smart": {
+   "title": "Tokyo",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Tokyo is the capital and largest city of Japan. It is on the island of Honshu in the region of Kanto.",
+   "related": [
+    "Capital of Japan",
+    "Edo",
+    "Yokohama",
+    "Kyoto",
+    "Osaka"
+   ]
+  },
+  "keyword": {
+   "title": "Tokyo",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Tokyo is the capital and largest city of Japan. It is on the island of Honshu in the region of Kanto.",
+   "related": [
+    "Capital of Japan",
+    "Edo",
+    "Yokohama",
+    "Kyoto",
+    "Tokyo Imperial Palace"
+   ]
+  }
+ },
+ {
+  "id": 13,
+  "query": "gravity",
+  "expected": "Gravity",
+  "smart": {
+   "title": "Gravity",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Gravity, or gravitation is one of the fundamental forces of the universe.",
+   "related": [
+    "Newton's law of universal gravitation",
+    "Force",
+    "Equations for a falling body",
+    "Graviton",
+    "Weight"
+   ]
+  },
+  "keyword": {
+   "title": "Gravity",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Gravity, or gravitation is one of the fundamental forces of the universe.",
+   "related": [
+    "Newton's law of universal gravitation",
+    "Force",
+    "Gravitational field",
+    "Equations for a falling body",
+    "Graviton"
+   ]
+  }
+ },
+ {
+  "id": 14,
+  "query": "chess",
+  "expected": "Chess",
+  "smart": {
+   "title": "Chess",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Chess is a board game for two players. It is played on a square board, made up of 64 smaller squares, with eight squares in each row and column.",
+   "related": [
+    "Chess piece",
+    "Three-player chess",
+    "Bishop (chess)",
+    "Knight (chess)",
+    "Board game"
+   ]
+  },
+  "keyword": {
+   "title": "Chess",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Chess is a board game for two players. It is played on a square board, made up of 64 smaller squares, with eight squares in each row and column.",
+   "related": [
+    "Chess piece",
+    "Pawn (chess)",
+    "Three-player chess",
+    "Bishop (chess)",
+    "Knight (chess)"
+   ]
+  }
+ },
+ {
+  "id": 15,
+  "query": "electricity",
+  "expected": "Electricity",
+  "smart": {
+   "title": "Electricity",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Electricity is the presence and flow of electric current. Using electricity, we can transfer energy in ways that make machines work.",
+   "related": [
+    "Energy",
+    "Electrode",
+    "Electronics",
+    "Electrical generator",
+    "Wire"
+   ]
+  },
+  "keyword": {
+   "title": "Electricity",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Electricity is the presence and flow of electric current. Using electricity, we can transfer energy in ways that make machines work.",
+   "related": [
+    "Electric power",
+    "Energy",
+    "Electricity generation",
+    "Electrical energy",
+    "Electrode"
+   ]
+  }
+ },
+ {
+  "id": 16,
+  "query": "tiger",
+  "expected": "Tiger",
+  "smart": {
+   "title": "Tiger",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The tiger (Panthera tigris) is the largest living member of the cat family, the Felidae.",
+   "related": [
+    "Leopard",
+    "Panthera",
+    "Jaguar",
+    "Siberian tiger",
+    "Lion"
+   ]
+  },
+  "keyword": {
+   "title": "Tiger",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The tiger (Panthera tigris) is the largest living member of the cat family, the Felidae.",
+   "related": [
+    "Leopard",
+    "Panthera",
+    "Jaguar",
+    "Lion",
+    "Felidae"
+   ]
+  }
+ },
+ {
+  "id": 17,
+  "query": "olympics",
+  "expected": "Olympic Games",
+  "smart": {
+   "title": "Olympic Games",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "The Olympic Games is an important international event featuring summer and winter sports.",
+   "related": [
+    "World Games",
+    "1896 Summer Olympics",
+    "Greece at the Olympics",
+    "Asian Games",
+    "Multi-sport event"
+   ]
+  },
+  "keyword": {
+   "title": "Olympic Games",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "The Olympic Games is an important international event featuring summer and winter sports.",
+   "related": [
+    "Ancient Olympic Games",
+    "World Games",
+    "1896 Summer Olympics",
+    "Greece at the Olympics",
+    "Asian Games"
+   ]
+  }
+ },
+ {
+  "id": 18,
+  "query": "bitcoin",
+  "expected": "Bitcoin",
+  "smart": {
+   "title": "Bitcoin",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Bitcoin (₿) is a digital and global money system cryptocurrency. It allows people to send or receive cryptocurrency units across the internet, even to someone they don't know or don't trust.",
+   "related": [
+    "Coin",
+    "Money",
+    "Currency",
+    "Meme coin",
+    "Binance"
+   ]
+  },
+  "keyword": {
+   "title": "Bitcoin",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Bitcoin (₿) is a digital and global money system cryptocurrency. It allows people to send or receive cryptocurrency units across the internet, even to someone they don't know or don't trust.",
+   "related": [
+    "Coinbase",
+    "Coin",
+    "Money",
+    "Currency",
+    "Meme coin"
+   ]
+  }
+ },
+ {
+  "id": 19,
+  "query": "napoleon",
+  "expected": "Napoleon",
+  "smart": {
+   "title": "Napoleon",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Napoleon Bonaparte was a French politician and army leader who ruled France from 1799 to 1814 and for a short period (the \"Hundred Days\") in 1815.",
+   "related": [
+    "Second French Empire",
+    "Louis XVIII",
+    "First French Empire",
+    "French Second Republic",
+    "Frederick of Württemberg"
+   ]
+  },
+  "keyword": {
+   "title": "Napoleon",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Napoleon Bonaparte was a French politician and army leader who ruled France from 1799 to 1814 and for a short period (the \"Hundred Days\") in 1815.",
+   "related": [
+    "House of Bonaparte",
+    "Second French Empire",
+    "Louis XVIII",
+    "First French Empire",
+    "French Second Republic"
+   ]
+  }
+ },
+ {
+  "id": 20,
+  "query": "evolution",
+  "expected": "Evolution",
+  "smart": {
+   "title": "Evolution",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Evolution is a biological process. It is how living things change over time and how new species develop.",
+   "related": [
+    "Evolutionary biology",
+    "Biology",
+    "Adaptation",
+    "Lineage (evolution)",
+    "Natural selection"
+   ]
+  },
+  "keyword": {
+   "title": "Evolution",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Evolution is a biological process. It is how living things change over time and how new species develop.",
+   "related": [
+    "Evolutionary biology",
+    "Biology",
+    "Adaptation",
+    "Lineage (evolution)",
+    "Natural selection"
+   ]
+  }
+ },
+ {
+  "id": 21,
+  "query": "solar system",
+  "expected": "Solar System",
+  "smart": {
+   "title": "Solar System",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Solar System is a group of space objects that are held together by gravity, with the Sun in the center.",
+   "related": [
+    "Star",
+    "Uranus",
+    "Solar nebula theory",
+    "Gas giant",
+    "Outer planet"
+   ]
+  },
+  "keyword": {
+   "title": "Solar System",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Solar System is a group of space objects that are held together by gravity, with the Sun in the center.",
+   "related": [
+    "Sun",
+    "Planetary system",
+    "Planet",
+    "Star",
+    "List of Solar System objects by mass"
+   ]
+  }
+ },
+ {
+  "id": 22,
+  "query": "french revolution",
+  "expected": "French Revolution",
+  "smart": {
+   "title": "French Revolution",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The French Revolution was a revolution in France from 1789 to 1799.",
+   "related": [
+    "Napoleonic era",
+    "Kingdom of France (1791–92)",
+    "July Monarchy",
+    "French First Republic",
+    "Napoleonic Wars"
+   ]
+  },
+  "keyword": {
+   "title": "French Revolution",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The French Revolution was a revolution in France from 1789 to 1799.",
+   "related": [
+    "Napoleonic era",
+    "Kingdom of France (1791–92)",
+    "July Monarchy",
+    "French First Republic",
+    "Napoleonic Wars"
+   ]
+  }
+ },
+ {
+  "id": 23,
+  "query": "united nations",
+  "expected": "United Nations",
+  "smart": {
+   "title": "United Nations",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The United Nations (UN) is an organization between countries established on 24 October 1945 to promote international cooperation.",
+   "related": [
+    "League of Nations",
+    "Members of the United Nations",
+    "Allies of World War II",
+    "International recognition of Israel",
+    "World Health Organization"
+   ]
+  },
+  "keyword": {
+   "title": "United Nations",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The United Nations (UN) is an organization between countries established on 24 October 1945 to promote international cooperation.",
+   "related": [
+    "League of Nations",
+    "Charter of the United Nations",
+    "Members of the United Nations",
+    "Allies of World War II",
+    "International recognition of Israel"
+   ]
+  }
+ },
+ {
+  "id": 24,
+  "query": "great wall of china",
+  "expected": "Great Wall of China",
+  "smart": {
+   "title": "Great Wall of China",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Great Wall of China (, literally \"ten thousand li long wall\") is a series of fortifications in China.",
+   "related": [
+    "Hadrian's Wall",
+    "Nanjing City Wall",
+    "Gate of China",
+    "Fortification",
+    "London Wall"
+   ]
+  },
+  "keyword": {
+   "title": "Great Wall of China",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Great Wall of China (, literally \"ten thousand li long wall\") is a series of fortifications in China.",
+   "related": [
+    "Xiongnu",
+    "Hadrian's Wall",
+    "Nanjing City Wall",
+    "Gate of China",
+    "Fortification"
+   ]
+  }
+ },
+ {
+  "id": 25,
+  "query": "theory of relativity",
+  "expected": "Theory of relativity",
+  "smart": {
+   "title": "Theory of relativity",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The theory of relativity is a theory Albert Einstein created in the early 1900s.",
+   "related": [
+    "Einstein field equations",
+    "Classical physics",
+    "Gravitational wave",
+    "Schwarzschild metric",
+    "Isaac Newton"
+   ]
+  },
+  "keyword": {
+   "title": "Theory of relativity",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The theory of relativity is a theory Albert Einstein created in the early 1900s.",
+   "related": [
+    "Albert Einstein",
+    "Absolute space and time",
+    "Einstein field equations",
+    "Classical physics",
+    "Gravitational wave"
+   ]
+  }
+ },
+ {
+  "id": 26,
+  "query": "black hole",
+  "expected": "Black hole",
+  "smart": {
+   "title": "Black hole",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "A black hole is a place in space where gravity is so strong that nothing can escape from it, even light.",
+   "related": [
+    "Event horizon",
+    "Gravitational singularity",
+    "Naked singularity",
+    "Ergosphere",
+    "Schwarzschild metric"
+   ]
+  },
+  "keyword": {
+   "title": "Black hole",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "A black hole is a place in space where gravity is so strong that nothing can escape from it, even light.",
+   "related": [
+    "Event horizon",
+    "White hole",
+    "Gravitational singularity",
+    "Naked singularity",
+    "Ergosphere"
+   ]
+  }
+ },
+ {
+  "id": 27,
+  "query": "martin luther king",
+  "expected": "Martin Luther King Jr.",
+  "smart": {
+   "title": "Martin Luther King Jr.",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "Martin Luther King, Jr. (born Michael King, Jr.; January 15, 1929 – April 4, 1968) was an American pastor, activist, humanitarian, and leader in the Civil Rights Movement.",
+   "related": [
+    "Jesse Jackson",
+    "W. E. B. Du Bois",
+    "Fred Phelps",
+    "Southern Christian Leadership Conference",
+    "Edith Savage-Jennings"
+   ]
+  },
+  "keyword": {
+   "title": "Martin Luther King Jr.",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "Martin Luther King, Jr. (born Michael King, Jr.; January 15, 1929 – April 4, 1968) was an American pastor, activist, humanitarian, and leader in the Civil Rights Movement.",
+   "related": [
+    "Jesse Jackson",
+    "W. E. B. Du Bois",
+    "Fred Phelps",
+    "Southern Christian Leadership Conference",
+    "Edith Savage-Jennings"
+   ]
+  }
+ },
+ {
+  "id": 28,
+  "query": "human heart",
+  "expected": "Heart",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 29,
+  "query": "climate change",
+  "expected": "Climate change",
+  "smart": {
+   "title": "Climate change",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Climate change refers to long-term changes in temperature, precipitation, and other atmospheric conditions on Earth.",
+   "related": [
+    "Global warming",
+    "Weather",
+    "Climatology",
+    "Drought",
+    "Ice age"
+   ]
+  },
+  "keyword": {
+   "title": "Climate change",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Climate change refers to long-term changes in temperature, precipitation, and other atmospheric conditions on Earth.",
+   "related": [
+    "Climate model",
+    "Climate crisis",
+    "Global warming",
+    "Weather",
+    "Climate apocalypse"
+   ]
+  }
+ },
+ {
+  "id": 30,
+  "query": "statue of liberty",
+  "expected": "Statue of Liberty",
+  "smart": {
+   "title": "Statue of Liberty",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Statue of Liberty (officially named Liberty Enlightening the World and sometimes referred to as Lady Liberty) is a monument symbolising the United States.",
+   "related": [
+    "Statue of Freedom",
+    "Liberty Place",
+    "Four Freedoms Monument",
+    "Independence Hall",
+    "Washington Monument"
+   ]
+  },
+  "keyword": {
+   "title": "Statue of Liberty",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Statue of Liberty (officially named Liberty Enlightening the World and sometimes referred to as Lady Liberty) is a monument symbolising the United States.",
+   "related": [
+    "Liberty Bell",
+    "Statue of Freedom",
+    "Liberty Place",
+    "Four Freedoms Monument",
+    "Independence Hall"
+   ]
+  }
+ },
+ {
+  "id": 31,
+  "query": "axolotl",
+  "expected": "Axolotl",
+  "smart": {
+   "title": "Axolotl",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The axolotl (Ambystoma mexicanum) is the best-known of the Mexican mole salamanders: it belongs to the Tiger Salamander complex.",
+   "related": [
+    "Mexican burrowing toad",
+    "Spotted salamander",
+    "Salamander",
+    "Tiger salamander",
+    "Jefferson salamander"
+   ]
+  },
+  "keyword": {
+   "title": "Axolotl",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The axolotl (Ambystoma mexicanum) is the best-known of the Mexican mole salamanders: it belongs to the Tiger Salamander complex.",
+   "related": [
+    "Mexican burrowing toad",
+    "Spotted salamander",
+    "Salamander",
+    "Lissamphibia",
+    "Tiger salamander"
+   ]
+  }
+ },
+ {
+  "id": 32,
+  "query": "tardigrade",
+  "expected": "Tardigrade",
+  "smart": {
+   "title": "Tardigrade",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Tardigrades ('water bears') are microscopic, segmented animals. They live in water.",
+   "related": [
+    "Water opossum",
+    "Telmatobius marmoratus",
+    "Tactopoda",
+    "Hylodes",
+    "Arthropod"
+   ]
+  },
+  "keyword": {
+   "title": "Tardigrade",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Tardigrades ('water bears') are microscopic, segmented animals. They live in water.",
+   "related": [
+    "Water opossum",
+    "Telmatobius marmoratus",
+    "Tactopoda",
+    "Hylodes",
+    "Arthropod"
+   ]
+  }
+ },
+ {
+  "id": 33,
+  "query": "bauhaus",
+  "expected": "Bauhaus",
+  "smart": {
+   "title": "Bauhaus",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Bauhaus was a design school that operated from 1919 to 1933 in Germany.",
+   "related": [
+    "Düsseldorf school of painting",
+    "German art",
+    "Frankfurt School",
+    "Cubism",
+    "Art Deco"
+   ]
+  },
+  "keyword": {
+   "title": "Bauhaus",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Bauhaus was a design school that operated from 1919 to 1933 in Germany.",
+   "related": [
+    "Düsseldorf school of painting",
+    "German art",
+    "Frankfurt School",
+    "Dessau",
+    "Cubism"
+   ]
+  }
+ },
+ {
+  "id": 34,
+  "query": "haiku",
+  "expected": "Haiku",
+  "smart": {
+   "title": "Haiku",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Haiku is a type of Japanese poetry. Previously called hokku, haiku was given its current name by the Japanese writer Masaoka Shiki at the end of the 19th century.",
+   "related": [
+    "Kana",
+    "Hiragana",
+    "Wakoku",
+    "Hikikomori",
+    "Manyogana"
+   ]
+  },
+  "keyword": {
+   "title": "Haiku",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Haiku is a type of Japanese poetry. Previously called hokku, haiku was given its current name by the Japanese writer Masaoka Shiki at the end of the 19th century.",
+   "related": [
+    "Masaoka Shiki",
+    "Waka (poetry)",
+    "Kana",
+    "Hiragana",
+    "Wakoku"
+   ]
+  }
+ },
+ {
+  "id": 35,
+  "query": "ada lovelace",
+  "expected": "Ada Lovelace",
+  "smart": {
+   "title": "Ada Lovelace",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Augusta Ada King, Countess of Lovelace (10 December 1815 – 27 November 1852) was an English mathematician and writer.",
+   "related": [
+    "Max Newman",
+    "Sister Mary Kenneth Keller",
+    "Alan Turing",
+    "Analytical engine",
+    "George Boole"
+   ]
+  },
+  "keyword": {
+   "title": "Ada Lovelace",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Augusta Ada King, Countess of Lovelace (10 December 1815 – 27 November 1852) was an English mathematician and writer.",
+   "related": [
+    "Max Newman",
+    "Sister Mary Kenneth Keller",
+    "Alan Turing",
+    "Analytical engine",
+    "George Boole"
+   ]
+  }
+ },
+ {
+  "id": 36,
+  "query": "mount kilimanjaro",
+  "expected": "Mount Kilimanjaro",
+  "smart": {
+   "title": "Mount Kilimanjaro",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Kilimanjaro (or Kilimanjaro, which means \"shining mountain\" in Swahili), formerly Kaiser-Wilhelm-Spitze, is a mountain in northeastern Tanzania.",
+   "related": [
+    "Mount Bintumani",
+    "Mount Kenya",
+    "Altiplano",
+    "Haramosh Peak",
+    "Nanga Parbat"
+   ]
+  },
+  "keyword": {
+   "title": "Mount Kilimanjaro",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "Kilimanjaro (or Kilimanjaro, which means \"shining mountain\" in Swahili), formerly Kaiser-Wilhelm-Spitze, is a mountain in northeastern Tanzania.",
+   "related": [
+    "Mount Bintumani",
+    "Mount Kenya",
+    "Ngarutjaranya",
+    "Altiplano",
+    "Haramosh Peak"
+   ]
+  }
+ },
+ {
+  "id": 37,
+  "query": "rosetta stone",
+  "expected": "Rosetta Stone",
+  "smart": {
+   "title": "Rosetta Stone",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Rosetta Stone is a stone with writing carved into it. There are 3 types of writing on the Rosetta stone; Greek, Egyptian, and another form of Egyptian writing.",
+   "related": [
+    "Egyptian language",
+    "Pyramid",
+    "Hieratic",
+    "Stone",
+    "Cretan hieroglyphs"
+   ]
+  },
+  "keyword": {
+   "title": "Rosetta Stone",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Rosetta Stone is a stone with writing carved into it. There are 3 types of writing on the Rosetta stone; Greek, Egyptian, and another form of Egyptian writing.",
+   "related": [
+    "Pyramid",
+    "Hieratic",
+    "Stone",
+    "Cretan hieroglyphs",
+    "History of the alphabet"
+   ]
+  }
+ },
+ {
+  "id": 38,
+  "query": "fibonacci numbers",
+  "expected": "Fibonacci number",
+  "smart": {
+   "title": "Fibonacci number",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Fibonacci numbers are a sequence of numbers in mathematics named after Leonardo of Pisa, known as Fibonacci.",
+   "related": [
+    "1,000,000",
+    "Liber Abaci",
+    "P-adic number",
+    "Quaternion",
+    "Octonion"
+   ]
+  },
+  "keyword": {
+   "title": "Fibonacci number",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The Fibonacci numbers are a sequence of numbers in mathematics named after Leonardo of Pisa, known as Fibonacci.",
+   "related": [
+    "Catalan number",
+    "1,000,000",
+    "Liber Abaci",
+    "P-adic number",
+    "On-Line Encyclopedia of Integer Sequences"
+   ]
+  }
+ },
+ {
+  "id": 39,
+  "query": "how do plants make food",
+  "expected": "Photosynthesis",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 40,
+  "query": "who discovered penicillin",
+  "expected": "Alexander Fleming",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 41,
+  "query": "what is the largest planet",
+  "expected": "Jupiter",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 42,
+  "query": "who invented the telephone",
+  "expected": "Alexander Graham Bell",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 43,
+  "query": "what causes earthquakes",
+  "expected": "Earthquake",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 44,
+  "query": "who was the first person on the moon",
+  "expected": "Neil Armstrong",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 45,
+  "query": "when did the titanic sink",
+  "expected": "Titanic",
+  "smart": {
+   "title": "Titanic",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "The RMS Titanic was a British steam ship. She was built by ship builders Harland and Wolff, in Belfast, for the White Star Line company.",
+   "related": [
+    "RMS Lusitania",
+    "RMS Carpathia",
+    "White Ship",
+    "Ship of the line",
+    "Titanic II (project)"
+   ]
+  },
+  "keyword": {
+   "title": "Titanic",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "The RMS Titanic was a British steam ship. She was built by ship builders Harland and Wolff, in Belfast, for the White Star Line company.",
+   "related": [
+    "RMS Lusitania",
+    "RMS Carpathia",
+    "White Ship",
+    "Ship of the line",
+    "Titanic II (project)"
+   ]
+  }
+ },
+ {
+  "id": 46,
+  "query": "what is the capital of australia",
+  "expected": "Canberra",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 47,
+  "query": "usa",
+  "expected": "United States",
+  "smart": null,
+  "keyword": null
+ },
+ {
+  "id": 48,
+  "query": "dna",
+  "expected": "DNA",
+  "smart": {
+   "title": "DNA",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "DNA, short for deoxyribonucleic acid, is the molecule that contains the genetic code of living organisms.",
+   "related": [
+    "Gene",
+    "Nucleic acid",
+    "Nucleotide",
+    "Chromosome",
+    "Biomolecule"
+   ]
+  },
+  "keyword": {
+   "title": "DNA",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "DNA, short for deoxyribonucleic acid, is the molecule that contains the genetic code of living organisms.",
+   "related": [
+    "Gene",
+    "Nucleic acid",
+    "Nucleotide",
+    "Chromosome",
+    "Biomolecule"
+   ]
+  }
+ },
+ {
+  "id": 49,
+  "query": "nasa",
+  "expected": "NASA",
+  "smart": {
+   "title": "NASA",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The National Aeronautics and Space Administration (NASA) is an independent agency of the United States Federal Government that deals with space exploration and aeronautics, the operating and designing of planes.",
+   "related": [
+    "Apollo program",
+    "Apollo 1",
+    "Apollo 11",
+    "Exploration of the Moon",
+    "National Advisory Committee for Aeronautics"
+   ]
+  },
+  "keyword": {
+   "title": "NASA",
+   "matchedBy": "title",
+   "correct": true,
+   "text": "The National Aeronautics and Space Administration (NASA) is an independent agency of the United States Federal Government that deals with space exploration and aeronautics, the operating and designing of planes.",
+   "related": [
+    "Apollo program",
+    "Space Shuttle",
+    "Apollo 1",
+    "Apollo 7",
+    "Apollo 11"
+   ]
+  }
+ },
+ {
+  "id": 50,
+  "query": "ww1",
+  "expected": "World War I",
+  "smart": {
+   "title": "World War I",
+   "matchedBy": "redirect",
+   "correct": true,
+   "text": "World War I (WWI or WW1), also called the First World War, or the Great War, began on 28 July 1914 and lasted until 11 November 1918.",
+   "related": [
+    "Interwar period",
+    "World war",
+    "World War II",
+    "Seven Years' War",
+    "Causes of World War I"
+   ]
+  },
+  "keyword": null
+ }
+]

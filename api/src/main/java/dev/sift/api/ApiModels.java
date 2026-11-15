@@ -23,7 +23,19 @@ public final class ApiModels {
      * {@code vectorMs} (HNSW search) are null in keyword mode.
      */
     public record QueryStats(double tookMs, int documentsSearched, int totalMatches, List<String> terms,
-                             String matchMode, String cache, Double embedMs, Double vectorMs) {
+                             String matchMode, String cache, Double embedMs, Double vectorMs, Double cardMs) {
+    }
+
+    /**
+     * The definition card shown above the results when the top result is a confident match (see
+     * {@code DefinitionRule}). {@code text} is the article's first one or two sentences; {@code matchedBy} is
+     * "title" or "redirect"; {@code related} are up to 5 articles nearest in meaning, none of them on this page.
+     */
+    public record Definition(int id, String title, String url, String text, String matchedBy,
+                             List<RelatedArticle> related) {
+    }
+
+    public record RelatedArticle(int id, String title, String url) {
     }
 
     /**
@@ -33,10 +45,12 @@ public final class ApiModels {
      * @param modeUsed what actually ran (always the same as {@code mode} since Phase 5)
      * @param notice   a short hint for the user, or null
      * @param didYouMean the query with likely spelling mistakes corrected, or null if every word is known
+     * @param definition the definition card, or null (only ever on page 1)
      */
     public record SearchResponse(String query, String mode, String modeUsed, String notice, String didYouMean,
                                  int page, int pageSize,
-                                 int totalMatches, boolean hasMore, List<Result> results, QueryStats stats) {
+                                 int totalMatches, boolean hasMore, Definition definition, List<Result> results,
+                                 QueryStats stats) {
     }
 
     public record SuggestResponse(String prefix, List<String> suggestions) {

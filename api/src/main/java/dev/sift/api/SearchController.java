@@ -1,12 +1,18 @@
 package dev.sift.api;
 
+import dev.sift.api.ApiModels.Definition;
 import dev.sift.api.ApiModels.QueryStats;
+import dev.sift.api.ApiModels.RelatedArticle;
 import dev.sift.api.ApiModels.Result;
 import dev.sift.api.ApiModels.SearchResponse;
 import dev.sift.api.ApiModels.StatsResponse;
 import dev.sift.api.ApiModels.SuggestResponse;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import dev.sift.engine.card.DefinitionRule;
+import dev.sift.engine.card.OpeningSentences;
+import dev.sift.engine.card.RelatedArticles;
+import dev.sift.engine.search.ScoredDoc;
 import dev.sift.engine.search.SearchResult;
 import dev.sift.engine.search.SearchResult.Hit;
 import dev.sift.engine.search.Searcher;
@@ -20,8 +26,10 @@ import dev.sift.engine.suggest.TitleTrie;
 import java.lang.management.ManagementFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -46,6 +54,9 @@ public class SearchController {
     static final int MAX_QUERY_LENGTH = 200;
     static final int MAX_SUGGESTIONS = 5;
     static final int SNIPPET_WORDS = 30;
+    static final int CARD_MIN_WORDS = 12;      // a shorter first sentence gets the second one too
+    static final int CARD_MAX_WORDS = 50;
+    static final int RELATED_ARTICLES = 5;
     private static final String WIKI_URL = "https://simple.wikipedia.org/wiki/";
 
     private final DiskIndex index;
@@ -53,14 +64,19 @@ public class SearchController {
     private final SmartSearcher smartSearcher;
     private final TitleTrie suggester;
     private final SpellChecker spellChecker;
+    private final DefinitionRule definitionRule;
+    private final RelatedArticles relatedArticles;
     private final Cache<String, SearchResponse> cache;   // finished pages: key = mode + page + query
     private final long cacheSize;
     private final AtomicLong queriesServed = new AtomicLong();   // a counter that is safe with many threads
     private volatile double startupSeconds;
 
     public SearchController(DiskIndex index, Searcher searcher, SmartSearcher smartSearcher,
-                            TitleTrie suggester, SpellChecker spellChecker, Cache<String, SearchResponse> cache,
+                            TitleTrie suggester, SpellChecker spellChecker, DefinitionRule definitionRule,
+                            RelatedArticles relatedArticles, Cache<String, SearchResponse> cache,
                             @Value("${sift.cache-size}") long cacheSize) {
+        this.definitionRule = definitionRule;
+        this.relatedArticles = relatedArticles;
         this.index = index;
         this.cache = cache;
         this.cacheSize = cacheSize;
@@ -106,10 +122,10 @@ public class SearchController {
         if (cached != null) {
             QueryStats s = cached.stats();
             QueryStats hitStats = new QueryStats((System.nanoTime() - start) / 1e6, s.documentsSearched(),
-                    s.totalMatches(), s.terms(), s.matchMode(), "hit", null, null);
+                    s.totalMatches(), s.terms(), s.matchMode(), "hit", null, null, null);
             return new SearchResponse(cached.query(), cached.mode(), cached.modeUsed(), cached.notice(),
                     cached.didYouMean(), cached.page(), cached.pageSize(), cached.totalMatches(), cached.hasMore(),
-                    cached.results(), hitStats);
+                    cached.definition(), cached.results(), hitStats);
         }
         SearchResponse fresh = compute(query, mode, page, start);
         if (cacheSize > 0) {
@@ -146,6 +162,12 @@ public class SearchController {
             results.add(new Result(hit.wikiId(), hit.title(), wikiUrl(hit.title()), snippet.text(),
                     snippet.highlights(), hit.score()));
         }
+        // The definition card reads the already-ranked top hit; it never changes the order of the results.
+        long cardStart = System.nanoTime();
+        Definition definition = page == 1 && !hits.isEmpty()
+                ? definition(result.terms(), hits.get(0), hits.subList(0, Math.min(PAGE_SIZE, hits.size())))
+                : null;
+        Double cardMs = page == 1 ? (System.nanoTime() - cardStart) / 1e6 : null;
         // "Did you mean": only words that are not in the vocabulary are corrected; null if all are known
         String didYouMean = spellChecker.correctQuery(query);
         double tookMs = (System.nanoTime() - start) / 1e6;
@@ -155,9 +177,35 @@ public class SearchController {
             notice = "Your search has no letters or numbers to look for. Try a word like 'volcano'.";
         }
         QueryStats stats = new QueryStats(tookMs, index.docs().size(), result.totalMatches(), result.terms(),
-                result.mode().name(), cacheSize > 0 ? "miss" : "off", embedMs, vectorMs);
+                result.mode().name(), cacheSize > 0 ? "miss" : "off", embedMs, vectorMs, cardMs);
         return new SearchResponse(query, mode, mode, notice, didYouMean, page, PAGE_SIZE, result.totalMatches(),
-                result.totalMatches() > page * PAGE_SIZE, List.copyOf(results), stats);   // read-only: it may be cached
+                result.totalMatches() > page * PAGE_SIZE, definition, List.copyOf(results), stats);   // read-only: it may be cached
+    }
+
+    /**
+     * The card for the top hit, or null if the top hit is not a confident match. Related articles: the 5 nearest
+     * in meaning to the top hit (HNSW over the stored vectors), skipping every article on this page.
+     */
+    private Definition definition(List<String> terms, Hit top, List<Hit> pageHits) {
+        DefinitionRule.Match match = definitionRule.match(terms, top.title());
+        if (match == DefinitionRule.Match.NONE) {
+            return null;
+        }
+        String text = OpeningSentences.of(top.title(), index.text(top.docId()), CARD_MIN_WORDS, CARD_MAX_WORDS);
+        if (text.isEmpty()) {
+            return null;
+        }
+        Set<Integer> onPage = new HashSet<>();
+        for (Hit h : pageHits) {
+            onPage.add(h.docId());
+        }
+        List<RelatedArticle> related = new ArrayList<>();
+        for (ScoredDoc d : relatedArticles.of(top.docId(), onPage, RELATED_ARTICLES)) {
+            String title = index.docs().title(d.docId());
+            related.add(new RelatedArticle(index.docs().wikiId(d.docId()), title, wikiUrl(title)));
+        }
+        return new Definition(top.wikiId(), top.title(), wikiUrl(top.title()), text,
+                match.name().toLowerCase(java.util.Locale.ROOT), List.copyOf(related));
     }
 
     @GetMapping("/suggest")

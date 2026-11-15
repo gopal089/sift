@@ -81,6 +81,19 @@ class OpeningSentencesTest {
     }
 
     @Test
+    void leftoversOfRemovedMarkupInBracketsAreTidied() {
+        assertEquals("The Great Wall of China (literally \"ten thousand li long wall\") is a series of fortifications "
+                        + "in China.",
+                card("Great Wall of China", "The Great Wall of China (, literally \"ten thousand li long wall\") is a "
+                        + "series of fortifications in China. It was built over many centuries."));
+        assertEquals("William Shakespeare (23 April 1564 – 23 April 1616) was an English dramatist, poet and theatre "
+                        + "actor.",
+                card("William Shakespeare", "William Shakespeare ( 23 April 1564 – 23 April 1616) was an English "
+                        + "dramatist, poet and theatre actor. He wrote plays."));
+        assertEquals("Kyoto is a city in Japan.", OpeningSentences.tidyBrackets("Kyoto () is a city in Japan."));
+    }
+
+    @Test
     void emptyTextGivesEmptyCard() {
         assertEquals("", card("X", "   \n"));
     }

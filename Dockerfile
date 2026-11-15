@@ -36,6 +36,7 @@ WORKDIR /app
 COPY --from=jar /src/api/build/libs/sift-api.jar app.jar
 # data last-but-one: it is the biggest layer and changes least often
 COPY data/index/ data/index/
+COPY data/redirects.jsonl data/redirects.jsonl
 COPY data/model-bge/ data/model-bge/
 COPY data/vectors-bge60/ data/vectors-bge60/
 USER sift
