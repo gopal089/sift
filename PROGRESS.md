@@ -16,6 +16,7 @@
 | 5 — Smart (meaning) search | ✅ Done (2026-11-13), after one pre-registered fix experiment |
 | 6 — Prove quality and speed | ✅ Done (2026-11-14) |
 | 7 — Ship it | 🟡 Local parts done (2026-11-14); deployment waits for your OK on the cost |
+| Website redesign | ✅ Done (2026-11-16), direction A "Reference" |
 
 ## Phase 0 — Setup (done)
 
@@ -257,12 +258,31 @@ keyword #1). Questions are still the weakest category (Smart 0.561, keyword 0.23
 | Container | starts in 2.3 s; 795 MiB at start, 900 MiB after 1,200 queries; fits a **1 GiB** limit under 10-user load (836 MiB, no OOM) | same |
 | amd64 image (for the cloud) | builds in 36 s with `docker buildx --platform linux/amd64`; runs and answers correctly under emulation | same |
 | Data | baked into the image (chosen over cloud-storage download and CI builds); `scripts/sift-data` builds it all in one command | `DESIGN.md` §11 |
-| CI | GitHub Actions: Java build + 263 tests (`-Pci`), website type check + 21 tests + build. `RealDataSmokeTest` is tagged `needs-data` and left out in CI | `.github/workflows/ci.yml` |
+| CI | GitHub Actions: Java build + 263 tests (`-Pci`; 269 after the redesign), website type check + 21 tests (42 after the redesign) + build. `RealDataSmokeTest` is tagged `needs-data` and left out in CI | `.github/workflows/ci.yml` |
 | Docs | README (results, Mermaid architecture, what I built, 3-command setup, CC BY-SA credit), DESIGN.md (13 decisions with numbers) | `README.md`, `DESIGN.md` |
 | Deployment plan | **Cloud Run, 1 vCPU, 2 GiB, min 1 / max 2: about $15–20/month** (Render's only plan that fits: $25/month) | `docs/deployment-plan.md` |
 
 Not done yet: the actual deployment (needs your Google Cloud account, billing and OK), the live link, the demo GIF,
-fresh screenshots of Smart mode, and the "works on my phone on mobile data" check.
+and the "works on my phone on mobile data" check. (Fresh screenshots of Smart mode: done in the redesign below.)
+
+## Website redesign (done 2026-11-16)
+
+Directions: `docs/design/directions.md` (A "Reference" chosen, plus B's monospace numbers in Details).
+Review: `docs/design/review.md` (30 checks). Decisions: `DESIGN.md` §14. Explanation: `docs/learning/frontend-redesign.md`.
+
+**Built:** design tokens (`web/src/tokens.css`, every CSS value is a token, enforced by `styles.test.ts`), light and
+dark themes, serif reading column, quiet one-line stats with a Details list, pale non-bold highlights, 4 inline SVG
+icons, SVG favicon, all states (home, autocomplete, results, did-you-mean, no results, error, loading, pagination).
+API side (approved): helper and question words are no longer highlighted; ranking unchanged.
+
+| Measure | Value | Raw file |
+| --- | --- | --- |
+| Ranking after the highlight change (main 50, both modes, top 100) | ids, scores and order identical; MRR keyword 0.86758 → 0.86758, Smart 0.95622 → 0.95622 | `eval/results/highlight-change.txt` |
+| Lighthouse 13.6.0 (home and results, mobile and desktop) | performance, accessibility and best practices 100 on all 4 pages, except mobile results performance 98 (LCP 2.4 s) | `docs/design/review/lighthouse-summary.json` |
+| Contrast, weakest text pair | 6.6:1 (needs 4.5:1) | `docs/design/review.md` |
+| Layout shift (CLS), tap targets < 44 px, overflow at 320 px | 0, 0, 0 px | `docs/design/review/measurements.json` |
+| First result on a 375 px phone | about 250 px from the top (was about 490 px) | `docs/design/review/30-before-after.png` |
+| Tests | 270 JUnit (269 in CI) + 42 Vitest, all pass | |
 
 ## Open issues
 - **32.11% of links reach no article, even after following redirects** (re-measured 2026-11-11
@@ -369,5 +389,5 @@ still not top 3, it is documented as a known limitation, with no further tuning.
 ## Next step
 Phase 6 is done; Phase 7's local parts are done. **Deployment waits for you:** create the Google Cloud project, turn
 on billing with a budget alert, install gcloud, and give the OK on about $15–20 per month
-(steps in `docs/deployment-plan.md`). Then: deploy, measure memory and latency on the server, add the live link, GIF
-and screenshots to the README, and check it on a phone over mobile data.
+(steps in `docs/deployment-plan.md`). Then: deploy, measure memory and latency on the server, add the live link and GIF
+to the README (the screenshots are already the redesigned site), and check it on a phone over mobile data.

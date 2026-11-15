@@ -65,7 +65,7 @@ flowchart LR
 ```
 
 ## What I built myself
-Every search algorithm is my own Java code, with JUnit tests (264 tests):
+Every search algorithm is my own Java code, with JUnit tests (270 tests):
 - **Text**: tokenizer (one class shared by indexing and queries), Porter stemmer, BERT WordPiece tokenizer
   (matches the model's own tokenizer on 1,000 / 1,000 test strings).
 - **Index**: inverted index with positions, posting-list intersection (two pointers), gap + varint compression,
