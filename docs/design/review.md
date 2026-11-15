@@ -99,3 +99,23 @@ the text on it stays at 12.1:1 and 6.9:1.
 - **Not done:** no manual check on a real phone; that comes with the deployment (Phase 7).
 - **Running the scripts again:** they need Chrome and the jar on `:8080`, started with its PID in `/tmp/sift.pid`
   and its Java home in `/tmp/sift.javahome`. The error-state step stops and restarts the server.
+
+## Re-check after the definition card (2026-11-16)
+The definition card and its "Related articles" list were added above the results. The checks it can affect were
+run again with `review/review-card.mjs`. Results are in `review/card/measurements.json`, screenshots in
+`review/card/`, and Lighthouse in `review/card/lighthouse-summary.json`.
+
+| Check | Result | Pass |
+| --- | --- | --- |
+| 3-5, 13 Screens at 1280, 768, 375 and 320, light and dark | `card-photosynthesis-*.png`, `card-redirect-einstein-1280.png`, `card-long-related-375.png` | Pass |
+| 15-17 Keyboard and focus | Tab order: search → Smart → Details → card title → the 5 related articles → results. Every stop has the 3 px ring. Enter on "Calvin cycle" searches it, and that page shows its own card | Pass |
+| 18 Names and roles | The card is a region named by its title. Headings go h1 → h2 (card) → h3 "Related articles" → h2 (results). 0 unnamed controls | Pass |
+| 19 Contrast | No new colours. The card uses ink, ink-2 and link on paper, which are already in the table above (16.2, 7.2 and 8.1 : 1 in light) | Pass |
+| 20 Tap targets at 375 px | First run: **2 failures**, short related titles were narrower than 44 px ("Algae" 41 px, "Lion" 31 px). Fixed with `min-width: var(--size-tap)`. Re-run: 0 failures on 5 card pages | Pass after fix |
+| 21-22 No sideways scroll at 320 px and at 200 % zoom | 0 px on 5 card pages, including long related titles | Pass |
+| 23 Layout shift | 0 with 0 ms and 800 ms network delay, desktop and phone. The card arrives in the same answer as the results | Pass |
+| 29 Lighthouse, card page `?q=photosynthesis` | Desktop 100 / 100 / 100. Mobile **97** / 100 / 100 (LCP 2.6 s; the card's text is now the largest paint) | Pass (≥ 95) |
+
+**Trade-off on phones:** with a card, the first result starts **593 px** from the top on a 375 px screen. On a page
+without a card it starts at 236 px. The card answers the query itself, so it earns the space, but on a small phone the
+results now start below the first screen for those queries.

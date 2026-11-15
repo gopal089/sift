@@ -1,0 +1,108 @@
+{
+ "tab-order card page": [
+  {
+   "tag": "a",
+   "name": "Sift",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "q",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Search",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "Smart",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Details",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Photosynthesis",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Light-independent reaction",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Photochemistry",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Grow light",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Calvin cycle",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Algae",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Photosynthesis",
+   "ring": "3px rgb(26, 76, 139)"
+  }
+ ],
+ "focus on a related article": {
+  "tag": "a",
+  "name": "Calvin cycle",
+  "ring": "3px rgb(26, 76, 139)"
+ },
+ "Enter on a related article": "?q=Calvin+cycle | card: Calvin cycle",
+ "a11y card page unnamed controls": 0,
+ "a11y card region": [
+  "Photosynthesis"
+ ],
+ "headings in order": [
+  "H1 Results for “photosynthesis”",
+  "H2 Photosynthesis",
+  "H3 Related articles",
+  "H2 Photosynthesis",
+  "H2 Phototroph",
+  "H2 Cyanobacteria"
+ ],
+ "taps photosynthesis: failing": [],
+ "taps photosynthesis: smallest related": 44,
+ "taps einstein: failing": [],
+ "taps einstein: smallest related": 44,
+ "taps world war 2: failing": [],
+ "taps world war 2: smallest related": 44,
+ "taps martin luther king: failing": [],
+ "taps martin luther king: smallest related": 44,
+ "taps keyword tiger: failing": [],
+ "taps keyword tiger: smallest related": 44,
+ "375 px: first result top, with card: photosynthesis": 593,
+ "375 px: first result top, no card: how do plants make food": 236,
+ "320 overflow px: photosynthesis": 0,
+ "320 overflow px: einstein": 0,
+ "320 overflow px: world war 2": 0,
+ "320 overflow px: martin luther king": 0,
+ "320 overflow px: keyword tiger": 0,
+ "zoom 200% overflow px: photosynthesis": 0,
+ "zoom 200% overflow px: einstein": 0,
+ "zoom 200% overflow px: world war 2": 0,
+ "zoom 200% overflow px: martin luther king": 0,
+ "zoom 200% overflow px: keyword tiger": 0,
+ "CLS card page desktop, 0 ms network delay": 0,
+ "CLS card page phone, 0 ms network delay": 0,
+ "CLS card page desktop, 800 ms network delay": 0,
+ "CLS card page phone, 800 ms network delay": 0
+}

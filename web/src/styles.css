@@ -449,10 +449,11 @@ a {
   list-style: none;
 }
 
-/* Each related title is a 44 px tall target; the list wraps on narrow screens. */
+/* Each related title is a 44 × 44 px target at least (short ones like "Lion" too); the list wraps on narrow screens. */
 .related a {
   display: inline-flex;
   align-items: center;
+  min-width: var(--size-tap);
   min-height: var(--size-tap);
   overflow-wrap: anywhere;
 }
