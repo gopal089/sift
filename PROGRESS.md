@@ -143,7 +143,7 @@ cache stats say "none" (Phase 6).
 ## Phase 3 — Website (done)
 
 Plan and self-review: `docs/learning/phase-3-plan.md`. Explanation: `docs/learning/phase-3.md`.
-Screenshots: `docs/screenshots/phase3-desktop.png`, `phase3-mobile.png`.
+Screenshots of this first design: `docs/design/screenshots/before-*.png` (the files in `docs/screenshots/` now show the 2026-11-16 redesign).
 
 **Built:** React + Vite + TypeScript site in `web/` (search box, bold query words, pagination, mode switch,
 stats panel, loading / empty / error states, footer credit, search kept in the address bar);
@@ -161,7 +161,7 @@ Phase 2 numbers above (111.4 MB, 408.7 MB) are for format 1; format 2 is 0.5 MB 
 
 ## Phase 4 — PageRank, autocomplete, spelling (done)
 
-Explanation: `docs/learning/phase-4.md`. Screenshots: `docs/screenshots/phase4-*.png`.
+Explanation: `docs/learning/phase-4.md`. (The Phase 4 screenshots were replaced by the redesign's; they are in git history.)
 
 **Default ranking now:** `(BM25(body, b = 0.3) + 2 × BM25(title)) × (1 + 0.5 × PageRank boost)`, question words dropped.
 

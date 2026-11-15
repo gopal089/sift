@@ -17,7 +17,7 @@ Two things changed behind the page:
    The engine uses the word positions stored in the index to find the best 30-word window.
 2. **The index format got a "skip table"** so reading one article's positions is fast (format version 2).
 
-Screenshots: `docs/screenshots/phase3-desktop.png`, `docs/screenshots/phase3-mobile.png` (375 px wide).
+Screenshots of this first design: `docs/design/screenshots/before-results-1280.png` and `before-results-375.png` (375 px wide). The site was redesigned later; see `docs/learning/frontend-redesign.md`.
 
 ## Each new file and what it is for
 

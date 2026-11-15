@@ -5,9 +5,9 @@ search, answers in about 6 ms.**
 
 **Live demo:** _coming soon (link added after deployment)_  ·  Demo GIF: _coming soon_
 
-| Search results | "Did you mean" | Phone |
+| Search results | Dark theme | "Did you mean" on a phone |
 | --- | --- | --- |
-| ![Search results with highlighted words and the stats panel](docs/screenshots/phase4-desktop.png) | ![Spelling correction](docs/screenshots/phase4-did-you-mean.png) | ![Mobile layout](docs/screenshots/phase4-mobile.png) |
+| ![Smart search for "how do plants make food": the matched words have a pale yellow background](docs/screenshots/results-desktop.png) | ![The same results in the dark theme](docs/screenshots/results-desktop-dark.png) | ![Spelling correction at 375 px: "Did you mean python?"](docs/screenshots/did-you-mean-mobile.png) |
 
 ## What it does
 - **Search box with autocomplete**: suggestions after one letter (a trie of titles).
@@ -16,8 +16,10 @@ search, answers in about 6 ms.**
   - **Keyword**: BM25 + PageRank.
   - **Smart** (the default): keyword results fused with meaning search, so "how do plants make food" finds
     *Photosynthesis* (#2).
-- **Results**: highlighted snippets (the best 30-word window), pagination, and a stats panel (time, documents
-  searched, cache hit or miss).
+- **Results**: snippets (the best 30-word window) with the meaningful query words highlighted, pagination, and a
+  one-line summary (result count and time) that opens a "Details" list (documents searched, cache hit or miss, …).
+- **Website**: hand-designed with plain CSS and design tokens, light and dark themes, works from 320 px wide
+  (design notes in [`docs/design/`](docs/design/review.md)).
 
 ## Results (measured, not estimated)
 All numbers come from real runs on an Apple M5 laptop. Every one is in [`eval/results/final-summary.md`](eval/results/final-summary.md)
