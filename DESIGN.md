@@ -140,8 +140,8 @@ a **1 GiB limit** under a 10-user load test: 836 MiB, no out-of-memory kill, 0 e
 leave headroom.
 
 ## 13. CI
-GitHub Actions on every push: Java build + 269 tests (`./gradlew build -Pci`) and the website's type check,
-42 Vitest tests and build. One test, `RealDataSmokeTest`, needs the real data, which is not in git. It is tagged
+GitHub Actions on every push: Java build + 293 tests (`./gradlew build -Pci`) and the website's type check,
+46 Vitest tests and build. One test, `RealDataSmokeTest`, needs the real data, which is not in git. It is tagged
 `needs-data` and left out with `-Pci`; locally it runs and checks the known answers on the real index and model.
 
 ## 14. Website design decisions (redesign, 2026-11-16)
@@ -210,3 +210,63 @@ full design are kept as evidence in `docs/learning/discussions-plan.md`. It was 
    ~6 ms searches, and close to the planned 2-second timeout, so some cold requests would show an empty state.
 
 Built instead: the definition card and "Related articles" (§16), both from our own index with no network calls.
+
+## 16. Definition card and related articles (2026-11-16)
+**What:** above the results (page 1 only), the top article's first 1–2 sentences. Under them, up to 5 articles
+nearest in meaning. Everything comes from our own index and vectors, with no network calls.
+
+**When the card is shown: exact words, no threshold.** The query's terms, as a set, must equal the terms of the
+top result's title, or of a redirect title that leads to it. Both sides go through the same `Tokenizer.queryTerms`,
+so they are lowercased, stop-worded and stemmed the same way. Measured on the main 50 (the held-out set was not
+used):
+
+| Rule | Smart: cards / wrong | Keyword: cards / wrong | Raw file |
+| --- | --- | --- | --- |
+| Exact title | 32 / 0 | 32 / 0 | `eval/results/definition-card-probe.json` |
+| **+ exact redirect title (adopted)** | **40 / 0** (+8) | **39 / 0** (+7) | `definition-card-redirects.json`, `definition-card-main50.json` |
+| Title ⊆ query (rejected) | 36 / 1 | 39 / 4 | `definition-card-probe.json` |
+| Keyword #1 = Smart #1 (rejected) | 43 / 1 | 43 / 1 | same |
+
+- The redirect extension was adopted under the rule set in advance: zero wrong cards in both modes. It adds
+  "einstein" → *Albert Einstein*, "world war 2" → *World War II*, "ww1" → *World War I*, "olympics" →
+  *Olympic Games*, and 4 more.
+- The rejected rules make exactly the harmful mistake: "what is the capital of australia" would show *Australia*.
+- Limit: questions get no card ("who invented the telephone"), even when the top result is right.
+
+**Card text.**
+- My own sentence splitter. It uses the first paragraph only and stops at `.` `!` `?` followed by a space and a
+  capital, but not after initials, "U.S."-style words or short forms like "Jr.".
+- It adds a second sentence when the first has fewer than 12 words, and caps the text at 50 words.
+- It also repairs two kinds of markup damage in the dump: a missing first word ("is a type of Japanese poetry" →
+  "Haiku is …") and empty brackets ("(, literally …").
+
+**Related articles.**
+- The query is the top article's own stored int8 vector, searched with the same HNSW index, so no model runs.
+- The article itself and every article already on the page are skipped.
+- A related title links to a **Sift search** for that title, not straight to Wikipedia. The reader then gets that
+  article's own card and results, which makes exploring easy. The card's title already links to the article.
+- Quality is good for most topics ("tiger" → Leopard, Panthera, Jaguar …), weaker for some ("haiku" → Kana,
+  Hiragana, Wakoku, Hikikomori, Manyogana).
+
+**Ranking unchanged:** the card only reads the already-ranked top hit. Main 50, both modes, top 100: ids, scores,
+order and snippets identical; MRR keyword 0.86758 → 0.86758, Smart 0.95622 → 0.95622
+(`eval/results/card-before.json`, `card-after.json`).
+
+**Cost (measured, cache off, 200 queries × 3 rounds per mode, two runs each,
+`eval/results/card-latency-*.json`):**
+
+| | Before | After |
+| --- | --- | --- |
+| Smart, HTTP p95 | 13.07–13.33 ms | 13.73–13.93 ms (limit: 100 ms) |
+| Keyword, HTTP p95 | 6.80–7.10 ms | 8.27–8.39 ms |
+| Keyword, HTTP median | 1.18–1.19 ms | 2.37–2.38 ms |
+| Card + related (`cardMs`), all page-1 queries | — | median 0.96–1.14 ms, p95 1.57–1.78 ms |
+| Heap after start (after GC) | 255.1–255.2 MB | 281.8 MB (+26.7 MB: the redirect map) |
+| Startup | 2.15–2.33 s | 2.17–2.20 s |
+
+- Keyword mode feels it most in relative terms: one HNSW search (about 1 ms) roughly doubles a 1 ms keyword query.
+  It is still far under every target.
+- The 27 MB of heap matter for the 1 GiB container (836 MiB measured under load before this change). The
+  container was **not** re-measured; do that before any trial deployment.
+- Phones: with a card, the first result starts at 593 px instead of 236 px on a 375 px screen
+  (`docs/design/review.md`).
