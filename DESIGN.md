@@ -188,3 +188,25 @@ index). A was chosen, with one idea taken from B. The 30-point review with every
 question words and common helper words ("do", "can", "from" …) from the words to highlight. Ranking still uses all
 query words. Checked on the main 50 queries in both modes, top 100 results: ids, scores and order identical; MRR
 0.86758 → 0.86758 (keyword) and 0.95622 → 0.95622 (Smart) (`eval/results/highlight-change.txt`).
+
+## 15. "Discussions" tab: researched, not built (2026-11-16)
+The idea was a third tab showing outside discussions of the query, fetched by our server. The research and the
+full design are kept as evidence in `docs/learning/discussions-plan.md`. It was dropped for three reasons:
+
+1. **Only one free source fits the rules** (free, no key or account, real keyword search, no scraping):
+
+   | Source | Keyword search | Key / account | Verdict |
+   | --- | --- | --- | --- |
+   | Hacker News (Algolia API) | Yes | None; "10,000 per hour" per IP | Usable (titles, dates and links only) |
+   | Wikipedia Pageviews | **No**, it counts views per article | None (User-Agent with contact required); data CC0 | Not a discussion source |
+   | Mastodon | Only for logged-in users ("full text search is not available to unauthenticated users") | Account | Dropped |
+   | Bluesky | `searchPosts` "may require authentication"; the public host answered **403** | Account | Dropped |
+
+   One source makes "Discussions" really "Hacker News mentions".
+2. **Off-topic results for general queries.** Hacker News is a tech news site. One test request per main-50 query
+   found a story for 49 of 50, but for general words the stories are about something else: "haiku" → AI model
+   launches, "the who" → "The man who killed Google Search?" (`eval/results/discussions-hn-probe.jsonl`).
+3. **Slow.** From this laptop: median 802 ms, p95 1,594 ms, max 1,913 ms per request. That is against Sift's
+   ~6 ms searches, and close to the planned 2-second timeout, so some cold requests would show an empty state.
+
+Built instead: the definition card and "Related articles" (§16), both from our own index with no network calls.
