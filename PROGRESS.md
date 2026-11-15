@@ -15,7 +15,7 @@
 | 4 — PageRank, autocomplete, spelling | ✅ Done (2026-11-11) |
 | 5 — Smart (meaning) search | ✅ Done (2026-11-13), after one pre-registered fix experiment |
 | 6 — Prove quality and speed | ✅ Done (2026-11-14) |
-| 7 — Ship it | 🟡 Local parts done (2026-11-14); deployment waits for your OK on the cost |
+| 7 — Ship it | 🟡 Local parts done (2026-11-14); no free host fits (2026-11-16), so: localhost + demo video |
 | Website redesign | ✅ Done (2026-11-16), direction A "Reference" |
 
 ## Phase 0 — Setup (done)
@@ -387,7 +387,10 @@ int8 recall vs float32 ≥ 0.97, Smart p95 over HTTP and server memory, make it 
 still not top 3, it is documented as a known limitation, with no further tuning.
 
 ## Next step
-Phase 6 is done; Phase 7's local parts are done. **Deployment waits for you:** create the Google Cloud project, turn
-on billing with a budget alert, install gcloud, and give the OK on about $15–20 per month
-(steps in `docs/deployment-plan.md`). Then: deploy, measure memory and latency on the server, add the live link and GIF
-to the README (the screenshots are already the redesigned site), and check it on a phone over mobile data.
+- **Waiting for your "go"** on the definition card + Discussions plan (`docs/learning/discussions-plan.md`), with
+  3 decisions in its last section.
+- **Hosting (2026-11-16, zero-cost rule):** no free host runs Sift all the time without a card
+  (`docs/deployment-plan.md`). Plan: localhost + a 60–90 s demo video and GIF for the README. Optional: a few weeks
+  live on Railway's no-card trial.
+- CLAUDE.md still names Google Cloud Run as the host (tech stack table and Phase 7). That conflicts with the new
+  rule 10 and should be updated when you decide.

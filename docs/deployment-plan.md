@@ -1,95 +1,97 @@
-# Deployment plan (not deployed yet)
+# Deployment plan (not deployed)
 
-Written 2026-11-14. Prices were checked that day on the official pages linked below; they can change. Nothing
-here has been bought or set up. **Deploying waits for your OK on the cost.**
+Updated 2026-11-16 for the **zero-cost rule** (CLAUDE.md hard rule 10): no paid plan, no paid API, no trial that
+auto-charges, and nothing that needs billing turned on or a payment card. Every host below was checked that day
+on its official page (linked). Nothing was signed up for, bought or deployed.
 
-## What the server needs (measured, `eval/results/phase7-docker.json`)
+**Bottom line: no free host can run Sift as it is today, all the time, without a card.** The plan is
+**localhost + a demo video** (section 3). One host can run it **for a few weeks** with no card (Railway's trial),
+which is useful only as a short live window, for example during interviews (section 4).
+
+## 1. What the server needs (measured, `eval/results/phase7-docker.json`)
 | | Measured in Docker |
 | --- | --- |
-| Image | 553 MB compressed (1.1 GB unpacked); `linux/amd64` build tested (starts and answers correctly) |
+| Image | 553 MB compressed (1.1 GB unpacked); `linux/amd64` build tested |
 | Memory | 795 MiB at start, 900 MiB after 1,200 queries; **836 MiB with a 1 GiB limit under a 10-user load test, no out-of-memory kill** |
-| Startup | 2.3 s to healthy (laptop, native); 10 s for the amd64 image under emulation (an upper bound, not the server number) |
+| Startup | 2.3 s to healthy (laptop, native) |
 | CPU per query | keyword ~1–2 ms, Smart ~6–10 ms (one core) |
 
-So the server needs **≥ 1 GiB of memory** (2 GiB gives headroom) and about 1 vCPU. Any 512 MB plan is too small.
+So a host must give **at least 1 GiB of memory**. A 512 MB plan cannot run it.
 
-## Option 1: Google Cloud Run (us-central1, Tier 1 prices)
-Settings: 1 vCPU, request-based billing, min instances = 1 (as CLAUDE.md asks), max instances = 2 (a cost cap),
-startup CPU boost on.
+## 2. Free hosting options (checked 2026-11-16)
 
-Prices from https://cloud.google.com/run/pricing (request-based billing, Tier 1):
-- Active time: CPU $0.000024 per vCPU-second, memory $0.0000025 per GiB-second, $0.40 per million requests.
-- Idle min instance: CPU **$0.0000025** per vCPU-second, memory **$0.0000025** per GiB-second.
-- Free tier: 180,000 vCPU-seconds, 360,000 GiB-seconds and 2 million requests per month, "applied as a spending
-  based discount using Tier 1 pricing".
+| Host | Free memory | Sleeps when idle? Wake-up | Card needed? | Time limit | Fits Sift? |
+| --- | --- | --- | --- | --- | --- |
+| **Render** Free web service | 512 MB, 0.1 CPU | Yes, after 15 min without traffic; waking "takes about one minute" | Not required by the free docs | 750 free instance hours per workspace per month | **No**: 512 MB < ~800 MiB at start |
+| **Koyeb** Free Instance | 512 MB, 0.1 vCPU, 2 GB disk | Yes, scales to zero after 1 hour without traffic; wake time not stated | Not stated | One free instance per organization | **No**: 512 MB |
+| **Railway** Free plan | 0.5 GB per service | Not stated | No | $1 of usage per month | **No**: 0.5 GB |
+| **Railway** Trial | **1 GB per service**, up to 2 vCPU | Not stated | **No** ("Can I try Railway without a credit card? Yes.") | **$5 of credit that expires after 30 days** | **Only for a short time** (section 4) |
+| **Hugging Face Spaces** (Docker) | CPU Basic: 2 vCPU, 16 GB, free hardware | Yes, free hardware "will go to sleep … if unused" | — | — | **No**: "Gradio and Docker Spaces run on compute and require a paid plan to create" (PRO). Only static Spaces are free, and they cannot run a server |
+| **Northflank** Sandbox | Free plan sizes not published ("Free projects have separate limits") | Pricing page: always on | Pricing page: "No card needed"; Railway's comparison page says a payment method is needed | Up to $20/month of resources | **Unclear**: cannot be confirmed without signing up. Not recommended until the limits are public |
+| **Fly.io** | — | — | **Yes**: "All organizations … require a credit card on file" | Trial: $1 of credit for 7 days | **No** (card, no free tier: "New organizations don't have a free tier") |
+| **Google Cloud Run** | Free tier would cover part of it | — | **Yes**: "A Google Cloud billing account is required to access the Google Cloud Free Tier" | — | **No**: needs billing turned on (breaks rule 10) |
+| **Oracle Cloud** Always Free | Ampere A1: 2 OCPUs, 12 GB | Idle instances can be reclaimed (7 days under 20% CPU, network and memory) | **Yes**: sign-up asks to "Add payment verification method … Credit Card" | None | **No**: needs a card (breaks rule 10) |
 
-Monthly cost of the one always-on instance (1 month = 730 h = 2,628,000 s):
+Sources (all checked 2026-11-16):
+- Render: https://render.com/docs/free (spin-down, 750 hours) and https://render.com/docs/compute-plans
+  (Free = 0.1 CPU, 512 MB).
+- Koyeb: https://www.koyeb.com/docs/reference/instances.
+- Railway: https://railway.com/pricing (Trial and Free plan limits, no card, $5 for 30 days; usage prices about
+  $10 per GB of memory per month and $20 per vCPU per month).
+- Hugging Face: https://huggingface.co/docs/hub/spaces-overview (paid plan needed for Docker Spaces; CPU Basic
+  specs; sleep).
+- Northflank: https://northflank.com/pricing and
+  https://northflank.com/docs/v1/application/billing/resource-plans-and-quotas. The opposite claim about the card
+  is on https://docs.railway.com/platform/compare-to-northflank.
+- Fly.io: https://docs.fly.io/about/pricing.
+- Google Cloud: https://docs.cloud.google.com/free/docs/free-cloud-features.
+- Oracle: https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm and
+  https://docs.oracle.com/en-us/iaas/Content/GSG/Tasks/signingup_topic-Sign_Up_for_Free_Oracle_Cloud_Promotion.htm.
 
-| Memory | Idle cost | Free tier, if all of it applies | Expected |
-| --- | --- | --- | --- |
-| 2 GiB | 2,628,000 × ($0.0000025 + 2 × $0.0000025) = **$19.71** | 180,000 × $0.000024 + 360,000 × $0.0000025 = up to $5.22 | **about $14.50–19.71** |
-| 1 GiB | 2,628,000 × ($0.0000025 + $0.0000025) = **$13.14** | up to $5.22 | about $7.92–13.14 |
+The 2026-11-14 version of this file recommended Google Cloud Run (about $15–20/month) with Render Standard
+($25/month) as the fallback. **Both are dropped**, because they cost money and need a card.
 
-On top of that:
-- **Traffic**: tiny. For example, 100,000 queries × ~10 ms = 1,000 active vCPU-seconds × $0.0000215 extra ≈
-  $0.02, plus $0.04 for the requests.
-- **Image storage** (Artifact Registry, https://cloud.google.com/artifact-registry/pricing): first 0.5 GiB free, then
-  $0.000136986 per GiB-hour (≈ $0.10 per GiB-month). Two image versions ≈ 1.03 GiB → about $0.05 per month.
-- **Not recommended:** instance-based billing (CPU always on, $0.000018 per vCPU-second) would cost about
-  $57.82 − $5.22 = $52.60 per month at 2 GiB.
+## 3. The plan: localhost + demo video
+Sift runs well on a laptop: 2.3 s to start, 6 ms per keyword query. A short video shows that better than a link
+that might be asleep.
 
-Cold starts:
-- With min instances = 1, one instance stays warm, so normal visitors never wait for a start.
-- A *second* instance (only under heavy load) must pull the 553 MB image and start Java, which takes seconds.
-  The exact time must be measured on Cloud Run. Startup CPU boost shortens it.
-- With request-based billing the idle instance gets almost no CPU between requests. That is fine for this
-  read-only server, which has no background work.
+**A. Make it easy to run** (already done): `docs/run-locally.md`. Build the website, then `scripts/sift-api`, then
+open http://localhost:8080. Building the data once is `scripts/sift-data`.
 
-Memory rules (https://docs.cloud.google.com/run/docs/configuring/services/memory-limits): 1 vCPU allows up to 4 GiB;
-0.5 vCPU allows at most 1 GiB.
+**B. Record a 60–90 second demo**, free, with tools already on a Mac:
+1. Start Sift locally and open http://localhost:8080 in a clean browser window (no bookmarks bar, 1280 × 800).
+2. Record with macOS screen recording (Shift + Command + 5 → "Record Selected Portion"). It is built in and free.
+3. Show, in this order:
+   - Typing "pyt" (autocomplete).
+   - "pyhton" ("Did you mean python?").
+   - "how do plants make food" in Smart mode (Photosynthesis near the top), then the same in Keyword mode.
+   - "Details" (24 ms, documents searched, cache hit on a repeat).
+   - Page 2.
+   - Dark mode.
+   - The phone layout (browser window at 375 px).
+4. Keep the result as an `.mp4`. For the README GIF, convert a short part with `ffmpeg` (free; not installed on this
+   Mac yet, `brew install ffmpeg`) and keep the GIF small (a few MB), so the README loads fast.
 
-## Option 2: Render
-Prices from https://render.com/pricing:
-- Workspace: **Hobby $0/month + compute**.
-- Web services: Free (512 MB), Starter **$7** (512 MB, 0.5 CPU), Standard **$25** (2 GB, 1 CPU), and larger ones.
-- Bandwidth: 5 GB included on Hobby, then $0.15 per GB.
+**C. Put it where people look:**
+- In the README, replace "Live demo: coming soon" with "Demo video" plus the GIF.
+- Upload the video as an unlisted YouTube video (a free Google account, no card), or attach the `.mp4` in the
+  GitHub README editor (free).
+- Say plainly in the README: "Runs locally; no live server, because this project has a zero-cost rule."
 
-| Plan | Fits? | Monthly |
-| --- | --- | --- |
-| Free (512 MB) | **No**: the server uses ~800 MiB just after starting. Also "Render spins down a Free web service that goes 15 minutes without receiving any inbound traffic", and waking up "takes about one minute" (https://render.com/docs/free). | $0 |
-| Starter (512 MB) | **No**, same memory problem | $7 |
-| Standard (2 GB, 1 CPU) | Yes, with headroom | **$25** |
+**D. In interviews:** run it live from the laptop. It needs no internet, except for the optional Discussions tab.
 
-Cold starts: paid services run all the time, so there are none. Deploys replace the old instance with no downtime.
+## 4. Optional: a short live window on Railway's trial (no card)
+Only if you want a public link for a few weeks:
+- Railway's trial gives 1 GB per service and $5 of credit for 30 days, with no card. Sift measured 836 MiB under
+  load with a 1 GiB limit, so it should fit, but with little headroom. That must be measured on Railway itself.
+- A rough estimate from Railway's published prices: about 0.85 GB × $10 per GB-month ≈ $8.50 a month for memory alone.
+  So the $5 credit lasts **roughly 2–3 weeks**, not the full 30 days. This is an estimate, not a measurement.
+- Railway's image size limit is not on the pricing page. The 553 MB image must be tested.
+- When the credit runs out, the service stops. Without a card nothing can be charged, so this does not break rule 10.
+- **Not started.** It needs your Railway account and your OK. Pick the weeks when the link matters most.
 
-Catch: Render normally builds the Dockerfile from the GitHub repo, but `data/` is not in git. So the image must be
-built locally and pushed to a registry (for example GitHub Container Registry). Render then deploys that image.
-
-## Recommendation: Google Cloud Run, 1 vCPU, 2 GiB, min 1, max 2 (about $15–20 per month)
-- It is cheaper than Render's only plan that fits ($25), even at 2 GiB. After measuring the real memory on Cloud
-  Run, it can drop to 1 GiB (about $8–13).
-- It is what the CLAUDE.md plan names, and `max instances = 2` puts a hard ceiling on compute cost.
-- It also handles load spikes by adding an instance. Render Standard is one fixed instance.
-- Render stays the fallback if setting up Google Cloud is a problem. It is simpler, but costs $25 a month.
-
-## Steps only you can do (accounts and billing)
-**Google Cloud Run**
-1. Sign in to https://console.cloud.google.com with a Google account and create a project (e.g. `sift-search`).
-2. Turn on billing for the project (needs a payment card), then **create a budget alert** (e.g. $25 per month) under
-   Billing → Budgets & alerts.
-3. Install the gcloud CLI, then run `gcloud auth login` and `gcloud config set project <project-id>`.
-4. Enable the two services: `gcloud services enable run.googleapis.com artifactregistry.googleapis.com`.
-5. Tell me "OK to deploy at about $15–20 per month".
-
-After that I can prepare (and you run or approve) these:
-- Create an image repository in us-central1.
-- `gcloud auth configure-docker us-central1-docker.pkg.dev`.
-- `docker buildx build --platform linux/amd64 --push -t us-central1-docker.pkg.dev/<project>/sift/sift:<version> .`
-- `gcloud run deploy sift --image … --region us-central1 --cpu 1 --memory 2Gi --min-instances 1 --max-instances 2 --cpu-boost --allow-unauthenticated`,
-  with the startup probe on `/health`.
-
-**Render (fallback)**
-1. Create a Render account and add a payment method.
-2. Create a GitHub token that can publish packages, so the image can be pushed to `ghcr.io` (public, or private
-   with the token saved in Render).
-3. In Render: New → Web Service → "Deploy an existing image", plan **Standard**, health check path `/health`.
+## 5. What would make an always-on free host possible (not planned)
+A smaller "keyword-only" build without the meaning model and vectors (about 280 MB of the image) might fit in
+512 MB on Render Free or Koyeb Free, with Smart mode turned off. Its memory has **not** been measured, so I can't say
+whether it fits. It would also sleep after 15–60 minutes and take about a minute to wake on Render. That is a worse
+first impression than a video, so it is listed only as an option.

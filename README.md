@@ -3,7 +3,8 @@
 **A search engine I built from scratch: 280,748 Simple English Wikipedia articles, keyword and meaning
 search, answers in about 6 ms.**
 
-**Live demo:** _coming soon (link added after deployment)_  ·  Demo GIF: _coming soon_
+**Live demo:** none. This is a zero-cost project and no free host fits it ([why](docs/deployment-plan.md)); it runs
+locally ([3 commands](docs/run-locally.md)).  ·  Demo video and GIF: _coming soon_
 
 | Search results | Dark theme | "Did you mean" on a phone |
 | --- | --- | --- |
