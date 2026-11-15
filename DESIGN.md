@@ -140,6 +140,51 @@ a **1 GiB limit** under a 10-user load test: 836 MiB, no out-of-memory kill, 0 e
 leave headroom.
 
 ## 13. CI
-GitHub Actions on every push: Java build + 263 tests (`./gradlew build -Pci`) and the website's type check,
-21 Vitest tests and build. One test, `RealDataSmokeTest`, needs the real data, which is not in git. It is tagged
+GitHub Actions on every push: Java build + 269 tests (`./gradlew build -Pci`) and the website's type check,
+42 Vitest tests and build. One test, `RealDataSmokeTest`, needs the real data, which is not in git. It is tagged
 `needs-data` and left out with `-Pci`; locally it runs and checks the known answers on the real index and model.
+
+## 14. Website design decisions (redesign, 2026-11-16)
+Two directions were prototyped and screenshotted at 1280 and 375 px (`docs/design/directions.md`): **A, Reference**
+(a reading page, like a well-set encyclopedia) and **B, Catalogue** (dense rows, monospace numbers, like a library
+index). A was chosen, with one idea taken from B. The 30-point review with every measurement is in
+`docs/design/review.md`.
+
+**Type: a serif for reading, a sans for controls, system fonts only.**
+- Titles and snippets use a serif (Charter, then Cambria/Georgia on other systems). People read snippets as
+  short passages of text, and a book face with clear letter shapes reads well at 16 px and 1.6 line height.
+- The search box, tabs, stats line and footer use the system sans (`system-ui`). They are controls, not reading,
+  and a sans makes them look different from the content.
+- **No web fonts.** Fonts already on the device cost 0 bytes and never swap after load, so there is no layout
+  shift from fonts (measured CLS: 0 on every page). The cost: the serif looks a little different on Windows and
+  Android than on a Mac.
+- **Monospace with tabular numbers only inside "Details"** (the idea from B). In that list the numbers sit in a
+  column, and equal-width digits make "6 ms" and "24 ms" line up. Everywhere else it would look like a terminal.
+- Six sizes in a scale (13 → 33 px). The input is 16 px, because iOS zooms the page in on smaller inputs.
+
+**Palette: warm paper and ink, one blue, one yellow.**
+- Paper `#faf8f3`, ink `#1d1b17`, a second ink `#57534a` for the quiet parts, link blue `#1a4c8b`. Dark theme:
+  the same roles, re-mixed (`#171612` paper, `#eae6dc` ink, `#9cbcf0` links). Only colours change between themes.
+- Contrast, computed from `tokens.css` with the WCAG formula: body text 16.2:1 (light) and 14.5:1 (dark); the
+  weakest text pair in either theme is 6.6:1 (placeholder, dark), above the 4.5:1 rule. Borders 3.5:1 / 3.4:1
+  (need 3:1).
+- **Matched words: pale yellow background, normal weight.** Bold on every match made snippets with many matches
+  hard to read, and helper words like "do" were also marked. Now only meaningful words are marked
+  (decision below), and the yellow was made a little stronger to work without bold: text on it is 12.1:1 / 6.9:1.
+- No gradients, shadows or cards. Rules (1 px lines) and space separate things.
+
+**Layout: one reading column.**
+- Desktop: a left column for the wordmark (8.5rem), then a 40rem reading column (about 70 characters per line, a
+  comfortable length). Search box, tabs, results and pager all share that column's left edge.
+- Phone (below 48rem): one column, 16 px side margins. The first result starts about 250 px from the top instead of
+  about 490 px before, because the result count and time are one quiet line and the other stats moved into
+  "Details".
+- Every tap target is at least 44 × 44 px (measured: 0 failures at 375 px), including in-text links, which get
+  invisible padding instead of a bigger font.
+- Every value in the CSS comes from a token in `tokens.css` (69 tokens). A Vitest test fails if a raw colour, size
+  or time appears outside `tokens.css`, if a token is unused, or if a CSS class is not used by any component.
+
+**Highlight change on the API side (the only non-visual change).** `SnippetBuilder.highlightTerms` drops stop words,
+question words and common helper words ("do", "can", "from" …) from the words to highlight. Ranking still uses all
+query words. Checked on the main 50 queries in both modes, top 100 results: ids, scores and order identical; MRR
+0.86758 → 0.86758 (keyword) and 0.95622 → 0.95622 (Smart) (`eval/results/highlight-change.txt`).
