@@ -27,6 +27,26 @@ export interface QueryStats {
   /** Smart mode only: time to turn the query into a meaning vector, and to search the vectors (HNSW). */
   embedMs: number | null;
   vectorMs: number | null;
+  /** Page 1 only: time to decide on the definition card and find its related articles. */
+  cardMs: number | null;
+}
+
+export interface RelatedArticle {
+  id: number;
+  title: string;
+  url: string;
+}
+
+/** Shown above the results when the top result's title (or a redirect to it) has exactly the query's words. */
+export interface Definition {
+  id: number;
+  title: string;
+  url: string;
+  /** The article's first one or two sentences. */
+  text: string;
+  matchedBy: "title" | "redirect";
+  /** Up to 5 articles nearest in meaning to this one, none of them on the current results page. */
+  related: RelatedArticle[];
 }
 
 export interface SearchResponse {
@@ -40,6 +60,7 @@ export interface SearchResponse {
   pageSize: number;
   totalMatches: number;
   hasMore: boolean;
+  definition: Definition | null;
   results: Result[];
   stats: QueryStats;
 }

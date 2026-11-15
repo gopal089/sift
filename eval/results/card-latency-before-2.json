@@ -1,0 +1,38 @@
+{
+ "vectorKind": "int8",
+ "startupSeconds": 2.145,
+ "vectorBytes": 108930224,
+ "smartRanking": "hybrid RRF k=60: keyword top 100 [BM25(body) + w*BM25(title) k1=1.2 w=2 b_title=0.75 b_body=0.3 | x (1 + 0.5 x PageRank) | AND, else OR | question words dropped] + HNSW data/vectors-bge60 M=16 efC=200 efSearch=400, 1 vector per article (int8), top 100",
+ "afterStart": {
+  "rssMb": 797.3,
+  "heapUsedAfterGcMb": 255.1
+ },
+ "afterQueries": {
+  "rssMb": 1073.0,
+  "heapUsedAfterGcMb": 275.7
+ },
+ "queries": 200,
+ "rounds": 3,
+ "smart": {
+  "serverTookMs": {
+   "median": 5.12,
+   "p95": 11.83,
+   "max": 20.12
+  },
+  "httpWallMs": {
+   "median": 6.24,
+   "p95": 13.07
+  }
+ },
+ "keyword": {
+  "serverTookMs": {
+   "median": 0.45,
+   "p95": 6.24,
+   "max": 10.6
+  },
+  "httpWallMs": {
+   "median": 1.18,
+   "p95": 7.1
+  }
+ }
+}

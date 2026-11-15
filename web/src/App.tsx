@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { ApiError, documentCount, search } from "./api";
 import { AlertIcon } from "./components/Icons";
+import { DefinitionCard } from "./components/DefinitionCard";
 import { MAX_PAGE, Pager } from "./components/Pager";
 import { ResultList } from "./components/ResultList";
 import { SearchForm } from "./components/SearchForm";
@@ -203,6 +204,14 @@ export function App() {
                 )}
               </ul>
             </>
+          )}
+
+          {data?.definition && (
+            <DefinitionCard
+              definition={data.definition}
+              hrefFor={(title) => href({ ...state, query: title, page: 1 })}
+              onRelated={(title, event) => follow(event, { ...state, query: title, page: 1 })}
+            />
           )}
 
           {data && data.results.length > 0 && (

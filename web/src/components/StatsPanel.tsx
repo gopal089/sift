@@ -50,6 +50,12 @@ export function StatsPanel({ stats, summary, loading }: Props) {
             <dd>{formatMs(stats.vectorMs)} ms</dd>
           </>
         )}
+        {stats.cardMs != null && (
+          <>
+            <dt>Card and related</dt>
+            <dd>{formatMs(stats.cardMs)} ms</dd>
+          </>
+        )}
         <dt>Documents searched</dt>
         <dd>{stats.documentsSearched.toLocaleString("en-US")}</dd>
         <dt>Matches</dt>

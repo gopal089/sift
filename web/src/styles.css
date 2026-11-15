@@ -411,6 +411,52 @@ a {
   border-color: var(--color-ink);
 }
 
+/* ---------- definition card: the top article's opening, then related articles ---------- */
+
+/* No box: a rule under it separates it from the results, like a lead paragraph in a reference book. */
+.definition {
+  margin: var(--space-5) 0 0;
+  padding: 0 0 var(--space-5);
+  border-bottom: var(--size-line) solid var(--color-rule);
+}
+
+.definition-title {
+  margin: 0;
+  font: var(--weight-bold) var(--step-2) / var(--leading-tight) var(--font-serif);
+  overflow-wrap: anywhere;
+}
+
+.definition-text {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  line-height: var(--leading-body);
+}
+
+.related-heading {
+  margin: var(--space-4) 0 0;
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
+  font-weight: var(--weight-bold);
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each related title is a 44 px tall target; the list wraps on narrow screens. */
+.related a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-tap);
+  overflow-wrap: anywhere;
+}
+
 /* ---------- results ---------- */
 
 .results {
@@ -430,6 +476,7 @@ a {
 }
 
 /* The whole title line is the link (44 px tall at least); the negative margin keeps the spacing the same. */
+.definition-title a,
 .result-title a {
   display: block;
   padding-block: calc((var(--size-tap) - var(--size-line-box)) / 2);
@@ -437,6 +484,7 @@ a {
   text-decoration: none;
 }
 
+.definition-title a:hover,
 .result-title a:hover {
   text-decoration: underline;
 }

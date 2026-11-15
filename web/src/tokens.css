@@ -31,7 +31,7 @@
   --step--1: 0.8125rem; /* 13 px: source line, stats, tabs, footer */
   --step-0: 1rem; /* 16 px: snippets, input (16 px stops iOS zooming in) */
   --step-1: 1.1875rem; /* 19 px: result titles */
-  --step-2: 1.4375rem; /* 23 px: wordmark on phones */
+  --step-2: 1.4375rem; /* 23 px: wordmark on phones, definition card title */
   --step-3: 1.75rem; /* 28 px: wordmark, home heading on phones */
   --step-4: 2.0625rem; /* 33 px: home heading */
 

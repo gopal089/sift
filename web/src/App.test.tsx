@@ -15,6 +15,7 @@ const answer: SearchResponse = {
   pageSize: 10,
   totalMatches: 25,
   hasMore: true,
+  definition: null,
   results: [
     {
       id: 1,
@@ -34,7 +35,20 @@ const answer: SearchResponse = {
     cache: "miss",
     embedMs: null,
     vectorMs: null,
+    cardMs: null,
   },
+};
+
+const card: SearchResponse["definition"] = {
+  id: 7,
+  title: "Photosynthesis",
+  url: "https://simple.wikipedia.org/wiki/Photosynthesis",
+  text: "Photosynthesis is a process in which green plants make their own food from sunlight.",
+  matchedBy: "title",
+  related: [
+    { id: 8, title: "Calvin cycle", url: "https://simple.wikipedia.org/wiki/Calvin_cycle" },
+    { id: 9, title: "Algae", url: "https://simple.wikipedia.org/wiki/Algae" },
+  ],
 };
 
 type Answer = SearchResponse;
@@ -127,6 +141,19 @@ describe("results", () => {
     expect(list.hidden).toBe(false);
     const values = within(list).getAllByRole("definition").map((dd) => dd.textContent);
     expect(values).toEqual(["4.20 ms", "2.10 ms", "0.80 ms", "280,748", "25", "miss", "plant"]);
+  });
+
+  it("Details shows the card time when the page has one", async () => {
+    fakeServer({ definition: card, stats: { ...answer.stats, cardMs: 1.25 } });
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+    await screen.findByRole("region", { name: "Photosynthesis" });
+    const details = screen.getByRole("button", { name: "Details" });
+    fireEvent.click(details);
+    const list = document.getElementById(details.getAttribute("aria-controls")!)!;
+    const rows = within(list).getAllByRole("term").map((dt) => dt.textContent);
+    expect(rows).toContain("Card and related");
+    expect(within(list).getAllByRole("definition").map((dd) => dd.textContent)).toContain("1.25 ms");
   });
 
   it("keyword mode has no model or vector time", async () => {
@@ -295,6 +322,59 @@ describe("autocomplete and did you mean", () => {
     expect(link.getAttribute("href")).toBe("?q=python");
     fireEvent.click(link);
     await waitFor(() => expect(window.location.search).toBe("?q=python"));
+  });
+});
+
+describe("definition card", () => {
+  it("shows the top article's opening above the results, with related articles as Sift searches", async () => {
+    const fetchMock = fakeServer({ query: "photosynthesis", definition: card });
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    const title = within(region).getByRole("link", { name: "Photosynthesis" });
+    expect(title.getAttribute("href")).toBe("https://simple.wikipedia.org/wiki/Photosynthesis");
+    expect(within(region).getByText(card!.text)).toBeTruthy();
+    expect(within(region).getByText("simple.wikipedia.org › Photosynthesis")).toBeTruthy();
+
+    // the card comes before the results list in reading (and tab) order
+    const results = document.querySelector("ol.results")!;
+    expect(region.compareDocumentPosition(results) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+
+    const related = within(region).getByRole("list", { name: "Related articles" });
+    const links = within(related).getAllByRole("link");
+    expect(links.map((a) => [a.textContent, a.getAttribute("href")])).toEqual([
+      ["Calvin cycle", "?q=Calvin+cycle"],
+      ["Algae", "?q=Algae"],
+    ]);
+
+    fireEvent.click(links[0]);
+    await waitFor(() => expect(window.location.search).toBe("?q=Calvin+cycle"));
+    await waitFor(() => expect(searchCalls(fetchMock).at(-1)).toContain("q=Calvin+cycle"));
+  });
+
+  it("keeps the mode when following a related article", async () => {
+    fakeServer({ query: "photosynthesis", mode: "keyword", definition: card });
+    window.history.replaceState(null, "", "/?q=photosynthesis&mode=keyword");
+    render(<App />);
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    expect(within(region).getByRole("link", { name: "Algae" }).getAttribute("href")).toBe("?q=Algae&mode=keyword");
+  });
+
+  it("is not shown when the server sends none, and hides its related heading when the list is empty", async () => {
+    fakeServer({ definition: null });
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    expect(screen.queryByRole("region")).toBeNull();
+
+    cleanup();
+    fakeServer({ query: "photosynthesis", definition: { ...card!, related: [] } });
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    expect(within(region).queryByText("Related articles")).toBeNull();
+    expect(within(region).queryByRole("list")).toBeNull();
   });
 });
 
