@@ -1,0 +1,341 @@
+{
+ "tab-order home": [
+  {
+   "tag": "a",
+   "name": "Sift",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "q",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Search",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "Smart",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "photosynthesis",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "how do plants make food",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "world war 2",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "pyhton",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Simple English Wikipedia",
+   "ring": "3px rgb(26, 76, 139)"
+  }
+ ],
+ "tab-order results": [
+  {
+   "tag": "a",
+   "name": "Sift",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "q",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Search",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "Keyword",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Details",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Photosynthesis",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "Ecosystem",
+   "ring": "3px rgb(26, 76, 139)"
+  }
+ ],
+ "flow: suggestions": [
+  "Photography",
+  "Photosynthesis",
+  "Photon",
+  "Phosphorus",
+  "Phoenicia"
+ ],
+ "flow: after Enter": "?q=Photosynthesis | first: Photosynthesis",
+ "flow: on mode": {
+  "tag": "input",
+  "name": "Smart",
+  "ring": "3px rgb(26, 76, 139)"
+ },
+ "flow: ArrowRight on mode": "?q=Photosynthesis&mode=keyword | checked: keyword",
+ "flow: on Details": {
+  "tag": "button",
+  "name": "Details",
+  "ring": "3px rgb(26, 76, 139)"
+ },
+ "flow: Details open": "true | Query time 0.81 ms Documents searched 280,748 Matches 163 Cache miss Searched terms photosynthesi",
+ "flow: first result": {
+  "tag": "a",
+  "name": "Photosynthesis",
+  "ring": "3px rgb(26, 76, 139)"
+ },
+ "flow: on Next": {
+  "tag": "a",
+  "name": "Next",
+  "ring": "3px rgb(26, 76, 139)"
+ },
+ "flow: after Next": "?q=Photosynthesis&mode=keyword&page=2 | focused: Great Oxygenation Event | scrollY 0",
+ "flow: Escape closes list": "false",
+ "a11y home": [
+  "banner:",
+  "main:",
+  "contentinfo:",
+  "link: Sift",
+  "heading: Search Simple English Wikipedia",
+  "search:",
+  "list: Example searches",
+  "LabelText:",
+  "group: Search mode",
+  "link: Simple English Wikipedia",
+  "link: CC BY-SA 4.0",
+  "combobox: Search Simple English Wikipedia",
+  "button: Search",
+  "link: photosynthesis",
+  "link: how do plants make food",
+  "link: world war 2",
+  "link: pyhton",
+  "radio: Smart",
+  "radio: Keyword"
+ ],
+ "a11y home unnamed controls": 0,
+ "a11y results": [
+  "banner:",
+  "main:",
+  "contentinfo:",
+  "link: Sift",
+  "search:",
+  "heading: Results for “volcano”",
+  "status:",
+  "button: Details",
+  "list:",
+  "navigation: Result pages",
+  "LabelText:",
+  "group: Search mode",
+  "link: Previous",
+  "link: Next",
+  "link: Simple English Wikipedia",
+  "link: CC BY-SA 4.0",
+  "combobox: Search Simple English Wikipedia",
+  "button: Search",
+  "heading: List of volcanoes",
+  "heading: Izalco (volcano)",
+  "heading: Parinacota Volcano",
+  "heading: Volcanoes of Kamchatka",
+  "heading: Poás Volcano",
+  "heading: La Soufrière (volcano)",
+  "heading: Irazu Volcano",
+  "heading: Nemrut (volcano)",
+  "heading: Maipo (volcano)",
+  "heading: Hawaiʻi Volcanoes National Park",
+  "radio: Smart",
+  "radio: Keyword",
+  "link: List of volcanoes",
+  "link: Izalco (volcano)",
+  "link: Parinacota Volcano",
+  "link: Volcanoes of Kamchatka",
+  "link: Poás Volcano",
+  "link: La Soufrière (volcano)",
+  "link: Irazu Volcano",
+  "link: Nemrut (volcano)",
+  "link: Maipo (volcano)",
+  "link: Hawaiʻi Volcanoes National Park"
+ ],
+ "a11y results unnamed controls": 0,
+ "a11y autocomplete": [
+  "banner:",
+  "main:",
+  "contentinfo:",
+  "link: Sift",
+  "heading: Search Simple English Wikipedia",
+  "search:",
+  "list: Example searches",
+  "LabelText:",
+  "group: Search mode",
+  "link: Simple English Wikipedia",
+  "link: CC BY-SA 4.0",
+  "combobox: Search Simple English Wikipedia",
+  "button: Search",
+  "listbox: Suggestions",
+  "link: photosynthesis",
+  "link: how do plants make food",
+  "link: world war 2",
+  "link: pyhton",
+  "option: Volcano",
+  "option: Volume",
+  "option: Voltage",
+  "option: Volleyball",
+  "option: Volunteering",
+  "radio: Smart",
+  "radio: Keyword"
+ ],
+ "a11y autocomplete unnamed controls": 0,
+ "taps home: smallest": {
+  "name": "Sift",
+  "w": 44,
+  "h": 44,
+  "inline": false,
+  "ok": true
+ },
+ "taps home: failing": [],
+ "taps results: smallest": {
+  "name": "Sift",
+  "w": 44,
+  "h": 44,
+  "inline": false,
+  "ok": true
+ },
+ "taps results: failing": [],
+ "taps did-you-mean: smallest": {
+  "name": "Sift",
+  "w": 44,
+  "h": 44,
+  "inline": false,
+  "ok": true
+ },
+ "taps did-you-mean: failing": [],
+ "taps no-results: smallest": {
+  "name": "Sift",
+  "w": 44,
+  "h": 44,
+  "inline": false,
+  "ok": true
+ },
+ "taps no-results: failing": [],
+ "taps autocomplete: failing": [],
+ "320 overflow px: home": 0,
+ "320 overflow px: results": 0,
+ "320 overflow px: did-you-mean": 0,
+ "320 overflow px: no-results": 0,
+ "320 overflow px: long-query": 0,
+ "320 overflow px: long-title": 0,
+ "320 overflow px: page-2": 0,
+ "320 overflow px: autocomplete": 0,
+ "zoom 200%: home overflow px": 0,
+ "zoom 200%: results overflow px": 0,
+ "CLS home, 0 ms network delay": 0,
+ "CLS results, 0 ms network delay": 0,
+ "CLS phone results, 0 ms network delay": 0,
+ "CLS home, 800 ms network delay": 0,
+ "CLS results, 800 ms network delay": 0,
+ "CLS phone results, 800 ms network delay": 0,
+ "motion normal": {
+  "dropdown": "drop-in 0.12s",
+  "detailsArrow": "0.12s"
+ },
+ "motion reduced": {
+  "dropdown": "none 0s",
+  "detailsArrow": "0s"
+ },
+ "url: opened directly": {
+  "box": "volcano",
+  "mode": "keyword",
+  "pager": "Page 2 of 73",
+  "title": "volcano – Sift"
+ },
+ "url: after Next": "?q=volcano&mode=keyword&page=3 | Page 3 of 73",
+ "url: after Back": "?q=volcano&mode=keyword&page=2 | Page 2 of 73",
+ "url: after Forward": "?q=volcano&mode=keyword&page=3 | Page 3 of 73",
+ "url: wordmark goes home": "?mode=keyword | view: home | mode kept: keyword",
+ "url: Back from home": "?q=volcano&mode=keyword&page=3 | box: volcano",
+ "error 1280": "Sift cannot reach its search server. Check your connection, then try again.\n\nTry again",
+ "error: Try again after restart": "recovered | Glacier",
+ "error 375": "Sift cannot reach its search server. Check your connection, then try again.\n\nTry again",
+ "error 1280 dark": "Sift cannot reach its search server. Check your connection, then try again.\n\nTry again",
+ "states (review1)": {
+  "autocomplete-1280": [
+   "Photography",
+   "Photosynthesis (selected)",
+   "Photon",
+   "Phosphorus",
+   "Phoenicia"
+  ],
+  "autocomplete-375": [
+   "Photography",
+   "Photosynthesis (selected)",
+   "Photon",
+   "Phosphorus",
+   "Phoenicia"
+  ],
+  "loading-first": "true | Results for “volcano”\n\nSearching…",
+  "loading-next": "1 | busy=true",
+  "autocomplete-1280-dark": [
+   "Photography",
+   "Photosynthesis (selected)",
+   "Photon",
+   "Phosphorus",
+   "Phoenicia"
+  ],
+  "autocomplete-375-dark": [
+   "Photography",
+   "Photosynthesis (selected)",
+   "Photon",
+   "Phosphorus",
+   "Phoenicia"
+  ],
+  "loading-first-dark": "true | Results for “volcano”\n\nSearching…",
+  "loading-next-dark": "1 | busy=true",
+  "long-query-1280": {
+   "len": 200,
+   "overflowX": false,
+   "status": "66,299 results"
+  },
+  "long-query-375": {
+   "len": 200,
+   "overflowX": false,
+   "status": "66,299 results"
+  },
+  "long-title-1280": {
+   "first": "List of revocations of appointments to orders and awarded decorations and medals of the United Kingdom",
+   "overflowX": false
+  },
+  "long-title-375": {
+   "first": "List of revocations of appointments to orders and awarded decorations and medals of the United Kingdom",
+   "overflowX": false
+  },
+  "long-title-320": {
+   "first": "List of revocations of appointments to orders and awarded decorations and medals of the United Kingdom",
+   "overflowX": false
+  },
+  "page-2": "Previous\nPage 2 of 17\nNext",
+  "last-page": "Previous\nPage 17 of 17 | results on page: 3"
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "desktop-home": {
+  "url": "http://localhost:8080/",
+  "lighthouse": "13.6.0",
+  "fetchTime": "2026-11-15T20:53:19.795Z",
+  "formFactor": "desktop",
+  "scores": {
+   "performance": 100,
+   "accessibility": 100,
+   "best-practices": 100
+  },
+  "metrics": {
+   "first-contentful-paint": "0.2 s",
+   "largest-contentful-paint": "0.2 s",
+   "total-blocking-time": "0 ms",
+   "cumulative-layout-shift": "0",
+   "speed-index": "0.2 s"
+  },
+  "not_perfect": []
+ },
+ "desktop-results": {
+  "url": "http://localhost:8080/?q=how+do+plants+make+food",
+  "lighthouse": "13.6.0",
+  "fetchTime": "2026-11-15T20:53:29.762Z",
+  "formFactor": "desktop",
+  "scores": {
+   "performance": 100,
+   "accessibility": 100,
+   "best-practices": 100
+  },
+  "metrics": {
+   "first-contentful-paint": "0.2 s",
+   "largest-contentful-paint": "0.5 s",
+   "total-blocking-time": "0 ms",
+   "cumulative-layout-shift": "0",
+   "speed-index": "0.2 s"
+  },
+  "not_perfect": []
+ },
+ "mobile-home": {
+  "url": "http://localhost:8080/",
+  "lighthouse": "13.6.0",
+  "fetchTime": "2026-11-15T20:52:59.659Z",
+  "formFactor": "mobile",
+  "scores": {
+   "performance": 100,
+   "accessibility": 100,
+   "best-practices": 100
+  },
+  "metrics": {
+   "first-contentful-paint": "0.8 s",
+   "largest-contentful-paint": "0.8 s",
+   "total-blocking-time": "0 ms",
+   "cumulative-layout-shift": "0",
+   "speed-index": "0.8 s"
+  },
+  "not_perfect": []
+ },
+ "mobile-results": {
+  "url": "http://localhost:8080/?q=how+do+plants+make+food",
+  "lighthouse": "13.6.0",
+  "fetchTime": "2026-11-15T20:53:09.695Z",
+  "formFactor": "mobile",
+  "scores": {
+   "performance": 98,
+   "accessibility": 100,
+   "best-practices": 100
+  },
+  "metrics": {
+   "first-contentful-paint": "0.8 s",
+   "largest-contentful-paint": "2.4 s",
+   "total-blocking-time": "0 ms",
+   "cumulative-layout-shift": "0",
+   "speed-index": "0.8 s"
+  },
+  "not_perfect": [
+   "performance:largest-contentful-paint (0.91) 2.4\u00a0s"
+  ]
+ }
+}
