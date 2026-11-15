@@ -1,0 +1,889 @@
+[
+ {
+  "id": 1,
+  "query": "world war 2",
+  "expected": "World War II",
+  "smart": {
+   "top": "World War II",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "World War 2",
+    "World war 2"
+   ]
+  },
+  "keyword": {
+   "top": "World War II",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "World War 2",
+    "World war 2"
+   ]
+  }
+ },
+ {
+  "id": 2,
+  "query": "world war ii",
+  "expected": "World War II",
+  "smart": {
+   "top": "World War II",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "World War II",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 3,
+  "query": "the who",
+  "expected": "The Who",
+  "smart": {
+   "top": "The Who",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "The Who",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 4,
+  "query": "the history of india",
+  "expected": "History of India",
+  "smart": {
+   "top": "History of India",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "History of India",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 5,
+  "query": "photosynthesis",
+  "expected": "Photosynthesis",
+  "smart": {
+   "top": "Photosynthesis",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Photosynthesis",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 6,
+  "query": "python programming",
+  "expected": "Python (programming language)",
+  "smart": {
+   "top": "Python (programming language)",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Python (programming language)",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 7,
+  "query": "einstein",
+  "expected": "Albert Einstein",
+  "smart": {
+   "top": "Albert Einstein",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Einstein"
+   ]
+  },
+  "keyword": {
+   "top": "Albert Einstein",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Einstein"
+   ]
+  }
+ },
+ {
+  "id": 8,
+  "query": "volcano",
+  "expected": "Volcano",
+  "smart": {
+   "top": "Volcano",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Volcano",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 9,
+  "query": "shakespeare",
+  "expected": "William Shakespeare",
+  "smart": {
+   "top": "William Shakespeare",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Shakespeare",
+    "Shakespear"
+   ]
+  },
+  "keyword": {
+   "top": "William Shakespeare",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Shakespeare",
+    "Shakespear"
+   ]
+  }
+ },
+ {
+  "id": 10,
+  "query": "dinosaur",
+  "expected": "Dinosaur",
+  "smart": {
+   "top": "Dinosaur",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Dinosaur",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 11,
+  "query": "mozart",
+  "expected": "Wolfgang Amadeus Mozart",
+  "smart": {
+   "top": "Wolfgang Amadeus Mozart",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Mozart"
+   ]
+  },
+  "keyword": {
+   "top": "Wolfgang Amadeus Mozart",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Mozart"
+   ]
+  }
+ },
+ {
+  "id": 12,
+  "query": "tokyo",
+  "expected": "Tokyo",
+  "smart": {
+   "top": "Tokyo",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Tokyo",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 13,
+  "query": "gravity",
+  "expected": "Gravity",
+  "smart": {
+   "top": "Gravity",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Gravity",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 14,
+  "query": "chess",
+  "expected": "Chess",
+  "smart": {
+   "top": "Chess",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Chess",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 15,
+  "query": "electricity",
+  "expected": "Electricity",
+  "smart": {
+   "top": "Electricity",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Electricity",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 16,
+  "query": "tiger",
+  "expected": "Tiger",
+  "smart": {
+   "top": "Tiger",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Tiger",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 17,
+  "query": "olympics",
+  "expected": "Olympic Games",
+  "smart": {
+   "top": "Olympic Games",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Olympics",
+    "Olympic"
+   ]
+  },
+  "keyword": {
+   "top": "Olympic Games",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Olympics",
+    "Olympic"
+   ]
+  }
+ },
+ {
+  "id": 18,
+  "query": "bitcoin",
+  "expected": "Bitcoin",
+  "smart": {
+   "top": "Bitcoin",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Bitcoin",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 19,
+  "query": "napoleon",
+  "expected": "Napoleon",
+  "smart": {
+   "top": "Napoleon",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Napoleon",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 20,
+  "query": "evolution",
+  "expected": "Evolution",
+  "smart": {
+   "top": "Evolution",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Evolution",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 21,
+  "query": "solar system",
+  "expected": "Solar System",
+  "smart": {
+   "top": "Solar System",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Solar System",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 22,
+  "query": "french revolution",
+  "expected": "French Revolution",
+  "smart": {
+   "top": "French Revolution",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "French Revolution",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 23,
+  "query": "united nations",
+  "expected": "United Nations",
+  "smart": {
+   "top": "United Nations",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "United Nations",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 24,
+  "query": "great wall of china",
+  "expected": "Great Wall of China",
+  "smart": {
+   "top": "Great Wall of China",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Great Wall of China",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 25,
+  "query": "theory of relativity",
+  "expected": "Theory of relativity",
+  "smart": {
+   "top": "Theory of relativity",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Theory of relativity",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 26,
+  "query": "black hole",
+  "expected": "Black hole",
+  "smart": {
+   "top": "Black hole",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Black hole",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 27,
+  "query": "martin luther king",
+  "expected": "Martin Luther King Jr.",
+  "smart": {
+   "top": "Martin Luther King Jr.",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Martin Luther King"
+   ]
+  },
+  "keyword": {
+   "top": "Martin Luther King Jr.",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Martin Luther King"
+   ]
+  }
+ },
+ {
+  "id": 28,
+  "query": "human heart",
+  "expected": "Heart",
+  "smart": {
+   "top": "Heart",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Heart",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 29,
+  "query": "climate change",
+  "expected": "Climate change",
+  "smart": {
+   "top": "Climate change",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Climate change",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 30,
+  "query": "statue of liberty",
+  "expected": "Statue of Liberty",
+  "smart": {
+   "top": "Statue of Liberty",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Statue of Liberty",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 31,
+  "query": "axolotl",
+  "expected": "Axolotl",
+  "smart": {
+   "top": "Axolotl",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Axolotl",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 32,
+  "query": "tardigrade",
+  "expected": "Tardigrade",
+  "smart": {
+   "top": "Tardigrade",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Tardigrade",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 33,
+  "query": "bauhaus",
+  "expected": "Bauhaus",
+  "smart": {
+   "top": "Bauhaus",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Bauhaus",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 34,
+  "query": "haiku",
+  "expected": "Haiku",
+  "smart": {
+   "top": "Haiku",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Haiku",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 35,
+  "query": "ada lovelace",
+  "expected": "Ada Lovelace",
+  "smart": {
+   "top": "Ada Lovelace",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Ada Lovelace",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 36,
+  "query": "mount kilimanjaro",
+  "expected": "Mount Kilimanjaro",
+  "smart": {
+   "top": "Mount Kilimanjaro",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Mount Kilimanjaro",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 37,
+  "query": "rosetta stone",
+  "expected": "Rosetta Stone",
+  "smart": {
+   "top": "Rosetta Stone",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Rosetta Stone",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 38,
+  "query": "fibonacci numbers",
+  "expected": "Fibonacci number",
+  "smart": {
+   "top": "Fibonacci number",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Fibonacci number",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 39,
+  "query": "how do plants make food",
+  "expected": "Photosynthesis",
+  "smart": {
+   "top": "Carnivorous plant",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Food",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 40,
+  "query": "who discovered penicillin",
+  "expected": "Alexander Fleming",
+  "smart": {
+   "top": "Alexander Fleming",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Penicillin",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 41,
+  "query": "what is the largest planet",
+  "expected": "Jupiter",
+  "smart": {
+   "top": "Jupiter",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Mercury (planet)",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 42,
+  "query": "who invented the telephone",
+  "expected": "Alexander Graham Bell",
+  "smart": {
+   "top": "Alexander Graham Bell",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Wireless",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 43,
+  "query": "what causes earthquakes",
+  "expected": "Earthquake",
+  "smart": {
+   "top": "Earthquake",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Earthquake",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 44,
+  "query": "who was the first person on the moon",
+  "expected": "Neil Armstrong",
+  "smart": {
+   "top": "Neil Armstrong",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Moon",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 45,
+  "query": "when did the titanic sink",
+  "expected": "Titanic",
+  "smart": {
+   "top": "Titanic",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Sinking of the Titanic"
+   ]
+  },
+  "keyword": {
+   "top": "Titanic",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "Sinking of the Titanic"
+   ]
+  }
+ },
+ {
+  "id": 46,
+  "query": "what is the capital of australia",
+  "expected": "Canberra",
+  "smart": {
+   "top": "Australia",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "Australia",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 47,
+  "query": "usa",
+  "expected": "United States",
+  "smart": {
+   "top": "Usa, \u014cita",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "USA Today",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 48,
+  "query": "dna",
+  "expected": "DNA",
+  "smart": {
+   "top": "DNA",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "DNA",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 49,
+  "query": "nasa",
+  "expected": "NASA",
+  "smart": {
+   "top": "NASA",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  },
+  "keyword": {
+   "top": "NASA",
+   "correct": true,
+   "exact_title": true,
+   "via_redirects": []
+  }
+ },
+ {
+  "id": 50,
+  "query": "ww1",
+  "expected": "World War I",
+  "smart": {
+   "top": "World War I",
+   "correct": true,
+   "exact_title": false,
+   "via_redirects": [
+    "WW1",
+    "Ww1"
+   ]
+  },
+  "keyword": {
+   "top": "Siege of Tsingtao",
+   "correct": false,
+   "exact_title": false,
+   "via_redirects": []
+  }
+ }
+]
