@@ -3,10 +3,10 @@ import { splitHighlights } from "./highlight";
 
 describe("splitHighlights", () => {
   it("returns the whole text as one normal piece when nothing is highlighted", () => {
-    expect(splitHighlights("Plants make food", [])).toEqual([{ text: "Plants make food", bold: false }]);
+    expect(splitHighlights("Plants make food", [])).toEqual([{ text: "Plants make food", marked: false }]);
   });
 
-  it("cuts the text into normal and bold pieces", () => {
+  it("cuts the text into normal and marked pieces", () => {
     const text = "Plants make food from sunlight.";
     expect(
       splitHighlights(text, [
@@ -14,10 +14,10 @@ describe("splitHighlights", () => {
         { start: 22, end: 30 },
       ]),
     ).toEqual([
-      { text: "Plants", bold: true },
-      { text: " make food from ", bold: false },
-      { text: "sunlight", bold: true },
-      { text: ".", bold: false },
+      { text: "Plants", marked: true },
+      { text: " make food from ", marked: false },
+      { text: "sunlight", marked: true },
+      { text: ".", marked: false },
     ]);
   });
 
@@ -30,7 +30,7 @@ describe("splitHighlights", () => {
       { start: zurich, end: zurich + 6 }, // out of order on purpose
     ]);
     expect(pieces.map((p) => p.text).join("")).toBe(text);
-    expect(pieces.filter((p) => p.bold).map((p) => p.text)).toEqual(["Zürich", "café"]);
+    expect(pieces.filter((p) => p.marked).map((p) => p.text)).toEqual(["Zürich", "café"]);
   });
 
   it("handles two highlights that touch", () => {
@@ -40,8 +40,8 @@ describe("splitHighlights", () => {
         { start: 2, end: 4 },
       ]),
     ).toEqual([
-      { text: "ab", bold: true },
-      { text: "cd", bold: true },
+      { text: "ab", marked: true },
+      { text: "cd", marked: true },
     ]);
   });
 
@@ -54,8 +54,8 @@ describe("splitHighlights", () => {
       { start: -2, end: 3 }, // starts before the text
     ]);
     expect(pieces).toEqual([
-      { text: "hello", bold: true },
-      { text: " world", bold: false },
+      { text: "hello", marked: true },
+      { text: " world", marked: false },
     ]);
   });
 

@@ -67,3 +67,18 @@ export async function suggest(prefix: string, signal?: AbortSignal): Promise<str
     return [];
   }
 }
+
+/**
+ * How many articles the server has indexed (from /health), for the home page. Null if the server cannot be
+ * reached: the page then simply leaves that line empty.
+ */
+export async function documentCount(signal?: AbortSignal): Promise<number | null> {
+  try {
+    const response = await fetch(`${API_BASE}/health`, { signal });
+    if (!response.ok) return null;
+    const body = (await response.json()) as { documents?: unknown };
+    return typeof body.documents === "number" ? body.documents : null;
+  } catch {
+    return null;
+  }
+}

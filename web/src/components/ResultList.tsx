@@ -7,7 +7,20 @@ interface Props {
   firstNumber: number;
 }
 
-/** The numbered list of results: title link, address, and the snippet with the query words in bold. */
+/** "https://simple.wikipedia.org/wiki/World_War_II" → "simple.wikipedia.org › World War II" */
+export function sourceLine(url: string): string {
+  const match = /^https?:\/\/([^/]+)\/wiki\/(.+)$/.exec(url);
+  if (!match) return url.replace(/^https?:\/\//, "");
+  let name = match[2];
+  try {
+    name = decodeURIComponent(name);
+  } catch {
+    // a broken %-escape: show the name as it is
+  }
+  return `${match[1]} › ${name.replace(/_/g, " ")}`;
+}
+
+/** The list of results: title link, a quiet source line, and the snippet with the query words marked. */
 export function ResultList({ results, firstNumber }: Props) {
   return (
     <ol className="results" start={firstNumber}>
@@ -18,10 +31,10 @@ export function ResultList({ results, firstNumber }: Props) {
               {result.title}
             </a>
           </h2>
-          <p className="result-url">{decodeURI(result.url).replace("https://", "")}</p>
+          <p className="result-source">{sourceLine(result.url)}</p>
           <p className="result-snippet">
             {splitHighlights(result.snippet, result.highlights).map((segment, i) =>
-              segment.bold ? <strong key={i}>{segment.text}</strong> : <span key={i}>{segment.text}</span>,
+              segment.marked ? <mark key={i}>{segment.text}</mark> : <span key={i}>{segment.text}</span>,
             )}
           </p>
         </li>

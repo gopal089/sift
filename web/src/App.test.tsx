@@ -1,9 +1,11 @@
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { App } from "./App";
+import { sourceLine } from "./components/ResultList";
+import type { SearchResponse } from "./types";
 import { readState, writeState } from "./urlState";
 
-const answer = {
+const answer: SearchResponse = {
   query: "plants",
   mode: "keyword",
   modeUsed: "keyword",
@@ -29,11 +31,32 @@ const answer = {
     totalMatches: 25,
     terms: ["plant"],
     matchMode: "AND",
-    cache: "off",
+    cache: "miss",
     embedMs: null,
     vectorMs: null,
   },
 };
+
+type Answer = SearchResponse;
+
+/**
+ * A fake server: /health says 280,748 documents, /suggest answers with `suggestions`, /search with `search`
+ * (an object, or a function of the request address). Returns the mock, so tests can look at the requests.
+ */
+function fakeServer(search: Partial<Answer> | ((url: string) => Partial<Answer>), suggestions: string[] = []) {
+  const fetchMock = vi.fn(async (url: string) => {
+    if (url.startsWith("/api/health")) return new Response(JSON.stringify({ status: "ok", documents: 280748 }));
+    if (url.startsWith("/api/suggest")) return new Response(JSON.stringify({ prefix: "", suggestions }));
+    const body = typeof search === "function" ? search(url) : search;
+    return new Response(JSON.stringify({ ...answer, ...body }), { status: 200 });
+  });
+  vi.stubGlobal("fetch", fetchMock);
+  vi.stubGlobal("scrollTo", vi.fn());
+  return fetchMock;
+}
+
+const searchCalls = (fetchMock: ReturnType<typeof fakeServer>) =>
+  fetchMock.mock.calls.map((c) => c[0]).filter((url) => url.startsWith("/api/search"));
 
 afterEach(() => {
   cleanup();
@@ -41,11 +64,35 @@ afterEach(() => {
   window.history.replaceState(null, "", "/");
 });
 
-describe("App", () => {
-  it("searches, shows bold query words, stats and the address bar state", async () => {
-    const fetchMock = vi.fn(async (_url: string) => new Response(JSON.stringify(answer), { status: 200 }));
-    vi.stubGlobal("fetch", fetchMock);
-    vi.stubGlobal("scrollTo", vi.fn());
+describe("home page", () => {
+  it("shows the heading, the article count from the server, and example searches as real links", async () => {
+    fakeServer({});
+    render(<App />);
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Search Simple English Wikipedia");
+    expect(await screen.findByText("280,748 articles, from the 1 November 2026 dump.")).toBeTruthy();
+    const examples = within(screen.getByRole("list", { name: "Example searches" })).getAllByRole("link");
+    expect(examples.map((a) => a.getAttribute("href"))).toEqual([
+      "?q=photosynthesis",
+      "?q=how+do+plants+make+food",
+      "?q=world+war+2",
+      "?q=pyhton",
+    ]);
+    expect(screen.getByText(/Smart finds articles by meaning/)).toBeTruthy();
+  });
+
+  it("an example link searches without reloading the page", async () => {
+    const fetchMock = fakeServer({});
+    render(<App />);
+    fireEvent.click(screen.getByRole("link", { name: "world war 2" }));
+    await screen.findByRole("link", { name: "Plant" });
+    expect(window.location.search).toBe("?q=world+war+2");
+    expect(searchCalls(fetchMock)).toEqual(["/api/search?q=world+war+2&mode=smart&page=1"]);
+  });
+});
+
+describe("results", () => {
+  it("searches, marks query words, shows the quiet stats line and the address bar state", async () => {
+    const fetchMock = fakeServer({});
     window.history.replaceState(null, "", "/?mode=keyword");
     render(<App />);
 
@@ -53,40 +100,115 @@ describe("App", () => {
     fireEvent.click(screen.getByRole("button", { name: "Search" }));
 
     await screen.findByRole("link", { name: "Plant" });
-    expect(fetchMock.mock.calls[0][0]).toBe("/api/search?q=plants&mode=keyword&page=1");
+    expect(searchCalls(fetchMock)).toEqual(["/api/search?q=plants&mode=keyword&page=1"]);
     expect(window.location.search).toBe("?q=plants&mode=keyword");
-    expect(screen.getByRole("status").textContent).toContain("25 results for “plants”");
-    expect(screen.getByText("Plants").tagName).toBe("STRONG");
+    expect(document.title).toBe("plants – Sift");
+    expect(screen.getByRole("status").textContent).toBe("25 results");
+    expect(screen.getByText("Plants").tagName).toBe("MARK");
+    expect(screen.getByText("simple.wikipedia.org › Plant")).toBeTruthy();
     // HTML in a snippet is shown as text, never run
     expect(screen.getByText("<b>make</b> food.", { exact: false })).toBeTruthy();
     expect(document.querySelector(".result-snippet b")).toBeNull();
-    expect(screen.getByText("280,748")).toBeTruthy();
-    expect(screen.getByText("0.42 ms")).toBeTruthy();
-    expect(screen.queryByText("Meaning search")).toBeNull();   // keyword mode: no model time
-
-    fireEvent.click(screen.getByRole("button", { name: "Next →" }));
-    await waitFor(() => expect(window.location.search).toBe("?q=plants&mode=keyword&page=2"));
   });
 
-  it("Smart is the default mode: sends mode=smart and shows the model and vector times", async () => {
-    const smart = {
-      ...answer,
-      mode: "smart",
-      modeUsed: "smart",
-      stats: { ...answer.stats, tookMs: 4.2, matchMode: "HYBRID", embedMs: 2.1, vectorMs: 0.8 },
-    };
-    const fetchMock = vi.fn(async (_url: string) => new Response(JSON.stringify(smart), { status: 200 }));
+  it("Details opens the numbers behind the search; Smart adds the model and vector times", async () => {
+    fakeServer({ mode: "smart", stats: { ...answer.stats, tookMs: 4.2, matchMode: "HYBRID", embedMs: 2.1, vectorMs: 0.8 } });
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+
+    const details = screen.getByRole("button", { name: "Details" });
+    const list = document.getElementById(details.getAttribute("aria-controls")!)!;
+    expect(details.getAttribute("aria-expanded")).toBe("false");
+    expect(list.hidden).toBe(true);
+
+    fireEvent.click(details);
+    expect(details.getAttribute("aria-expanded")).toBe("true");
+    expect(list.hidden).toBe(false);
+    const values = within(list).getAllByRole("definition").map((dd) => dd.textContent);
+    expect(values).toEqual(["4.20 ms", "2.10 ms", "0.80 ms", "280,748", "25", "miss", "plant"]);
+  });
+
+  it("keyword mode has no model or vector time", async () => {
+    fakeServer({});
+    window.history.replaceState(null, "", "/?q=plants&mode=keyword");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    expect(screen.queryByText("Meaning model")).toBeNull();
+  });
+
+  it("switching the mode tab searches again in that mode", async () => {
+    const fetchMock = fakeServer({});
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    expect(screen.getByRole("radio", { name: "Smart" })).toHaveProperty("checked", true);
+
+    fireEvent.click(screen.getByRole("radio", { name: "Keyword" }));
+    await waitFor(() => expect(window.location.search).toBe("?q=plants&mode=keyword"));
+    expect(searchCalls(fetchMock).at(-1)).toBe("/api/search?q=plants&mode=keyword&page=1");
+  });
+
+  it("keeps the old results on screen, dimmed, while the next page loads", async () => {
+    let release: () => void = () => undefined;
+    const slow = new Promise<void>((resolve) => (release = resolve));
+    const fetchMock = vi.fn(async (url: string) => {
+      if (url.includes("page=2")) await slow;
+      return new Response(JSON.stringify({ ...answer, page: url.includes("page=2") ? 2 : 1 }));
+    });
     vi.stubGlobal("fetch", fetchMock);
     vi.stubGlobal("scrollTo", vi.fn());
     window.history.replaceState(null, "", "/?q=plants");
     render(<App />);
     await screen.findByRole("link", { name: "Plant" });
-    expect(fetchMock.mock.calls[0][0]).toBe("/api/search?q=plants&mode=smart&page=1");
-    expect(screen.getByText("Meaning search")).toBeTruthy();
-    expect(screen.getByText("2.10 ms model + 0.80 ms vectors")).toBeTruthy();
-    expect(screen.queryByText(/not built yet/)).toBeNull();
+
+    fireEvent.click(screen.getByRole("link", { name: "Next" }));
+    expect(screen.getByRole("main").getAttribute("aria-busy")).toBe("true");
+    expect(screen.getByRole("link", { name: "Plant" })).toBeTruthy(); // still there
+    expect(screen.getByText("Searching…")).toBeTruthy();
+
+    await act(async () => release());
+    await waitFor(() => expect(screen.getByRole("main").getAttribute("aria-busy")).toBe("false"));
+    expect(screen.queryByText("Searching…")).toBeNull();
+  });
+});
+
+describe("pager", () => {
+  it("page 1 has Next only; Next goes to page 2 and moves focus to the first new result", async () => {
+    fakeServer((url) => ({ page: url.includes("page=2") ? 2 : 1 }));
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    const pager = screen.getByRole("navigation", { name: "Result pages" });
+    expect(within(pager).queryByRole("link", { name: "Previous" })).toBeNull();
+    expect(pager.textContent).toContain("Page 1 of 3");
+
+    fireEvent.click(within(pager).getByRole("link", { name: "Next" }));
+    await waitFor(() => expect(window.location.search).toBe("?q=plants&page=2"));
+    await waitFor(() => expect(document.activeElement?.textContent).toBe("Plant"));
   });
 
+  it("the last page has Previous only", async () => {
+    fakeServer({ page: 3, hasMore: false });
+    window.history.replaceState(null, "", "/?q=plants&page=3");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    const pager = screen.getByRole("navigation", { name: "Result pages" });
+    expect(pager.textContent).toContain("Page 3 of 3");
+    expect(within(pager).getByRole("link", { name: "Previous" }).getAttribute("href")).toBe("?q=plants&page=2");
+    expect(within(pager).queryByRole("link", { name: "Next" })).toBeNull();
+  });
+
+  it("is not shown when everything fits on one page", async () => {
+    fakeServer({ totalMatches: 4, hasMore: false });
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    expect(screen.queryByRole("navigation", { name: "Result pages" })).toBeNull();
+  });
+});
+
+describe("messages", () => {
   it("shows the server's message and a retry button when the search fails", async () => {
     vi.stubGlobal(
       "fetch",
@@ -96,48 +218,62 @@ describe("App", () => {
     render(<App />);
     const alert = await screen.findByRole("alert");
     expect(alert.textContent).toContain("Server is busy.");
-    expect(screen.getByRole("button", { name: "Try again" })).toBeTruthy();
+    expect(within(alert).getByRole("button", { name: "Try again" })).toBeTruthy();
+  });
+
+  it("no results in keyword mode: tips and a link to try Smart mode", async () => {
+    fakeServer({ query: "zzqx", totalMatches: 0, hasMore: false, results: [] });
+    window.history.replaceState(null, "", "/?q=zzqx&mode=keyword");
+    render(<App />);
+    expect(await screen.findByText("No articles match “zzqx”.")).toBeTruthy();
+    expect(screen.getByRole("status").textContent).toBe("No results");
+    const smart = screen.getByRole("link", { name: "Search in Smart mode" });
+    expect(smart.getAttribute("href")).toBe("?q=zzqx");
+    fireEvent.click(smart);
+    await waitFor(() => expect(window.location.search).toBe("?q=zzqx"));
   });
 });
 
 describe("autocomplete and did you mean", () => {
   it("shows suggestions while typing; arrow down + Enter searches the chosen title", async () => {
-    const fetchMock = vi.fn(async (url: string) =>
-      url.startsWith("/api/suggest")
-        ? new Response(JSON.stringify({ prefix: "pyt", suggestions: ["Python", "Pythagoras"] }), { status: 200 })
-        : new Response(JSON.stringify({ ...answer, query: "Python" }), { status: 200 }),
-    );
-    vi.stubGlobal("fetch", fetchMock);
-    vi.stubGlobal("scrollTo", vi.fn());
+    const fetchMock = fakeServer((url) => ({ query: decodeURIComponent(url) }), ["Python", "Pythagoras"]);
     render(<App />);
 
     const box = screen.getByRole("combobox");
     fireEvent.change(box, { target: { value: "pyt" } });
     const options = await screen.findAllByRole("option");
     expect(options.map((o) => o.textContent)).toEqual(["Python", "Pythagoras"]);
-    expect(fetchMock.mock.calls[0][0]).toBe("/api/suggest?prefix=pyt");
+    expect(options[0].querySelector(".suggestion-rest")?.textContent).toBe("hon"); // the part not typed yet
+    expect(fetchMock.mock.calls.map((c) => c[0])).toContain("/api/suggest?prefix=pyt");
     expect(box.getAttribute("aria-expanded")).toBe("true");
 
     fireEvent.keyDown(box, { key: "ArrowDown" });
     expect(options[0].getAttribute("aria-selected")).toBe("true");
+    expect(box.getAttribute("aria-activedescendant")).toBe("suggestion-0");
     fireEvent.submit(box.closest("form")!);
 
     await waitFor(() => expect(window.location.search).toBe("?q=Python"));
     expect(screen.queryByRole("listbox")).toBeNull(); // the list closes after choosing
   });
 
-  it("offers the corrected query and searches it when clicked", async () => {
-    const fetchMock = vi.fn(async (_url: string) =>
-      new Response(JSON.stringify({ ...answer, query: "pyhton", didYouMean: "python", totalMatches: 0, results: [] }), {
-        status: 200,
-      }),
-    );
-    vi.stubGlobal("fetch", fetchMock);
-    vi.stubGlobal("scrollTo", vi.fn());
+  it("Escape closes the suggestions", async () => {
+    fakeServer({}, ["Python"]);
+    render(<App />);
+    const box = screen.getByRole("combobox");
+    fireEvent.change(box, { target: { value: "py" } });
+    await screen.findByRole("listbox");
+    fireEvent.keyDown(box, { key: "Escape" });
+    expect(screen.queryByRole("listbox")).toBeNull();
+  });
+
+  it("offers the corrected query as a link and searches it when clicked", async () => {
+    fakeServer({ query: "pyhton", didYouMean: "python", totalMatches: 0, results: [] });
     window.history.replaceState(null, "", "/?q=pyhton");
     render(<App />);
 
-    fireEvent.click(await screen.findByRole("button", { name: "python" }));
+    const link = await screen.findByRole("link", { name: "python" });
+    expect(link.getAttribute("href")).toBe("?q=python");
+    fireEvent.click(link);
     await waitFor(() => expect(window.location.search).toBe("?q=python"));
   });
 });
@@ -150,5 +286,24 @@ describe("address bar state", () => {
     expect(writeState({ query: "world war 2", mode: "smart", page: 1 })).toBe("?q=world+war+2");
     expect(writeState({ query: "world war 2", mode: "keyword", page: 1 })).toBe("?q=world+war+2&mode=keyword");
     expect(writeState({ query: "", mode: "smart", page: 1 })).toBe("");
+  });
+
+  it("back and forward show the earlier search again", async () => {
+    fakeServer((url) => ({ query: new URL(url, "http://x").searchParams.get("q")! }));
+    window.history.replaceState(null, "", "/?q=plants");
+    render(<App />);
+    await screen.findByRole("link", { name: "Plant" });
+    window.history.pushState(null, "", "/?q=volcano");
+    act(() => window.dispatchEvent(new PopStateEvent("popstate")));
+    await waitFor(() => expect((screen.getByRole("combobox") as HTMLInputElement).value).toBe("volcano"));
+  });
+});
+
+describe("source line", () => {
+  it("shows the site and the article name, decoded", () => {
+    expect(sourceLine("https://simple.wikipedia.org/wiki/World_War_II")).toBe("simple.wikipedia.org › World War II");
+    expect(sourceLine("https://simple.wikipedia.org/wiki/C%2B%2B")).toBe("simple.wikipedia.org › C++");
+    expect(sourceLine("https://simple.wikipedia.org/wiki/100%_bad")).toBe("simple.wikipedia.org › 100% bad");
+    expect(sourceLine("https://example.org/page")).toBe("example.org/page");
   });
 });

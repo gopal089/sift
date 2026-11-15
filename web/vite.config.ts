@@ -17,5 +17,6 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom", // a fake browser, so components can render in tests
+    css: true, // read CSS files for real (by default Vitest swaps them for empty text); styles.test.ts checks them
   },
 });

@@ -1,302 +1,529 @@
-/* Colours are defined once here; dark mode only swaps these values. */
-:root {
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --text: #1c1b19;
-  --muted: #62605a;
-  --line: #e2dfd7;
-  --accent: #0b5d6b;
-  --accent-text: #ffffff;
-  --link: #0b4f9e;
-  --mark: #fff0b8;
-  --error-bg: #fdecec;
-  --error-text: #8a1c1c;
-  color-scheme: light dark;
-}
+/*
+ * Direction "Reference": the article text is the main thing, the controls stay quiet.
+ * Serif for what you read (titles, snippets), sans for what you operate (search box, tabs, numbers).
+ * Every value is a token from tokens.css (checked by styles.test.ts).
+ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #161514;
-    --surface: #201f1d;
-    --text: #ece9e2;
-    --muted: #a8a49b;
-    --line: #37352f;
-    --accent: #5cc3d2;
-    --accent-text: #0d1b1e;
-    --link: #8fbcff;
-    --mark: #4a4012;
-    --error-bg: #3a1b1b;
-    --error-text: #ffb4b4;
-  }
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-.page {
-  max-width: 46rem;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 2rem;
-}
-
-/* A clearly visible ring on whatever has keyboard focus. */
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: var(--weight-regular) var(--step-0) / var(--leading-body) var(--font-sans);
+  -webkit-text-size-adjust: var(--size-full);
+  text-size-adjust: var(--size-full);
 }
 
 a {
-  color: var(--link);
+  color: var(--color-link);
+  text-underline-offset: var(--space-1);
 }
 
-/* ---------- header and search form ---------- */
-
-.logo {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: -0.02em;
+/* One clearly visible focus ring for everything a keyboard can reach. */
+:focus-visible {
+  outline: var(--size-focus) solid var(--color-focus);
+  outline-offset: var(--size-line-strong);
 }
 
-.logo a {
-  color: var(--accent);
+/* Read by screen readers, not shown. */
+.visually-hidden {
+  position: absolute;
+  width: var(--size-hidden);
+  height: var(--size-hidden);
+  margin: calc(-1 * var(--size-hidden));
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(var(--size-half));
+  white-space: nowrap;
+  border: 0;
+}
+
+.icon {
+  flex: none;
+  width: var(--size-icon);
+  height: var(--size-icon);
+}
+
+.icon-small {
+  width: var(--size-icon-small);
+  height: var(--size-icon-small);
+}
+
+/* ---------- page layout: a gutter for the wordmark, then one reading column ---------- */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--size-page);
+  min-height: var(--size-screen);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+.masthead,
+.content {
+  display: grid;
+  grid-template-columns: var(--size-gutter) minmax(0, var(--size-measure));
+}
+
+.content > * {
+  grid-column: 2;
+}
+
+.wordmark {
+  grid-column: 1;
+  justify-self: start;
+  color: var(--color-ink);
+  font: var(--weight-bold) var(--step-3) / var(--size-tap) var(--font-serif);
+  letter-spacing: var(--tracking-tight);
   text-decoration: none;
 }
 
-.tagline {
-  margin: 0 0 1rem;
-  color: var(--muted);
+.masthead-main {
+  grid-column: 2;
+  min-width: 0;
 }
 
-.search-label {
-  display: block;
-  margin-bottom: 0.35rem;
-  font-weight: 600;
+/* Home: the wordmark sits alone at the top; the search starts lower down, in the reading column. */
+.page[data-view="home"] .masthead-main {
+  grid-row: 2;
+  margin-top: var(--space-8);
 }
 
-.search-row {
+.home-title {
+  margin: 0 0 var(--space-5);
+  font: var(--weight-regular) var(--step-4) / var(--leading-tight) var(--font-serif);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* ---------- search form ---------- */
+
+.search {
+  margin: 0;
+}
+
+.field {
+  position: relative; /* the suggestion list is placed under the field */
   display: flex;
-  gap: 0.5rem;
+  background: var(--color-raised);
+  border: var(--size-line) solid var(--color-field);
+  border-radius: var(--radius);
 }
 
-.search-box {
-  position: relative; /* the suggestion list is placed just below this box */
+/* The ring goes around the whole field, not just the text inside it. */
+.field:has(input:focus-visible) {
+  outline: var(--size-focus) solid var(--color-focus);
+  outline-offset: var(--size-line-strong);
+}
+
+.field input {
   flex: 1;
-  min-width: 0; /* lets the box shrink on narrow phones instead of pushing the button off screen */
+  min-width: 0;
+  min-height: var(--size-tap);
+  padding: 0 var(--space-3);
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius);
+  font: inherit; /* 16 px: iOS zooms the page into smaller inputs */
 }
 
-.search-box input {
-  width: 100%;
-  padding: 0.65rem 0.8rem;
-  font: inherit; /* 16px: iOS zooms the page if an input's text is smaller */
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--muted);
-  border-radius: 0.5rem;
+.field input:focus-visible {
+  outline: none; /* the field draws the ring instead */
+}
+
+.field input::placeholder {
+  color: var(--color-ink-2);
+  opacity: var(--opacity-full);
+}
+
+.field-button {
+  display: grid;
+  place-items: center;
+  width: var(--size-tap);
+  min-height: var(--size-tap);
+  padding: 0;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  border-left: var(--size-line) solid var(--color-rule);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  cursor: pointer;
 }
 
 .suggestions {
   position: absolute;
-  z-index: 1;
-  top: calc(100% + 0.25rem);
-  left: 0;
-  right: 0;
+  z-index: var(--layer-dropdown);
+  top: calc(var(--size-full) + var(--space-1));
+  right: calc(-1 * var(--size-line));
+  left: calc(-1 * var(--size-line));
   margin: 0;
-  padding: 0.25rem 0;
+  padding: var(--space-1) 0;
   list-style: none;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  box-shadow: 0 6px 18px rgb(0 0 0 / 0.18);
+  background: var(--color-raised);
+  border: var(--size-line) solid var(--color-field);
+  border-radius: var(--radius);
+  animation: drop-in var(--duration-fast) var(--ease-out);
 }
 
 .suggestions li {
-  padding: 0.5rem 0.8rem;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  min-height: var(--size-tap);
+  padding: 0 var(--space-3);
   overflow-wrap: anywhere;
-}
-
-/* The highlighted suggestion must be easy to see in light and dark mode. */
-.suggestions li.active,
-.suggestions li:hover {
-  color: var(--accent-text);
-  background: var(--accent);
-}
-
-button {
-  padding: 0.65rem 1rem;
-  font: inherit;
-  font-weight: 600;
-  color: var(--accent-text);
-  background: var(--accent);
-  border: 0;
-  border-radius: 0.5rem;
   cursor: pointer;
 }
 
-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
+.suggestions li[aria-selected="true"],
+.suggestions li:hover {
+  background: var(--color-selected);
 }
 
+.suggestion-rest {
+  font-weight: var(--weight-bold);
+}
+
+@keyframes drop-in {
+  from {
+    opacity: var(--opacity-none);
+    transform: translateY(calc(-1 * var(--space-1)));
+  }
+}
+
+/* Mode: two text tabs; the chosen one is dark and underlined. They are radio buttons underneath. */
 .modes {
+  display: flex;
+  gap: var(--space-5);
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  border: 0;
+  font-size: var(--step--1);
+}
+
+.mode {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-tap);
+  color: var(--color-ink-2);
+  border-bottom: var(--size-line-strong) solid transparent;
+  cursor: pointer;
+}
+
+.mode:has(input:checked) {
+  color: var(--color-ink);
+  font-weight: var(--weight-bold);
+  border-bottom-color: var(--color-ink);
+}
+
+.mode:hover {
+  color: var(--color-ink);
+}
+
+.mode:has(input:focus-visible) {
+  outline: var(--size-focus) solid var(--color-focus);
+  outline-offset: var(--size-line-strong);
+}
+
+.mode-note {
+  margin: var(--space-2) 0 0;
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
+}
+
+/* ---------- home ---------- */
+
+.home-count {
+  min-height: calc(var(--step--1) * var(--leading-body)); /* keeps its line even before the number arrives */
+  margin: var(--space-6) 0 0;
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
+}
+
+.examples {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem 1.25rem;
-  margin-top: 0.75rem;
+  gap: 0 var(--space-4);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
 }
 
-.modes label {
+.examples a {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  min-height: 1.75rem;
+  min-height: var(--size-tap);
 }
 
-.muted {
-  color: var(--muted);
+/* ---------- results: the line above them ---------- */
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-3);
+  margin: var(--space-4) 0 0;
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
 }
 
-/* ---------- messages ---------- */
-
-.main {
-  margin-top: 1.25rem;
+.meta p {
+  margin: 0;
 }
 
-.status {
-  margin: 0 0 0.75rem;
-  color: var(--muted);
+.loading {
+  animation: appear var(--duration-none) var(--delay-loading) both; /* no motion: it just appears if the search is slow */
 }
 
-.notice,
-.hint {
-  margin: 0 0 1rem;
-  padding: 0.6rem 0.8rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--accent);
-  border-radius: 0.4rem;
+@keyframes appear {
+  from {
+    visibility: hidden;
+  }
 }
 
-.did-you-mean {
-  margin: 0 0 1rem;
-  font-size: 1.05rem;
-}
-
-.link-button {
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--size-tap);
   padding: 0;
-  font-weight: 600;
-  font-style: italic;
-  color: var(--link);
+  color: var(--color-link);
   background: none;
-  text-decoration: underline;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.disclosure-icon {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.text-button[aria-expanded="true"] .disclosure-icon {
+  transform: rotate(var(--angle-quarter));
+}
+
+/* The numbers behind one search: monospace, so the digits line up. */
+.details {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-1) var(--space-5);
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
+}
+
+.details[hidden] {
+  display: none; /* "display: grid" above would otherwise beat the hidden attribute */
+}
+
+.details dd {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.message {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+}
+
+.message a {
+  display: inline-block;
+  padding: calc((var(--size-tap) - var(--step-1) * var(--leading-body)) / 2) 0;
+  margin: calc((var(--step-1) * var(--leading-body) - var(--size-tap)) / 2) 0;
+}
+
+.empty-tips {
+  margin: var(--space-2) 0 0;
+  padding: 0 0 0 var(--space-5);
+  color: var(--color-ink-2);
+}
+
+.empty-tips a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-tap);
 }
 
 .error {
-  margin: 0 0 1rem;
-  padding: 0.75rem 0.9rem;
-  color: var(--error-text);
-  background: var(--error-bg);
-  border-radius: 0.4rem;
+  display: flex;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+  padding: var(--space-1) 0 var(--space-1) var(--space-4);
+  border-left: var(--size-line-strong) solid var(--color-error);
+}
+
+.error .icon {
+  margin-top: var(--space-1);
+  color: var(--color-error);
 }
 
 .error p {
-  margin: 0 0 0.6rem;
+  margin: 0 0 var(--space-2);
 }
 
-/* ---------- stats panel ---------- */
-
-.stats {
-  margin: 0 0 1rem;
-  padding: 0.6rem 0.8rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--size-tap);
+  padding: 0 var(--space-4);
+  color: var(--color-ink);
+  background: var(--color-raised);
+  border: var(--size-line) solid var(--color-field);
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: var(--step--1);
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.stats dl {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin: 0;
-}
-
-.stats dt {
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-
-.stats dd {
-  margin: 0;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
+.button:hover {
+  border-color: var(--color-ink);
 }
 
 /* ---------- results ---------- */
 
 .results {
-  margin: 0;
+  margin: var(--space-5) 0 0;
   padding: 0;
   list-style: none;
+  transition: opacity var(--duration-fast) var(--ease-out) var(--delay-loading);
 }
 
-.result {
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--line);
+.content[aria-busy="true"] .results {
+  opacity: var(--opacity-busy);
+}
+
+.result + .result {
+  margin-top: var(--space-6);
 }
 
 .result-title {
   margin: 0;
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font: var(--weight-bold) var(--step-1) / var(--leading-tight) var(--font-serif);
   overflow-wrap: anywhere;
 }
 
-.result-url {
-  margin: 0.1rem 0 0.3rem;
-  color: var(--muted);
-  font-size: 0.8125rem;
+/* The link's tap area is 44 px tall; the negative margin keeps the visible spacing the same. */
+.result-title a {
+  display: inline-block;
+  padding: calc((var(--size-tap) - var(--step-1) * var(--leading-tight)) / 2) 0;
+  margin: calc((var(--step-1) * var(--leading-tight) - var(--size-tap)) / 2) 0;
+  text-decoration: none;
+}
+
+.result-title a:hover {
+  text-decoration: underline;
+}
+
+.result-source {
+  margin: var(--space-1) 0;
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
   overflow-wrap: anywhere;
 }
 
 .result-snippet {
   margin: 0;
+  font-family: var(--font-serif);
   overflow-wrap: anywhere;
 }
 
-.result-snippet strong {
-  background: var(--mark);
-  border-radius: 0.2rem;
-  padding: 0 0.1rem;
+/* Matched words: a pale highlighter behind them, normal weight so busy snippets stay easy to read. */
+mark {
+  color: inherit;
+  background: var(--color-mark);
+  border-radius: var(--radius-small);
 }
 
 /* ---------- pager and footer ---------- */
 
 .pager {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: var(--size-line) solid var(--color-rule);
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
+}
+
+.pager-next {
+  justify-self: end;
+}
+
+.pager-previous {
+  justify-self: start;
 }
 
 .footer {
-  margin-top: 2.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.875rem;
+  margin-top: auto;
+  padding: var(--space-7) 0 0 var(--size-gutter);
+  color: var(--color-ink-2);
+  font-size: var(--step--1);
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer a {
+  padding: calc((var(--size-tap) - var(--step--1) * var(--leading-body)) / 2) 0;
+}
+
+/* ---------- phones and narrow windows (just under 768 px) ---------- */
+
+@media (max-width: 47.99rem) {
+  .masthead,
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .content > *,
+  .masthead-main {
+    grid-column: 1;
+  }
+
+  .wordmark {
+    font-size: var(--step-2);
+  }
+
+  .page[data-view="home"] .masthead-main {
+    margin-top: var(--space-6);
+  }
+
+  .home-title {
+    font-size: var(--step-3);
+  }
+
+  .footer {
+    padding-left: 0;
+  }
+}
+
+/* Motion only helps here; people who ask the system for less motion get none. */
+@media (prefers-reduced-motion: reduce) {
+  .suggestions {
+    animation: none;
+  }
+
+  /* No movement or fading; old results still dim, just without the fade. */
+  .disclosure-icon,
+  .results {
+    transition-duration: var(--duration-none);
+  }
 }

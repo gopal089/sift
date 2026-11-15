@@ -1,0 +1,101 @@
+/*
+ * Design tokens: every colour, size, space, font and timing on the site is defined here, once.
+ * styles.css only uses var(--...) (a test checks this). Dark mode only swaps the colour values.
+ *
+ * Two exceptions that cannot be tokens, because CSS does not allow var() there:
+ *   - the breakpoint in @media rules: 47.99rem (just under 768 px), used in styles.css;
+ *   - the system settings in @media rules (prefers-color-scheme, prefers-reduced-motion).
+ */
+:root {
+  color-scheme: light dark;
+
+  /* ---------- colour, light theme (contrast ratios in docs/design/review.md) ---------- */
+  --color-paper: #faf8f3; /* page background */
+  --color-raised: #ffffff; /* search field, suggestion list */
+  --color-ink: #1d1b17; /* main text: 16.2:1 on paper */
+  --color-ink-2: #57534a; /* secondary text: 7.2:1 on paper */
+  --color-rule: #e3ded3; /* hairlines (decoration only) */
+  --color-field: #8a8478; /* borders of controls: 3.5:1 on paper */
+  --color-link: #1a4c8b; /* links and result titles: 8.1:1 on paper */
+  --color-mark: #efd78c; /* behind matched words: ink on it 12.1:1 */
+  --color-selected: #ece4cf; /* highlighted suggestion: ink on it 13.6:1 */
+  --color-error: #9b2c1f; /* 7.1:1 on paper */
+  --color-focus: #1a4c8b; /* focus ring: 8.1:1 on paper */
+
+  /* ---------- type ---------- */
+  --font-serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Noto Serif", Georgia, serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace; /* the Details list only */
+
+  /* sizes: a ratio of 1.2 from 16 px */
+  --step--1: 0.8125rem; /* 13 px: source line, stats, tabs, footer */
+  --step-0: 1rem; /* 16 px: snippets, input (16 px stops iOS zooming in) */
+  --step-1: 1.1875rem; /* 19 px: result titles */
+  --step-2: 1.4375rem; /* 23 px: wordmark on phones */
+  --step-3: 1.75rem; /* 28 px: wordmark, home heading on phones */
+  --step-4: 2.0625rem; /* 33 px: home heading */
+
+  --leading-tight: 1.25;
+  --leading-body: 1.6;
+  --weight-regular: 400;
+  --weight-bold: 600;
+  --tracking-tight: -0.01em;
+
+  /* ---------- space: a 4 px base ---------- */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.5rem; /* 24 */
+  --space-6: 2rem; /* 32 */
+  --space-7: 3rem; /* 48 */
+  --space-8: 4rem; /* 64 */
+
+  /* ---------- sizes ---------- */
+  --size-tap: 2.75rem; /* 44 px: the smallest thing a finger should have to hit */
+  --size-icon: 1.25rem;
+  --size-icon-small: 1rem;
+  --size-measure: 40rem; /* reading column: about 70 characters per line */
+  --size-gutter: 8.5rem; /* column for the wordmark, left of the reading column */
+  --size-page: 72rem;
+  --size-full: 100%;
+  --size-half: 50%;
+  --size-screen: 100dvh;
+  --size-line: 1px;
+  --size-line-strong: 2px;
+  --size-focus: 3px;
+  --size-hidden: 1px; /* visually hidden text, still read by screen readers */
+
+  /* ---------- shape ---------- */
+  --radius-small: 2px;
+  --radius: 6px;
+
+  /* ---------- motion ---------- */
+  --duration-none: 0s;
+  --duration-fast: 120ms;
+  --delay-loading: 150ms; /* "Searching…" only shows if a search is slower than this */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --angle-quarter: 90deg; /* the Details arrow turns from > to v */
+  --opacity-busy: 0.55; /* old results while new ones load */
+  --opacity-none: 0;
+  --opacity-full: 1;
+
+  /* ---------- layers ---------- */
+  --layer-dropdown: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #171612;
+    --color-raised: #201e1a;
+    --color-ink: #eae6dc; /* 14.5:1 */
+    --color-ink-2: #a8a296; /* 7.1:1 */
+    --color-rule: #33302a;
+    --color-field: #6f6a60; /* 3.4:1 */
+    --color-link: #9cbcf0; /* 9.4:1 */
+    --color-mark: #5a4a1c; /* ink on it 6.9:1 */
+    --color-selected: #34302a; /* ink on it 10.5:1 */
+    --color-error: #f0a493; /* 9.0:1 */
+    --color-focus: #9cbcf0;
+  }
+}
