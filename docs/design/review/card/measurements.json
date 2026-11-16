@@ -80,16 +80,16 @@
   "H2 Cyanobacteria"
  ],
  "taps photosynthesis: failing": [],
- "taps photosynthesis: smallest related": 44,
+ "taps photosynthesis: smallest related": 0,
  "taps einstein: failing": [],
- "taps einstein: smallest related": 44,
+ "taps einstein: smallest related": 0,
  "taps world war 2: failing": [],
- "taps world war 2: smallest related": 44,
+ "taps world war 2: smallest related": 0,
  "taps martin luther king: failing": [],
- "taps martin luther king: smallest related": 44,
+ "taps martin luther king: smallest related": 0,
  "taps keyword tiger: failing": [],
- "taps keyword tiger: smallest related": 44,
- "375 px: first result top, with card: photosynthesis": 593,
+ "taps keyword tiger: smallest related": 0,
+ "375 px: first result top, with card: photosynthesis": 410,
  "375 px: first result top, no card: how do plants make food": 236,
  "320 overflow px: photosynthesis": 0,
  "320 overflow px: einstein": 0,
@@ -104,5 +104,77 @@
  "CLS card page desktop, 0 ms network delay": 0,
  "CLS card page phone, 0 ms network delay": 0,
  "CLS card page desktop, 800 ms network delay": 0,
- "CLS card page phone, 800 ms network delay": 0
+ "CLS card page phone, 800 ms network delay": 0,
+ "phone card photosynthesis: first result top, buttons": "410 px | Related",
+ "phone card photosynthesis: taps failing with everything open": [],
+ "phone card einstein: first result top, buttons": "385 px | Related",
+ "phone card einstein: taps failing with everything open": [],
+ "phone card world war 2: first result top, buttons": "410 px | More, Related",
+ "phone card world war 2: taps failing with everything open": [],
+ "phone card martin luther king: first result top, buttons": "410 px | More, Related",
+ "phone card martin luther king: taps failing with everything open": [],
+ "phone card keyword tiger: first result top, buttons": "385 px | Related",
+ "phone card keyword tiger: taps failing with everything open": [],
+ "phone card nasa (long text): first result top, buttons": "410 px | More, Related",
+ "phone card nasa (long text): taps failing with everything open": [],
+ "phone keyboard walk": [
+  {
+   "tag": "a",
+   "name": "Sift",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "q",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Search",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "input",
+   "name": "Smart",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "Details",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "a",
+   "name": "NASA",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "tag": "button",
+   "name": "More",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "afterEnter": "Less expanded=true"
+  },
+  {
+   "tag": "button",
+   "name": "Related",
+   "ring": "3px rgb(26, 76, 139)"
+  },
+  {
+   "afterEnter": "Related expanded=true"
+  },
+  {
+   "tag": "a",
+   "name": "Apollo program",
+   "ring": "3px rgb(26, 76, 139)"
+  }
+ ],
+ "320 overflow px, compact card nasa: closed / open": "0 / 0",
+ "320 overflow px, compact card martin luther king: closed / open": "0 / 0",
+ "zoom 200% overflow px, compact card nasa: closed / open": "0 / 0",
+ "zoom 200% overflow px, compact card martin luther king: closed / open": "0 / 0",
+ "desktop: buttons visible, related visible, source line visible": "none, flex, block",
+ "CLS compact card (nasa) phone, 0 ms network delay": 0,
+ "CLS compact card (nasa) phone, 800 ms network delay": 0
 }

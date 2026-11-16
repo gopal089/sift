@@ -2,30 +2,28 @@
  "mobile-card-results": {
   "url": "http://localhost:8080/?q=photosynthesis",
   "lighthouse": "13.6.0",
-  "fetchTime": "2026-11-15T21:46:22.672Z",
+  "fetchTime": "2026-11-16T18:28:38.755Z",
   "formFactor": "mobile",
   "scores": {
-   "performance": 97,
+   "performance": 100,
    "accessibility": 100,
    "best-practices": 100
   },
   "metrics": {
    "first-contentful-paint": "0.8\u00a0s",
-   "largest-contentful-paint": "2.6\u00a0s",
+   "largest-contentful-paint": "0.8\u00a0s",
    "total-blocking-time": "0\u00a0ms",
    "cumulative-layout-shift": "0",
    "speed-index": "0.8\u00a0s"
   },
   "not_perfect": [
-   "largest-contentful-paint",
-   "interactive",
    "network-dependency-tree-insight"
   ]
  },
  "desktop-card-results": {
   "url": "http://localhost:8080/?q=photosynthesis",
   "lighthouse": "13.6.0",
-  "fetchTime": "2026-11-15T21:46:32.731Z",
+  "fetchTime": "2026-11-16T18:28:49.610Z",
   "formFactor": "desktop",
   "scores": {
    "performance": 100,
@@ -34,7 +32,7 @@
   },
   "metrics": {
    "first-contentful-paint": "0.2\u00a0s",
-   "largest-contentful-paint": "0.5\u00a0s",
+   "largest-contentful-paint": "0.2\u00a0s",
    "total-blocking-time": "0\u00a0ms",
    "cumulative-layout-shift": "0",
    "speed-index": "0.2\u00a0s"

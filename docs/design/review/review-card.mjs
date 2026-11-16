@@ -97,5 +97,57 @@ for (const lat of [0, 800]) {
 }
 await p.latency(0);
 
+// ---- The compact card on phones: "More" (text cut to 3 lines) and "Related" (list behind a button)
+const OPEN_ALL = `document.querySelectorAll('.definition-controls button[aria-expanded=false]').forEach(b => b.click())`;
+const FIRST = `Math.round(document.querySelector('.result-title').getBoundingClientRect().top)`;
+await p.view({ width: 375, height: 812 });
+for (const [label, url] of [...CARD, ["nasa (long text)", "?q=nasa"]]) {
+  await p.goto(B + url);
+  R[`phone card ${label}: first result top, buttons`] = await p.eval(`${FIRST} + ' px | ' + [...document.querySelectorAll('.definition-controls button')].map(b => b.textContent).join(', ')`);
+  await p.eval(OPEN_ALL); await sleep(200);
+  R[`phone card ${label}: taps failing with everything open`] = (await p.eval(TAPS)).filter((t) => !t.ok);
+}
+for (const dark of [false, true]) {
+  const d = dark ? "-dark" : "";
+  await p.view({ width: 375, height: 812, dark });
+  await p.goto(B + "?q=nasa"); await p.shot(`${out}/phone-compact-375${d}.png`);
+  await p.eval(OPEN_ALL); await sleep(200); await p.shot(`${out}/phone-open-375${d}.png`);
+}
+// keyboard only, phone width: Tab to More and Related, open both with Enter, then Tab into the related links
+await p.view({ width: 375, height: 812 });
+await p.goto(B + "?q=nasa");
+const phoneStops = [];
+for (let i = 0; i < 9; i++) {
+  await p.key("Tab");
+  const f = await p.eval(FOCUS);
+  phoneStops.push(f);
+  if (f.name === "More" || f.name === "Related") { await p.key("Enter"); await sleep(150); phoneStops.push({ afterEnter: await p.eval(`document.activeElement.textContent.trim() + ' expanded=' + document.activeElement.getAttribute('aria-expanded')`) }); }
+}
+R["phone keyboard walk"] = phoneStops;
+await p.shot(`${out}/phone-keyboard-open.png`);
+// 320 px and 200 % zoom, closed and with everything open
+for (const [name, view] of [["320", { width: 320, height: 700 }], ["zoom 200%", { width: 640, height: 450, scale: 2 }]]) {
+  await p.view(view);
+  for (const [label, url] of [["nasa", "?q=nasa"], ["martin luther king", "?q=martin+luther+king"]]) {
+    await p.goto(B + url);
+    const closed = await p.eval(OVER);
+    await p.eval(OPEN_ALL); await sleep(200);
+    R[`${name} overflow px, compact card ${label}: closed / open`] = closed + " / " + (await p.eval(OVER));
+  }
+  await p.shot(`${out}/phone-open-${name === "320" ? "320" : "zoom-200"}.png`);
+}
+// desktop is unchanged: no buttons, everything shown
+await p.view({ width: 1280, height: 900 });
+await p.goto(B + "?q=nasa");
+R["desktop: buttons visible, related visible, source line visible"] = await p.eval(`[getComputedStyle(document.querySelector('.definition-controls')).display, getComputedStyle(document.querySelector('.related')).display, getComputedStyle(document.querySelector('.definition-source')).display].join(', ')`);
+// layout shift on the phone card page (the More button is measured before the first paint)
+for (const lat of [0, 800]) {
+  await p.latency(lat);
+  await p.view({ width: 375, height: 812 });
+  await p.goto(B + "?q=nasa", 400 + 2 * lat);
+  R[`CLS compact card (nasa) phone, ${lat} ms network delay`] = await p.eval(CLS);
+}
+await p.latency(0);
+
 console.log(JSON.stringify(R, null, 1));
 p.close();

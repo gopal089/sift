@@ -114,8 +114,25 @@ run again with `review/review-card.mjs`. Results are in `review/card/measurement
 | 20 Tap targets at 375 px | First run: **2 failures**, short related titles were narrower than 44 px ("Algae" 41 px, "Lion" 31 px). Fixed with `min-width: var(--size-tap)`. Re-run: 0 failures on 5 card pages | Pass after fix |
 | 21-22 No sideways scroll at 320 px and at 200 % zoom | 0 px on 5 card pages, including long related titles | Pass |
 | 23 Layout shift | 0 with 0 ms and 800 ms network delay, desktop and phone. The card arrives in the same answer as the results | Pass |
-| 29 Lighthouse, card page `?q=photosynthesis` | Desktop 100 / 100 / 100. Mobile **97** / 100 / 100 (LCP 2.6 s; the card's text is now the largest paint) | Pass (≥ 95) |
+| 29 Lighthouse, card page `?q=photosynthesis` | Desktop 100 / 100 / 100. Mobile **97** / 100 / 100 (LCP 2.6 s) | Pass (≥ 95) |
 
-**Trade-off on phones:** with a card, the first result starts **593 px** from the top on a 375 px screen. On a page
+### Compact card on phones (same day, second pass)
+The full card pushed the first result to 593 px on a 375 px screen. Below 48rem the card is now compact: the text is
+cut to 3 lines with a "More" button (only when something is cut off), the related articles open with a "Related"
+button, and the source line is hidden. Desktop is unchanged (checked: no buttons, list and source line shown).
+
+| Check | Result | Pass |
+| --- | --- | --- |
+| First result on a 375 px screen (target: above 420 px) | **385–410 px** on 6 card pages (no card: 236 px) | Pass |
+| 20 Tap targets | 0 failures on 6 card pages with "More" and "Related" both open; the buttons are 44 px tall | Pass |
+| 15-17 Keyboard at phone width | Tab reaches the title, "More", "Related". Enter opens each (`aria-expanded` true, "More" becomes "Less"); the next Tab lands on the first related article. 3 px ring on every stop | Pass |
+| 21-22 320 px and 200 % zoom | 0 px sideways scroll, closed and open (`phone-open-320.png`, `phone-open-zoom-200.png`) | Pass |
+| 23 Layout shift | 0 with 0 ms and 800 ms delay. "More" is measured before the first paint, so it never pops in late | Pass |
+| Dark theme | `phone-compact-375-dark.png`, `phone-open-375-dark.png` | Pass |
+| 29 Lighthouse, mobile card page | Two runs: 100 (LCP 0.8 s) and 97 (LCP 2.6 s); accessibility and best practices 100. The score varies from run to run | Pass (≥ 95) |
+
+The cut is visual only: the full text stays in the page, so screen readers read all of it.
+
+**Before the compact card:** with a card, the first result started **593 px** from the top on a 375 px screen. On a page
 without a card it starts at 236 px. The card answers the query itself, so it earns the space, but on a small phone the
 results now start below the first screen for those queries.
