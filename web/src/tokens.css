@@ -57,6 +57,7 @@
   --size-em: 1em; /* the element's own font size */
   --size-icon: 1.25rem;
   --size-icon-small: 1rem;
+  --lines-card: 3; /* phones: lines of the definition card's text before "More" */
   --size-measure: 40rem; /* reading column: about 70 characters per line */
   --size-gutter: 8.5rem; /* column for the wordmark, left of the reading column */
   --size-page: 72rem;

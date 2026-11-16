@@ -208,6 +208,7 @@ export function App() {
 
           {data?.definition && (
             <DefinitionCard
+              key={data.definition.id} // a new article starts closed again
               definition={data.definition}
               hrefFor={(title) => href({ ...state, query: title, page: 1 })}
               onRelated={(title, event) => follow(event, { ...state, query: title, page: 1 })}

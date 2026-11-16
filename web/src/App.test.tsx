@@ -378,6 +378,79 @@ describe("definition card", () => {
   });
 });
 
+describe("definition card on phones (the buttons are hidden by CSS on wide screens)", () => {
+  /** jsdom does no layout, so the test says how tall the text is (scrollHeight) and how tall its box is. */
+  function textHeights(full: number, box: number) {
+    vi.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockReturnValue(full);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(box);
+  }
+  afterEach(() => vi.restoreAllMocks());
+
+  it("Related opens and closes the related list", async () => {
+    fakeServer({ query: "photosynthesis", definition: card });
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    const button = within(region).getByRole("button", { name: "Related" });
+    const list = document.getElementById(button.getAttribute("aria-controls")!)!;
+    expect(list.tagName).toBe("UL");
+    expect([button.getAttribute("aria-expanded"), list.dataset.open]).toEqual(["false", "false"]);
+    fireEvent.click(button);
+    expect([button.getAttribute("aria-expanded"), list.dataset.open]).toEqual(["true", "true"]);
+    fireEvent.click(button);
+    expect([button.getAttribute("aria-expanded"), list.dataset.open]).toEqual(["false", "false"]);
+  });
+
+  it("More is offered only when the text is cut off, and turns into Less", async () => {
+    textHeights(128, 77); // 5 lines of text in a 3-line box
+    fakeServer({ query: "photosynthesis", definition: card });
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    const more = within(region).getByRole("button", { name: "More" });
+    const text = document.getElementById(more.getAttribute("aria-controls")!)!;
+    expect(text.textContent).toBe(card!.text); // the full text is always in the page; the cut is only visual
+    expect([more.getAttribute("aria-expanded"), text.dataset.expanded]).toEqual(["false", "false"]);
+
+    fireEvent.click(more);
+    textHeights(128, 128); // opened: nothing is cut off any more, but the button must stay
+    fireEvent(window, new Event("resize"));
+    const less = within(region).getByRole("button", { name: "Less" });
+    expect([less.getAttribute("aria-expanded"), text.dataset.expanded]).toEqual(["true", "true"]);
+  });
+
+  it("has no More button when the text fits, and no buttons at all without related articles", async () => {
+    textHeights(77, 77);
+    fakeServer({ query: "photosynthesis", definition: card });
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    expect(within(region).queryByRole("button", { name: "More" })).toBeNull();
+    expect(within(region).getByRole("button", { name: "Related" })).toBeTruthy();
+
+    cleanup();
+    fakeServer({ query: "photosynthesis", definition: { ...card!, related: [] } });
+    render(<App />);
+    const bare = await screen.findByRole("region", { name: "Photosynthesis" });
+    expect(within(bare).queryAllByRole("button")).toEqual([]);
+  });
+
+  it("a different article's card starts closed again", async () => {
+    fakeServer((url) =>
+      url.includes("q=Algae")
+        ? { query: "Algae", definition: { ...card!, id: 9, title: "Algae", related: card!.related.slice(0, 1) } }
+        : { query: "photosynthesis", definition: card },
+    );
+    window.history.replaceState(null, "", "/?q=photosynthesis");
+    render(<App />);
+    const region = await screen.findByRole("region", { name: "Photosynthesis" });
+    fireEvent.click(within(region).getByRole("button", { name: "Related" }));
+    fireEvent.click(within(region).getByRole("link", { name: "Algae" }));
+    const next = await screen.findByRole("region", { name: "Algae" });
+    expect(within(next).getByRole("button", { name: "Related" }).getAttribute("aria-expanded")).toBe("false");
+  });
+});
+
 describe("address bar state", () => {
   it("reads and writes the search, leaving out defaults", () => {
     expect(readState("?q=world+war+2&mode=smart&page=3")).toEqual({ query: "world war 2", mode: "smart", page: 3 });

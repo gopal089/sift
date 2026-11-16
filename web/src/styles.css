@@ -458,6 +458,11 @@ a {
   overflow-wrap: anywhere;
 }
 
+/* "More" and "Related" exist only on phones (see the small-screen rules at the end). */
+.definition-controls {
+  display: none;
+}
+
 /* ---------- results ---------- */
 
 .results {
@@ -571,6 +576,39 @@ mark {
 
   .footer {
     padding-left: 0;
+  }
+
+  /* The definition card is compact on phones, so the first result stays on the first screen:
+     3 lines of text with "More", and the related articles behind "Related". */
+  .definition {
+    margin-top: var(--space-4);
+    padding-bottom: var(--space-2);
+  }
+
+  .definition + .results {
+    margin-top: var(--space-4);
+  }
+
+  .definition-text {
+    font-size: var(--step-0);
+  }
+
+  .definition-text:not([data-expanded="true"]) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--lines-card);
+    overflow: hidden;
+  }
+
+  .definition-source,
+  .related-heading,
+  .related:not([data-open="true"]) {
+    display: none;
+  }
+
+  .definition-controls {
+    display: flex;
+    gap: var(--space-5);
   }
 }
 
