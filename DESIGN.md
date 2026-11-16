@@ -136,12 +136,14 @@ as a non-root user. Build for x86 servers with `docker buildx build --platform l
 The index and vectors are memory-mapped (outside the heap); the heap holds the dictionary, trie, BK-tree, HNSW
 graph and the cache. Measured in Docker (`phase7-docker.json`): 795 MiB at start, 900 MiB after 1,200 queries. With
 a **1 GiB limit** under a 10-user load test: 836 MiB, no out-of-memory kill, 0 errors (keyword 1,901 req/s, Smart
-441 req/s). Mapped file pages can be dropped by the OS and re-read, so the container fits in 1 GiB. 2 GiB would
+441 req/s). **Re-measured on 2026-11-16 with the definition card** (`eval/results/card-docker.json`, two runs): 780–786 MiB at
+start, 878–880 MiB after 1,200 queries, and **842–854 MiB with the 1 GiB limit under the same load, no out-of-memory
+kill, 0 errors** (see §16 for the throughput). Mapped file pages can be dropped by the OS and re-read, so the container fits in 1 GiB. 2 GiB would
 leave headroom.
 
 ## 13. CI
 GitHub Actions on every push: Java build + 293 tests (`./gradlew build -Pci`) and the website's type check,
-46 Vitest tests and build. One test, `RealDataSmokeTest`, needs the real data, which is not in git. It is tagged
+50 Vitest tests and build. One test, `RealDataSmokeTest`, needs the real data, which is not in git. It is tagged
 `needs-data` and left out with `-Pci`; locally it runs and checks the known answers on the real index and model.
 
 ## 14. Website design decisions (redesign, 2026-11-16)
@@ -266,7 +268,24 @@ order and snippets identical; MRR keyword 0.86758 → 0.86758, Smart 0.95622 →
 
 - Keyword mode feels it most in relative terms: one HNSW search (about 1 ms) roughly doubles a 1 ms keyword query.
   It is still far under every target.
-- The 27 MB of heap matter for the 1 GiB container (836 MiB measured under load before this change). The
-  container was **not** re-measured; do that before any trial deployment.
-- Phones: with a card, the first result starts at 593 px instead of 236 px on a 375 px screen
-  (`docs/design/review.md`).
+- **The 1 GiB container still fits** (re-measured with the card, two runs, `eval/results/card-docker.json`):
+
+  | In Docker | Before the card (2026-11-14) | With the card (2026-11-16) |
+  | --- | --- | --- |
+  | Memory at start, no limit | 795.5 MiB | 779.6–786.4 MiB |
+  | After 1,200 queries, no limit | 899.8 MiB | 878.1–879.8 MiB |
+  | 1 GiB limit, 10 users, cache off: memory after the Smart run | 836.4 MiB | 842.2–853.5 MiB |
+  | Out-of-memory kill, errors | none, 0 | none, 0 |
+  | Keyword requests/s (p95) | 1,901 (18 ms) | 1,399 (19 ms) |
+  | Smart requests/s (p95) | 441 (37 ms) | 382 (42 ms) |
+  | Image, compressed | 553 MB | 554 MB |
+
+  Memory under load grew by 6–17 MiB, so about 170 MiB of the limit stays free. The price is throughput: with the
+  cache off, every page-1 keyword query now also runs one HNSW search, so keyword mode serves 26% fewer requests
+  per second and Smart 13% fewer (the quiet second run; the two days are separate laptop runs, which vary by
+  about 15%). With the cache on, repeated queries skip this work.
+- **Phones: a compact card.** The full card pushed the first result from 236 px to 593 px on a 375 px screen. Below
+  48rem the text is now cut to 3 lines with a "More" button (shown only if something is cut off), the related
+  articles sit behind a "Related" button, and the source line is hidden (the title already links to the article).
+  The first result now starts at 385–410 px. Desktop is unchanged. The cut is visual only: screen readers get the
+  full text (`docs/design/review.md`).

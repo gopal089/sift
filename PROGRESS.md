@@ -402,14 +402,15 @@ Plan and source research: `docs/learning/discussions-plan.md`. Decisions: `DESIG
 | Card + related time | median ~1 ms, p95 1.57–1.78 ms | same |
 | Heap after start | +26.7 MB (redirect map) | same |
 | Design checks | 0 tap failures (after a fix), 0 px overflow at 320 px and 200 %, CLS 0, Lighthouse mobile 97 / 100 / 100 | `docs/design/review/card/` |
-| Tests | 294 JUnit (293 in CI) + 46 Vitest, all pass | |
+| Tests | 294 JUnit (293 in CI) + 50 Vitest, all pass | |
 
-Open: the 1 GiB container was not re-measured with the +27 MB heap; on phones the card pushes the first result
-from 236 px to 593 px.
+| 1 GiB container with the card (two runs) | 780–786 MiB at start, 878–880 MiB after 1,200 queries, **842–854 MiB under 10-user load, no OOM kill**, 0 errors; keyword 1,399 req/s, Smart 382 req/s | `eval/results/card-docker.json`, `loadtest/results/docker-1g-card-*.json` |
+| Phone layout | compact card ("More", "Related"): first result at 385–410 px on a 375 px screen (was 593 px) | `docs/design/review/card/measurements.json` |
+
+Both open points from the first version are closed (container re-measured; phone card made compact).
 
 ## Next step
-- Definition card and related articles are done. Next: record the demo video (`docs/deployment-plan.md` §3), and
-  re-measure the container's memory with the card before any Railway trial.
+- Definition card and related articles are done. Next: record the demo video (`docs/deployment-plan.md` §3).
 - **Hosting (2026-11-16, zero-cost rule):** no free host runs Sift all the time without a card
   (`docs/deployment-plan.md`). Plan: localhost + a 60–90 s demo video and GIF for the README. Optional: a few weeks
   live on Railway's no-card trial.

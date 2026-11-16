@@ -43,7 +43,7 @@ with the raw file it came from.
 | Spelling correction | 12 of 15 typos fixed |
 | Posting lists, plain → gap + varint | 364 MB → 112 MB |
 | Meaning vectors, float32 → int8 | 411 MB → 104 MB (recall 0.986) |
-| Container | 553 MB compressed, starts in 2.3 s, runs in < 1 GiB of memory |
+| Container | 554 MB compressed, starts in 2.2 s, runs in a 1 GiB limit: 842–854 MiB under a 10-user load test, no out-of-memory kill |
 
 ## Architecture
 ```mermaid

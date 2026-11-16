@@ -11,8 +11,8 @@ which is useful only as a short live window, for example during interviews (sect
 ## 1. What the server needs (measured, `eval/results/phase7-docker.json`)
 | | Measured in Docker |
 | --- | --- |
-| Image | 553 MB compressed (1.1 GB unpacked); `linux/amd64` build tested |
-| Memory | 795 MiB at start, 900 MiB after 1,200 queries; **836 MiB with a 1 GiB limit under a 10-user load test, no out-of-memory kill** |
+| Image | 554 MB compressed (1.1 GB unpacked); `linux/amd64` build tested (before the card) |
+| Memory (re-measured 2026-11-16 with the definition card, two runs, `eval/results/card-docker.json`) | 780–786 MiB at start, 878–880 MiB after 1,200 queries; **842–854 MiB with a 1 GiB limit under a 10-user load test, no out-of-memory kill** |
 | Startup | 2.3 s to healthy (laptop, native) |
 | CPU per query | keyword ~1–2 ms, Smart ~6–10 ms (one core) |
 
@@ -82,11 +82,16 @@ open http://localhost:8080. Building the data once is `scripts/sift-data`.
 
 ## 4. Optional: a short live window on Railway's trial (no card)
 Only if you want a public link for a few weeks:
-- Railway's trial gives 1 GB per service and $5 of credit for 30 days, with no card. Sift measured 836 MiB under
-  load with a 1 GiB limit, so it should fit, but with little headroom. That must be measured on Railway itself.
+- Railway's trial gives 1 GB per service and $5 of credit for 30 days, with no card. With the definition card, Sift measured
+  842–854 MiB under load with a 1 GiB limit and was not killed. So the trial is **still realistic, but tight**:
+  - If Railway's "1 GB" means 1 GiB (1,024 MiB), about 170 MiB stay free.
+  - If it means 1,000 MB (954 MiB), only about 100 MiB stay free.
+  - Part of the measured memory is memory-mapped index pages, which the system can drop and re-read, so a smaller
+    limit slows things down before it kills anything.
+  - It must be measured on Railway itself, on x86 (my measurements are on ARM).
 - A rough estimate from Railway's published prices: about 0.85 GB × $10 per GB-month ≈ $8.50 a month for memory alone.
   So the $5 credit lasts **roughly 2–3 weeks**, not the full 30 days. This is an estimate, not a measurement.
-- Railway's image size limit is not on the pricing page. The 553 MB image must be tested.
+- Railway's image size limit is not on the pricing page. The 554 MB image must be tested.
 - When the credit runs out, the service stops. Without a card nothing can be charged, so this does not break rule 10.
 - **Not started.** It needs your Railway account and your OK. Pick the weeks when the link matters most.
 

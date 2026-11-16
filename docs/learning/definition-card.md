@@ -25,7 +25,7 @@ to build it (DESIGN.md §15): only one source was free and open, its results wer
 | `engine/.../card/RelatedArticles.java` | The 5 nearest articles in meaning, using the article's own vector and our HNSW |
 | `api/.../SearchController.java` (changed) | Builds the card on page 1, after ranking; adds `definition` and `stats.cardMs` |
 | `api/.../EngineConfig.java` (changed) | Loads the redirects (`data/redirects.jsonl`) and shares the vector store |
-| `web/src/components/DefinitionCard.tsx` | The card: title link, text, source line, related articles as Sift searches |
+| `web/src/components/DefinitionCard.tsx` | The card: title link, text, source line, related articles as Sift searches; on phones a 3-line text with "More" and a "Related" button |
 | `eval/card_rule_probe.py`, `card_redirect_probe.py`, `card_check.py` | Measure the rule and the real cards on the main 50 |
 | `docs/design/review/review-card.mjs` | Re-runs the design checks (keyboard, tap size, 320 px, layout shift) on card pages |
 
@@ -120,5 +120,8 @@ Ranking is identical: the same ids, scores and order, and MRR 0.86758 / 0.95622 
    - Questions never get a card, even when the top result is right.
    - The sentence splitter is rule-based, so an unusual abbreviation can make a card one sentence too long.
    - Related articles are only as good as the embeddings: some are vague ("haiku" → Japanese-writing topics).
-   - On a phone the card pushes the first result below the first screen.
-   - The redirect map adds 27 MB of memory to a server that is close to a 1 GiB limit.
+   - On a phone the card takes space, so it is compact there: 3 lines of text with "More", and the related
+     articles behind a "Related" button. The first result starts at about 410 px instead of 593 px.
+   - It costs throughput: with the cache off, keyword mode serves about 26% fewer requests per second, because
+     every page-1 query now also runs one HNSW search. Memory still fits the 1 GiB container (842–854 MiB under
+     load).
